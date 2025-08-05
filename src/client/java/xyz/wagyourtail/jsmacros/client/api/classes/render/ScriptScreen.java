@@ -7,10 +7,8 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
-import xyz.wagyourtail.jsmacros.client.JsMacros;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.access.IScreenInternal;
-import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 import xyz.wagyourtail.wagyourgui.BaseScreen;
 

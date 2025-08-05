@@ -26,7 +26,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public class Draw3D implements Registrable<Draw3D> {
-    private final ArrayList<RenderElement3D> elements = new ArrayList<>();
+    private final List<RenderElement3D<?>> elements = new ArrayList<>();
 
     /**
      * @return
@@ -35,7 +35,7 @@ public class Draw3D implements Registrable<Draw3D> {
     public List<Box> getBoxes() {
         List<Box> list = new ArrayList<>();
         synchronized (elements) {
-            for (RenderElement3D element : elements) {
+            for (RenderElement3D<?> element : elements) {
                 if (element instanceof Box) {
                     list.add((Box) element);
                 }
@@ -51,7 +51,7 @@ public class Draw3D implements Registrable<Draw3D> {
     public List<Line3D> getLines() {
         List<Line3D> list = new ArrayList<>();
         synchronized (elements) {
-            for (RenderElement3D element : elements) {
+            for (RenderElement3D<?> element : elements) {
                 if (element instanceof Line3D) {
                     list.add((Line3D) element);
                 }
@@ -66,7 +66,7 @@ public class Draw3D implements Registrable<Draw3D> {
     public List<TraceLine> getTraceLines() {
         List<TraceLine> list = new ArrayList<>();
         synchronized (elements) {
-            for (RenderElement3D element : elements) {
+            for (RenderElement3D<?> element : elements) {
                 if (element instanceof TraceLine) {
                     list.add((TraceLine) element);
                 }
@@ -81,7 +81,7 @@ public class Draw3D implements Registrable<Draw3D> {
     public List<EntityTraceLine> getEntityTraceLines() {
         List<EntityTraceLine> list = new ArrayList<>();
         synchronized (elements) {
-            for (RenderElement3D element : elements) {
+            for (RenderElement3D<?> element : elements) {
                 if (element instanceof EntityTraceLine) {
                     list.add((EntityTraceLine) element);
                 }
@@ -97,7 +97,7 @@ public class Draw3D implements Registrable<Draw3D> {
     public List<Surface> getDraw2Ds() {
         List<Surface> list = new ArrayList<>();
         synchronized (elements) {
-            for (RenderElement3D element : elements) {
+            for (RenderElement3D<?> element : elements) {
                 if (element instanceof Surface) {
                     list.add((Surface) element);
                 }
@@ -119,7 +119,7 @@ public class Draw3D implements Registrable<Draw3D> {
      * @since 1.8.4
      * @param element
      */
-    public void reAddElement(RenderElement3D element) {
+    public void reAddElement(RenderElement3D<?> element) {
         synchronized (elements) {
             elements.add(element);
         }
@@ -694,11 +694,11 @@ public class Draw3D implements Registrable<Draw3D> {
 
     @DocletIgnore
     public void render(MatrixStack matrixStack, VertexConsumerProvider consumers, float tickDelta) {
-        /*Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
+        Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
         Vec3d cameraPos = camera.getPos();
 
         matrixStack.push();
-        matrixStack.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());*/
+        matrixStack.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());
 
         EntityTraceLine.dirty = false;
 
@@ -716,6 +716,6 @@ public class Draw3D implements Registrable<Draw3D> {
             }
         }
 
-        //matrixStack.pop();
+        matrixStack.pop();
     }
 }

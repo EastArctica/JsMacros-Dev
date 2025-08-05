@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3x2fStack;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 
 /**
@@ -210,7 +210,7 @@ public class Rect implements RenderElement, Alignable<Rect> {
      * @since 1.0.5
      */
     public Rect setColor(int color) {
-        if (color <= 0xFFFFFFFF) {
+        if (color <= 0x00FFFFFF) {
             color = color | 0xFF000000;
         }
         this.color = color;
@@ -224,7 +224,7 @@ public class Rect implements RenderElement, Alignable<Rect> {
      * @since 1.1.8
      */
     public Rect setColor(int color, int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFF);
         return this;
     }
 
@@ -234,7 +234,7 @@ public class Rect implements RenderElement, Alignable<Rect> {
      * @since 1.1.8
      */
     public Rect setAlpha(int alpha) {
-        this.color = (color & 0xFFFFFFFF) | (alpha << 24);
+        this.color = (color & 0x00FFFFFF) | (alpha << 24);
         return this;
     }
 
@@ -308,11 +308,11 @@ public class Rect implements RenderElement, Alignable<Rect> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        MatrixStack matrices = drawContext.getMatrices();
-        matrices.push();
+        Matrix3x2fStack matrices = drawContext.getMatrices();
+        matrices.pushMatrix();
         setupMatrix(matrices, x1, y1, 1, rotation, getWidth(), getHeight(), rotateCenter);
         drawContext.fill(x1, y1, x2, y2, this.color);
-        matrices.pop();
+        matrices.popMatrix();
     }
 
     public Rect setParent(IDraw2D<?> parent) {

@@ -4,6 +4,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3x2fStack;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import xyz.wagyourtail.doclet.DocletIgnore;
@@ -293,33 +294,27 @@ public class Surface extends Draw2D implements RenderElement, RenderElement3D<Su
         }
     }
 
-    private void renderDraw2D3D(DrawContext drawContext, Draw2DElement draw2DElement) {
-        MatrixStack matrixStack = drawContext.getMatrices();
-        matrixStack.push();
-        matrixStack.translate(draw2DElement.x, draw2DElement.y, 0);
-        matrixStack.scale(draw2DElement.scale, draw2DElement.scale, 1);
-        if (rotateCenter) {
-            matrixStack.translate(draw2DElement.width.getAsInt() / 2d, draw2DElement.height.getAsInt() / 2d, 0);
-        }
-        matrixStack.multiply(new Quaternionf().rotateLocalZ((float) Math.toRadians(draw2DElement.rotation)));
-        if (rotateCenter) {
-            matrixStack.translate(-draw2DElement.width.getAsInt() / 2d, -draw2DElement.height.getAsInt() / 2d, 0);
-        }
+    private void renderDraw2D3D(DrawContext drawContext, Draw2DElement element) {
+        Matrix3x2fStack matrixStack = drawContext.getMatrices();
+        matrixStack.pushMatrix();
+        setupMatrix(matrixStack, element.x, element.y, element.scale, element.rotation, element.getWidth(), element.getHeight(), element.rotateCenter);
+
         // Don't translate back!
-        Draw2D draw2D = draw2DElement.getDraw2D();
+        Draw2D draw2D = element.getDraw2D();
         synchronized (draw2D.getElements()) {
             renderElements3D(drawContext, draw2D.getElementsByZIndex());
         }
-        matrixStack.pop();
+        matrixStack.popMatrix();
     }
 
     private void renderElement3D(DrawContext drawContext, RenderElement element) {
         // TODO: I cba to update rendering code
-        MatrixStack matrixStack = drawContext.getMatrices();
-        matrixStack.push();
-        matrixStack.translate(0, 0, zIndexScale * element.getZIndex());
+        Matrix3x2fStack matrixStack = drawContext.getMatrices();
+        matrixStack.pushMatrix();
+        // Z-index is no longer possible as this is a 3x2 matrix now.
+        //matrixStack.translate(0, 0, zIndexScale * element.getZIndex());
         element.render3D(drawContext, 0, 0, 0);
-        matrixStack.pop();
+        matrixStack.popMatrix();
     }
 
     @Override

@@ -1,10 +1,12 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
-import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
-import xyz.wagyourtail.doclet.DocletIgnore;
 import com.mojang.blaze3d.platform.DepthTestFunction;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.VertexRendering;
+import net.minecraft.client.util.math.MatrixStack;
+import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw3D;
@@ -56,6 +58,8 @@ public class Box implements RenderElement3D<Box> {
         this.fill = fill;
         this.cull = cull;
     }
+
+    // ... All methods from setPos to compareToSame are unchanged ...
 
     /**
      * @param x1
@@ -184,7 +188,6 @@ public class Box implements RenderElement3D<Box> {
         return 0;
     }
 
-
     @Override
     @DocletIgnore
     public void render(MatrixStack matrixStack, VertexConsumerProvider consumers, float tickDelta) {
@@ -236,6 +239,7 @@ public class Box implements RenderElement3D<Box> {
         }
     }
 
+    // ... Builder class is unchanged ...
     /**
      * @author Etheradon
      * @since 1.8.4

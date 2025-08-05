@@ -1,12 +1,12 @@
-package xyz.wagyourtail.jsmacros.fabric.client.mixins.access;
+package xyz.wagyourtail.jsmacros.client.mixin.events;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.profiler.Profiler;
 import org.joml.Matrix4f;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,27 +15,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw3D;
 import xyz.wagyourtail.jsmacros.client.api.library.impl.FHud;
 
-@Mixin(value = WorldRenderer.class)
+@Mixin(WorldRenderer.class)
 public class MixinWorldRenderer {
 
     @Shadow
-    @Final
-    private BufferBuilderStorage bufferBuilders;
-    @Shadow
-    @Final
     private DefaultFramebufferSet framebufferSet;
 
     @Inject(method = "renderMain", at = @At("TAIL"))
-    private void onRenderMain(FrameGraphBuilder frameGraphBuilder,
-                              Frustum frustum,
-                              Camera camera,
-                              Matrix4f positionMatrix,
-                              GpuBufferSlice fog,
-                              boolean renderBlockOutline,
-                              boolean renderEntityOutlines,
-                              RenderTickCounter renderTickCounter,
-                              Profiler profiler,
-                              CallbackInfo ci) {
+    private void onRenderMain(
+            FrameGraphBuilder frameGraphBuilder,
+            Frustum frustum,
+            Camera camera,
+            Matrix4f positionMatrix,
+            GpuBufferSlice fog,
+            boolean renderBlockOutline,
+            boolean renderEntityOutline,
+            RenderTickCounter tickCounter,
+            Profiler profiler,
+            CallbackInfo ci
+    ) {
         if (this.framebufferSet == null) {
             return;
         }
@@ -47,17 +45,19 @@ public class MixinWorldRenderer {
             profiler.push("jsmacros_d3d");
 
             try {
-                VertexConsumerProvider.Immediate consumers = bufferBuilders.getEffectVertexConsumers();
+                VertexConsumerProvider.Immediate consumers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
-                float tickDelta = renderTickCounter.getTickProgress(true);
+                float tickDelta = tickCounter.getTickProgress(true);
 
                 MatrixStack matrixStack = new MatrixStack();
-                matrixStack.push();
+
                 for (Draw3D d : ImmutableSet.copyOf(FHud.renders)) {
+
                     d.render(matrixStack, consumers, tickDelta);
                 }
-                matrixStack.pop();
+
                 consumers.draw();
+
             } catch (Throwable e) {
                 e.printStackTrace();
             }
@@ -65,5 +65,4 @@ public class MixinWorldRenderer {
             profiler.pop();
         });
     }
-
 }

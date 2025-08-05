@@ -1,15 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2fStack;
-import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 
 /**
@@ -174,7 +168,7 @@ public class Line implements RenderElement, Alignable<Line> {
      * @since 1.8.4
      */
     public Line setColor(int color, int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFF);
         return this;
     }
 
@@ -192,7 +186,7 @@ public class Line implements RenderElement, Alignable<Line> {
      * @since 1.8.4
      */
     public Line setAlpha(int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFF);
         return this;
     }
 
@@ -276,29 +270,27 @@ public class Line implements RenderElement, Alignable<Line> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        MatrixStack matrices = drawContext.getMatrices();
-        matrices.push();
+        Matrix3x2fStack matrices = drawContext.getMatrices();
+        matrices.pushMatrix();
         setupMatrix(matrices, x1, y1, 1, rotation, getScaledWidth(), getScaledHeight(), rotateCenter);
-        try {
-            float halfWidth = this.width / 2.0f;
-            float dx = this.x2 - this.x1;
-            float dy = this.y2 - this.y1;
-            float length = (float) Math.sqrt(dx * dx + dy * dy);
-            float angle = (float) Math.atan2(dy, dx);
 
-            matrices.translate(this.x1, this.y1, 0);
-            matrices.multiply(new Quaternionf().rotateLocalZ(angle));
+        float halfWidth = this.width / 2.0f;
+        float dx = this.x2 - this.x1;
+        float dy = this.y2 - this.y1;
+        float length = (float) Math.sqrt(dx * dx + dy * dy);
+        float angle = (float) Math.atan2(dy, dx);
 
-            drawContext.fill(
-                    0,
-                    (int) -halfWidth,
-                    (int) length,
-                    (int) halfWidth,
-                    this.color
-            );
-        } finally {
-            matrices.pop();
-        }
+        matrices.translate(this.x1, this.y1);
+        matrices.rotate(angle);
+
+        drawContext.fill(
+                0,
+                (int) -halfWidth,
+                (int) length,
+                (int) halfWidth,
+                this.color
+        );
+        matrices.popMatrix();
     }
 
     public Line setParent(IDraw2D<?> parent) {
@@ -627,7 +619,7 @@ public class Line implements RenderElement, Alignable<Line> {
                     y1,
                     x2,
                     y2,
-                    (alpha << 24) | (color & 0xFFFFFFFF),
+                    (alpha << 24) | color,
                     rotation,
                     width,
                     zIndex

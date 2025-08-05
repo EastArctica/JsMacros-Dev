@@ -6,8 +6,6 @@ import net.minecraft.entity.passive.FoxEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-import java.util.List;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 /**

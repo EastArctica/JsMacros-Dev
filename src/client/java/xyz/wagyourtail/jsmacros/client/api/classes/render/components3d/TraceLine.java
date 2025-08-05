@@ -1,16 +1,14 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
-import com.mojang.blaze3d.platform.DepthTestFunction;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw3D;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
 
-import java.lang.reflect.Field;
 import java.util.Objects;
 
 /**
@@ -24,18 +22,6 @@ public class TraceLine implements RenderElement3D<TraceLine> {
      * it needs fov and aspect ratio info to render normally when not on center<br>
      * but for customize availability I just put it here as a field
      */
-    private static final Field lineDepthTestFunction;
-    private static final DepthTestFunction oldlineDepthTestFunction;
-
-    static {
-        try {
-            lineDepthTestFunction = RenderPipelines.LINES.getClass().getDeclaredField("depthTestFunction");
-            lineDepthTestFunction.setAccessible(true);
-            oldlineDepthTestFunction = (DepthTestFunction) lineDepthTestFunction.get(RenderPipelines.LINES);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException("JS-Macros 3D Rendering failed to reflect into RenderLayer for TraceLine", e);
-        }
-    }
 
     private final Line3D render;
 

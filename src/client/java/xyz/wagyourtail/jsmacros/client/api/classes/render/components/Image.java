@@ -3,11 +3,10 @@ package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3x2fStack;
 import xyz.wagyourtail.jsmacros.client.api.classes.CustomImage;
 import xyz.wagyourtail.jsmacros.client.api.classes.RegistryHelper;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
@@ -19,7 +18,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 @SuppressWarnings("unused")
 public class Image implements RenderElement, Alignable<Image> {
 
-    private static MinecraftClient mc = MinecraftClient.getInstance();
+    private static final MinecraftClient mc = MinecraftClient.getInstance();
 
     private Identifier imageid;
     @Nullable
@@ -228,7 +227,7 @@ public class Image implements RenderElement, Alignable<Image> {
      * @since 1.6.5
      */
     public Image setColor(int color, int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFF);
         return this;
     }
 
@@ -302,15 +301,14 @@ public class Image implements RenderElement, Alignable<Image> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        MatrixStack matrices = drawContext.getMatrices();
-        matrices.push();
+        Matrix3x2fStack matrices = drawContext.getMatrices();
+        matrices.pushMatrix();
         setupMatrix(matrices, x, y, 1, rotation, getWidth(), getHeight(), rotateCenter);
-        try {
-            float u = this.imageX / (float) this.textureWidth;
-            float v = this.imageY / (float) this.textureHeight;
+        float u = this.imageX / (float) this.textureWidth;
+        float v = this.imageY / (float) this.textureHeight;
 
-            drawContext.drawTexture(
-                RenderLayer::getGuiTextured,
+        drawContext.drawTexture(
+                RenderPipelines.GUI_TEXTURED,
                 this.imageid,
                 this.x,
                 this.y,
@@ -320,12 +318,8 @@ public class Image implements RenderElement, Alignable<Image> {
                 this.height,
                 this.textureWidth,
                 this.textureHeight,
-                this.color
-            );
-
-        } finally {
-            matrices.pop();
-        }
+                this.color);
+        matrices.popMatrix();
     }
 
     public Image setParent(IDraw2D<?> parent) {

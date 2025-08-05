@@ -4,13 +4,17 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.BufferAllocator;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3x2fStack;
+import org.joml.Matrix4f;
+import org.lwjgl.system.MemoryStack;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
+
+import java.nio.FloatBuffer;
 
 /**
  * @author Wagyourtail
@@ -256,38 +260,41 @@ public class Text implements RenderElement, Alignable<Text> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        MatrixStack matrices = drawContext.getMatrices();
-        matrices.push();
+        Matrix3x2fStack matrices = drawContext.getMatrices();
+        matrices.pushMatrix();
         setupMatrix(matrices, x, y, (float) scale, rotation, getWidth(), getHeight(), rotateCenter);
-        if (shadow) {
-            drawContext.drawTextWithShadow(mc.textRenderer, text, x, y, color);
-        } else {
-            drawContext.drawText(mc.textRenderer, text, x, y, color, false);
-        }
-        matrices.pop();
+        drawContext.drawText(mc.textRenderer, text, 0, 0, color, shadow);
+        matrices.popMatrix();
     }
 
     @Override
     @DocletIgnore
     public void render3D(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        MatrixStack matrices = drawContext.getMatrices();
-        matrices.push();
+        Matrix3x2fStack matrices = drawContext.getMatrices();
+        matrices.pushMatrix();
         setupMatrix(matrices, x, y, (float) scale, rotation, getWidth(), getHeight(), rotateCenter);
+        Matrix4f matrix4f;
+        try (MemoryStack memoryStack = MemoryStack.stackPush()) {
+            FloatBuffer buf = memoryStack.mallocFloat(16);
+            matrices.get4x4(buf);
+            buf.rewind();
+            matrix4f = new Matrix4f().set(buf);
+        }
         VertexConsumerProvider.Immediate buffer = VertexConsumerProvider.immediate(new BufferAllocator(1536));
         mc.textRenderer.draw(
-                text,
-                (float) x,
-                (float) y,
-                color,
-                shadow,
-                matrices.peek().getPositionMatrix(),
-                buffer,
-                TextRenderer.TextLayerType.NORMAL,
-                0,
-                0xFFF000F0
+            text,
+            x,
+            y,
+            color,
+            shadow,
+            matrix4f,
+            buffer,
+            TextRenderer.TextLayerType.NORMAL,
+            0,
+            0xFFF000F0
         );
         buffer.draw();
-        matrices.pop();
+        matrices.popMatrix();
     }
 
     public Text setParent(IDraw2D<?> parent) {

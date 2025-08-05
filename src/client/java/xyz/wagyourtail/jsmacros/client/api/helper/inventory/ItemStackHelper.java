@@ -4,13 +4,19 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.*;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.BlockPredicatesComponent;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.component.type.LoreComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.registry.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.text.Style;
@@ -524,7 +530,7 @@ public class ItemStackHelper extends BaseHelper<ItemStack> {
      * @since 1.8.4
      */
     public List<BlockPredicateHelper> getDestroyRestrictions() {
-        BlockPredicatesChecker bpc = base.get(DataComponentTypes.CAN_BREAK);
+        BlockPredicatesComponent bpc = base.get(DataComponentTypes.CAN_BREAK);
         if (bpc != null) {
             return ((MixinBlockPredicatesChecker) bpc).getPredicates().stream().map(BlockPredicateHelper::new).collect(Collectors.toList());
         }
@@ -536,7 +542,7 @@ public class ItemStackHelper extends BaseHelper<ItemStack> {
      * @since 1.8.4
      */
     public List<BlockPredicateHelper> getPlaceRestrictions() {
-        BlockPredicatesChecker nbtList = base.get(DataComponentTypes.CAN_PLACE_ON);
+        BlockPredicatesComponent nbtList = base.get(DataComponentTypes.CAN_PLACE_ON);
         if (nbtList != null) {
             return ((MixinBlockPredicatesChecker) nbtList).getPredicates().stream().map(BlockPredicateHelper::new).collect(Collectors.toList());
         }

@@ -15,7 +15,6 @@ import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.helper.CommandContextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.SuggestionsBuilderHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
-import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.EventLockWatchdog;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 import xyz.wagyourtail.jsmacros.core.classes.Registrable;

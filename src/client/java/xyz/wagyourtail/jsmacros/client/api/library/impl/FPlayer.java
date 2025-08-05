@@ -241,7 +241,7 @@ public class FPlayer extends BaseLibrary {
      */
     public void takeScreenshot(String folder, String file, @Nullable MethodWrapper<TextHelper, Object, Object, ?> callback) {
         assert folder != null && file != null;
-        ScreenshotRecorder.saveScreenshot(new File(runner.config.macroFolder, folder), file, mc.getFramebuffer(),
+        ScreenshotRecorder.saveScreenshot(new File(runner.config.macroFolder, folder), file, mc.getFramebuffer(), 0,
                 (text) -> {
                     if (callback != null) {
                         callback.accept(TextHelper.wrap(text));
@@ -258,7 +258,7 @@ public class FPlayer extends BaseLibrary {
      */
     public void takePanorama(String folder, int width, int height, @Nullable MethodWrapper<TextHelper, Object, Object, ?> callback) {
         assert folder != null;
-        Text result = mc.takePanorama(new File(runner.config.macroFolder, folder), width, height);
+        Text result = mc.takePanorama(new File(runner.config.macroFolder, folder));
         if (callback != null) {
             callback.accept(TextHelper.wrap(result));
         }

@@ -2,8 +2,12 @@ package xyz.wagyourtail.jsmacros.client.api.classes;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.jsmacros.access.CustomClickEvent;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
@@ -12,14 +16,10 @@ import xyz.wagyourtail.jsmacros.client.api.helper.StyleHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
-import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * usage: {@code builder.append("hello,").withColor(0xc).append(" World!").withColor(0x6)}
@@ -198,13 +198,24 @@ public class TextBuilder {
     @DocletReplaceParams("action: TextClickAction, value: string")
     public TextBuilder withClickEvent(String action, String value) {
         ClickEvent.Action clickAction = ClickEvent.Action.valueOf(action.toUpperCase(Locale.ROOT));
+        Identifier id = Identifier.of(value);
+        RegistryWrapper.WrapperLookup lookup = Objects
+                .requireNonNull(MinecraftClient.getInstance().getNetworkHandler())
+                .getRegistryManager();
         self.styled(style -> style.withClickEvent(switch (clickAction) {
             case OPEN_URL -> new ClickEvent.OpenUrl(URI.create(value));
             case OPEN_FILE -> new ClickEvent.OpenFile(value);
             case RUN_COMMAND -> new ClickEvent.RunCommand(value);
             case SUGGEST_COMMAND -> new ClickEvent.SuggestCommand(value);
+            case SHOW_DIALOG -> {
+                var registryWrapper = lookup.getOrThrow(RegistryKeys.DIALOG);
+                var dialogKey = RegistryKey.of(RegistryKeys.DIALOG, Identifier.of(value));
+                var entry = registryWrapper.getOptional(dialogKey).orElseThrow(() -> new IllegalArgumentException("Unknown dialog type: " + value));
+                yield new ClickEvent.ShowDialog(entry);
+            }
             case CHANGE_PAGE -> new ClickEvent.ChangePage(Integer.parseInt(value));
             case COPY_TO_CLIPBOARD -> new ClickEvent.CopyToClipboard(value);
+            case CUSTOM -> new ClickEvent.Custom(Identifier.of(value),null);
         }));
         return this;
     }

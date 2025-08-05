@@ -3,7 +3,6 @@ package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 import com.mojang.blaze3d.platform.DepthTestFunction;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import xyz.wagyourtail.doclet.DocletIgnore;
@@ -32,7 +31,6 @@ public class Line3D implements RenderElement3D<Line3D> {
             throw new RuntimeException("JS-Macros 3D Rendering failed to reflect into RenderLayer for Line3D", e);
         }
     }
-
     public Vec3D pos;
     public int color;
     public boolean cull;
@@ -112,7 +110,7 @@ public class Line3D implements RenderElement3D<Line3D> {
     @DocletIgnore
     public void render(MatrixStack matrixStack, VertexConsumerProvider consumers, float tickDelta) {
         boolean seeThrough = !this.cull;
-        VertexConsumer consumer = consumers.getBuffer(RenderLayer.getLines());
+        var consumer = consumers.getBuffer(RenderLayer.getLines());
 
         try {
             if (seeThrough) {
@@ -128,6 +126,9 @@ public class Line3D implements RenderElement3D<Line3D> {
             consumer.vertex(entry, (float) pos.x1, (float) pos.y1, (float) pos.z1).color(color).normal(entry, 0, 0, 1);
             consumer.vertex(entry, (float) pos.x2, (float) pos.y2, (float) pos.z2).color(color).normal(entry, 0, 0, 1);
 
+          if (seeThrough && consumer instanceof VertexConsumerProvider.Immediate immediate) {
+            immediate.draw();
+          }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } finally {

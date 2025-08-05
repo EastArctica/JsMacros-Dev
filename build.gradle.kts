@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import xyz.wagyourtail.unimined.internal.minecraft.task.RemapJarTaskImpl
 
 plugins {
@@ -61,23 +60,12 @@ unimined.minecraft {
     mappings {
         intermediary()
         yarn(libs.versions.yarn.get())
-
-        stubs("intermediary", "yarn") {
-            c("net/minecraft/class_1496") {
-                m("method_56680;()Lnet/minecraft/class_1263;", "getInventoryVanilla")
-            }
-            c("net/minecraft/class_329") {
-                m("method_1759;(Lnet/minecraft/class_332;Lnet/minecraft/class_9779;)V", "renderHotbarVanilla")
-            }
-        }
-
         devNamespace("yarn")
     }
 
     accessWidener {
         accessWidener(file("src/main/resources/jsmacros.accesswidener"))
     }
-
     if (sourceSet == sourceSets.main.get() || sourceSet == client) {
         defaultRemapJar = false
         runs.off = true
@@ -140,11 +128,13 @@ dependencies {
     fabricModImplementation(fabricApi.fabricModule("fabric-key-binding-api-v1", libs.versions.fapi.get()))
     fabricModImplementation(fabricApi.fabricModule("fabric-resource-loader-v0", libs.versions.fapi.get()))
     fabricModImplementation(fabricApi.fabricModule("fabric-command-api-v2", libs.versions.fapi.get()))
+    fabricModImplementation(fabricApi.fabricModule("fabric-rendering-v1", libs.versions.fapi.get()))
 
     fabricModImplementation(libs.modmenu)
     fabricModImplementation(fabricApi.fabricModule("fabric-screen-api-v1", libs.versions.fapi.get()))
 
     fabricInclude(fabricApi.fabricModule("fabric-api-base", libs.versions.fapi.get()))
+    fabricInclude(fabricApi.fabricModule("fabric-rendering-v1", libs.versions.fapi.get()))
     fabricInclude(fabricApi.fabricModule("fabric-lifecycle-events-v1", libs.versions.fapi.get()))
     fabricInclude(fabricApi.fabricModule("fabric-key-binding-api-v1", libs.versions.fapi.get()))
     fabricInclude(fabricApi.fabricModule("fabric-resource-loader-v0", libs.versions.fapi.get()))
@@ -168,7 +158,6 @@ dependencies {
             }
         }
     }
-
 }
 
 val removeDist by tasks.registering(Delete::class) {

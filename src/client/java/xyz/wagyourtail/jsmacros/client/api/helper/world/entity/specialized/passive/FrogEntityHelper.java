@@ -2,7 +2,6 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.pass
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.passive.FrogEntity;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
