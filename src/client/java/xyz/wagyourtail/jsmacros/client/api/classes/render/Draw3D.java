@@ -1,9 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
 import xyz.wagyourtail.doclet.DocletIgnore;
@@ -15,7 +14,9 @@ import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 import xyz.wagyourtail.jsmacros.client.api.library.impl.FHud;
 import xyz.wagyourtail.jsmacros.core.classes.Registrable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * {@link Draw2D} is cool
@@ -692,8 +693,29 @@ public class Draw3D implements Registrable<Draw3D> {
     }
 
     @DocletIgnore
-    public void render(DrawContext drawContext, float tickDelta) {
-        // TODO: I cba to update rendering code
-    }
+    public void render(MatrixStack matrixStack, VertexConsumerProvider consumers, float tickDelta) {
+        /*Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
+        Vec3d cameraPos = camera.getPos();
 
+        matrixStack.push();
+        matrixStack.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());*/
+
+        EntityTraceLine.dirty = false;
+
+        synchronized (elements) {
+            Collections.sort(elements);
+
+            for (RenderElement3D<?> element : elements) {
+                element.render(matrixStack, consumers, tickDelta);
+            }
+        }
+
+        if (EntityTraceLine.dirty) {
+            synchronized (elements) {
+                elements.removeIf(e -> e instanceof EntityTraceLine etl && etl.shouldRemove);
+            }
+        }
+
+        //matrixStack.pop();
+    }
 }

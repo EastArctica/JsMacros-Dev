@@ -1,16 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
-import com.mojang.blaze3d.opengl.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix4f;
 import xyz.wagyourtail.jsmacros.client.api.classes.CustomImage;
 import xyz.wagyourtail.jsmacros.client.api.classes.RegistryHelper;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
@@ -217,7 +214,7 @@ public class Image implements RenderElement, Alignable<Image> {
      * @since 1.6.5
      */
     public Image setColor(int color) {
-        if (color <= 0xFFFFFF) {
+        if (color <= 0xFFFFFFFF) {
             color = color | 0xFF000000;
         }
         this.color = color;
@@ -231,7 +228,7 @@ public class Image implements RenderElement, Alignable<Image> {
      * @since 1.6.5
      */
     public Image setColor(int color, int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
         return this;
     }
 
@@ -305,7 +302,30 @@ public class Image implements RenderElement, Alignable<Image> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        // TODO: I cba to update rendering code
+        MatrixStack matrices = drawContext.getMatrices();
+        matrices.push();
+        setupMatrix(matrices, x, y, 1, rotation, getWidth(), getHeight(), rotateCenter);
+        try {
+            float u = this.imageX / (float) this.textureWidth;
+            float v = this.imageY / (float) this.textureHeight;
+
+            drawContext.drawTexture(
+                RenderLayer::getGuiTextured,
+                this.imageid,
+                this.x,
+                this.y,
+                u,
+                v,
+                this.width,
+                this.height,
+                this.textureWidth,
+                this.textureHeight,
+                this.color
+            );
+
+        } finally {
+            matrices.pop();
+        }
     }
 
     public Image setParent(IDraw2D<?> parent) {
@@ -364,7 +384,7 @@ public class Image implements RenderElement, Alignable<Image> {
         private int regionHeight = 0;
         private int textureWidth = 256;
         private int textureHeight = 256;
-        private int color = 0xFFFFFF;
+        private int color = 0xFFFFFFFF;
         private int alpha = 0xFF;
         private float rotation = 0;
         private boolean rotateCenter = true;

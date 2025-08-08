@@ -7,7 +7,9 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3x2fStack;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 
 /**
@@ -158,7 +160,7 @@ public class Line implements RenderElement, Alignable<Line> {
      * @since 1.8.4
      */
     public Line setColor(int color) {
-        if (color < 0xFFFFFF) {
+        if (color < 0xFFFFFFFF) {
             color = color | 0xFF000000;
         }
         this.color = color;
@@ -172,7 +174,7 @@ public class Line implements RenderElement, Alignable<Line> {
      * @since 1.8.4
      */
     public Line setColor(int color, int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
         return this;
     }
 
@@ -190,7 +192,7 @@ public class Line implements RenderElement, Alignable<Line> {
      * @since 1.8.4
      */
     public Line setAlpha(int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
         return this;
     }
 
@@ -274,7 +276,29 @@ public class Line implements RenderElement, Alignable<Line> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        // TODO: I cba to update rendering code
+        MatrixStack matrices = drawContext.getMatrices();
+        matrices.push();
+        setupMatrix(matrices, x1, y1, 1, rotation, getScaledWidth(), getScaledHeight(), rotateCenter);
+        try {
+            float halfWidth = this.width / 2.0f;
+            float dx = this.x2 - this.x1;
+            float dy = this.y2 - this.y1;
+            float length = (float) Math.sqrt(dx * dx + dy * dy);
+            float angle = (float) Math.atan2(dy, dx);
+
+            matrices.translate(this.x1, this.y1, 0);
+            matrices.multiply(new Quaternionf().rotateLocalZ(angle));
+
+            drawContext.fill(
+                    0,
+                    (int) -halfWidth,
+                    (int) length,
+                    (int) halfWidth,
+                    this.color
+            );
+        } finally {
+            matrices.pop();
+        }
     }
 
     public Line setParent(IDraw2D<?> parent) {
@@ -329,7 +353,7 @@ public class Line implements RenderElement, Alignable<Line> {
         private int y2 = 0;
         private float rotation = 0;
         private boolean rotateCenter = true;
-        private int color = 0xFFFFFF;
+        private int color = 0xFFFFFFFF;
         private int alpha = 0xFF;
         private int zIndex = 0;
         private float width = 1;
@@ -603,7 +627,7 @@ public class Line implements RenderElement, Alignable<Line> {
                     y1,
                     x2,
                     y2,
-                    (alpha << 24) | (color & 0xFFFFFF),
+                    (alpha << 24) | (color & 0xFFFFFFFF),
                     rotation,
                     width,
                     zIndex

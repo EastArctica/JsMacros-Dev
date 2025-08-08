@@ -1,13 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix4f;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 
 /**
@@ -214,7 +210,7 @@ public class Rect implements RenderElement, Alignable<Rect> {
      * @since 1.0.5
      */
     public Rect setColor(int color) {
-        if (color <= 0xFFFFFF) {
+        if (color <= 0xFFFFFFFF) {
             color = color | 0xFF000000;
         }
         this.color = color;
@@ -228,7 +224,7 @@ public class Rect implements RenderElement, Alignable<Rect> {
      * @since 1.1.8
      */
     public Rect setColor(int color, int alpha) {
-        this.color = (alpha << 24) | (color & 0xFFFFFF);
+        this.color = (alpha << 24) | (color & 0xFFFFFFFF);
         return this;
     }
 
@@ -238,7 +234,7 @@ public class Rect implements RenderElement, Alignable<Rect> {
      * @since 1.1.8
      */
     public Rect setAlpha(int alpha) {
-        this.color = (color & 0xFFFFFF) | (alpha << 24);
+        this.color = (color & 0xFFFFFFFF) | (alpha << 24);
         return this;
     }
 
@@ -312,7 +308,11 @@ public class Rect implements RenderElement, Alignable<Rect> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        // TODO: I cba to update rendering code
+        MatrixStack matrices = drawContext.getMatrices();
+        matrices.push();
+        setupMatrix(matrices, x1, y1, 1, rotation, getWidth(), getHeight(), rotateCenter);
+        drawContext.fill(x1, y1, x2, y2, this.color);
+        matrices.pop();
     }
 
     public Rect setParent(IDraw2D<?> parent) {
@@ -364,7 +364,7 @@ public class Rect implements RenderElement, Alignable<Rect> {
         private int y1 = 0;
         private int x2 = 0;
         private int y2 = 0;
-        private int color = 0xFFFFFF;
+        private int color = 0xFFFFFFFF;
         private int alpha = 0xFF;
         private float rotation = 0;
         private boolean rotateCenter = true;

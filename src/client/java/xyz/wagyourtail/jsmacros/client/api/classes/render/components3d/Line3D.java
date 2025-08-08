@@ -1,16 +1,22 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
+import com.mojang.blaze3d.platform.DepthTestFunction;
+import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.VertexRendering;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw3D;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 
 /**
@@ -18,6 +24,19 @@ import java.util.Objects;
  */
 @SuppressWarnings("unused")
 public class Line3D implements RenderElement3D<Line3D> {
+    private static final Field lineDepthTestFunction;
+    private static final DepthTestFunction oldlineDepthTestFunction;
+
+    static {
+        try {
+            lineDepthTestFunction = RenderPipelines.LINES.getClass().getDeclaredField("depthTestFunction");
+            lineDepthTestFunction.setAccessible(true);
+            oldlineDepthTestFunction = (DepthTestFunction) lineDepthTestFunction.get(RenderPipelines.LINES);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException("JS-Macros 3D Rendering failed to reflect into RenderLayer for Line3D", e);
+        }
+    }
+
     public Vec3D pos;
     public int color;
     public boolean cull;
@@ -95,8 +114,31 @@ public class Line3D implements RenderElement3D<Line3D> {
 
     @Override
     @DocletIgnore
-    public void render(DrawContext drawContext, float tickDelta) {
-        // TODO: I cba to update rendering code
+    public void render(MatrixStack matrixStack, VertexConsumerProvider consumers, float tickDelta) {
+        boolean seeThrough = !this.cull;
+        VertexConsumer consumer = consumers.getBuffer(RenderLayer.getLines());
+
+        try {
+            if (seeThrough) {
+                lineDepthTestFunction.set(RenderPipelines.LINES, DepthTestFunction.NO_DEPTH_TEST);
+            }
+            MatrixStack.Entry entry = matrixStack.peek();
+            float xn = (float) (pos.x2 - pos.x1);
+            float yn = (float) (pos.y2 - pos.y1);
+            float zn = (float) (pos.y2 - pos.y1);
+            consumer.vertex(entry, (float) pos.x1, (float) pos.y1, (float) pos.z1).color(color).normal(entry, xn, yn, zn);
+            consumer.vertex(entry, (float) pos.x2, (float) pos.y2, (float) pos.z2).color(color).normal(entry, xn, yn, zn);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } finally {
+            if (seeThrough) {
+                try {
+                    lineDepthTestFunction.set(RenderPipelines.LINES, oldlineDepthTestFunction);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
