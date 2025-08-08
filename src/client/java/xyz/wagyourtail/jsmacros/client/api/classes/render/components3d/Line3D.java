@@ -5,11 +5,7 @@ import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexRendering;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3d;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;
@@ -123,11 +119,15 @@ public class Line3D implements RenderElement3D<Line3D> {
                 lineDepthTestFunction.set(RenderPipelines.LINES, DepthTestFunction.NO_DEPTH_TEST);
             }
             MatrixStack.Entry entry = matrixStack.peek();
-            float xn = (float) (pos.x2 - pos.x1);
-            float yn = (float) (pos.y2 - pos.y1);
-            float zn = (float) (pos.y2 - pos.y1);
-            consumer.vertex(entry, (float) pos.x1, (float) pos.y1, (float) pos.z1).color(color).normal(entry, xn, yn, zn);
-            consumer.vertex(entry, (float) pos.x2, (float) pos.y2, (float) pos.z2).color(color).normal(entry, xn, yn, zn);
+
+            // Draw 3 lines in each of the normals for consistency
+            consumer.vertex(entry, (float) pos.x1, (float) pos.y1, (float) pos.z1).color(color).normal(entry, 1, 0, 0);
+            consumer.vertex(entry, (float) pos.x2, (float) pos.y2, (float) pos.z2).color(color).normal(entry, 1, 0, 0);
+            consumer.vertex(entry, (float) pos.x1, (float) pos.y1, (float) pos.z1).color(color).normal(entry, 0, 1, 0);
+            consumer.vertex(entry, (float) pos.x2, (float) pos.y2, (float) pos.z2).color(color).normal(entry, 0, 1, 0);
+            consumer.vertex(entry, (float) pos.x1, (float) pos.y1, (float) pos.z1).color(color).normal(entry, 0, 0, 1);
+            consumer.vertex(entry, (float) pos.x2, (float) pos.y2, (float) pos.z2).color(color).normal(entry, 0, 0, 1);
+
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } finally {
