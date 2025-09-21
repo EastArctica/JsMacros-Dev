@@ -1,13 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.mixin.events;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.block.entity.HangingSignBlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.block.entity.SignText;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.AbstractSignEditScreen;
-import net.minecraft.client.gui.screen.ingame.HangingSignEditScreen;
-import net.minecraft.client.gui.screen.ingame.SignEditScreen;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -26,7 +22,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.wagyourtail.jsmacros.api.PlayerInput;
-import xyz.wagyourtail.jsmacros.client.access.ISignEditScreen;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.inventory.EventDropSlot;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventAirChange;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventEXPChange;
@@ -34,9 +29,10 @@ import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventRiding;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventSignEdit;
 import xyz.wagyourtail.jsmacros.client.movement.MovementQueue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Mixin(ClientPlayerEntity.class)
 abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
@@ -73,47 +69,37 @@ abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
 
     @Inject(at = @At("HEAD"), method = "openEditSignScreen", cancellable = true)
     public void onOpenEditSignScreen(SignBlockEntity sign, boolean front, CallbackInfo ci) {
-        List<String> lines = Arrays.stream(sign.getText(front)
+        var originalLines = Arrays.stream(sign.getText(front)
                 .getMessages(client.shouldFilterText()))
                 .map(Text::getString)
-                .collect(Collectors.toList());
-        final EventSignEdit event = new EventSignEdit(lines, sign.getPos().getX(), sign.getPos().getY(), sign.getPos().getZ(), front);
+                .toList();
+
+        final EventSignEdit event = new EventSignEdit(new ArrayList<>(originalLines),
+                sign.getPos().getX(), sign.getPos().getY(), sign.getPos().getZ(), front);
         event.trigger();
-        lines = event.signText;
-        if (lines == null) lines = Arrays.asList("", "", "", "");
-        if (event.closeScreen || event.isCanceled()) {
+
+        // Cleanup sign edit result, null or lines != 4 need to be fixed.
+        List<String> lines = event.signText;
+        if (lines == null || lines.size() != 4) lines = Arrays.asList("", "", "", "");
+        if (event.signText != null) {
+            for (int i = 0; i < Math.min(4, event.signText.size()); i++) {
+                lines.set(i, event.signText.get(i));
+            }
+        }
+
+        // Replace text only if needed
+        if (!Objects.equals(originalLines, lines)) {
             SignText text = new SignText();
             for (int i = 0; i < 4; ++i) {
                 text = text.withMessage(i, Text.of(lines.get(i)));
             }
             sign.setText(text, front);
             sign.markDirty();
-            networkHandler.sendPacket(new UpdateSignC2SPacket(sign.getPos(), front, lines.get(0), lines.get(1), lines.get(2), lines.get(3)));
-            ci.cancel();
-            return;
         }
-        //this part to not info.cancel is here for more compatibility with other mods.
-        boolean cancel = false;
-        for (String line : lines) {
-            if (!line.isEmpty()) {
-                cancel = true;
-                break;
-            }
-        } //else
-        if (cancel) {
-            // we're checking the type of block entity to choose the correct screen here.
-            AbstractSignEditScreen signScreen;
-            if (sign instanceof HangingSignBlockEntity hs) {
-                signScreen = new HangingSignEditScreen(hs, front, client.shouldFilterText());
-            } else {
-                signScreen = new SignEditScreen(sign, front, client.shouldFilterText());
-            }
-            client.setScreen(signScreen);
-            for (int i = 0; i < 4; ++i) {
-                //noinspection DataFlowIssue
-                ((ISignEditScreen) signScreen).jsmacros_setLine(i, lines.get(i));
-            }
-            ((ISignEditScreen) signScreen).jsmacros_fixSelection();
+
+        // Cancel only if needed
+        if (event.closeScreen || event.isCanceled()) {
+            networkHandler.sendPacket(new UpdateSignC2SPacket(sign.getPos(), front, lines.get(0), lines.get(1), lines.get(2), lines.get(3)));
             ci.cancel();
         }
     }
