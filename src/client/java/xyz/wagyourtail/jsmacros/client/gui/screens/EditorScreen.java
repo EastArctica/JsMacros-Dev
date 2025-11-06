@@ -662,7 +662,6 @@ public class EditorScreen extends BaseScreen {
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         assert client != null;
-        renderBackground(drawContext, mouseX, mouseY, delta);
 
         drawContext.drawTextWithShadow(textRenderer, fileName, 2, 2, 0xFFFFFFFF);
 

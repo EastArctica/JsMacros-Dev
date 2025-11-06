@@ -198,7 +198,6 @@ public class MacroScreen extends BaseScreen {
         if (drawContext == null) {
             return;
         }
-        this.renderBackground(drawContext, mouseX, mouseY, delta);
 
         topbar.render(drawContext, mouseX, mouseY, delta);
 
