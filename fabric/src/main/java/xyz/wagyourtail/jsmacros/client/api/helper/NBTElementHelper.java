@@ -291,7 +291,15 @@ public class NBTElementHelper<T extends NbtElement> extends BaseHelper<T> {
          */
         @Nullable
         public NBTElementHelper<?> get(int index) {
-            return resolve(base.get(index));
+            // In 1.21.8, AbstractNbtList has get(int) method but generic type erasure is causing issues
+        // Use reflection as a temporary fix
+        try {
+            java.lang.reflect.Method getMethod = base.getClass().getMethod("get", int.class);
+            NbtElement element = (NbtElement) getMethod.invoke(base, index);
+            return resolve(element);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to get NBT element at index " + index, e);
+        }
         }
 
         /**

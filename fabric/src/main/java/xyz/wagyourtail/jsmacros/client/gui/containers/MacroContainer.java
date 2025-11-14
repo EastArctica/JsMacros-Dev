@@ -14,12 +14,12 @@ import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.gui.screens.MacroScreen;
 import xyz.wagyourtail.jsmacros.core.config.ScriptTrigger;
 import xyz.wagyourtail.jsmacros.core.event.BaseEventRegistry;
-import xyz.wagyourtail.jsmacros.util.TranslationUtil;
 import xyz.wagyourtail.wagyourgui.containers.MultiElementContainer;
 import xyz.wagyourtail.wagyourgui.elements.Button;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 
 public class MacroContainer extends MultiElementContainer<MacroScreen> {
     private static final Identifier key_down_tex = Identifier.of(JsMacros.MOD_ID, "resources/key_down.png");
@@ -61,7 +61,7 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
             btn.setMessage(Text.translatable(macro.enabled ? "jsmacros.enabled" : "jsmacros.disabled"));
         }));
 
-        keyBtn = addDrawableChild(new Button(x + w / 12 + 1, y + 1, macro.triggerType == ScriptTrigger.TriggerType.EVENT ? (w / 4) - (w / 12) - 1 - height : (w / 4) - (w / 12) - 1 - height * 2, height - 2, textRenderer, 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, macro.triggerType == ScriptTrigger.TriggerType.EVENT ? TranslationUtil.getTranslatedEventName(macro.event) : buildKeyName(macro.event), (btn) -> {
+        keyBtn = addDrawableChild(new Button(x + w / 12 + 1, y + 1, macro.triggerType == ScriptTrigger.TriggerType.EVENT ? (w / 4) - (w / 12) - 1 - height : (w / 4) - (w / 12) - 1 - height * 2, height - 2, textRenderer, 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, macro.triggerType == ScriptTrigger.TriggerType.EVENT ? Text.translatable("jsmacros.event." + macro.event.toLowerCase(Locale.ROOT)) : buildKeyName(macro.event), (btn) -> {
             if (macro.triggerType == ScriptTrigger.TriggerType.EVENT) {
                 parent.setEvent(this);
             } else {
@@ -126,7 +126,7 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
         reg.removeScriptTrigger(macro);
         macro.event = type;
         reg.addScriptTrigger(macro);
-        keyBtn.setMessage(TranslationUtil.getTranslatedEventName(macro.event));
+        keyBtn.setMessage(Text.translatable("jsmacros.event." + macro.event.toLowerCase(Locale.ROOT)));
     }
 
     public void setFile(File f) {

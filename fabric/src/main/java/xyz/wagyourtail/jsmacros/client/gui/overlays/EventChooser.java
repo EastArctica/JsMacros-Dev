@@ -15,6 +15,7 @@ import xyz.wagyourtail.wagyourgui.overlays.OverlayContainer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public class EventChooser extends OverlayContainer {
@@ -70,7 +71,7 @@ public class EventChooser extends OverlayContainer {
     }
 
     public void addEvent(String eventName) {
-        EventObj e = new EventObj(eventName, new Button(x + 3 + (events.size() % 5 * (width - 12) / 5), topScroll + (events.size() / 5 * 12), (width - 12) / 5, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, TranslationUtil.getTranslatedEventName(eventName), (btn) -> {
+        EventObj e = new EventObj(eventName, new Button(x + 3 + (events.size() % 5 * (width - 12) / 5), topScroll + (events.size() / 5 * 12), (width - 12) / 5, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Text.translatable("jsmacros.event." + eventName.toLowerCase(Locale.ROOT)), (btn) -> {
             selectEvent(eventName);
         }));
 
