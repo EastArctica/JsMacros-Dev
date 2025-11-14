@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Etheradons
+ * @author Etheradon
  * @since 1.8.4
  */
 public final class NameUtil {
