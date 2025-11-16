@@ -7,6 +7,8 @@ accessible field net/minecraft/client/gui/screens/inventory/BeaconScreen seconda
 accessible field net/minecraft/client/Minecraft fontManager Lnet/minecraft/client/gui/font/FontManager;
 accessible method net/minecraft/client/Minecraft startUseItem ()V
 accessible method net/minecraft/client/Minecraft startAttack ()Z
+accessible method net/minecraft/client/Minecraft getConnection ()Lnet/minecraft/client/multiplayer/ClientPacketListener;
+accessible method net/minecraft/client/multiplayer/ClientPacketListener getCommands ()Lcom/mojang/brigadier/CommandDispatcher;
 
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen skipNextRelease Z
 

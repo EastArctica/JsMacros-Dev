@@ -12,7 +12,7 @@ architectury {
 }
 
 loom {
-    accessWidenerPath.set(file("src/main/resources/jsmacros.accesswidener"))
+    accessWidenerPath.set(project(":common").file("src/main/resources/jsmacros.accesswidener"))
 }
 
 dependencies {

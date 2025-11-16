@@ -11,6 +11,10 @@ architectury {
     neoForge()
 }
 
+loom {
+    accessWidenerPath.set(project(":common").file("src/main/resources/jsmacros.accesswidener"))
+}
+
 version = "2.0.0"
 group = "xyz.wagyourtail"
 
