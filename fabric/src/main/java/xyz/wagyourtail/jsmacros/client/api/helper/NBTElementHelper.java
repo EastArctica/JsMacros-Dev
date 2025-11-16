@@ -291,7 +291,8 @@ public class NBTElementHelper<T extends NbtElement> extends BaseHelper<T> {
          */
         @Nullable
         public NBTElementHelper<?> get(int index) {
-            return resolve(base.get(index));
+            // TODO: Implement NBTElementHelper.get(int index)
+            throw new RuntimeException("NBTElementHelper.get(int index) is not currently implemented.");
         }
 
         /**
