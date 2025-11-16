@@ -21,6 +21,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${libs.versions.fabric.loader.get()}")
 
     implementation(project(":common"))
+    include(project(":common"))
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${libs.versions.fapi.get()}")
     modImplementation("com.terraformersmc:modmenu:${libs.versions.modmenu.get()}")
