@@ -23,6 +23,8 @@ subprojects {
         maven("https://maven.architectury.dev/")
         maven("https://maven.terraformersmc.com/releases/")
         maven("https://jitpack.io")
+        maven("https://maven.neoforged.net/releases")
+        maven("https://maven.parchmentmc.org")
     }
 
     // Apply Java toolchain consistently
