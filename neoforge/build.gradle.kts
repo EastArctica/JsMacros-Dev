@@ -150,3 +150,15 @@ tasks.register<Sync>("createDist") {
 tasks.named("buildAll") {
     dependsOn("createDist")
 }
+
+tasks.processResources {
+    inputs.property("version", project.version)
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand("version" to project.version)
+    }
+
+    from(project(":common").tasks.processResources) {
+        exclude("jsmacros.accesswidener")
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+}
