@@ -34,7 +34,7 @@ import xyz.wagyourtail.jsmacros.client.api.event.impl.inventory.EventItemPickup;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.inventory.EventSlotUpdate;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventDeath;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventStatusEffectUpdate;
-import xyz.wagyourtail.client.api.event.impl.world.*;
+import xyz.wagyourtail.jsmacros.client.api.event.impl.world.*;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.*;
 import xyz.wagyourtail.jsmacros.client.api.helper.StatusEffectHelper;
 

@@ -3,7 +3,7 @@ package xyz.wagyourtail.jsmacros.client.gui.settings.settingcontainer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import xyz.wagyourtail.jsmacros.client.gui.settings.SettingsOverlay;
-import xyz.wagyourtail.client.gui.settings.settingfields.*;
+import xyz.wagyourtail.jsmacros.client.gui.settings.settingfields.*;
 import xyz.wagyourtail.jsmacros.client.gui.settings.settingfields.*;
 import xyz.wagyourtail.wagyourgui.elements.Scrollbar;
 
