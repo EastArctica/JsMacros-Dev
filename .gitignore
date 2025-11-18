@@ -35,4 +35,4 @@ doc/
 
 docs/web/[0-9]*
 
-META-INF/
+/META-INF/
