@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface MixinSpellcastingIllagerEntityHelper {
 
     // Don't make this static, it will disable the compile and reload feature!
+    // TODO: hot reloading already isn't working, so how should we fix this?
     @Accessor("DATA_SPELL_CASTING_ID")
     EntityDataAccessor<Byte> getSpellKey();
 
