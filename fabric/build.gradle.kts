@@ -111,10 +111,12 @@ tasks.shadowJar {
     exclude("architectury.common.json")
     configurations = listOf(project.configurations["shadowBundle"])
     archiveClassifier.set("dev-shadow")
+    archiveBaseName.set(project.findProperty("archives_base_name") as String)
 }
 
 tasks.remapJar {
     inputFile.set(tasks.shadowJar.get().archiveFile)
     injectAccessWidener = true
     archiveClassifier.set("fabric")
+    archiveBaseName.set(project.findProperty("archives_base_name") as String)
 }

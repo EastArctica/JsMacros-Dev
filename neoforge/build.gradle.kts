@@ -177,58 +177,7 @@ tasks.named<JavaExec>("runClient") {
 }
 
 
-// Distribution task
-tasks.register<Sync>("createDist") {
-    group = "build"
-    description = "Creates all files for the distribution of the project"
 
-    // Use built-in directory cleaning with proper up-to-date checking
-    into(layout.buildDirectory.dir("dist"))
-
-    // Collect extension JARs
-    from(project(":extension:graal").tasks.named("jar")) {
-        into("extensions")
-        rename { "${project.name}-${it}" }
-    }
-    from(project(":extension:graal:js").tasks.named("jar")) {
-        into("extensions")
-        rename { "${project.name}-${it}" }
-    }
-    from(project(":extension:graal:python").tasks.named("jar")) {
-        into("extensions")
-        rename { "${project.name}-${it}" }
-    }
-
-    // Copy TypeScript definitions for documentation
-    from("docs/typescript") {
-        into("typescript")
-        include("**/*.d.ts")
-    }
-
-    // Copy gradle.properties for CI/CD
-    from("gradle.properties")
-
-    doLast {
-        val distDir = layout.buildDirectory.dir("dist").get().asFile
-        println("Distribution created in ${distDir.absolutePath}")
-        println("Contents:")
-        distDir.listFiles()?.forEach { file ->
-            if (file.isDirectory) {
-                println("  ${file.name}/")
-                file.listFiles()?.forEach { subFile ->
-                    println("    - ${subFile.name}")
-                }
-            } else {
-                println("  - ${file.name}")
-            }
-        }
-    }
-}
-
-// Add createDist to buildAll task
-tasks.named("buildAll") {
-    dependsOn("createDist")
-}
 
 val commonMain = project(":common").extensions.getByType(SourceSetContainer::class.java).getByName("main")
 
@@ -322,6 +271,11 @@ tasks.jar {
     from({ embeddedDependencyFiles.get() }) {
         into("META-INF/jarjar")
     }
+}
+
+tasks.remapJar {
+    archiveClassifier.set("neoforge")
+    archiveBaseName.set("jsmacros-1.21.8")
 }
 
 tasks.processResources {

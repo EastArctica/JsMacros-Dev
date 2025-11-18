@@ -47,6 +47,8 @@ tasks.register("buildAll") {
     dependsOn(":common:build")
     dependsOn(":extension:build")
     dependsOn(":site:build")
+    dependsOn(":fabric:build")
+    dependsOn(":neoforge:build")
 }
 
 tasks.register("cleanAll") {
@@ -76,6 +78,15 @@ tasks.register<Delete>("clean") {
 tasks.register<Copy>("createDist") {
     group = "build"
     description = "Creates all files for the distribution of the project"
+
+    // Ensure all necessary tasks are built first
+    dependsOn(
+        ":fabric:remapJar",
+        ":fabric:jar",
+        ":neoforge:remapJar",
+        ":neoforge:jar",
+        ":common:sourcesJar"
+    )
 
     // Clean dist directory first
     doFirst {
