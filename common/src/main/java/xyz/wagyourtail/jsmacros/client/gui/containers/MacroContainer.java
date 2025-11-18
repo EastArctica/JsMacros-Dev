@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.network.chat.Component;
@@ -51,6 +52,15 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
         return macro;
     }
 
+    private static Component getTranslatedEventName(String eventName) {
+        String lowerCaseName = eventName.toLowerCase(Locale.ROOT);
+        if (Language.getInstance().has("jsmacros.event." + lowerCaseName)) {
+            return Component.translatable("jsmacros.event." + lowerCaseName);
+        }
+
+        return Component.literal(eventName);
+    }
+
     @Override
     public void init() {
         super.init();
@@ -61,15 +71,28 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
             btn.setMessage(Component.translatable(macro.enabled ? "jsmacros.enabled" : "jsmacros.disabled"));
         }));
 
-        keyBtn = addRenderableWidget(new Button(x + w / 12 + 1, y + 1, macro.triggerType == ScriptTrigger.TriggerType.EVENT ? (w / 4) - (w / 12) - 1 - height : (w / 4) - (w / 12) - 1 - height * 2, height - 2, textRenderer, 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, macro.triggerType == ScriptTrigger.TriggerType.EVENT ? Component.translatable("jsmacros.event." + macro.event.toLowerCase(Locale.ROOT)) : buildKeyName(macro.event), (btn) -> {
-            if (macro.triggerType == ScriptTrigger.TriggerType.EVENT) {
+        boolean isEventMacro = macro.triggerType == ScriptTrigger.TriggerType.EVENT;
+        keyBtn = addRenderableWidget(new Button(
+                x + w / 12 + 1,
+                y + 1,
+                macro.triggerType == ScriptTrigger.TriggerType.EVENT ? (w / 4) - (w / 12) - 1 - height : (w / 4) - (w / 12) - 1 - height * 2,
+                height - 2,
+                textRenderer,
+                0,
+                0xFF000000,
+                0x7F7F7F7F,
+                0xFFFFFFFF,
+                isEventMacro ? getTranslatedEventName(macro.event) : buildKeyName(macro.event),
+                (btn) -> {
+            if (isEventMacro) {
                 parent.setEvent(this);
             } else {
                 selectkey = true;
                 btn.setMessage(Component.translatable("jsmacros.presskey"));
             }
         }));
-        if (macro.triggerType != ScriptTrigger.TriggerType.EVENT) {
+
+        if (!isEventMacro) {
             joinedBtn = addRenderableWidget(new Button(x + w / 4 - height * 2, y + 1, height, height - 2, textRenderer, 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.literal(""), (btn) -> {
                 macro.joined = !macro.joined;
             }));
