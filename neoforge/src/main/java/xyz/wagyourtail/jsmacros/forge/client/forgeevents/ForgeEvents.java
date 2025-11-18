@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.render.state.GuiRenderState;
+import net.minecraft.client.renderer.MultiBufferSource;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.Profiler;
 import net.neoforged.neoforge.client.event.*;
@@ -91,14 +94,18 @@ public class ForgeEvents {
     public static void renderWorldListener(RenderLevelStageEvent.AfterLevel e) {
         var profiler = Profiler.get();
         profiler.push("jsmacros_draw3d");
-        for (Draw3D d : ImmutableSet.copyOf(FHud.renders)) {
-            try {
-                GuiGraphics guiGraphics = createGuiGraphics();
-                // TODO: Fix Draw3d rendering
-                // d.render(e.getPoseStack(), guiGraphics, e.getPartialTick().getGameTimeDeltaPartialTick(false));
-            } catch (Throwable t) {
-                t.printStackTrace();
+        try {
+            MultiBufferSource.BufferSource consumers = Minecraft.getInstance().renderBuffers().bufferSource();
+            float tickDelta = e.getPartialTick().getGameTimeDeltaPartialTick(true);
+            PoseStack poseStack = new PoseStack();
+
+            for (Draw3D d : ImmutableSet.copyOf(FHud.renders)) {
+                d.render(poseStack, consumers, tickDelta);
             }
+
+            consumers.endBatch();
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
         profiler.pop();
     }

@@ -7,10 +7,7 @@ license = "MPL-2.0"
 config="jsmacros-common.mixins.json"
 
 [[mixins]]
-config="jsmacros-client.mixins.json"
-
-[[mixins]]
-config="jsmacros-forge.mixins.json"
+config="jsmacros-neoforge.mixins.json"
 
 [[mods]]
 modId = "jsmacros"
