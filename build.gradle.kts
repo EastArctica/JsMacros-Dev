@@ -94,6 +94,19 @@ tasks.register<Copy>("createDist") {
         file("dist").mkdirs()
     }
 
+    // Copy main mod JARs
+    from(project(":fabric").tasks.named("remapJar")) {
+        rename { it }
+    }
+    from(project(":neoforge").tasks.named("remapJar")) {
+        rename { it }
+    }
+
+    // Copy sources JAR
+    from(project(":common").tasks.named("sourcesJar")) {
+        rename { it }
+    }
+
     // Collect extension JARs
     from(project(":extension:graal").tasks.named("jar")) {
         into("extensions")
