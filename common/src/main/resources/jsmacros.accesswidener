@@ -32,3 +32,6 @@ accessible field net/minecraft/world/entity/vehicle/AbstractBoat status Lnet/min
 accessible field net/minecraft/world/entity/animal/Dolphin treasurePos Lnet/minecraft/core/BlockPos;
 accessible method net/minecraft/world/entity/animal/TropicalFish getPackedVariant ()I
 accessible field net/minecraft/world/entity/animal/wolf/Wolf isWet Z
+
+accessible field net/minecraft/world/entity/player/Player DATA_SHOULDER_PARROT_LEFT Lnet/minecraft/network/syncher/EntityDataAccessor;
+accessible field net/minecraft/world/entity/player/Player DATA_SHOULDER_PARROT_RIGHT Lnet/minecraft/network/syncher/EntityDataAccessor;

@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
@@ -172,13 +173,15 @@ public class ClickableWidgetHelper<B extends ClickableWidgetHelper<B, T>, T exte
      */
     public B click(boolean await) throws InterruptedException {
         if (JsMacrosClient.clientCore.profile.checkJoinedThreadStack()) {
-            base.mouseClicked(base.getX(), base.getY(), 0);
-            base.mouseReleased(base.getX(), base.getY(), 0);
+            MouseButtonEvent fakeEvent = new MouseButtonEvent(base.getX(), base.getY(), null);
+            base.mouseClicked(fakeEvent, false);
+            base.mouseReleased(fakeEvent);
         } else {
             final Semaphore waiter = new Semaphore(await ? 0 : 1);
             Minecraft.getInstance().execute(() -> {
-                base.mouseClicked(base.getX(), base.getY(), 0);
-                base.mouseReleased(base.getX(), base.getY(), 0);
+                MouseButtonEvent fakeEvent = new MouseButtonEvent(base.getX(), base.getY(), null);
+                base.mouseClicked(fakeEvent, false);
+                base.mouseReleased(fakeEvent);
                 waiter.release();
             });
             waiter.acquire();

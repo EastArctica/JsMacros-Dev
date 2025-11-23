@@ -562,6 +562,8 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
         return chunk == null ? null : new ChunkHelper(chunk);
     }
 
+    // TODO: These methods were removed in 1.21.9 or 1.21.10
+
     /**
      * @param chunkX the x coordinate of the chunk to store
      * @param y      the y coordinate to store
@@ -569,10 +571,10 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @return self for chaining.
      * @since 1.8.4
      */
-    public PacketByteBufferHelper writeChunkSectionPos(int chunkX, int y, int chunkZ) {
-        base.writeSectionPos(SectionPos.of(chunkX, y, chunkZ));
-        return this;
-    }
+//    public PacketByteBufferHelper writeChunkSectionPos(int chunkX, int y, int chunkZ) {
+//        base.writeChunkPos(SectionPos.of(chunkX, y, chunkZ));
+//        return this;
+//    }
 
     /**
      * @param chunk the chunk whose position should be stored
@@ -580,19 +582,19 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @return self for chaining.
      * @since 1.8.4
      */
-    public PacketByteBufferHelper writeChunkSectionPos(ChunkHelper chunk, int y) {
-        base.writeSectionPos(SectionPos.of(chunk.getRaw().getPos(), y));
-        return this;
-    }
+//    public PacketByteBufferHelper writeChunkSectionPos(ChunkHelper chunk, int y) {
+//        base.writeSectionPos(SectionPos.of(chunk.getRaw().getPos(), y));
+//        return this;
+//    }
 
     /**
      * @return the read chunk section pos, as a {@link BlockPosHelper}.
      * @since 1.8.4
      */
-    public BlockPosHelper readChunkSectionPos() {
-        SectionPos pos = base.readSectionPos();
-        return new BlockPosHelper(pos.x(), pos.y(), pos.z());
-    }
+//    public BlockPosHelper readChunkSectionPos() {
+//        SectionPos pos = base.readSectionPos();
+//        return new BlockPosHelper(pos.x(), pos.y(), pos.z());
+//    }
 
     /**
      * @param dimension the dimension, vanilla default are {@code overworld}, {@code the_nether},
@@ -1549,6 +1551,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
 //            }
 //        }
 
+        // TODO: Update this with latest
         PACKETS.put("WorldBorderWarningTimeChangedS2CPacket", net.minecraft.network.protocol.game.ClientboundSetBorderWarningDelayPacket.class);
         PACKETS.put("SelectMerchantTradeC2SPacket", net.minecraft.network.protocol.game.ServerboundSelectTradePacket.class);
         PACKETS.put("SelectAdvancementTabS2CPacket", net.minecraft.network.protocol.game.ClientboundSelectAdvancementsTabPacket.class);
@@ -1743,7 +1746,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
         PACKETS.put("CookieRequestS2CPacket", net.minecraft.network.protocol.cookie.ClientboundCookieRequestPacket.class);
         PACKETS.put("ResetChatS2CPacket", net.minecraft.network.protocol.configuration.ClientboundResetChatPacket.class);
         PACKETS.put("ScoreboardScoreUpdateS2CPacket", net.minecraft.network.protocol.game.ClientboundSetScorePacket.class);
-        PACKETS.put("DebugSampleSubscriptionC2SPacket", net.minecraft.network.protocol.game.ServerboundDebugSampleSubscriptionPacket.class);
+//        PACKETS.put("DebugSampleSubscriptionC2SPacket", net.minecraft.network.protocol.game.ServerboundDebugSampleSubscriptionPacket.class);
         PACKETS.put("ServerLinksS2CPacket", net.minecraft.network.protocol.common.ClientboundServerLinksPacket.class);
         PACKETS.put("CookieResponseC2SPacket", net.minecraft.network.protocol.cookie.ServerboundCookieResponsePacket.class);
         PACKETS.put("UpdateTickRateS2CPacket", net.minecraft.network.protocol.game.ClientboundTickingStatePacket.class);

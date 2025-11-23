@@ -218,7 +218,8 @@ public class Box implements RenderElement3D<Box> {
             float g = ((color >> 8) & 0xFF) / 255.0F;
             float b = (color & 0xFF) / 255.0F;
             float a = ((color >> 24) & 0xFF) / 255.0F;
-            ShapeRenderer.renderLineBox(matrixStack, consumers.getBuffer(linesLayer), x1, y1, z1, x2, y2, z2, r, g, b, a);
+            // TODO: Is this correct?
+            ShapeRenderer.renderLineBox(matrixStack.last(), consumers.getBuffer(linesLayer), x1, y1, z1, x2, y2, z2, r, g, b, a);
             if (seeThrough) {
                 immediate.endBatch();
             }

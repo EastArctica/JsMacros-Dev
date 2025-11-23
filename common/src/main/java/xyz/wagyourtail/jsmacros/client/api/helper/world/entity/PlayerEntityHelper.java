@@ -21,7 +21,7 @@ public class PlayerEntityHelper<T extends Player> extends LivingEntityHelper<T> 
      * @since 1.8.4
      */
     public String getPlayerName() {
-        return base.getGameProfile().getName();
+        return base.getGameProfile().name();
     }
 
     /**

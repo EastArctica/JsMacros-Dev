@@ -7,11 +7,13 @@ import com.mojang.blaze3d.framegraph.FramePass;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LevelTargetBundle;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
@@ -34,16 +36,7 @@ public class MixinWorldRenderer {
     private LevelTargetBundle targets;
 
     @Inject(method = "addMainPass", at = @At("TAIL"))
-    private void onRenderMain(FrameGraphBuilder frameGraphBuilder,
-                              Frustum frustum,
-                              Camera camera,
-                              Matrix4f positionMatrix,
-                              GpuBufferSlice fog,
-                              boolean renderBlockOutline,
-                              boolean renderEntityOutlines,
-                              DeltaTracker renderTickCounter,
-                              ProfilerFiller profiler,
-                              CallbackInfo ci) {
+    private void onRenderMain(FrameGraphBuilder frameGraphBuilder, Frustum frustum, Matrix4f matrix4f, GpuBufferSlice gpuBufferSlice, boolean bl, LevelRenderState levelRenderState, DeltaTracker deltaTracker, ProfilerFiller profilerFiller, CallbackInfo ci) {
         if (this.targets == null) {
             return;
         }
@@ -52,12 +45,12 @@ public class MixinWorldRenderer {
         frameBufferSet.main = framePass.readsAndWrites(frameBufferSet.main);
 
         framePass.executes(() -> {
-            profiler.push("jsmacros_d3d");
+            profilerFiller.push("jsmacros_d3d");
 
             try {
                 MultiBufferSource.BufferSource consumers = renderBuffers.crumblingBufferSource();
 
-                float tickDelta = renderTickCounter.getGameTimeDeltaPartialTick(true);
+                float tickDelta = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
 
                 PoseStack matrixStack = new PoseStack();
                 matrixStack.pushPose();
@@ -70,7 +63,7 @@ public class MixinWorldRenderer {
                 e.printStackTrace();
             }
 
-            profiler.pop();
+            profilerFiller.pop();
         });
     }
 

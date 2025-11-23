@@ -1,10 +1,12 @@
 package xyz.wagyourtail.jsmacros.client.api.helper;
 
+import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementNode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
@@ -93,7 +95,14 @@ public class AdvancementHelper extends BaseHelper<AdvancementNode> {
      */
     @DocletReplaceReturn("JavaArray<RecipeId>")
     public String[] getRecipes() {
-        return (String[]) base.advancement().rewards().recipes().stream().map(ResourceKey::location).map(ResourceLocation::toString).toArray();
+        return base
+                .advancement()
+                .rewards()
+                .recipes()
+                .stream()
+                .map(ResourceKey::location)
+                .map(ResourceLocation::toString)
+                .toArray(String[]::new);
     }
 
     /**

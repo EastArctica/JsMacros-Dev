@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.library.impl;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
@@ -247,7 +248,7 @@ public class FChat extends BaseLibrary {
             String finalMessage = message;
             final Semaphore semaphore = new Semaphore(await ? 0 : 1);
             mc.execute(() -> {
-                mc.setScreen(new ChatScreen(finalMessage));
+                mc.setScreen(new ChatScreen(finalMessage, true));
                 semaphore.release();
             });
             semaphore.acquire();

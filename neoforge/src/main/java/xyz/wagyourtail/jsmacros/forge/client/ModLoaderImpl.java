@@ -16,7 +16,7 @@ public class ModLoaderImpl implements ModLoader {
 
     @Override
     public boolean isDevEnv() {
-        return !FMLEnvironment.production;
+        return !FMLEnvironment.isProduction();
     }
 
     @Override

@@ -7,6 +7,8 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.Component;
@@ -122,30 +124,32 @@ public abstract class BaseScreen extends Screen implements IOverlayParent {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+    public boolean keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.isEscape()) {
             if (overlay != null) {
                 this.overlay.closeOverlay(this.overlay.getChildOverlay());
                 return true;
             }
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(keyEvent);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horiz, double vert) {
         if (overlay != null && overlay.scroll != null) {
-            overlay.scroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
+            //  If this is *really* what we want, we'll need to make a fake event
+            // overlay.scroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(MouseButtonEvent buttonEvent, boolean debounce) {
         if (overlay != null) {
-            overlay.onClick(mouseX, mouseY, button);
+            overlay.onClick(buttonEvent, debounce);
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(buttonEvent, debounce);
     }
 
     @Override

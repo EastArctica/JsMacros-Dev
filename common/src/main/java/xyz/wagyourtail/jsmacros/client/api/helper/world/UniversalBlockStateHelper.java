@@ -975,7 +975,7 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot0Occupied() {
-        return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_0_OCCUPIED);
+        return base.getValue(BlockStateProperties.SLOT_0_OCCUPIED);
     }
 
     /**
@@ -983,7 +983,7 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot1Occupied() {
-        return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_1_OCCUPIED);
+        return base.getValue(BlockStateProperties.SLOT_1_OCCUPIED);
     }
 
     /**
@@ -991,7 +991,7 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot2Occupied() {
-        return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_2_OCCUPIED);
+        return base.getValue(BlockStateProperties.SLOT_2_OCCUPIED);
     }
 
     /**
@@ -999,7 +999,7 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot3Occupied() {
-        return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_3_OCCUPIED);
+        return base.getValue(BlockStateProperties.SLOT_3_OCCUPIED);
     }
 
     /**
@@ -1007,7 +1007,7 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot4Occupied() {
-        return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_4_OCCUPIED);
+        return base.getValue(BlockStateProperties.SLOT_4_OCCUPIED);
     }
 
     /**
@@ -1015,7 +1015,7 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot5Occupied() {
-        return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_5_OCCUPIED);
+        return base.getValue(BlockStateProperties.SLOT_5_OCCUPIED);
     }
 
     /**

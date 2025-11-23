@@ -3,6 +3,7 @@ package xyz.wagyourtail.wagyourgui.elements;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
@@ -59,9 +60,9 @@ public class Scrollbar extends AbstractWidget {
     }
 
     @Override
-    public void onClick(double mouseX, double mouseY) {
+    public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
         if (this.active) {
-            double mpos = mouseY - getY() - 1;
+            double mpos = buttonEvent.y() - getY() - 1;
             if (mpos < scrollAmount) {
                 scrollAmount = Math.max(mpos - (scrollbarHeight / 2), 0);
                 onChange();
@@ -80,7 +81,7 @@ public class Scrollbar extends AbstractWidget {
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(MouseButtonEvent buttonEvent, double deltaX, double deltaY) {
         scrollAmount += deltaY;
         if (scrollAmount > scrollDistance) {
             scrollAmount = scrollDistance;
@@ -89,7 +90,7 @@ public class Scrollbar extends AbstractWidget {
             scrollAmount = 0;
         }
         onChange();
-        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return super.mouseDragged(buttonEvent, deltaX, deltaY);
     }
 
     @Override

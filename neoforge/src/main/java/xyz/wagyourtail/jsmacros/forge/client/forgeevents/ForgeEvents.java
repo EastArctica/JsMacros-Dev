@@ -53,7 +53,7 @@ public class ForgeEvents {
     }
 
     public static void onScreenCharTyped(ScreenEvent.CharacterTyped.Pre event) {
-        ((IScreenInternal) event.getScreen()).jsmacros_charTyped(event.getCodePoint(), event.getModifiers());
+        ((IScreenInternal) event.getScreen()).jsmacros_charTyped((char) event.getCodePoint(), event.getModifiers());
     }
 
     public static void onScreenDraw(ScreenEvent.Render.Post event) {
@@ -88,7 +88,9 @@ public class ForgeEvents {
     }
 
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent ev) {
-        ev.registerBelow(VanillaGuiLayers.DEBUG_OVERLAY, ResourceLocation.parse("jsmacros:hud"), ForgeEvents::renderHudListener);
+        // TODO: This used to be DEBUG_OVERLAY in 1.21.8, removed in 1.21.9 or 1.21.10.
+        //  How did this get handled on the fabric side?
+        ev.registerBelow(VanillaGuiLayers.AFTER_CAMERA_DECORATIONS, ResourceLocation.parse("jsmacros:hud"), ForgeEvents::renderHudListener);
     }
 
     public static void renderWorldListener(RenderLevelStageEvent.AfterLevel e) {
@@ -96,7 +98,7 @@ public class ForgeEvents {
         profiler.push("jsmacros_draw3d");
         try {
             MultiBufferSource.BufferSource consumers = Minecraft.getInstance().renderBuffers().bufferSource();
-            float tickDelta = e.getPartialTick().getGameTimeDeltaPartialTick(true);
+            float tickDelta = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
             PoseStack poseStack = new PoseStack();
 
             for (Draw3D d : ImmutableSet.copyOf(FHud.renders)) {

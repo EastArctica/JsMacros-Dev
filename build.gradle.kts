@@ -8,7 +8,7 @@ architectury {
     minecraft = libs.versions.minecraft.get()
 }
 
-version = "2.0.0"
+version = "2.1.0"
 group = "xyz.wagyourtail"
 
 // Subproject configuration for all modules

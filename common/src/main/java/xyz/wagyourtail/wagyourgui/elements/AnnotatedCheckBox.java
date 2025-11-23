@@ -2,6 +2,9 @@ package xyz.wagyourtail.wagyourgui.elements;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
@@ -16,9 +19,9 @@ public class AnnotatedCheckBox extends Button {
     }
 
     @Override
-    public void onPress() {
+    public void onPress(InputWithModifiers input) {
         value = !value;
-        super.onPress();
+        super.onPress(input);
     }
 
     @Override

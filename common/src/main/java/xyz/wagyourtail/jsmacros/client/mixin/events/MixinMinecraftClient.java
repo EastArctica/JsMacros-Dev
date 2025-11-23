@@ -2,7 +2,6 @@ package xyz.wagyourtail.jsmacros.client.mixin.events;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.DisconnectedScreen;
-import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -43,7 +42,7 @@ public abstract class MixinMinecraftClient {
     private User user;
 
     @Inject(at = @At("HEAD"), method = "setLevel")
-    public void onJoinWorld(ClientLevel world, ReceivingLevelScreen.Reason worldEntryReason, CallbackInfo ci) {
+    public void onJoinWorld(ClientLevel world, CallbackInfo ci) {
         if (world != null) {
             new EventDimensionChange(world.dimension().location().toString()).trigger();
         }

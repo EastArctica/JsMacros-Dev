@@ -91,7 +91,9 @@ public class MacroScreen extends BaseScreen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horiz, double vert) {
         if (overlay == null) {
-            macroScroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
+            //  If this is *really* what we want, we'll need to make a fake event
+            // macroScroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }

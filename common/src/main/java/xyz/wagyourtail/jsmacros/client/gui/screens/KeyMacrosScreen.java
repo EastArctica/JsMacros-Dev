@@ -3,6 +3,8 @@ package xyz.wagyourtail.jsmacros.client.gui.screens;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.gui.screens.Screen;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.EventKey;
 import xyz.wagyourtail.jsmacros.client.config.ClientConfigV2;
@@ -46,43 +48,43 @@ public class KeyMacrosScreen extends MacroScreen {
     }
 
     @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        String translationKey = EventKey.getKeyModifiers(modifiers);
+    public boolean keyReleased(KeyEvent keyEvent) {
+        String translationKey = EventKey.getKeyModifiers(keyEvent.modifiers());
         if (!translationKey.equals("")) {
             translationKey += "+";
         }
-        translationKey += InputConstants.getKey(keyCode, scanCode).getName();
+        translationKey += InputConstants.getKey(keyEvent).getName();
         for (MacroContainer macro : (List<MacroContainer>) (List) macros) {
             if (!macro.onKey(translationKey)) {
                 return false;
             }
         }
-        return super.keyReleased(keyCode, scanCode, modifiers);
+        return super.keyReleased(keyEvent);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(MouseButtonEvent buttonEvent) {
         int mods = 0;
-        if (hasShiftDown()) {
+        if (buttonEvent.hasShiftDown()) {
             mods += 1;
         }
-        if (hasControlDown()) {
+        if (buttonEvent.hasControlDown()) {
             mods += 2;
         }
-        if (hasAltDown()) {
+        if (buttonEvent.hasAltDown()) {
             mods += 4;
         }
         String translationKey = EventKey.getKeyModifiers(mods);
         if (!translationKey.equals("")) {
             translationKey += "+";
         }
-        translationKey += InputConstants.Type.MOUSE.getOrCreate(button).getName();
+        translationKey += InputConstants.Type.MOUSE.getOrCreate(buttonEvent.button()).getName();
         for (MacroContainer macro : (List<MacroContainer>) (List) macros) {
             if (!macro.onKey(translationKey)) {
                 return false;
             }
         }
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(buttonEvent);
     }
 
 }

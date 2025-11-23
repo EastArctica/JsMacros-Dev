@@ -152,7 +152,7 @@ public abstract class MixinClientPlayNetworkHandler extends ClientCommonPacketLi
         new EventChunkUnload(packet.pos().x, packet.pos().z).trigger();
     }
 
-    @Inject(method = "handleUpdateMobEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V", shift = At.Shift.AFTER))
+    @Inject(method = "handleUpdateMobEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V", shift = At.Shift.AFTER))
     public void onEntityStatusEffect(ClientboundUpdateMobEffectPacket packet, CallbackInfo info) {
         assert minecraft.player != null;
         if (packet.getEntityId() == minecraft.player.getId()) {
@@ -162,7 +162,7 @@ public abstract class MixinClientPlayNetworkHandler extends ClientCommonPacketLi
         }
     }
 
-    @Inject(method = "handleRemoveMobEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V", shift = At.Shift.AFTER))
+    @Inject(method = "handleRemoveMobEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V", shift = At.Shift.AFTER))
     public void onEntityStatusEffect(ClientboundRemoveMobEffectPacket packet, CallbackInfo info) {
         if (packet.getEntity(minecraft.level) == minecraft.player) {
             assert minecraft.player != null;

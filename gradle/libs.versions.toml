@@ -1,12 +1,12 @@
 [versions]
 java = "21"
 
-minecraft = "1.21.8"
+minecraft = "1.21.10"
 yarn = "1"
 
-fabric_loader = "0.17.3"
+fabric_loader = "0.18.1"
 forge = "52.0.19"
-neoforge = "21.8.51"
+neoforge = "21.10.52-beta"
 
 # Architectury/loom versions
 architectury = "3.4-SNAPSHOT"
@@ -23,8 +23,8 @@ junit = "5.8.1"
 jb_annotations = "20.1.0"
 javassist = "3.30.2-GA"
 
-fapi = "0.136.0+1.21.8"
-modmenu = "15.0.0"
+fapi = "0.138.3+1.21.10"
+modmenu = "16.0.0-rc.1"
 
 shadow = "8.3.6"
 

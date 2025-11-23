@@ -1,6 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.screen;
 
 import net.minecraft.client.gui.components.Checkbox;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IScreen;
@@ -46,7 +48,8 @@ public class CheckBoxWidgetHelper extends ClickableWidgetHelper<CheckBoxWidgetHe
      */
     public CheckBoxWidgetHelper setChecked(boolean checked) {
         if (base.selected() != checked) {
-            base.onPress();
+            MouseButtonEvent fakeEvent = new MouseButtonEvent(base.getX(), base.getY(), null);
+            base.onPress(fakeEvent);
         }
         return this;
     }

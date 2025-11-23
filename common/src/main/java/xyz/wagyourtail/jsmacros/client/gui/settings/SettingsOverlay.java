@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.gui.settings;
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.gui.settings.settingcontainer.*;
@@ -203,8 +204,8 @@ public class SettingsOverlay extends OverlayContainer implements ICategoryTreePa
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        super.keyPressed(keyCode, scanCode, modifiers);
+    public boolean keyPressed(KeyEvent keyEvent) {
+        super.keyPressed(keyEvent);
         return true;
     }
 

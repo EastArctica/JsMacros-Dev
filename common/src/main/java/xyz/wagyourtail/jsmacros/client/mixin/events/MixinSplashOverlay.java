@@ -16,7 +16,7 @@ public class MixinSplashOverlay {
     @Final
     private boolean fadeIn;
 
-    @Inject(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/screens/LoadingOverlay;fadeOutStart:J", opcode = Opcodes.PUTFIELD))
+    @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/screens/LoadingOverlay;fadeOutStart:J", opcode = Opcodes.PUTFIELD))
     private void onReloadComplete(CallbackInfo ci) {
         new EventResourcePackLoaded(!fadeIn).trigger();
     }

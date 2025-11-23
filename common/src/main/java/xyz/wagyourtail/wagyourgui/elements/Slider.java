@@ -1,6 +1,8 @@
 package xyz.wagyourtail.wagyourgui.elements;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -38,10 +40,10 @@ public class Slider extends AbstractWidget {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_LEFT) {
+    public boolean keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.key() == GLFW.GLFW_KEY_LEFT) {
             setValue(value + (double) (1 / steps));
-        } else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
+        } else if (keyEvent.key() == GLFW.GLFW_KEY_RIGHT) {
             setValue(value - (double) (1 / steps));
         }
         return false;
@@ -95,19 +97,19 @@ public class Slider extends AbstractWidget {
     }
 
     @Override
-    public void onClick(double mouseX, double mouseY) {
-        setValueFromMouse(mouseX);
+    public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
+        setValueFromMouse(buttonEvent.x());
     }
 
     @Override
-    public void onRelease(double mouseX, double mouseY) {
+    public void onRelease(MouseButtonEvent event) {
         super.playDownSound(Minecraft.getInstance().getSoundManager());
     }
 
     @Override
-    protected void onDrag(double mouseX, double mouseY, double deltaX, double deltaY) {
-        setValueFromMouse(mouseX);
-        super.onDrag(mouseX, mouseY, deltaX, deltaY);
+    protected void onDrag(MouseButtonEvent buttonEvent, double deltaX, double deltaY) {
+        setValueFromMouse(buttonEvent.x());
+        super.onDrag(buttonEvent, deltaX, deltaY);
     }
 
     public void setMessage(String message) {

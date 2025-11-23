@@ -127,7 +127,7 @@ abstract class MixinClientPlayerEntity extends AbstractClientPlayer {
     }
 
     @Inject(method = "startRiding", at = @At(value = "RETURN", ordinal = 1))
-    public void onStartRiding(Entity entity, boolean force, CallbackInfoReturnable<Boolean> cir) {
+    public void onStartRiding(Entity entity, boolean force, boolean idk, CallbackInfoReturnable<Boolean> cir) {
         new EventRiding(true, entity).trigger();
     }
 

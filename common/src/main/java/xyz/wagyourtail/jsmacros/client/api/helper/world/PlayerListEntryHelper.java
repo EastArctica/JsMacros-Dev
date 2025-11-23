@@ -2,12 +2,16 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.core.ClientAsset;
+import net.minecraft.world.entity.player.PlayerModelType;
+import net.minecraft.world.entity.player.PlayerSkin;
 import net.minecraft.world.level.GameType;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
+
+import java.util.Objects;
 
 /**
  * @author Wagyourtail
@@ -27,7 +31,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
     @Nullable
     public String getUUID() {
         GameProfile prof = base.getProfile();
-        return prof == null ? null : prof.getId().toString();
+        return prof == null ? null : prof.id().toString();
     }
 
     /**
@@ -37,7 +41,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
     @Nullable
     public String getName() {
         GameProfile prof = base.getProfile();
-        return prof == null ? null : prof.getName();
+        return prof == null ? null : prof.name();
     }
 
     /**
@@ -80,7 +84,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
      * @since 1.8.4
      */
     public boolean hasCape() {
-        return base.getSkin().capeTexture() != null;
+        return base.getSkin().cape() != null;
     }
 
     /**
@@ -90,7 +94,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
      * @since 1.8.4
      */
     public boolean hasSlimModel() {
-        return base.getSkin().model().equals(PlayerSkin.Model.SLIM);
+        return base.getSkin().model().equals(PlayerModelType.SLIM);
     }
 
     /**
@@ -98,24 +102,34 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
      * @since 1.8.4
      */
     public String getSkinTexture() {
-        return base.getSkin().texture().toString();
+        return base.getSkin().body().toString();
     }
 
     /**
+     * @return The url to the skin texture in this format: `http://textures.minecraft.net/texture/<hash>` or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
      * @since 1.9.0
      */
     @Nullable
     public String getSkinUrl() {
-        return base.getSkin().textureUrl();
+        return base.getSkin().body() instanceof ClientAsset.DownloadedTexture downloadedTexture ? downloadedTexture.url() : null;
     }
 
     /**
-     * @return the identifier of the player's cape texture or {@code null} if it's unknown.
+     * @return The identifier of the player's cape texture or {@code null} if it's unknown.
      * @since 1.8.4
      */
     @Nullable
     public String getCapeTexture() {
-        return base.getSkin().capeTexture() == null ? null : base.getSkin().capeTexture().toString();
+        return base.getSkin().cape() == null ? null : base.getSkin().cape().toString();
+    }
+
+    /**
+     * @return The url to the cape texture in this format: `http://textures.minecraft.net/texture/<hash>` or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
+     * @since 2.1.0
+     */
+    @Nullable
+    public String getCapeUrl() {
+        return base.getSkin().body() instanceof ClientAsset.DownloadedTexture downloadedTexture ? downloadedTexture.url() : null;
     }
 
     /**
@@ -124,7 +138,17 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
      */
     @Nullable
     public String getElytraTexture() {
-        return base.getSkin().elytraTexture() == null ? null : base.getSkin().elytraTexture().toString();
+        return base.getSkin().elytra() == null ? null : base.getSkin().elytra().toString();
+    }
+
+
+    /**
+     * @return The url to the cape texture in this format: `http://textures.minecraft.net/texture/<hash>` or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
+     * @since 2.1.0
+     */
+    @Nullable
+    public String getElytraUrl() {
+        return base.getSkin().elytra() instanceof ClientAsset.DownloadedTexture downloadedTexture ? downloadedTexture.url() : null;
     }
 
     /**
