@@ -1,6 +1,6 @@
 # JsMacros Backports Project
 
-This is a backports branch of JsMacros for Minecraft 1.21.10, providing scripting capabilities for Minecraft through JavaScript and other programming languages.
+This is a backports branch of JsMacros for Minecraft 1.21.11-beta.2, providing scripting capabilities for Minecraft through JavaScript and other programming languages.
 
 ## Project Overview
 
@@ -116,7 +116,7 @@ Extensions follow a specific structure:
 - Integration tests should be run against both mod loaders
 
 ## Version Information
-- **Project Version**: 2.1.0
-- **Minecraft Target**: 1.21.10
+- **Project Version**: 2.1.1
+- **Minecraft Target**: 1.21.11-beta.2
 - **Java Requirement**: 21
 - **Mod Loaders**: Fabric (primary), NeoForge (secondary)

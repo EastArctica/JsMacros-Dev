@@ -86,7 +86,7 @@ public class Button extends AbstractButton {
     }
 
     @Override
-    public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    public void renderContents(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         if (this.visible) {
             // fill
             if (mouseX - getX() >= 0 && mouseX - getX() - width <= 0 && mouseY - getY() >= 0 && mouseY - getY() - height <= 0 && this.active || forceHover) {

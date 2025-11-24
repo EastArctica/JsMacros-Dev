@@ -8,7 +8,7 @@ architectury {
     minecraft = libs.versions.minecraft.get()
 }
 
-version = "2.1.0"
+version = "2.1.1"
 group = "xyz.wagyourtail"
 
 // Subproject configuration for all modules
@@ -83,8 +83,8 @@ tasks.register<Copy>("createDist") {
     dependsOn(
         ":fabric:remapJar",
         ":fabric:jar",
-        ":neoforge:remapJar",
-        ":neoforge:jar",
+//        ":neoforge:remapJar",
+//        ":neoforge:jar",
         ":common:sourcesJar"
     )
 
@@ -98,9 +98,9 @@ tasks.register<Copy>("createDist") {
     from(project(":fabric").tasks.named("remapJar")) {
         rename { it }
     }
-    from(project(":neoforge").tasks.named("remapJar")) {
-        rename { it }
-    }
+//    from(project(":neoforge").tasks.named("remapJar")) {
+//        rename { it }
+//    }
 
     // Copy sources JAR
     from(project(":common").tasks.named("sourcesJar")) {

@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.vehicle;
 
-import net.minecraft.world.entity.vehicle.MinecartFurnace;
+import net.minecraft.world.entity.vehicle.minecart.MinecartFurnace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 

@@ -43,7 +43,7 @@ public class AnnotatedCheckBox extends Button {
     }
 
     @Override
-    public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    public void renderContents(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         if (this.visible) {
             this.renderMessage(drawContext);
 

@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper;
 
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockStateHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.FluidStateHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;

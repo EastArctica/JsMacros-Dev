@@ -2,7 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper;
 
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
@@ -89,7 +89,7 @@ public class SuggestionsBuilderHelper extends BaseHelper<SuggestionsBuilder> {
      * @since 1.8.4
      */
     public SuggestionsBuilderHelper suggestIdentifier(Collection<String> identifiers) {
-        SharedSuggestionProvider.suggestResource(identifiers.stream().map(ResourceLocation::parse), base);
+        SharedSuggestionProvider.suggestResource(identifiers.stream().map(Identifier::parse), base);
         return this;
     }
 

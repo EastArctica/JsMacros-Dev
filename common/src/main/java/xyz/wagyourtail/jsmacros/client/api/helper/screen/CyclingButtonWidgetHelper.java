@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author Etheradon
@@ -312,7 +314,10 @@ public class CyclingButtonWidgetHelper<T> extends ClickableWidgetHelper<CyclingB
         @Override
         public CyclingButtonWidgetHelper<T> createWidget() {
             AtomicReference<CyclingButtonWidgetHelper<T>> b = new AtomicReference<>(null);
-            CycleButton.Builder<T> builder = CycleButton.builder(obj -> valueToText.apply(obj).getRaw());
+            CycleButton.Builder<T> builder = CycleButton.builder(
+                    obj -> Component.literal(valueToText.apply(obj).getRaw().getString()),
+                    value
+            );
             if (optionTextOmitted || StringUtils.isBlank(optionText.getString())) {
                 builder.displayOnlyValue();
             }
@@ -321,7 +326,6 @@ public class CyclingButtonWidgetHelper<T> extends ClickableWidgetHelper<CyclingB
             } else {
                 builder.withValues(defaultValues);
             }
-            builder.withInitialValue(value);
             CycleButton<T> cyclingButton = builder.create(getX(), getY(), getWidth(), getHeight(), optionText, (btn, val) -> {
                 try {
                     if (action != null) {

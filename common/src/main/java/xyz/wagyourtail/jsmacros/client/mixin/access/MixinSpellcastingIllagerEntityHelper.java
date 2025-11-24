@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.mixin.access;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.world.entity.monster.SpellcasterIllager;
+import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

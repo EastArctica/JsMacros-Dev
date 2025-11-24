@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
-import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.animal.polarbear.PolarBear;
 
 /**
  * @author Etheradon

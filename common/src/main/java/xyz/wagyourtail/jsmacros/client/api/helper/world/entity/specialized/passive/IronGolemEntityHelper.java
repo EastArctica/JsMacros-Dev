@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
-import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.golem.IronGolem;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.MobEntityHelper;
 
 /**

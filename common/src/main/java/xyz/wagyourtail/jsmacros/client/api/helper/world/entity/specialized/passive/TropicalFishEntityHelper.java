@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
-import net.minecraft.world.entity.animal.TropicalFish;
+import net.minecraft.world.entity.animal.fish.TropicalFish;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 
 /**
@@ -53,7 +53,7 @@ public class TropicalFishEntityHelper extends FishEntityHelper<TropicalFish> {
      * @since 1.8.4
      */
     public int getVarietyId() {
-        return base.getPackedVariant();
+        return base.getPattern().getPackedId();
     }
 
 }

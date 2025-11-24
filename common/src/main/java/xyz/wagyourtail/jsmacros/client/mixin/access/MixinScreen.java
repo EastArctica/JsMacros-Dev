@@ -34,6 +34,7 @@ import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.screen.*;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
+import xyz.wagyourtail.jsmacros.util.TextUtil;
 import xyz.wagyourtail.wagyourgui.elements.Slider;
 
 import java.util.*;
@@ -86,9 +87,14 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     @Shadow
     public Font font;
 
-    @Inject(method = "handleComponentClicked", at = @At("HEAD"), cancellable = true)
-    private void onHandleTextClick(Style style, CallbackInfoReturnable<Boolean> cir) {
-        handleCustomClickEvent(style, cir);
+    // TODO: (1.21.11) This was moved from handleComponentClicked, I'm unsure if it's the same
+    // TODO: switch to enum extension with mixin 9.0 or whenever Mumfrey gets around to it
+    @Inject(method = "defaultHandleGameClickEvent", at = @At("HEAD"), cancellable = true)
+    private static void onHandleTextClick(ClickEvent clickEvent, Minecraft minecraft, Screen screen, CallbackInfo ci) {
+        if (clickEvent instanceof CustomClickEvent) {
+            ((CustomClickEvent) clickEvent).getEvent().run();
+            ci.cancel();
+        }
     }
 
     @Shadow(aliases = {"method_37063", "m_142416_"})
@@ -106,9 +112,6 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     @Shadow
     @Final
     private List<GuiEventListener> children;
-
-    @Shadow
-    public abstract boolean handleComponentClicked(@Nullable Style style);
 
     @Override
     public int getWidth() {
@@ -707,14 +710,16 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     public CyclingButtonWidgetHelper<?> addCyclingButton(int x, int y, int width, int height, int zIndex, String[] values, String[] alternatives, String initial, String prefix, MethodWrapper<?, ?, Boolean, ?> alternateToggle, MethodWrapper<CyclingButtonWidgetHelper<?>, IScreen, Object, ?> callback) {
         AtomicReference<CyclingButtonWidgetHelper<?>> ref = new AtomicReference<>(null);
         CycleButton<String> cyclingButton;
-        CycleButton.Builder<String> builder = CycleButton.builder(net.minecraft.network.chat.Component::literal);
+        CycleButton.Builder<String> builder = CycleButton.builder(
+                net.minecraft.network.chat.Component::literal,
+                initial
+        );
         if (alternatives != null) {
             BooleanSupplier supplier = alternateToggle == null ? CycleButton.DEFAULT_ALT_LIST_SELECTOR : alternateToggle::get;
             builder.withValues(supplier, Arrays.asList(values), Arrays.asList(alternatives));
         } else {
             builder.withValues(values);
         }
-        builder.withInitialValue(initial);
 
         if (prefix == null || StringUtils.isBlank(prefix)) {
             builder.displayOnlyValue();
@@ -912,7 +917,7 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
             }
 
             if (hoverText != null) {
-                drawContext.renderComponentHoverEffect(font, font.getSplitter().componentStyleAtWidth(hoverText.text, mouseX - hoverText.x), mouseX, mouseY);
+                drawContext.renderComponentHoverEffect(font, TextUtil.componentStyleAtWidth(font, hoverText.text, mouseX - hoverText.x), mouseX, mouseY);
             }
         }
     }
@@ -940,7 +945,8 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
         }
 
         if (hoverText != null) {
-            handleComponentClicked(font.getSplitter().componentStyleAtWidth(hoverText.text, (int) mouseX - hoverText.x));
+            // TODO: (1.21.11) I think this needs to be injected higher? Or maybe we need to fundamentally rethink it.
+            // handleComponentClicked(TextUtil.componentStyleAtWidth(font, hoverText.text, (int) mouseX - hoverText.x));
         }
     }
 
@@ -1020,16 +1026,6 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
             }
         }
         getDraw2Ds().forEach(e -> e.getDraw2D().init());
-    }
-
-    //TODO: switch to enum extension with mixin 9.0 or whenever Mumfrey gets around to it
-    public void handleCustomClickEvent(Style style, CallbackInfoReturnable<Boolean> cir) {
-        ClickEvent clickEvent = style.getClickEvent();
-        if (clickEvent instanceof CustomClickEvent) {
-            ((CustomClickEvent) clickEvent).getEvent().run();
-            cir.setReturnValue(true);
-            cir.cancel();
-        }
     }
 
     @Override

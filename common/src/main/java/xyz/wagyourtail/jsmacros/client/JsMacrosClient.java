@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.EventQuitGame;
 import xyz.wagyourtail.jsmacros.client.api.helper.PacketByteBufferHelper;
@@ -26,7 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class JsMacrosClient extends JsMacros {
     // TODO: This isn't properly getting the name
-    public static KeyMapping.Category keyBindingCategory = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath("jsmacros", "jsmacros.title"));
+    public static KeyMapping.Category keyBindingCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("jsmacros", "jsmacros.title"));
     public static KeyMapping keyBinding = new KeyMapping("jsmacros.menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, keyBindingCategory);
     public static final Core<ClientProfile, EventRegistry> clientCore = new Core<>(EventRegistry::new, ClientProfile::new, configFolder.getAbsoluteFile(), new File(configFolder, "Macros"), LOGGER);
 
@@ -38,8 +38,6 @@ public class JsMacrosClient extends JsMacros {
         } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException | IOException e) {
             e.printStackTrace();
         }
-
-        prevScreen = new KeyMacrosScreen(null);
 
         // Init MovementQueue
         MovementQueue.clear();

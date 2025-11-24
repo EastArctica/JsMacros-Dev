@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.vehicle;
 
-import net.minecraft.world.entity.vehicle.AbstractBoat;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.ChestBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 

@@ -9,8 +9,8 @@ import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractChestedHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
@@ -23,7 +23,7 @@ import xyz.wagyourtail.doclet.DocletReplaceTypeParams;
 import xyz.wagyourtail.jsmacros.api.math.Pos2D;
 import xyz.wagyourtail.jsmacros.client.JsMacros;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
-import xyz.wagyourtail.jsmacros.client.access.IHorseScreen;
+import xyz.wagyourtail.jsmacros.client.access.IAbstractMountInventoryScreen;
 import xyz.wagyourtail.jsmacros.client.access.IInventory;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.library.impl.FClient;
@@ -715,7 +715,7 @@ public class Inventory<T extends AbstractContainerScreen<?>> {
                 map.put("output", new int[]{slots - 9 - 27 - 1});
                 map.put("input", new int[]{slots - 9 - 27 - 2});
             } else if (inventory instanceof HorseInventoryScreen) {
-                AbstractHorse h = (AbstractHorse) ((IHorseScreen) this.inventory).jsmacros_getEntity();
+                AbstractHorse h = (AbstractHorse) ((IAbstractMountInventoryScreen) this.inventory).jsmacros_getEntity();
                 if (h.canUseSlot(EquipmentSlot.SADDLE)) {
                     map.put("saddle", new int[]{0});
                 }

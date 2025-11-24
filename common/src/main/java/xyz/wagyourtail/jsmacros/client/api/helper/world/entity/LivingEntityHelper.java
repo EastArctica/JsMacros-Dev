@@ -12,7 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -83,7 +83,7 @@ public class LivingEntityHelper<T extends LivingEntity> extends EntityHelper<T> 
      */
     @DocletReplaceParams("item: ItemId")
     public boolean isHolding(String item) {
-        ResourceLocation id = ResourceLocation.parse(item);
+        Identifier id = Identifier.parse(item);
         if (id.equals(BuiltInRegistries.ITEM.getDefaultKey())) return base.isHolding(Items.AIR);
         Item it = BuiltInRegistries.ITEM.getValue(id);
         return it != Items.AIR && base.isHolding(it);
@@ -172,19 +172,18 @@ public class LivingEntityHelper<T extends LivingEntity> extends EntityHelper<T> 
 
     /**
      * @return the entity's default health.
-     * @since 1.8.4
+     * @since 1.8.4 (float since 2.1.1)
      */
-    public int getDefaultHealth() {
-        return base.invulnerableDuration;
+    public float getDefaultHealth() {
+        return base.getMaxHealth();
     }
 
     /**
      * @since 1.9.1
-     *
      */
     @DocletReplaceReturn("JavaList<MobTag>")
     public List<String> getMobTags() {
-        return base.getType().builtInRegistryHolder().tags().map(TagKey::location).map(ResourceLocation::toString).toList();
+        return base.getType().builtInRegistryHolder().tags().map(TagKey::location).map(Identifier::toString).toList();
     }
 
     /**

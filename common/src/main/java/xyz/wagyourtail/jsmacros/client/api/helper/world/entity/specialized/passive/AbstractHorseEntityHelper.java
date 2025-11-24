@@ -2,7 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.pass
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinAbstractHorseEntity;
 

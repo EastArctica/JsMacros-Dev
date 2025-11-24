@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.lwjgl.glfw.GLFW;
 
@@ -19,10 +19,10 @@ import java.util.function.Consumer;
  * @since 1.8.4
  */
 public class Slider extends AbstractWidget {
-    private static final ResourceLocation TEXTURE = ResourceLocation.parse("widget/slider");
-    private static final ResourceLocation HIGHLIGHTED_TEXTURE = ResourceLocation.parse("widget/slider_highlighted");
-    private static final ResourceLocation HANDLE_TEXTURE = ResourceLocation.parse("widget/slider_handle");
-    private static final ResourceLocation HANDLE_HIGHLIGHTED_TEXTURE = ResourceLocation.parse("widget/slider_handle_highlighted");
+    private static final Identifier TEXTURE = Identifier.parse("widget/slider");
+    private static final Identifier HIGHLIGHTED_TEXTURE = Identifier.parse("widget/slider_highlighted");
+    private static final Identifier HANDLE_TEXTURE = Identifier.parse("widget/slider_handle");
+    private static final Identifier HANDLE_HIGHLIGHTED_TEXTURE = Identifier.parse("widget/slider_handle_highlighted");
 
     private int steps;
     private double value;
@@ -81,11 +81,11 @@ public class Slider extends AbstractWidget {
         this.steps = steps - 1;
     }
 
-    private ResourceLocation getTexture() {
+    private Identifier getTexture() {
         return this.isFocused() && !this.isFocused() ? HIGHLIGHTED_TEXTURE : TEXTURE;
     }
 
-    private ResourceLocation getHandleTexture() {
+    private Identifier getHandleTexture() {
         return !this.isHovered && !this.isFocused() ? HANDLE_TEXTURE : HANDLE_HIGHLIGHTED_TEXTURE;
     }
 

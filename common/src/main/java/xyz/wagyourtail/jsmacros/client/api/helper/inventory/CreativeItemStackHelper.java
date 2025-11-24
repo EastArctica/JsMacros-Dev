@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
@@ -90,7 +90,7 @@ public class CreativeItemStackHelper extends ItemStackHelper {
     @DocletReplaceParams("id: CanOmitNamespace<EnchantmentId>, level: int")
     public CreativeItemStackHelper addEnchantment(String id, int level) {
         return addEnchantment(mc.getConnection().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-                .get(ResourceLocation.parse(id)).orElseThrow(), level);
+                .get(Identifier.parse(id)).orElseThrow(), level);
     }
 
     /**
@@ -134,7 +134,7 @@ public class CreativeItemStackHelper extends ItemStackHelper {
     public CreativeItemStackHelper removeEnchantment(String id) {
         ItemEnchantments enchantments = base.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
         ItemEnchantments.Mutable builder = new ItemEnchantments.Mutable(enchantments);
-        builder.removeIf((e) -> e.is(ResourceLocation.parse(id)));
+        builder.removeIf((e) -> e.is(Identifier.parse(id)));
 
         return this;
     }

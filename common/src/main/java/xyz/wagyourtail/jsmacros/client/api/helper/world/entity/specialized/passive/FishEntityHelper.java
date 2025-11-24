@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.MobEntityHelper;
 
 /**

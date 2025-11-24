@@ -21,7 +21,7 @@ import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -605,7 +605,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      */
     @DocletReplaceParams("dimension: CanOmitNamespace<Dimension>, pos: BlockPosHelper")
     public PacketByteBufferHelper writeGlobalPos(String dimension, BlockPosHelper pos) {
-        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dimension));
+        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, Identifier.parse(dimension));
         base.writeGlobalPos(GlobalPos.of(key, pos.getRaw()));
         return this;
     }
@@ -621,7 +621,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      */
     @DocletReplaceParams("dimension: CanOmitNamespace<Dimension>, x: int, y: int, z: int")
     public PacketByteBufferHelper writeGlobalPos(String dimension, int x, int y, int z) {
-        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dimension));
+        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, Identifier.parse(dimension));
         base.writeGlobalPos(GlobalPos.of(key, new BlockPos(x, y, z)));
         return this;
     }
@@ -765,7 +765,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public PacketByteBufferHelper writeIdentifier(String id) {
-        base.writeResourceLocation(RegistryHelper.parseIdentifier(id));
+        base.writeIdentifier(RegistryHelper.parseIdentifier(id));
         return this;
     }
 
@@ -774,7 +774,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public String readIdentifier() {
-        return base.readResourceLocation().toString();
+        return base.readIdentifier().toString();
     }
 
     /**
@@ -783,7 +783,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public PacketByteBufferHelper writeDate(Date date) {
-        base.writeDate(date);
+        base.writeLong(date.getTime());
         return this;
     }
 
@@ -792,7 +792,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public Date readDate() {
-        return base.readDate();
+        return new Date(base.readLong());
     }
 
     /**
@@ -1551,7 +1551,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
 //            }
 //        }
 
-        // TODO: Update this with latest
+        // TODO: Update this with latest (1.21.9 + 1.21.10 + 1.21.11)
         PACKETS.put("WorldBorderWarningTimeChangedS2CPacket", net.minecraft.network.protocol.game.ClientboundSetBorderWarningDelayPacket.class);
         PACKETS.put("SelectMerchantTradeC2SPacket", net.minecraft.network.protocol.game.ServerboundSelectTradePacket.class);
         PACKETS.put("SelectAdvancementTabS2CPacket", net.minecraft.network.protocol.game.ClientboundSelectAdvancementsTabPacket.class);
@@ -1661,7 +1661,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
         PACKETS.put("ProfilelessChatMessageS2CPacket", net.minecraft.network.protocol.game.ClientboundDisguisedChatPacket.class);
         PACKETS.put("PlayerListS2CPacket", net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.class);
         PACKETS.put("EnterCombatS2CPacket", net.minecraft.network.protocol.game.ClientboundPlayerCombatEnterPacket.class);
-        PACKETS.put("OpenHorseScreenS2CPacket", net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket.class);
+//        PACKETS.put("OpenHorseScreenS2CPacket", net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket.class);
         PACKETS.put("CommandExecutionC2SPacket", net.minecraft.network.protocol.game.ServerboundChatCommandPacket.class);
         PACKETS.put("CraftRequestC2SPacket", net.minecraft.network.protocol.game.ServerboundPlaceRecipePacket.class);
         PACKETS.put("HandSwingC2SPacket", net.minecraft.network.protocol.game.ServerboundSwingPacket.class);

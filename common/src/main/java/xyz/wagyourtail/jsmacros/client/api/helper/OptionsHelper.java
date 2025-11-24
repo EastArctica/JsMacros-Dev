@@ -9,7 +9,7 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ParticleStatus;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
@@ -594,7 +594,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          */
         @DocletReplaceReturn("GraphicsMode")
         public String getGraphicsMode() {
-            switch (base.graphicsMode().get()) {
+            switch (base.graphicsPreset().get()) {
                 case FAST:
                     return "fast";
                 case FANCY:
@@ -614,22 +614,22 @@ public class OptionsHelper extends BaseHelper<Options> {
         @DocletReplaceParams("mode: GraphicsMode")
         @DocletDeclareType(name = "GraphicsMode", type = "'fast' | 'fancy' | 'fabulous'")
         public VideoOptionsHelper setGraphicsMode(String mode) {
-            GraphicsStatus newMode;
+            GraphicsPreset newMode;
             switch (mode.toUpperCase(Locale.ROOT)) {
                 case "FAST":
-                    newMode = GraphicsStatus.FAST;
+                    newMode = GraphicsPreset.FAST;
                     break;
                 case "FANCY":
-                    newMode = GraphicsStatus.FANCY;
+                    newMode = GraphicsPreset.FANCY;
                     break;
                 case "FABULOUS":
-                    newMode = GraphicsStatus.FABULOUS;
+                    newMode = GraphicsPreset.FABULOUS;
                     break;
                 default:
-                    newMode = base.graphicsMode().get();
+                    newMode = base.graphicsPreset().get();
                     break;
             }
-            base.graphicsMode().set(newMode);
+            base.graphicsPreset().set(newMode);
             return this;
         }
 
@@ -1588,7 +1588,7 @@ public class OptionsHelper extends BaseHelper<Options> {
             return Arrays.stream(base.keyMappings)
                     .map(KeyMapping::getCategory)
                     .map(KeyMapping.Category::id)
-                    .map(ResourceLocation::toString)
+                    .map(Identifier::toString)
                     .distinct()
                     .collect(Collectors.toList());
         }
@@ -1672,7 +1672,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          */
         @DocletReplaceReturn("ChatVisibility")
         public String getChatVisibility() {
-            String chatVisibilityKey = base.chatVisibility().get().getKey();
+            String chatVisibilityKey = base.chatVisibility().get().name();
             return chatVisibilityKey.substring(chatVisibilityKey.lastIndexOf('.'));
         }
 
@@ -2339,7 +2339,7 @@ public class OptionsHelper extends BaseHelper<Options> {
      */
     @Deprecated
     public int getGraphicsMode() {
-        switch (base.graphicsMode().get()) {
+        switch (base.graphicsPreset().get()) {
             case FABULOUS:
                 return 2;
             case FANCY:
@@ -2359,13 +2359,13 @@ public class OptionsHelper extends BaseHelper<Options> {
     public OptionsHelper setGraphicsMode(int mode) {
         switch (mode) {
             case 2:
-                base.graphicsMode().set(GraphicsStatus.FABULOUS);
+                base.graphicsPreset().set(GraphicsPreset.FABULOUS);
                 return this;
             case 1:
-                base.graphicsMode().set(GraphicsStatus.FANCY);
+                base.graphicsPreset().set(GraphicsPreset.FANCY);
                 return this;
             default:
-                base.graphicsMode().set(GraphicsStatus.FAST);
+                base.graphicsPreset().set(GraphicsPreset.FAST);
                 return this;
         }
     }

@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinClientAdvancementManager;
@@ -86,7 +86,7 @@ public class AdvancementHelper extends BaseHelper<AdvancementNode> {
      * @since 1.8.4
      */
     public String[] getLoot() {
-        return base.advancement().rewards().loot().stream().map(e -> e.location().toString()).toArray(String[]::new);
+        return base.advancement().rewards().loot().stream().map(e -> e.identifier().toString()).toArray(String[]::new);
     }
 
     /**
@@ -100,8 +100,8 @@ public class AdvancementHelper extends BaseHelper<AdvancementNode> {
                 .rewards()
                 .recipes()
                 .stream()
-                .map(ResourceKey::location)
-                .map(ResourceLocation::toString)
+                .map(ResourceKey::identifier)
+                .map(Identifier::toString)
                 .toArray(String[]::new);
     }
 

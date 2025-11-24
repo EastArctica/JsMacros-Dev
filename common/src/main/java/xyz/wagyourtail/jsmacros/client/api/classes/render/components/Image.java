@@ -3,7 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2fStack;
@@ -21,7 +21,7 @@ public class Image implements RenderElement, Alignable<Image> {
 
     private static final Minecraft mc = Minecraft.getInstance();
 
-    private ResourceLocation imageid;
+    private Identifier imageid;
     @Nullable
     public IDraw2D<?> parent;
     public float rotation;

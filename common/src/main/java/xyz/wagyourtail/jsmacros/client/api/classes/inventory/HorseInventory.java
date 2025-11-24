@@ -2,9 +2,9 @@ package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
 import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import xyz.wagyourtail.jsmacros.client.access.IHorseScreen;
+import net.minecraft.world.entity.animal.equine.AbstractChestedHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import xyz.wagyourtail.jsmacros.client.access.IAbstractMountInventoryScreen;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive.AbstractHorseEntityHelper;
 
@@ -23,7 +23,7 @@ public class HorseInventory extends Inventory<HorseInventoryScreen> {
 
     protected HorseInventory(HorseInventoryScreen inventory) {
         super(inventory);
-        this.horse = (AbstractHorse) ((IHorseScreen) inventory).jsmacros_getEntity();
+        this.horse = (AbstractHorse) ((IAbstractMountInventoryScreen) inventory).jsmacros_getEntity();
     }
 
     /**

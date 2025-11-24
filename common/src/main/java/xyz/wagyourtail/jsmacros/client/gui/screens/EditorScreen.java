@@ -17,7 +17,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.ChatFormatting;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.locale.Language;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -59,7 +59,7 @@ public class EditorScreen extends BaseScreen {
             "kotlin",
             "none"
     );
-    public static FontDescription.Resource defaultFontResource = new FontDescription.Resource(ResourceLocation.fromNamespaceAndPath("jsmacros", "ubuntumono"));
+    public static FontDescription.Resource defaultFontResource = new FontDescription.Resource(Identifier.fromNamespaceAndPath("jsmacros", "ubuntumono"));
     public static Style defaultStyle = Style.EMPTY.withFont(defaultFontResource);
     protected final File file;
     protected final FileHandler handler;
@@ -99,7 +99,7 @@ public class EditorScreen extends BaseScreen {
         savedString = content;
 
         this.handler = handler;
-        defaultFontResource = new FontDescription.Resource((ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont)));
+        defaultFontResource = new FontDescription.Resource((Identifier.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont)));
         defaultStyle = Style.EMPTY.withFont(defaultFontResource);
 
         cursor = new SelectCursor(defaultStyle);
@@ -845,7 +845,7 @@ public class EditorScreen extends BaseScreen {
 
     @Override
     public void updateSettings() {
-        defaultFontResource = new FontDescription.Resource((ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont)));
+        defaultFontResource = new FontDescription.Resource((Identifier.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont)));
         defaultStyle = Style.EMPTY.withFont(defaultFontResource);
         cursor.defaultStyle = defaultStyle;
         cursor.updateStartIndex(cursor.startIndex, history.current);

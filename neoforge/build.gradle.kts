@@ -46,7 +46,7 @@ loom {
 
 }
 
-version = "2.1.0"
+version = "2.1.1"
 group = "xyz.wagyourtail"
 
 // NeoForge dependencies
@@ -275,7 +275,7 @@ tasks.jar {
 
 tasks.remapJar {
     archiveClassifier.set("neoforge")
-    archiveBaseName.set("jsmacros-1.21.10")
+    archiveBaseName.set("jsmacros-1.21.11-beta.2")
 }
 
 tasks.processResources {

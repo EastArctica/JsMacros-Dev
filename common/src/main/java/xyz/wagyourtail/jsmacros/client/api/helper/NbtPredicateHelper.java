@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper;
 
-import net.minecraft.advancements.critereon.NbtPredicate;
+import net.minecraft.advancements.criterion.NbtPredicate;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;

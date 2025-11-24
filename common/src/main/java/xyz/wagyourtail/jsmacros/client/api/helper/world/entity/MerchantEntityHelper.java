@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity;
 
-import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.item.trading.MerchantOffer;
 import xyz.wagyourtail.jsmacros.client.access.IMerchantEntity;
 

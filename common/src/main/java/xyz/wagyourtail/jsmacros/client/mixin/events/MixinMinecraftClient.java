@@ -22,6 +22,7 @@ import xyz.wagyourtail.jsmacros.client.api.event.impl.inventory.EventOpenContain
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventOpenScreen;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.EventDimensionChange;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.EventDisconnect;
+import xyz.wagyourtail.jsmacros.client.gui.screens.KeyMacrosScreen;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinDisconnectedScreen;
 
 @Mixin(Minecraft.class)
@@ -44,7 +45,7 @@ public abstract class MixinMinecraftClient {
     @Inject(at = @At("HEAD"), method = "setLevel")
     public void onJoinWorld(ClientLevel world, CallbackInfo ci) {
         if (world != null) {
-            new EventDimensionChange(world.dimension().location().toString()).trigger();
+            new EventDimensionChange(world.dimension().identifier().toString()).trigger();
         }
     }
 
@@ -52,11 +53,15 @@ public abstract class MixinMinecraftClient {
     private Screen jsmacros$prevScreen;
 
     @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;screen:Lnet/minecraft/client/gui/screens/Screen;", opcode = Opcodes.PUTFIELD), method = "setScreen")
-    public void onOpenScreen(Screen screen, CallbackInfo info) {
-        if (screen != screen) {
+    public void onOpenScreen(Screen newScreen, CallbackInfo info) {
+        if (jsmacros$prevScreen == null) {
+            jsmacros$prevScreen = new KeyMacrosScreen(null);
+        }
+
+        if (newScreen != screen) {
             assert gameMode != null;
             jsmacros$prevScreen = screen;
-            new EventOpenScreen(screen).trigger();
+            new EventOpenScreen(newScreen).trigger();
         }
     }
 

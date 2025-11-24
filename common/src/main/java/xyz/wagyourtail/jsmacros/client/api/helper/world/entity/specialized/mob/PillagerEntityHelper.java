@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.entity.monster.illager.Pillager;
 import net.minecraft.world.item.Items;
 
 /**

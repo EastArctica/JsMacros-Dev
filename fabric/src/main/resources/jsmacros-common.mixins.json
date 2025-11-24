@@ -30,7 +30,7 @@
     "access.MixinFoxEntity",
     "access.MixinHandledScreen",
     "access.MixinHorseEntity",
-    "access.MixinHorseScreen",
+    "access.MixinAbstractMountInventoryScreen",
     "access.MixinInGameHud",
     "access.MixinInteractionEntity",
     "access.MixinInteractionEntity2",

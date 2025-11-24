@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.decoration;
 
-import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.painting.Painting;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
@@ -39,7 +39,7 @@ public class PaintingEntityHelper extends EntityHelper<Painting> {
     @Nullable
     @DocletReplaceReturn("PaintingId")
     public String getIdentifier() {
-        return base.getVariant().unwrapKey().map(paintingVariantRegistryKey -> paintingVariantRegistryKey.location().toString()).orElse(null);
+        return base.getVariant().unwrapKey().map(paintingVariantRegistryKey -> paintingVariantRegistryKey.identifier().toString()).orElse(null);
     }
 
 }

@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.render.state.GuiRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.profiling.Profiler;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -90,7 +90,7 @@ public class ForgeEvents {
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent ev) {
         // TODO: This used to be DEBUG_OVERLAY in 1.21.8, removed in 1.21.9 or 1.21.10.
         //  How did this get handled on the fabric side?
-        ev.registerBelow(VanillaGuiLayers.AFTER_CAMERA_DECORATIONS, ResourceLocation.parse("jsmacros:hud"), ForgeEvents::renderHudListener);
+        ev.registerBelow(VanillaGuiLayers.AFTER_CAMERA_DECORATIONS, Identifier.parse("jsmacros:hud"), ForgeEvents::renderHudListener);
     }
 
     public static void renderWorldListener(RenderLevelStageEvent.AfterLevel e) {

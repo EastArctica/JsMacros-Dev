@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.projectile;
 
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 
 /**

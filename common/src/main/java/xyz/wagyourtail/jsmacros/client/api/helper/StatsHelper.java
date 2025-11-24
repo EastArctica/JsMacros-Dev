@@ -11,7 +11,7 @@ import net.minecraft.stats.StatType;
 import net.minecraft.stats.Stats;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.jsmacros.client.api.classes.RegistryHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinStatHandler;
@@ -182,7 +182,7 @@ public class StatsHelper extends BaseHelper<StatsCounter> {
      * @since 1.8.4
      */
     public String getCustomFormattedStat(String id) {
-        Stat<ResourceLocation> stat = Stats.CUSTOM.get(RegistryHelper.parseIdentifier(id));
+        Stat<Identifier> stat = Stats.CUSTOM.get(RegistryHelper.parseIdentifier(id));
         return stat.format(base.getValue(stat));
     }
 

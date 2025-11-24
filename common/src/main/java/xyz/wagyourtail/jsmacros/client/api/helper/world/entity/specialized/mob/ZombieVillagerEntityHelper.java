@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
-import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.monster.zombie.ZombieVillager;
 
 /**
  * @author Etheradon

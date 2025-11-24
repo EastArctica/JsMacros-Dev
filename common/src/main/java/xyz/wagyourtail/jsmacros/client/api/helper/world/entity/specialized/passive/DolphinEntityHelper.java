@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
-import net.minecraft.world.entity.animal.Dolphin;
+import net.minecraft.world.entity.animal.dolphin.Dolphin;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.MobEntityHelper;
 

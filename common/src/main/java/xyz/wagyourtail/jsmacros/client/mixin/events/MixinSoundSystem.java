@@ -14,7 +14,7 @@ public class MixinSoundSystem {
     public void onPlay(SoundInstance instance, CallbackInfoReturnable<SoundEngine.PlayResult> info) {
         String id = null;
         try {
-            id = instance.getLocation().toString();
+            id = instance.getIdentifier().toString();
         } catch (NullPointerException ignored) {
         }
         float volume = 1.0F;

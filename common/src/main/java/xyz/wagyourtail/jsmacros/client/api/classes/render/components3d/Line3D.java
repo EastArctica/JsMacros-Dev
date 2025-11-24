@@ -2,9 +2,9 @@ package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
 import com.mojang.blaze3d.platform.DepthTestFunction;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;
@@ -108,7 +108,7 @@ public class Line3D implements RenderElement3D<Line3D> {
     @DocletIgnore
     public void render(PoseStack matrixStack, MultiBufferSource consumers, float tickDelta) {
         boolean seeThrough = !this.cull;
-        var consumer = consumers.getBuffer(RenderType.lines());
+        var consumer = consumers.getBuffer(RenderTypes.lines());
 
         try {
             if (seeThrough) {

@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
-import net.minecraft.world.entity.animal.Rabbit;
+
+import net.minecraft.world.entity.animal.rabbit.Rabbit;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 
 /**

@@ -9,7 +9,8 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.level.Level;
 
 import java.util.Collection;
@@ -27,7 +28,8 @@ public class FakeServerCommandSource extends CommandSourceStack {
     private final ClientSuggestionProvider source;
 
     public FakeServerCommandSource(ClientSuggestionProvider source, LocalPlayer player) {
-        super(null, player.position(), player.getRotationVector(), null, 100, player.getName().getString(), player.getDisplayName(), null, player);
+        // TODO: (1.21.11) These are specified as NotNull, will this fail?
+        super(null, player.position(), player.getRotationVector(), null, PermissionSet.ALL_PERMISSIONS, player.getName().getString(), player.getDisplayName(), null, player);
         this.source = source;
     }
 
@@ -52,7 +54,7 @@ public class FakeServerCommandSource extends CommandSourceStack {
     }
 
     @Override
-    public Stream<ResourceLocation> getAvailableSounds() {
+    public Stream<Identifier> getAvailableSounds() {
         return source.getAvailableSounds();
     }
 

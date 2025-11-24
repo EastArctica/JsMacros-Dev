@@ -695,7 +695,7 @@ public class Draw3D implements Registrable<Draw3D> {
     @DocletIgnore
     public void render(PoseStack poseStack, MultiBufferSource consumers, float tickDelta) {
         Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-        Vec3 cameraPos = camera.getPosition();
+        Vec3 cameraPos = camera.position();
 
         poseStack.pushPose();
         poseStack.translate(-cameraPos.x(), -cameraPos.y(), -cameraPos.z());

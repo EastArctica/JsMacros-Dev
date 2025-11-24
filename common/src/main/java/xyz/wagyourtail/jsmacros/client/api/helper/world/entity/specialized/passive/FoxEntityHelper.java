@@ -2,7 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.pass
 
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
