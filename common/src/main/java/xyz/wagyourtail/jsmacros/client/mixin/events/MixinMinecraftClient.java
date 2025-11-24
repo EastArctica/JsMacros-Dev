@@ -53,11 +53,11 @@ public abstract class MixinMinecraftClient {
     private Screen jsmacros$prevScreen;
 
     @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;screen:Lnet/minecraft/client/gui/screens/Screen;", opcode = Opcodes.PUTFIELD), method = "setScreen")
-    public void onOpenScreen(Screen screen, CallbackInfo info) {
-        if (screen != screen) {
+    public void onOpenScreen(Screen newScreen, CallbackInfo info) {
+        if (newScreen != screen) {
             assert gameMode != null;
             jsmacros$prevScreen = screen;
-            new EventOpenScreen(screen).trigger();
+            new EventOpenScreen(newScreen).trigger();
         }
     }
 
