@@ -19,6 +19,10 @@ architectury {
     neoForge()
 }
 
+base {
+    archivesName.set("jsmacros")
+}
+
 val embeddedDependencyPrefixes = listOf(
     "joor",
     "javassist",
@@ -222,4 +226,8 @@ tasks.processResources {
         exclude("jsmacros.accesswidener")
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
+}
+
+tasks.named<net.fabricmc.loom.task.RemapJarTask>("remapJar") {
+    archiveClassifier.set("neoforge")
 }

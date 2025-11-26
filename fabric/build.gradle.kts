@@ -11,6 +11,10 @@ architectury {
     fabric()
 }
 
+base {
+    archivesName.set("jsmacros")
+}
+
 loom {
     accessWidenerPath.set(project(":common").file("src/main/resources/jsmacros.accesswidener"))
 
