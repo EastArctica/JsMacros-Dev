@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.jb.annotations)
 
     annotationProcessor("org.spongepowered:mixin:0.8.7:processor")
+    annotationProcessor(libs.mixin.extra)
 }
 
 java {

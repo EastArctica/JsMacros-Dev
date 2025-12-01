@@ -13,7 +13,7 @@ architectury = "3.4-SNAPSHOT"
 loom = "1.13-SNAPSHOT"
 
 mixin = "0.8.7"
-mixin_extra = "0.3.2"
+mixin_extra = "0.5.0"
 
 asm = "9.8"
 prism4j = "2.0.0"
