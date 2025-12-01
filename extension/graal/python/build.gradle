@@ -1,0 +1,38 @@
+plugins {
+    id 'java-library'
+}
+
+base {
+    archivesName = "${mod_id}-graal-python"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Depends on graal module
+    implementation project(':extension:graal')
+    implementation project(':extension')
+    implementation project(':common')
+    
+    // Graal Python specific dependencies
+    implementation group: 'org.graalvm.polyglot', name: 'python', version: '24.0.1'
+    implementation group: 'org.graalvm.polyglot', name: 'llvm', version: '24.0.1'
+    
+    // Test dependencies
+    testImplementation project(':extension')
+    testImplementation project(':extension').sourceSets.test.output
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'
+    testImplementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}

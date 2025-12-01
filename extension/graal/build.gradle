@@ -1,0 +1,44 @@
+plugins {
+    id 'java-library'
+}
+
+base {
+    archivesName = "${mod_id}-graal"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Depends on extension module
+    implementation project(':extension')
+    implementation project(':common')
+    
+    // Graal core dependencies
+    implementation group: 'org.graalvm.sdk', name: 'graal-sdk', version: '24.0.1'
+    implementation group: 'org.graalvm.truffle', name: 'truffle-api', version: '24.0.1'
+    implementation group: 'org.graalvm.regex', name: 'regex', version: '24.0.1'
+    implementation group: 'org.graalvm.polyglot', name: 'js', version: '24.0.1'
+    
+    // Common library dependencies
+    implementation group: 'com.google.guava', name: 'guava', version: '33.4.8-jre'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.13.1'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.16'
+    implementation group: 'it.unimi.dsi', name: 'fastutil', version: '8.5.15'
+    
+    // Test dependencies
+    testImplementation project(':extension')
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'
+    testImplementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}

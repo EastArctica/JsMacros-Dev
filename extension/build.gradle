@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+}
+
+base {
+    archivesName = "${mod_id}-extension"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Extension depends on common module for core APIs
+    implementation project(':common')
+    
+    // Test dependencies
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'
+    testImplementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
