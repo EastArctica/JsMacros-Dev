@@ -3,6 +3,14 @@ plugins {
     id 'fabric-loom'
 }
 
+// Configuration for embedding extension jars
+configurations {
+    extensionJars {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
@@ -20,6 +28,32 @@ dependencies {
     implementation group: 'org.jooq', name: 'joor', version: '0.9.15'
     implementation group: 'com.neovisionaries', name: 'nv-websocket-client', version: '2.14'
     implementation group: 'org.javassist', name: 'javassist', version: '3.30.2-GA'
+    
+    // Extension jars to embed
+    extensionJars project(path: ':extension:graal', configuration: 'archives')
+    extensionJars project(path: ':extension:graal:js', configuration: 'archives')
+}
+
+// Collect extension jar names for dependencies property
+def getExtensionJarPaths() {
+    return configurations.extensionJars.files.collect { file ->
+        "\"META-INF/jsmacrosdeps/${file.name}\""
+    }.join(', ')
+}
+
+processResources {
+    // Add dependencies expansion for jsmacros.extension.json
+    filesMatching('jsmacros.extension.json') {
+        expand 'dependencies': getExtensionJarPaths()
+    }
+}
+
+// Embed extension jars into the final jar
+jar {
+    dependsOn configurations.extensionJars
+    from(configurations.extensionJars) {
+        into 'META-INF/jsmacrosdeps'
+    }
 }
 
 loom {
