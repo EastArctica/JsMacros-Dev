@@ -15,6 +15,14 @@ repositories {
     mavenCentral()
 }
 
+// Configuration for runtime dependencies to embed in the extension jar
+configurations {
+    embedDeps {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
 dependencies {
     // Depends on graal module
     implementation project(':extension:graal')
@@ -25,6 +33,13 @@ dependencies {
     implementation group: 'org.graalvm.polyglot', name: 'python', version: '24.0.1'
     implementation group: 'org.graalvm.polyglot', name: 'llvm', version: '24.0.1'
     
+    // Embed GraalPython dependencies
+    embedDeps group: 'org.graalvm.polyglot', name: 'python-community', version: '24.0.1'
+    embedDeps group: 'org.graalvm.python', name: 'python-language', version: '24.0.1'
+    embedDeps group: 'org.graalvm.python', name: 'python-resources', version: '24.0.1'
+    embedDeps group: 'org.graalvm.polyglot', name: 'llvm-community', version: '24.0.1'
+    embedDeps group: 'org.graalvm.llvm', name: 'llvm-api', version: '24.0.1'
+    
     // Test dependencies
     testImplementation project(':extension')
     testImplementation project(':extension').sourceSets.test.output
@@ -33,11 +48,25 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
 }
 
+// Collect embedded dependency paths for the json file
+def getEmbeddedDepPaths() {
+    return configurations.embedDeps.files.collect { file ->
+        "\"META-INF/jsmacrosdeps/${file.name}\""
+    }.join(', ')
+}
+
 // Process resources to expand dependencies placeholder
 processResources {
-    // The graal-python extension has no embedded dependencies of its own that need extraction
     filesMatching('jsmacros.ext.graalpy.json') {
-        expand 'dependencies': ''
+        expand 'dependencies': getEmbeddedDepPaths()
+    }
+}
+
+// Embed dependencies into the extension jar
+jar {
+    dependsOn configurations.embedDeps
+    from(configurations.embedDeps) {
+        into 'META-INF/jsmacrosdeps'
     }
 }
 

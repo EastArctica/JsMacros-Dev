@@ -15,6 +15,14 @@ repositories {
     mavenCentral()
 }
 
+// Configuration for runtime dependencies to embed in the extension jar
+configurations {
+    embedDeps {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
 dependencies {
     // Depends on graal module
     implementation project(':extension:graal')
@@ -24,6 +32,15 @@ dependencies {
     // Graal JS specific dependencies
     implementation group: 'org.graalvm.polyglot', name: 'js', version: '24.0.1'
     
+    // Embed GraalJS dependencies
+    embedDeps group: 'org.graalvm.js', name: 'js-community', version: '24.0.1'
+    embedDeps group: 'org.graalvm.truffle', name: 'truffle-enterprise', version: '24.0.1'
+    embedDeps group: 'org.graalvm.js', name: 'js-language', version: '24.0.1'
+    embedDeps group: 'org.graalvm.truffle', name: 'truffle-runtime', version: '24.0.1'
+    embedDeps group: 'org.graalvm.truffle', name: 'truffle-compiler', version: '24.0.1'
+    embedDeps group: 'org.graalvm.nativebridge', name: 'nativebridge', version: '24.0.1'
+    embedDeps group: 'org.graalvm.nativebridge', name: 'jniutils', version: '24.0.1'
+    
     // Test dependencies
     testImplementation project(':extension')
     testImplementation project(':extension').sourceSets.test.output
@@ -32,11 +49,25 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
 }
 
+// Collect embedded dependency paths for the json file
+def getEmbeddedDepPaths() {
+    return configurations.embedDeps.files.collect { file ->
+        "\"META-INF/jsmacrosdeps/${file.name}\""
+    }.join(', ')
+}
+
 // Process resources to expand dependencies placeholder
 processResources {
-    // The graal-js extension has no embedded dependencies of its own that need extraction
     filesMatching('jsmacros.ext.graaljs.json') {
-        expand 'dependencies': ''
+        expand 'dependencies': getEmbeddedDepPaths()
+    }
+}
+
+// Embed dependencies into the extension jar
+jar {
+    dependsOn configurations.embedDeps
+    from(configurations.embedDeps) {
+        into 'META-INF/jsmacrosdeps'
     }
 }
 
