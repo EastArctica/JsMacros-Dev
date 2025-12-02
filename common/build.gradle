@@ -22,6 +22,9 @@ dependencies {
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
     
+    // ASM for bytecode manipulation
+    compileOnly group: 'org.ow2.asm', name: 'asm-tree', version: '9.6'
+    
     // Common library dependencies
     compileOnly group: 'io.noties', name: 'prism4j', version: '2.0.0'
     compileOnly group: 'org.jooq', name: 'joor', version: '0.9.15'
