@@ -38,6 +38,15 @@ repositories {
         )
         filter { includeGroup('org.parchmentmc.data') }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'TerraformersMC'
+                url = 'https://maven.terraformersmc.com/releases/'
+            }
+        }
+        filter { includeGroupAndSubgroups('com.terraformersmc') }
+    }
     maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
