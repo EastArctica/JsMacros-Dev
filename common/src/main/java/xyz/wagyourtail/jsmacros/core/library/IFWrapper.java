@@ -90,7 +90,7 @@ public interface IFWrapper<T> {
      * @throws InterruptedException
      * @since 1.8.0
      */
-    default int getCurrentPriority() {
+    default int getCurrentPriority() throws InterruptedException {
         throw new AssertionError("getCurrentPriority() is not implemented for this language");
     }
 
