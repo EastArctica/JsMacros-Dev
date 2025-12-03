@@ -23,11 +23,11 @@ dependencies {
     // ModMenu integration
     modImplementation "com.terraformersmc:modmenu:15.0.0"
     
-    // Common library dependencies (included via shadow or implementation)
-    implementation group: 'io.noties', name: 'prism4j', version: '2.0.0'
-    implementation group: 'org.jooq', name: 'joor', version: '0.9.15'
-    implementation group: 'com.neovisionaries', name: 'nv-websocket-client', version: '2.14'
-    implementation group: 'org.javassist', name: 'javassist', version: '3.30.2-GA'
+    // Common library dependencies - include for bundling in jar
+    implementation include(group: 'io.noties', name: 'prism4j', version: '2.0.0')
+    implementation include(group: 'org.jooq', name: 'joor', version: '0.9.15')
+    implementation include(group: 'com.neovisionaries', name: 'nv-websocket-client', version: '2.14')
+    implementation include(group: 'org.javassist', name: 'javassist', version: '3.30.2-GA')
     
     // Extension jars to embed
     extensionJars project(path: ':extension:graal', configuration: 'archives')
