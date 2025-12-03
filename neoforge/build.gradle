@@ -67,18 +67,16 @@ def getExtensionJarPaths() {
     }.join(', ')
 }
 
-processResources {
-    // Add dependencies expansion for jsmacros.extension.json
-    filesMatching('jsmacros.extension.json') {
-        expand 'dependencies': getExtensionJarPaths()
-    }
-}
-
-// Embed extension jars into the final jar
-jar {
+tasks.processResources {
+    // Embed extension jars into the final jar
     dependsOn configurations.extensionJars
     from(configurations.extensionJars) {
         into 'META-INF/jsmacrosdeps'
+    }
+
+    // Add dependencies expansion for jsmacros.extension.json
+    filesMatching('jsmacros.extension.json') {
+        expand 'dependencies': getExtensionJarPaths()
     }
 }
 
