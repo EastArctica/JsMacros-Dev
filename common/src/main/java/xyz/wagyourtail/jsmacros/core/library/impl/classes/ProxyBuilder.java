@@ -108,11 +108,11 @@ public class ProxyBuilder<T> {
      * @param constructorSig  string signature (you can skip the &lt;init&gt; part)
      * @param constructorArgs args for the super constructor
      * @return new instance of the constructor
-     * @throws InvocationTargetException
      * @throws NoSuchMethodException
+     * @throws IllegalArgumentException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws ClassNotFoundException
+     * @throws InvocationTargetException
      * @since 1.6.0
      */
     public T buildInstance(Class<?>[] constructorSig, Object[] constructorArgs) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
