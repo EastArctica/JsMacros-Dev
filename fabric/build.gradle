@@ -21,7 +21,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     
     // ModMenu integration
-    modImplementation "com.terraformersmc:modmenu:15.0.0"
+    modImplementation "com.terraformersmc:modmenu:16.0.0-rc.1"
     
     // Common library dependencies - include for bundling in jar
     implementation include(group: 'io.noties', name: 'prism4j', version: '2.0.0')
