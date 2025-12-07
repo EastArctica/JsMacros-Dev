@@ -10,6 +10,7 @@
     "access.MixinMouse",
     "access.MixinWorldRenderer"
   ],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   }
