@@ -28,10 +28,6 @@ import java.util.stream.Collectors;
 public class ForgeEvents {
     private static final Minecraft client = Minecraft.getInstance();
 
-    private static GuiGraphics createGuiGraphics() {
-        return new GuiGraphics(client, new GuiRenderState());
-    }
-
     public static void init() {
         NeoForge.EVENT_BUS.addListener(ForgeEvents::renderWorldListener);
         NeoForge.EVENT_BUS.addListener(ForgeEvents::onTick);
