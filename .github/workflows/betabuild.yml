@@ -17,23 +17,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - uses: actions/github-script@v7
-        id: fname
+      - name: Stamp beta version
+        uses: actions/github-script@v7
         with:
-          result-encoding: string
           script: |
             const fs = require("fs");
-            let file = fs.readFileSync("./gradle.properties");
-            file = file.toString().split("\n").map(e => e.trim().startsWith("mod_version") ? `${e}-beta-${process.env.GITHUB_SHA.substring(0, 7)}` : e).join("\n");
-            fs.writeFileSync("./gradle.properties", file);
-            const mod_version = file.toString().split("\n").filter(e => e.trim().startsWith("mod_version"))[0].split("=")[1].trim();
-            const archives_base_name = file.toString().split("\n").filter(e => e.trim().startsWith("archives_base_name"))[0].split("=")[1].trim();
-            return `${archives_base_name}-${mod_version}`;
-
-      - name: Zip source code
-        run: |
-          mkdir -p dist
-          zip -r "./dist/${{ steps.fname.outputs.result }}-source.zip" .
+            const path = "./gradle.properties";
+            let file = fs.readFileSync(path).toString();
+            const lines = file.split("\n").map(line => {
+              if (line.trim().startsWith("version=")) {
+                return `${line}-beta-${process.env.GITHUB_SHA.substring(0, 7)}`;
+              }
+              return line;
+            });
+            fs.writeFileSync(path, lines.join("\n"));
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -44,18 +41,21 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+
       - name: Run build with Gradle wrapper
         run: |
           chmod +x gradlew
           ./gradlew createDist --info --stacktrace
 
+      - name: Compute artifact name
+        id: artifact_name
+        shell: bash
+        run: |
+          echo "value=$(./gradlew -q printArtifactName)" >> "$GITHUB_OUTPUT"
+
       - name: Bundle mods, documentation and source code
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.fname.outputs.result }}
+          name: ${{ steps.artifact_name.outputs.value }}
           path: |
             ./dist/**/*
-            !./dist/*-sources.jar
-            !./dist/*-dev.jar
-            !./dist/*-dev-shadow.jar
-            !./dist/*-dev-shadow-js.jar

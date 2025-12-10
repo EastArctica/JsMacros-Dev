@@ -186,7 +186,7 @@ public class TextInput extends Button {
         if (selEndIndex < selStartIndex) {
             swapStartEnd();
         }
-        String newContent = content.substring(0, selStartIndex) + characterEvent.codepoint() + content.substring(selEndIndex);
+        String newContent = content.substring(0, selStartIndex) + characterEvent.codepointAsString() + content.substring(selEndIndex);
         if (newContent.matches(mask)) {
             content = newContent;
             if (onChange != null) {

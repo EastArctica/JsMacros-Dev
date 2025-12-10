@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import com.google.common.reflect.ClassPath;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -345,7 +346,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public <K, V> Map<K, V> readMap(MethodWrapper<FriendlyByteBuf, ?, K, ?> keyReader, MethodWrapper<FriendlyByteBuf, ?, V, ?> valueReader) {
-        return base.readMap(keyReader::apply, valueReader::apply);
+        return base.readMap(Maps::newHashMapWithExpectedSize, keyReader::apply, valueReader::apply);
     }
 
     /**

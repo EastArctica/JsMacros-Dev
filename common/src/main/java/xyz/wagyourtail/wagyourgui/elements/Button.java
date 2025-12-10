@@ -105,17 +105,18 @@ public class Button extends AbstractButton {
         }
     }
 
+    // This method is overridden to prevent mouseDown from triggering onPress
+    // if onPress is triggered on mouseDown, the keybind editor will detect the mouseUp
+    // as the target key.
     @Override
     public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
-        if (this.isActive()) {
-            super.onClick(buttonEvent, debounce);
-        }
+        // Do nothing
     }
 
     @Override
     public void onRelease(MouseButtonEvent buttonEvent) {
         if (this.isActive()) {
-            super.onRelease(buttonEvent);
+            super.onClick(buttonEvent, true);
         }
     }
 

@@ -1,0 +1,169 @@
+import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.SourceSetContainer
+import org.gradle.api.tasks.bundling.Zip
+import org.gradle.api.tasks.javadoc.Javadoc
+import org.gradle.external.javadoc.CoreJavadocOptions
+import org.gradle.external.javadoc.StandardJavadocDocletOptions
+
+plugins {
+    // see https://fabricmc.net/develop/ for new versions
+    id 'fabric-loom' version '1.13-SNAPSHOT' apply false
+    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
+    id 'net.neoforged.moddev' version '2.0.122' apply false
+}
+
+def documentationProjects = [project(':common'), project(':extension')]
+def docletJarFile = layout.projectDirectory.file('buildSrc/build/libs/buildSrc.jar').asFile
+def docsBuildDir = layout.buildDirectory.dir('docs').get().asFile
+def distDir = layout.projectDirectory.dir('dist')
+def distDirFile = distDir.asFile
+def modIdProvider = providers.gradleProperty('mod_id')
+def artifactBaseName = modIdProvider.map { "${it}-${version}" }
+
+gradle.projectsEvaluated {
+    def mainSourceSets = documentationProjects.collect {
+        it.extensions.getByType(SourceSetContainer).named('main').get()
+    }
+    def documentationSources = files(mainSourceSets.collect { it.allJava })
+    def documentationClasspath = files(mainSourceSets.collect { it.compileClasspath })
+
+    tasks.register('generatePyDoc', Javadoc) {
+        group = 'documentation'
+        description = 'Generates the python documentation for the project'
+        source(documentationSources)
+        classpath = documentationClasspath
+        destinationDir = new File(docsBuildDir, 'python/JsMacrosAC')
+        options.doclet = 'xyz.wagyourtail.doclet.pydoclet.Main'
+        options.docletpath = files(docletJarFile)
+        (options as CoreJavadocOptions).addStringOption('v', project.version.toString())
+    }
+
+    tasks.register('copyPyDoc', Copy) {
+        group = 'documentation'
+        description = 'Copies the python documentation to the build folder'
+        dependsOn('generatePyDoc')
+        from(rootProject.file('docs/python'))
+        into(new File(docsBuildDir, 'python'))
+    }
+
+    tasks.register('generateTSDoc', Javadoc) {
+        group = 'documentation'
+        description = 'Generates the typescript documentation for the project'
+        source(documentationSources)
+        classpath = documentationClasspath
+        destinationDir = new File(docsBuildDir, 'typescript/headers')
+        options.doclet = 'xyz.wagyourtail.doclet.tsdoclet.Main'
+        options.docletpath = files(docletJarFile)
+        (options as CoreJavadocOptions).addStringOption('v', project.version.toString())
+    }
+
+    tasks.register('copyTSDoc', Copy) {
+        group = 'documentation'
+        description = 'Copies the typescript files to the build folder'
+        dependsOn('generateTSDoc')
+        from(rootProject.file('docs/typescript'))
+        into(new File(docsBuildDir, 'typescript'))
+    }
+
+    tasks.register('generateWebDoc', Javadoc) {
+        group = 'documentation'
+        description = 'Generates the web documentation for the project'
+        source(documentationSources)
+        classpath = documentationClasspath
+        destinationDir = new File(docsBuildDir, 'web')
+        options.doclet = 'xyz.wagyourtail.doclet.webdoclet.Main'
+        options.docletpath = files(docletJarFile)
+        (options as CoreJavadocOptions).addStringOption('v', project.version.toString())
+        (options as CoreJavadocOptions).addStringOption('mcv', providers.gradleProperty('minecraft_version').get())
+        (options as StandardJavadocDocletOptions).links(
+                'https://docs.oracle.com/javase/8/docs/api/',
+                'https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/',
+                'https://javadoc.io/doc/com.neovisionaries/nv-websocket-client/latest/'
+        )
+    }
+
+    tasks.register('copyWebDoc', Copy) {
+        group = 'documentation'
+        description = 'Copies the web documentation to the build folder'
+        dependsOn('generateWebDoc')
+        from(rootProject.file('docs/web'))
+        into(new File(docsBuildDir, 'web'))
+        inputs.property('version', project.version.toString())
+        filesMatching('index.html') {
+            expand(version: project.version.toString())
+        }
+    }
+
+    tasks.register('createDistDocs', Copy) {
+        group = 'distribution'
+        description = 'Packages generated documentation into the dist directory'
+        dependsOn('prepareDist', 'copyPyDoc', 'copyTSDoc', 'copyWebDoc')
+        from(docsBuildDir)
+        into(distDirFile)
+    }
+
+    tasks.register('createDistMods', Copy) {
+        group = 'distribution'
+        description = 'Packages loader specific jars into the dist directory'
+        dependsOn('prepareDist', ':fabric:build', ':neoforge:build')
+        into(distDirFile)
+        from('fabric/build/libs') {
+            include '*.jar'
+            exclude '*-sources.jar', '*-dev.jar', '*-javadoc.jar', '*-shadow*.jar'
+        }
+        from('neoforge/build/libs') {
+            include '*.jar'
+            exclude '*-sources.jar', '*-dev.jar', '*-javadoc.jar', '*-shadow*.jar'
+        }
+    }
+
+    tasks.register('createDistExtensions', Copy) {
+        group = 'distribution'
+        description = 'Packages standalone extensions into the dist directory'
+        dependsOn(
+                'prepareDist',
+                ':extension:jar',
+                ':extension:graal:jar',
+                ':extension:graal:python:jar'
+        )
+        into(new File(distDirFile, 'extensions'))
+        from('extension/build/libs') { include '*.jar' }
+        from('extension/graal/build/libs') { include '*.jar' }
+        from('extension/graal/python/build/libs') { include '*.jar' }
+    }
+
+    tasks.register('packageSourceZip', Zip) {
+        group = 'distribution'
+        description = 'Creates a source archive matching the distribution version'
+        dependsOn('prepareDist')
+        destinationDirectory.set(distDir)
+        archiveFileName.set(artifactBaseName.map { "${it}-source.zip" })
+        from(projectDir) {
+            include '**/*'
+            exclude '.git/**', '.gradle/**', '**/.gradle/**', 'build/**', '**/build/**', 'dist/**'
+        }
+    }
+
+    tasks.register('createDist') {
+        group = 'distribution'
+        description = 'Assembles documentation, mods, extensions, and sources into dist/'
+        dependsOn('createDistDocs', 'createDistMods', 'createDistExtensions', 'packageSourceZip')
+    }
+}
+
+tasks.register('prepareDist') {
+    group = 'distribution'
+    description = 'Cleans and recreates the dist directory'
+    doLast {
+        project.delete(distDirFile)
+        distDirFile.mkdirs()
+    }
+}
+
+tasks.register('printArtifactName') {
+    group = 'distribution'
+    description = 'Prints the canonical artifact name for CI workflows'
+    doLast {
+        println artifactBaseName.get()
+    }
+}

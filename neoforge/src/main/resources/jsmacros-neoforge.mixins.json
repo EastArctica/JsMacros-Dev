@@ -1,10 +1,10 @@
 {
   "required": true,
   "package": "xyz.wagyourtail.jsmacros.forge.client.mixins",
-  "mixins": [
-  ],
-  "client": [
-  ],
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "jsmacros-neoforge.refmap.json",
+  "client": [],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   }

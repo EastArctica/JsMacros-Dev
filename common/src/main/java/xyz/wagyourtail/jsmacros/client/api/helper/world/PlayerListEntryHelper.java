@@ -106,7 +106,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
     }
 
     /**
-     * @return The url to the skin texture in this format: `http://textures.minecraft.net/texture/<hash>` or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
+     * @return The url to the skin texture in this format: {@code http://textures.minecraft.net/texture/<hash>} or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
      * @since 1.9.0
      */
     @Nullable
@@ -124,7 +124,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
     }
 
     /**
-     * @return The url to the cape texture in this format: `http://textures.minecraft.net/texture/<hash>` or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
+     * @return The url to the cape texture in this format: {@code http://textures.minecraft.net/texture/<hash>} or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
      * @since 2.1.0
      */
     @Nullable
@@ -143,7 +143,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerInfo> {
 
 
     /**
-     * @return The url to the cape texture in this format: `http://textures.minecraft.net/texture/<hash>` or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
+     * @return The url to the cape texture in this format: {@code http://textures.minecraft.net/texture/<hash>} or {@code null} if the entry does not have a ClientAsset.DownloadedTexture
      * @since 2.1.0
      */
     @Nullable

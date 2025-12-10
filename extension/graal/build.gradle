@@ -1,0 +1,84 @@
+plugins {
+    id 'java-library'
+}
+
+base {
+    archivesName = "${mod_id}-graal"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Configuration for runtime dependencies to embed in the extension jar
+configurations {
+    embedDeps {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    // Depends on extension module
+    implementation project(':extension')
+    implementation project(':common')
+    
+    // Graal core dependencies - these get embedded
+    api group: 'org.graalvm.sdk', name: 'graal-sdk', version: '24.0.1'
+    implementation group: 'org.graalvm.truffle', name: 'truffle-api', version: '24.0.1'
+    implementation group: 'org.graalvm.regex', name: 'regex', version: '24.0.1'
+    implementation group: 'org.graalvm.polyglot', name: 'polyglot', version: '24.0.1'
+    
+    // Common library dependencies
+    implementation group: 'com.google.guava', name: 'guava', version: '33.4.8-jre'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.13.1'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.16'
+    implementation group: 'it.unimi.dsi', name: 'fastutil', version: '8.5.15'
+    
+    // Embed GraalVM dependencies
+    embedDeps group: 'org.graalvm.sdk', name: 'graal-sdk', version: '24.0.1'
+    embedDeps group: 'org.graalvm.regex', name: 'regex', version: '24.0.1'
+    embedDeps group: 'org.graalvm.truffle', name: 'truffle-api', version: '24.0.1'
+    embedDeps group: 'org.graalvm.polyglot', name: 'polyglot', version: '24.0.1'
+    embedDeps group: 'org.graalvm.sdk', name: 'collections', version: '24.0.1'
+    embedDeps group: 'org.graalvm.sdk', name: 'nativeimage', version: '24.0.1'
+    embedDeps group: 'org.graalvm.sdk', name: 'word', version: '24.0.1'
+    embedDeps group: 'com.ibm.icu', name: 'icu4j', version: '74.2'
+    
+    // Test dependencies
+    testImplementation project(':extension')
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'
+    testImplementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
+}
+
+// Collect embedded dependency paths for the json file
+def getEmbeddedDepPaths() {
+    return configurations.embedDeps.files.collect { file ->
+        "\"META-INF/jsmacrosdeps/${file.name}\""
+    }.join(', ')
+}
+
+// Process resources to expand dependencies placeholder
+processResources {
+    filesMatching('jsmacros.ext.graal.json') {
+        expand 'dependencies': getEmbeddedDepPaths()
+    }
+}
+
+// Embed dependencies into the extension jar
+jar {
+    dependsOn configurations.embedDeps
+    from(configurations.embedDeps) {
+        into 'META-INF/jsmacrosdeps'
+    }
+}
+
+tasks.test {
+    useJUnitPlatform()
+}

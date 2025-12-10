@@ -337,6 +337,36 @@ public class FChat extends BaseLibrary {
     }
 
     /**
+     * Display a toast.
+     *
+     * @param title
+     * @param desc
+     * @param displayTimeMs The amount of time in milliseconds to display the toast
+     * @since 1.2.5
+     */
+    public void toast(Object title, Object desc, long displayTimeMs) {
+        ToastManager t = mc.getToastManager();
+        // TODO: Are scripts run before Minecraft is properly instantiated anyway? Even if not wouldn't the line above
+        //  throw an error because mc is null?
+        if (t == null) {
+            // TODO: Throw?
+            return;
+        }
+
+        Component titleComp = (title instanceof TextHelper) ? ((TextHelper) title).getRaw() : title != null ? Component.literal(title.toString()) : null;
+        Component descComp = (desc instanceof TextHelper) ? ((TextHelper) desc).getRaw() : desc != null ? Component.literal(desc.toString()) : null;
+        // There doesn't seem to be a difference in the appearance or the functionality except for the UNSECURE_SERVER_WARNING with a longer duration
+        if (titleComp != null) {
+            t.addToast(SystemToast.multiline(
+                    mc,
+                    new SystemToast.SystemToastId(displayTimeMs),
+                    titleComp,
+                    descComp
+            ));
+        }
+    }
+
+    /**
      * Creates a {@link TextHelper TextHelper} for use where you need one and not a string.
      *
      * @param content

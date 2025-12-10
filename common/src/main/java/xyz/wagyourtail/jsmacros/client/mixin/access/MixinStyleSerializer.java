@@ -9,10 +9,11 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = Style.Serializer.class, priority = 1001)
 public class MixinStyleSerializer {
-    // TODO: Currently MixinStyleSerializer.redirectClickGetAction and MixinMinecraftClient.catchEmptyShapeException are
-    //  broken in production. I do not know why this is, but it works in dev (I think).
-    /*
-    @ModifyExpressionValue(method = "method_54215", at = @At(value = "FIELD", target = "Lnet/minecraft/network/chat/Style;clickEvent:Lnet/minecraft/network/chat/ClickEvent;", opcode = Opcodes.GETFIELD))
+
+    @ModifyExpressionValue(
+        method = {"method_54215", "lambda$static$7"},
+        at = @At(value = "FIELD", target = "Lnet/minecraft/network/chat/Style;clickEvent:Lnet/minecraft/network/chat/ClickEvent;", opcode = Opcodes.GETFIELD)
+    )
     private static ClickEvent redirectClickGetAction(ClickEvent original) {
         if (original == null) return null;
         if (original.action() == null) {
@@ -20,5 +21,4 @@ public class MixinStyleSerializer {
         }
         return original;
     }
-    */
 }
