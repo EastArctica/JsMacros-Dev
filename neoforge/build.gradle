@@ -71,10 +71,6 @@ dependencies {
     // Extension jars to embed
     extensionJars project(path: ':extension:graal', configuration: 'archives')
     extensionJars project(path: ':extension:graal:js', configuration: 'archives')
-    
-    // Extension runtime dependencies for dev mode
-    runtimeOnly project(':extension:graal')
-    runtimeOnly project(':extension:graal:js')
 }
 
 // Collect extension jar names for dependencies property
