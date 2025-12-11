@@ -29,10 +29,8 @@ import xyz.wagyourtail.jsmacros.client.access.IScreenInternal;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw2D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IScreen;
-import xyz.wagyourtail.jsmacros.client.api.classes.render.components.*;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
-import xyz.wagyourtail.jsmacros.client.api.helper.screen.*;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 import xyz.wagyourtail.jsmacros.util.TextUtil;
 import xyz.wagyourtail.wagyourgui.elements.Slider;
@@ -92,7 +90,7 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     @Inject(method = "defaultHandleGameClickEvent", at = @At("HEAD"), cancellable = true)
     private static void onHandleTextClick(ClickEvent clickEvent, Minecraft minecraft, Screen screen, CallbackInfo ci) {
         if (clickEvent instanceof CustomClickEvent) {
-            ((CustomClickEvent) clickEvent).getEvent().run();
+            ((CustomClickEvent) clickEvent).event().run();
             ci.cancel();
         }
     }
@@ -1026,6 +1024,16 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
             }
         }
         getDraw2Ds().forEach(e -> e.getDraw2D().init());
+    }
+
+    //TODO: switch to enum extension with mixin 9.0 or whenever Mumfrey gets around to it
+    public void handleCustomClickEvent(Style style, CallbackInfoReturnable<Boolean> cir) {
+        ClickEvent clickEvent = style.getClickEvent();
+        if (clickEvent instanceof CustomClickEvent) {
+            ((CustomClickEvent) clickEvent).event().run();
+            cir.setReturnValue(true);
+            cir.cancel();
+        }
     }
 
     @Override

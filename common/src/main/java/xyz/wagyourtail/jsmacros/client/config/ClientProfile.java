@@ -132,7 +132,7 @@ public class ClientProfile extends BaseProfile {
                     if (loc.file != null) {
                         locationStyle = locationStyle.withHoverEvent(
                                 new HoverEvent.ShowText(Component.translatable("jsmacros.clicktoview"))
-                        ).withClickEvent((ClickEvent) new CustomClickEvent(() -> {
+                        ).withClickEvent(new CustomClickEvent(() -> {
                             if (loc.startIndex > -1) {
                                 EditorScreen.openAndScrollToIndex(loc.file, loc.startIndex, loc.endIndex);
                             } else if (loc.line > -1) {
@@ -140,7 +140,7 @@ public class ClientProfile extends BaseProfile {
                             } else {
                                 EditorScreen.openAndScrollToIndex(loc.file, 0, 0);
                             }
-                        }).toPlatformClickEvent());
+                        }));
                     }
                 }
                 line.append(Component.literal(" (" + head.location + ")").setStyle(locationStyle));
