@@ -3,6 +3,10 @@ plugins {
     id 'fabric-loom'
 }
 
+base {
+    archivesName = "${mod_id}-${minecraft_version}-fabric-${project.version}"
+}
+
 // Configuration for embedding extension jars
 configurations {
     extensionJars {

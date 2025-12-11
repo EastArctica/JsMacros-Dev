@@ -1,16 +1,15 @@
-name: Release Build
+name: Alpha Nightly
 
 on:
+  schedule:
+    - cron: '0 8 * * *'
   workflow_dispatch:
-    inputs:
-      mod_version:
-        description: 'Override base MODVER (optional)'
-        required: false
 
 env:
   JAVA_VERSION: '21'
-  MODRINTH_PROJECT: 2m9WfquA
+  MODRINTH_PROJECT: 3wGWhm8A
   MOD_ID: jsmacros
+  TZ: America/New_York
 
 permissions:
   contents: write
@@ -21,7 +20,7 @@ jobs:
     outputs:
       mod_version: ${{ steps.versions.outputs.mod_version }}
       mc_version: ${{ steps.versions.outputs.mc_version }}
-      gradle_args: ${{ steps.versions.outputs.gradle_args }}
+      alpha_date: ${{ steps.versions.outputs.alpha_date }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,23 +39,20 @@ jobs:
         id: versions
         shell: bash
         run: |
-          ARGS="-Pchannel=release"
-          if [ -n "${{ inputs.mod_version }}" ]; then
-            ARGS="$ARGS -Pmod_version=${{ inputs.mod_version }}"
-          fi
-          MOD_VERSION=$(./gradlew -q printVersion $ARGS)
-          MC_VERSION=$(./gradlew -q printMinecraftVersion $ARGS)
-          echo "gradle_args=$ARGS" >> "$GITHUB_OUTPUT"
+          ALPHA_DATE=$(date +%Y%m%d)
+          MOD_VERSION=$(./gradlew -q printVersion -Pchannel=alpha -Palpha_date=${ALPHA_DATE})
+          MC_VERSION=$(./gradlew -q printMinecraftVersion -Pchannel=alpha -Palpha_date=${ALPHA_DATE})
+          echo "alpha_date=${ALPHA_DATE}" >> "$GITHUB_OUTPUT"
           echo "mod_version=${MOD_VERSION}" >> "$GITHUB_OUTPUT"
           echo "mc_version=${MC_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Build distribution
-        run: ./gradlew createDist ${{ steps.versions.outputs.gradle_args }}
+        run: ./gradlew createDist -Pchannel=alpha -Palpha_date=${{ steps.versions.outputs.alpha_date }}
 
       - name: Upload dist
         uses: actions/upload-artifact@v4
         with:
-          name: release-dist-${{ steps.versions.outputs.mod_version }}
+          name: alpha-dist-${{ steps.versions.outputs.mod_version }}
           path: dist/**/*
 
   publish:
@@ -69,7 +65,7 @@ jobs:
       - name: Download dist
         uses: actions/download-artifact@v4
         with:
-          name: release-dist-${{ needs.build.outputs.mod_version }}
+          name: alpha-dist-${{ needs.build.outputs.mod_version }}
 
       - name: Publish to GitHub and Modrinth
         uses: Kir-Antipov/mc-publish@v3.3
@@ -78,10 +74,10 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-tag: v${{ needs.build.outputs.mod_version }}+${{ needs.build.outputs.mc_version }}
-          github-prerelease: false
+          github-prerelease: true
           name: JsMacros ${{ needs.build.outputs.mod_version }} (${{ matrix.loader }}, MC ${{ needs.build.outputs.mc_version }})
           version: ${{ needs.build.outputs.mod_version }}+${{ matrix.loader }}
-          version-type: release
+          version-type: alpha
           loaders: ${{ matrix.loader }}
           game-versions: ${{ needs.build.outputs.mc_version }}
           files: |

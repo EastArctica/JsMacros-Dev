@@ -4,6 +4,9 @@ import org.gradle.api.tasks.bundling.Zip
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.external.javadoc.CoreJavadocOptions
 import org.gradle.external.javadoc.StandardJavadocDocletOptions
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 plugins {
     // see https://fabricmc.net/develop/ for new versions
@@ -18,7 +21,52 @@ def docsBuildDir = layout.buildDirectory.dir('docs').get().asFile
 def distDir = layout.projectDirectory.dir('dist')
 def distDirFile = distDir.asFile
 def modIdProvider = providers.gradleProperty('mod_id')
-def artifactBaseName = modIdProvider.map { "${it}-${version}" }
+def mcVersionProvider = providers.gradleProperty('minecraft_version')
+def channelProvider = providers.gradleProperty('channel').orElse('release')
+def modVersionBaseProvider = providers.gradleProperty('mod_version').orElse(providers.gradleProperty('version'))
+def betaNumberProvider = providers.gradleProperty('beta_number')
+def alphaDateProvider = providers.gradleProperty('alpha_date')
+def buildShaProvider = providers.gradleProperty('build_sha')
+
+def dateFormatter = DateTimeFormatter.ofPattern('yyyyMMdd')
+def computedAlphaDateProvider = providers.provider {
+    alphaDateProvider.orElse(
+            providers.provider { ZonedDateTime.now(ZoneId.of('America/New_York')).format(dateFormatter) }
+    ).get()
+}
+
+def computedBuildShaProvider = providers.provider {
+    def sha = buildShaProvider.orElse(
+            providers.provider { System.getenv('GITHUB_SHA') ?: 'local' }
+    ).get()
+    return sha.take(7)
+}
+
+def computedVersionProvider = providers.provider {
+    def base = modVersionBaseProvider.get()
+    switch (channelProvider.get()) {
+        case 'release':
+            return base
+        case 'beta':
+            def betaNum = betaNumberProvider.orElse('1').get()
+            return "${base}-beta.${betaNum}"
+        case 'alpha':
+            return "${base}-alpha.${computedAlphaDateProvider.get()}"
+        default:
+            return "${base}-dev-${computedBuildShaProvider.get()}"
+    }
+}
+
+def modId = modIdProvider.get()
+def mcVersion = mcVersionProvider.get()
+def channel = channelProvider.get()
+version = computedVersionProvider.get()
+
+def loaders = ['fabric', 'neoforge']
+def extensions = [
+    [path: ':extension:graal:python', extId: 'graalpy']
+]
+def artifactBaseName = providers.provider { "${modId}-${mcVersion}-${channel}-${version}" }
 
 gradle.projectsEvaluated {
     def mainSourceSets = documentationProjects.collect {
@@ -102,34 +150,71 @@ gradle.projectsEvaluated {
         into(distDirFile)
     }
 
-    tasks.register('createDistMods', Copy) {
-        group = 'distribution'
-        description = 'Packages loader specific jars into the dist directory'
-        dependsOn('prepareDist', ':fabric:build', ':neoforge:build')
-        into(distDirFile)
-        from('fabric/build/libs') {
-            include '*.jar'
-            exclude '*-sources.jar', '*-dev.jar', '*-javadoc.jar', '*-shadow*.jar'
-        }
-        from('neoforge/build/libs') {
-            include '*.jar'
-            exclude '*-sources.jar', '*-dev.jar', '*-javadoc.jar', '*-shadow*.jar'
+    def baseJarTasks = loaders.collectEntries { loader ->
+        def loaderProject = project(":${loader}")
+        def sourceTaskName = loader == 'fabric' ? 'remapJar' : 'jar'
+        def taskName = "package${loader.capitalize()}ModJar"
+        [(loader): tasks.register(taskName, Copy) {
+            group = 'distribution'
+            description = "Packages ${loader} mod jar into dist"
+            dependsOn('prepareDist', loaderProject.tasks.named(sourceTaskName))
+            def jarFile = loaderProject.tasks.named(sourceTaskName).flatMap { it.archiveFile }
+            from(jarFile)
+            rename { "${modId}-${mcVersion}-${loader}-${project.version}.jar" }
+            into(distDirFile)
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        }]
+    }
+
+    def extensionJarTasks = extensions.collect { ext ->
+        tasks.register("package${ext.extId.capitalize()}Extension", Copy) {
+            group = 'distribution'
+            description = "Packages ${ext.extId} extension"
+            def extJar = project(ext.path).tasks.named('jar').flatMap { it.archiveFile }
+            dependsOn('prepareDist', extJar)
+            from(extJar)
+            rename { "${modId}-ext-${ext.extId}-${mcVersion}-${project.version}.jar" }
+            into(new File(distDirFile, 'extensions'))
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
     }
 
-    tasks.register('createDistExtensions', Copy) {
+    def devkitTasks = [tasks.register('packageDevkit', Zip) {
+        group = 'distribution'
+        description = 'Packages devkit bundle'
+        dependsOn('prepareDist', 'copyPyDoc', 'copyTSDoc', 'copyWebDoc')
+        destinationDirectory.set(distDir)
+        archiveFileName.set("${modId}-devkit-${mcVersion}-${project.version}.zip")
+        from(docsBuildDir) {
+            include 'web/**'
+            include 'typescript/**'
+            include 'python/**'
+        }
+    }]
+
+    def extensionPackTasks = [tasks.register('packageExtensionsPack', Zip) {
+        group = 'distribution'
+        description = 'Bundles all extensions into the config/jsMacros/extensions layout'
+        dependsOn('prepareDist', extensionJarTasks, 'createDistExtensions', 'createDistDocs', baseJarTasks.values())
+        destinationDirectory.set(distDir)
+        archiveFileName.set("${modId}-extensions-${mcVersion}-${project.version}.zip")
+        into('config/jsMacros/extensions') {
+            from(new File(distDirFile, 'extensions')) {
+                include "*-${project.version}.jar"
+            }
+        }
+    }]
+
+    tasks.register('createDistMods') {
+        group = 'distribution'
+        description = 'Packages loader specific jars into the dist directory'
+        dependsOn(baseJarTasks.values())
+    }
+
+    tasks.register('createDistExtensions') {
         group = 'distribution'
         description = 'Packages standalone extensions into the dist directory'
-        dependsOn(
-                'prepareDist',
-                ':extension:jar',
-                ':extension:graal:jar',
-                ':extension:graal:python:jar'
-        )
-        into(new File(distDirFile, 'extensions'))
-        from('extension/build/libs') { include '*.jar' }
-        from('extension/graal/build/libs') { include '*.jar' }
-        from('extension/graal/python/build/libs') { include '*.jar' }
+        dependsOn(extensionJarTasks)
     }
 
     tasks.register('packageSourceZip', Zip) {
@@ -146,8 +231,8 @@ gradle.projectsEvaluated {
 
     tasks.register('createDist') {
         group = 'distribution'
-        description = 'Assembles documentation, mods, extensions, and sources into dist/'
-        dependsOn('createDistDocs', 'createDistMods', 'createDistExtensions', 'packageSourceZip')
+        description = 'Assembles documentation, mods, extensions, devkits, and sources into dist/'
+        dependsOn('createDistDocs', 'createDistMods', 'createDistExtensions', devkitTasks, extensionPackTasks, 'packageSourceZip')
     }
 }
 
@@ -165,5 +250,21 @@ tasks.register('printArtifactName') {
     description = 'Prints the canonical artifact name for CI workflows'
     doLast {
         println artifactBaseName.get()
+    }
+}
+
+tasks.register('printVersion') {
+    group = 'distribution'
+    description = 'Prints the computed project version for CI workflows'
+    doLast {
+        println project.version
+    }
+}
+
+tasks.register('printMinecraftVersion') {
+    group = 'distribution'
+    description = 'Prints the targeted Minecraft version for CI workflows'
+    doLast {
+        println mcVersion
     }
 }

@@ -1,15 +1,18 @@
-name: Release Build
+name: Beta Build
 
 on:
   workflow_dispatch:
     inputs:
+      beta_number:
+        description: 'Beta iteration number (N)'
+        required: true
       mod_version:
         description: 'Override base MODVER (optional)'
         required: false
 
 env:
   JAVA_VERSION: '21'
-  MODRINTH_PROJECT: 2m9WfquA
+  MODRINTH_PROJECT: 3wGWhm8A
   MOD_ID: jsmacros
 
 permissions:
@@ -40,7 +43,7 @@ jobs:
         id: versions
         shell: bash
         run: |
-          ARGS="-Pchannel=release"
+          ARGS="-Pchannel=beta -Pbeta_number=${{ inputs.beta_number }}"
           if [ -n "${{ inputs.mod_version }}" ]; then
             ARGS="$ARGS -Pmod_version=${{ inputs.mod_version }}"
           fi
@@ -56,7 +59,7 @@ jobs:
       - name: Upload dist
         uses: actions/upload-artifact@v4
         with:
-          name: release-dist-${{ steps.versions.outputs.mod_version }}
+          name: beta-dist-${{ steps.versions.outputs.mod_version }}
           path: dist/**/*
 
   publish:
@@ -69,7 +72,7 @@ jobs:
       - name: Download dist
         uses: actions/download-artifact@v4
         with:
-          name: release-dist-${{ needs.build.outputs.mod_version }}
+          name: beta-dist-${{ needs.build.outputs.mod_version }}
 
       - name: Publish to GitHub and Modrinth
         uses: Kir-Antipov/mc-publish@v3.3
@@ -78,10 +81,10 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-tag: v${{ needs.build.outputs.mod_version }}+${{ needs.build.outputs.mc_version }}
-          github-prerelease: false
+          github-prerelease: true
           name: JsMacros ${{ needs.build.outputs.mod_version }} (${{ matrix.loader }}, MC ${{ needs.build.outputs.mc_version }})
           version: ${{ needs.build.outputs.mod_version }}+${{ matrix.loader }}
-          version-type: release
+          version-type: beta
           loaders: ${{ matrix.loader }}
           game-versions: ${{ needs.build.outputs.mc_version }}
           files: |
