@@ -2,19 +2,16 @@ package xyz.wagyourtail.jsmacros.client.api.classes;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.DynamicOps;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
 import net.minecraft.commands.arguments.item.ItemParser;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderOwner;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -34,9 +31,7 @@ import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Etheradon
@@ -44,51 +39,36 @@ import java.util.stream.Stream;
  */
 @SuppressWarnings("unused")
 public class RegistryHelper {
-    Minecraft mc = Minecraft.getInstance();
+
+    private final Minecraft mc = Minecraft.getInstance();
+
     /**
-     * implemented in mixins to make this equal to any owner. used by NBT_PASS_OPS
+     * Create a registry-aware NBT ops backed by the current client's registry access.
+     * Use this instead of NbtOps.INSTANCE when encoding anything that may contain
+     * registry-backed components (enchantments, trims, etc).
      */
-    public static final HolderOwner<?> ALL_EQUALITY_OWNER = new HolderOwner<>() {
-        @Override
-        public boolean canSerializeIn(HolderOwner<Object> other) {
-            return true;
+    public static RegistryOps<Tag> getNbtOps() {
+        Minecraft mc = Minecraft.getInstance();
+        ClientPacketListener connection = mc.getConnection();
+        if (connection == null) {
+            throw new IllegalStateException("No client connection; registry access is unavailable.");
         }
-    };
-    private static final RegistryOps.RegistryInfoLookup REGISTRY_INFO_GETTER_UNLIMITED = new RegistryOps.RegistryInfoLookup() {
-        private final RegistryOps.RegistryInfo<?> INFO = new RegistryOps.RegistryInfo<>(ALL_EQUALITY_OWNER, null, null);
+        HolderLookup.Provider provider = connection.registryAccess();
+        return RegistryOps.create(NbtOps.INSTANCE, provider);
+    }
 
-        @Override
-        public <T> Optional<RegistryOps.RegistryInfo<T>> lookup(ResourceKey<? extends Registry<? extends T>> registryRef) {
-            //noinspection unchecked
-            return Optional.of((RegistryOps.RegistryInfo<T>) INFO);
-        }
-
-    };
     /**
-     * for encoding unlimited data into NbtElement for getNBT methods
+     * Exposes the real HolderLookup.Provider for APIs that expect a "WrapperLookup"
+     * and call createSerializationContext / getOps() on it.
      */
-    public static final RegistryOps<Tag> NBT_OPS_UNLIMITED = RegistryOps.create(NbtOps.INSTANCE, REGISTRY_INFO_GETTER_UNLIMITED);
-    /**
-     * for encoding unlimited data into NbtElement for getNBT methods<br>
-     * for methods accepts WrapperLookup and only uses WrapperLookup#getOps()
-     */
-    public static final HolderLookup.Provider WRAPPER_LOOKUP_UNLIMITED = new HolderLookup.Provider() {
-        @Override
-        public Stream<ResourceKey<? extends Registry<?>>> listRegistryKeys() {
-            throw new RuntimeException("Unsupported operation.");
+    public static HolderLookup.Provider getWrapperLookup() {
+        Minecraft mc = Minecraft.getInstance();
+        ClientPacketListener connection = mc.getConnection();
+        if (connection == null) {
+            throw new IllegalStateException("No client connection; registry access is unavailable.");
         }
-
-        @Override
-        public <T> Optional<? extends HolderLookup.RegistryLookup<T>> lookup(ResourceKey<? extends Registry<? extends T>> registryKey) {
-            throw new RuntimeException("Unsupported operation.");
-        }
-
-        @Override
-        public <V> RegistryOps<V> createSerializationContext(DynamicOps<V> delegate) {
-            return RegistryOps.create(delegate, REGISTRY_INFO_GETTER_UNLIMITED);
-        }
-
-    };
+        return connection.registryAccess();
+    }
 
     /**
      * @param id the item's id
