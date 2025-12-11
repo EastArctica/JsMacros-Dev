@@ -66,9 +66,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: alpha-dist-${{ needs.build.outputs.mod_version }}
+          path: dist
 
       - name: Publish to GitHub and Modrinth
         uses: Kir-Antipov/mc-publish@v3.3
+        working-directory: dist
         with:
           modrinth-id: ${{ env.MODRINTH_PROJECT }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
@@ -81,10 +83,10 @@ jobs:
           loaders: ${{ matrix.loader }}
           game-versions: ${{ needs.build.outputs.mc_version }}
           files: |
-            dist/jsmacros-${{ needs.build.outputs.mc_version }}-${{ matrix.loader }}-${{ needs.build.outputs.mod_version }}.jar
-            dist/jsmacros-devkit-${{ needs.build.outputs.mc_version }}-${{ needs.build.outputs.mod_version }}.zip
-            dist/jsmacros-extensions-${{ needs.build.outputs.mc_version }}-${{ needs.build.outputs.mod_version }}.zip
-            dist/extensions/jsmacros-ext-graalpy-${{ needs.build.outputs.mc_version }}-${{ matrix.loader }}-${{ needs.build.outputs.mod_version }}.jar
-            dist/*-source.zip
+            jsmacros-${{ needs.build.outputs.mc_version }}-${{ matrix.loader }}-${{ needs.build.outputs.mod_version }}.jar
+            jsmacros-devkit-${{ needs.build.outputs.mc_version }}-${{ needs.build.outputs.mod_version }}.zip
+            jsmacros-extensions-${{ needs.build.outputs.mc_version }}-${{ needs.build.outputs.mod_version }}.zip
+            extensions/jsmacros-ext-graalpy-${{ needs.build.outputs.mc_version }}-${{ matrix.loader }}-${{ needs.build.outputs.mod_version }}.jar
+            *-source.zip
           retry-attempts: 5
           retry-delay: 60000
