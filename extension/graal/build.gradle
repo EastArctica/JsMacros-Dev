@@ -48,8 +48,7 @@ dependencies {
     embedDeps group: 'org.graalvm.sdk', name: 'collections', version: '24.0.1'
     embedDeps group: 'org.graalvm.sdk', name: 'nativeimage', version: '24.0.1'
     embedDeps group: 'org.graalvm.sdk', name: 'word', version: '24.0.1'
-    embedDeps group: 'com.ibm.icu', name: 'icu4j', version: '74.2'
-    
+
     // Test dependencies
     testImplementation project(':extension')
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'

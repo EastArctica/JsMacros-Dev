@@ -23,6 +23,17 @@ configurations {
     }
 }
 
+// Dynamically exclude anything already embedded by :extension:graal to avoid duplicates
+ext {
+    parentEmbedDeps = project(':extension:graal').configurations.embedDeps
+    filteredEmbedFiles = providers.provider {
+        def parentNames = parentEmbedDeps.resolvedConfiguration.resolvedArtifacts*.file.name as Set
+        configurations.embedDeps.resolvedConfiguration.resolvedArtifacts
+                .findAll { !parentNames.contains(it.file.name) }
+                .collect { it.file }
+    }
+}
+
 dependencies {
     // Depends on graal module
     implementation project(':extension:graal')
@@ -50,13 +61,14 @@ dependencies {
 
 // Collect embedded dependency paths for the json file
 def getEmbeddedDepPaths() {
-    return configurations.embedDeps.files.collect { file ->
+    return filteredEmbedFiles.get().collect { file ->
         "\"META-INF/jsmacrosdeps/${file.name}\""
     }.join(', ')
 }
 
 // Process resources to expand dependencies placeholder
 processResources {
+    inputs.files(filteredEmbedFiles)
     filesMatching('jsmacros.ext.graaljs.json') {
         expand 'dependencies': getEmbeddedDepPaths()
     }
@@ -65,9 +77,10 @@ processResources {
 // Embed dependencies into the extension jar
 jar {
     dependsOn configurations.embedDeps
-    from(configurations.embedDeps) {
+    from(filteredEmbedFiles) {
         into 'META-INF/jsmacrosdeps'
     }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.test {
