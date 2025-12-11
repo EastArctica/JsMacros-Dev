@@ -82,7 +82,7 @@ public class BlockDataHelper extends BaseHelper<BlockState> {
      */
     @Nullable
     public NBTElementHelper.NBTCompoundHelper getNBT() {
-        return e == null ? null : NBTElementHelper.wrapCompound(e.saveWithoutMetadata(RegistryHelper.WRAPPER_LOOKUP_UNLIMITED));
+        return e == null ? null : NBTElementHelper.wrapCompound(e.saveWithoutMetadata(RegistryHelper.getWrapperLookup()));
     }
 
     /**

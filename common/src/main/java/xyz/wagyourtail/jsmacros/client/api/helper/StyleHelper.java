@@ -134,7 +134,7 @@ public class StyleHelper extends BaseHelper<Style> {
     @Nullable
     public Runnable getCustomClickValue() {
         if (base.getClickEvent() instanceof CustomClickEvent ce) {
-            return ce.getEvent();
+            return ce.event();
         }
         return null;
     }

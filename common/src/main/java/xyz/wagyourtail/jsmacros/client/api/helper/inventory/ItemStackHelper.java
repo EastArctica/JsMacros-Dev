@@ -293,7 +293,7 @@ public class ItemStackHelper extends BaseHelper<ItemStack> {
     public NBTElementHelper<?> getNBT() {
         DataComponentPatch changes = base.getComponentsPatch();
         if (changes.isEmpty()) return null;
-        Tag elem = DataComponentPatch.CODEC.encodeStart(RegistryHelper.NBT_OPS_UNLIMITED, changes).getOrThrow();
+        Tag elem = DataComponentPatch.CODEC.encodeStart(RegistryHelper.getNbtOps(), changes).getOrThrow();
         return NBTElementHelper.wrap(elem);
     }
 
