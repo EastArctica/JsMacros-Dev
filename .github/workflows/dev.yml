@@ -62,7 +62,13 @@ jobs:
             Alpha, beta, and release builds are available on Modrinth: https://modrinth.com/mod/easts-jsmacros/versions
           prerelease: true
           generate_release_notes: false
-          files: dist/**/*
+          files: |
+            dist/jsmacros-${{ steps.versions.outputs.mc_version }}-fabric-${{ steps.versions.outputs.mod_version }}.jar
+            dist/jsmacros-${{ steps.versions.outputs.mc_version }}-neoforge-${{ steps.versions.outputs.mod_version }}.jar
+            dist/jsmacros-devkit-${{ steps.versions.outputs.mc_version }}-${{ steps.versions.outputs.mod_version }}.zip
+            dist/jsmacros-extensions-${{ steps.versions.outputs.mc_version }}-${{ steps.versions.outputs.mod_version }}.zip
+            dist/extensions/jsmacros-ext-graalpy-${{ steps.versions.outputs.mc_version }}-${{ steps.versions.outputs.mod_version }}.jar
+            dist/*-source.zip
           fail_on_unmatched_files: false
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
