@@ -1,5 +1,7 @@
 plugins {
-    java
+    `java-gradle-plugin`
+    `kotlin-dsl`
+    kotlin("jvm") version "1.9.24"
 }
 
 repositories {
@@ -11,8 +13,8 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion(21)
-    targetCompatibility = JavaVersion.toVersion(21)
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 dependencies {
@@ -24,4 +26,8 @@ dependencies {
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
     options.release.set(21)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
 }

@@ -2,53 +2,57 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
+
         exclusiveContent {
             forRepository {
                 maven {
-                    name = 'Fabric'
-                    url = uri('https://maven.fabricmc.net')
+                    name = "Fabric"
+                    url = uri("https://maven.fabricmc.net")
                 }
             }
             filter {
-                includeGroupAndSubgroups('net.fabricmc')
-                includeGroupAndSubgroups('fabric-loom')
+                includeGroupAndSubgroups("net.fabricmc")
+                includeGroupAndSubgroups("fabric-loom")
             }
         }
+
         exclusiveContent {
             forRepository {
                 maven {
-                    name = 'Sponge'
-                    url = uri('https://repo.spongepowered.org/repository/maven-public')
+                    name = "Sponge"
+                    url = uri("https://repo.spongepowered.org/repository/maven-public")
                 }
             }
             filter {
                 includeGroupAndSubgroups("org.spongepowered")
             }
         }
+
         exclusiveContent {
             forRepository {
                 maven {
-                    name = 'NeoForge'
-                    url = uri('https://maven.neoforged.net/releases')
+                    name = "NeoForge"
+                    url = uri("https://maven.neoforged.net/releases")
                 }
             }
             filter {
-                includeGroupAndSubgroups('net.neoforged')
+                includeGroupAndSubgroups("net.neoforged")
             }
         }
     }
 }
 
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
 // This should match the folder name of the project, or else IDEA may complain (see https://youtrack.jetbrains.com/issue/IDEA-317606)
-rootProject.name = 'JsMacros'
-include('common')
-include('fabric')
-include('neoforge')
-include('extension')
-include('extension:graal')
-include('extension:graal:js')
-include('extension:graal:python')
+rootProject.name = "JsMacros"
+
+include("common")
+include("fabric")
+include("neoforge")
+include("extension")
+include("extension:graal")
+include("extension:graal:js")
+include("extension:graal:python")
