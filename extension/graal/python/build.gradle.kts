@@ -52,7 +52,6 @@ dependencies {
     // Depends on graal module
     implementation(project(":extension:graal"))
     implementation(project(":extension"))
-    implementation(project(":common"))
 
     // Graal Python specific dependencies
     implementation("org.graalvm.polyglot:python:24.0.1")

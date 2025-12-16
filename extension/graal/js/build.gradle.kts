@@ -52,7 +52,6 @@ dependencies {
     // Depends on graal module
     implementation(project(":extension:graal"))
     implementation(project(":extension"))
-    implementation(project(":common"))
 
     // Graal JS specific dependencies
     implementation("org.graalvm.polyglot:js:24.0.1")

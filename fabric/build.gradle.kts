@@ -71,8 +71,9 @@ tasks.named<ProcessResources>("processResources") {
 
 loom {
     val modId = property("mod_id").toString()
+    val mcVersion = property("minecraft_version").toString()
 
-    val aw = project(":common").file("src/main/resources/$modId.accesswidener")
+    val aw = project(":common:${mcVersion}").file("src/main/resources/$modId.accesswidener")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }

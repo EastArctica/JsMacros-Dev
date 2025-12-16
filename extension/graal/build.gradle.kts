@@ -28,7 +28,6 @@ val embedDeps by configurations.creating {
 dependencies {
     // Depends on extension module
     implementation(project(":extension"))
-    implementation(project(":common"))
 
     // Graal core dependencies - these get embedded
     api("org.graalvm.sdk:graal-sdk:24.0.1")

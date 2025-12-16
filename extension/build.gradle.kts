@@ -18,9 +18,6 @@ repositories {
 }
 
 dependencies {
-    // Extension depends on common module for core APIs
-    implementation(project(":common"))
-
     // Extension system dependencies
     implementation("org.slf4j:slf4j-api:2.0.16")
     implementation("com.google.guava:guava:31.1-jre")

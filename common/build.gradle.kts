@@ -53,3 +53,8 @@ artifacts {
         add(commonResources.name, dir)
     }
 }
+
+tasks.named("createMinecraftArtifacts") {
+    val mcVersion = project.name  // The project name is the minecraft version (e.g., "1.21.8")
+    dependsOn(":common:${mcVersion}:stonecutterGenerate")
+}

@@ -8,6 +8,7 @@ plugins {
 }
 
 val mod_id: String by project
+val minecraft_version: String by project
 
 val commonJava by configurations.creating {
     isCanBeResolved = true
@@ -19,14 +20,14 @@ val commonResources by configurations.creating {
 }
 
 dependencies {
-    compileOnly(project(":common")) {
+    compileOnly(project(":common:${minecraft_version}")) {
         capabilities {
             requireCapability("${project.group}:$mod_id")
         }
     }
 
-    add(commonJava.name, project(mapOf("path" to ":common", "configuration" to "commonJava")))
-    add(commonResources.name, project(mapOf("path" to ":common", "configuration" to "commonResources")))
+    add(commonJava.name, project(mapOf("path" to ":common:${minecraft_version}", "configuration" to "commonJava")))
+    add(commonResources.name, project(mapOf("path" to ":common:${minecraft_version}", "configuration" to "commonResources")))
 }
 
 tasks.named<JavaCompile>("compileJava") {

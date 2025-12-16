@@ -115,3 +115,8 @@ tasks.named<ProcessResources>("processResources") {
 sourceSets.named("main") {
     resources.srcDir("src/generated/resources")
 }
+
+tasks.named("createMinecraftArtifacts") {
+    val mcVersion = project.name  // The project name is the minecraft version (e.g., "1.21.10")
+    dependsOn(":common:${mcVersion}:stonecutterGenerate")
+}

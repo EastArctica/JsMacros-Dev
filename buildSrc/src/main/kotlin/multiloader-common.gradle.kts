@@ -174,6 +174,8 @@ tasks.named<ProcessResources>("processResources") {
     }
 
     inputs.properties(expandProps)
+    
+    dependsOn(":common:${minecraft_version}:stonecutterGenerate")
 }
 
 publishing {
