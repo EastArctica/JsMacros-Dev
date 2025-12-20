@@ -47,8 +47,8 @@ jobs:
           if [ -n "${{ inputs.mod_version }}" ]; then
             ARGS="$ARGS -Pmod_version=${{ inputs.mod_version }}"
           fi
-          MOD_VERSION=$(./gradlew -q printVersion $ARGS)
-          MC_VERSION=$(./gradlew -q printMinecraftVersion $ARGS)
+          MOD_VERSION=$(./gradlew -q printVersion $ARGS | tail -1 | tr -d '\n\r')
+          MC_VERSION=$(./gradlew -q printMinecraftVersion $ARGS | tail -1 | tr -d '\n\r')
           echo "gradle_args=$ARGS" >> "$GITHUB_OUTPUT"
           echo "mod_version=${MOD_VERSION}" >> "$GITHUB_OUTPUT"
           echo "mc_version=${MC_VERSION}" >> "$GITHUB_OUTPUT"

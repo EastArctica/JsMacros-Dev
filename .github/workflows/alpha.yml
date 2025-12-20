@@ -40,8 +40,8 @@ jobs:
         shell: bash
         run: |
           ALPHA_DATE=$(date +%Y%m%d)
-          MOD_VERSION=$(./gradlew -q printVersion -Pchannel=alpha -Palpha_date=${ALPHA_DATE})
-          MC_VERSION=$(./gradlew -q printMinecraftVersion -Pchannel=alpha -Palpha_date=${ALPHA_DATE})
+          MOD_VERSION=$(./gradlew -q printVersion -Pchannel=alpha -Palpha_date=${ALPHA_DATE} | tail -1 | tr -d '\n\r')
+          MC_VERSION=$(./gradlew -q printMinecraftVersion -Pchannel=alpha -Palpha_date=${ALPHA_DATE} | tail -1 | tr -d '\n\r')
           echo "alpha_date=${ALPHA_DATE}" >> "$GITHUB_OUTPUT"
           echo "mod_version=${MOD_VERSION}" >> "$GITHUB_OUTPUT"
           echo "mc_version=${MC_VERSION}" >> "$GITHUB_OUTPUT"

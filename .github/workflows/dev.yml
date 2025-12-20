@@ -34,8 +34,8 @@ jobs:
         shell: bash
         run: |
           SHORT_SHA=${GITHUB_SHA::7}
-          MOD_VERSION=$(./gradlew -q printVersion -Pchannel=dev -Pbuild_sha=${SHORT_SHA})
-          MC_VERSION=$(./gradlew -q printMinecraftVersion -Pchannel=dev -Pbuild_sha=${SHORT_SHA})
+          MOD_VERSION=$(./gradlew -q printVersion -Pchannel=dev -Pbuild_sha=${SHORT_SHA} | tail -1 | tr -d '\n\r')
+          MC_VERSION=$(./gradlew -q printMinecraftVersion -Pchannel=dev -Pbuild_sha=${SHORT_SHA} | tail -1 | tr -d '\n\r')
           echo "mod_version=${MOD_VERSION}" >> "$GITHUB_OUTPUT"
           echo "mc_version=${MC_VERSION}" >> "$GITHUB_OUTPUT"
           echo "short_sha=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
