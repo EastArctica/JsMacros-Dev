@@ -3,26 +3,27 @@ import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.api.publish.maven.MavenPublication
 
 plugins {
-    `java-library`
-    `maven-publish`
+    id("java-library")
+    id("idea")
 }
 
-// Gradle properties (from gradle.properties / command line / CI)
-val mod_id: String by project
-val minecraft_version: String by project
-val java_version: String by project
+// Use Stonecutter-aware property access
+// Properties are resolved from the versioned project's gradle.properties (via commonMod)
+val mod_id = commonMod.prop("mod_id")
+val minecraft_version = commonMod.mc
+val java_version = commonMod.prop("java_version")
 
-val minecraft_version_range: String by project
-val fabric_version: String by project
-val fabric_loader_version: String by project
+val minecraft_version_range = commonMod.propOrNull("minecraft_version_range") ?: "[$minecraft_version]"
+val fabric_version = commonMod.propOrNull("fabric_version") ?: ""
+val fabric_loader_version = commonMod.propOrNull("fabric_loader_version") ?: ""
 
-val mod_name: String by project
-val mod_author: String by project
-val license: String by project
-val credits: String by project
+val mod_name = commonMod.prop("mod_name")
+val mod_author = commonMod.prop("mod_author")
+val license = commonMod.prop("license")
+val credits = commonMod.propOrNull("credits") ?: ""
 
-val neoforge_version: String by project
-val neoforge_loader_version_range: String by project
+val neoforge_version = commonMod.propOrNull("neoforge_version") ?: ""
+val neoforge_loader_version_range = commonMod.propOrNull("neoforge_loader_version_range") ?: "[4,)"
 
 base {
     archivesName.set("$mod_id-${project.name}-$minecraft_version")
@@ -106,13 +107,55 @@ listOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").f
         }
     }
 
-    // Suppress Gradle metadata warnings for each published variant
-    extensions.getByType(org.gradle.api.publish.PublishingExtension::class.java)
-        .publications
-        .withType(MavenPublication::class.java)
-        .configureEach {
-            suppressPomMetadataWarningsFor(variant)
+    // Suppress Gradle metadata warnings for each published variant (only if publishing is configured)
+    extensions.findByType(org.gradle.api.publish.PublishingExtension::class.java)?.let { publishing ->
+        publishing.publications
+            .withType(MavenPublication::class.java)
+            .configureEach {
+                suppressPomMetadataWarningsFor(variant)
+            }
+    }
+}
+
+tasks {
+	processResources {
+		val expandProps = mapOf(
+            "version" to project.version,
+            "group" to project.group,
+            "minecraft_version" to minecraft_version,
+            "minecraft_version_range" to minecraft_version_range,
+            "fabric_version" to fabric_version,
+            "fabric_loader_version" to fabric_loader_version,
+            "mod_name" to mod_name,
+            "mod_author" to mod_author,
+            "mod_id" to mod_id,
+            "license" to license,
+            "description" to project.description,
+            "neoforge_version" to neoforge_version,
+            "neoforge_loader_version_range" to neoforge_loader_version_range,
+            "credits" to credits,
+            "java_version" to java_version
+		)
+
+        val jsonExpandProps: Map<String, Any?> =
+            expandProps.mapValues { (_, value) ->
+                if (value is String) value.replace("\n", "\\\\n") else value
+            }
+
+        filesMatching(listOf("META-INF/mods.toml", "META-INF/neoforge.mods.toml")) {
+            expand(expandProps)
         }
+
+        filesMatching(listOf("pack.mcmeta", "fabric.mod.json", "*.mixins.json")) {
+            expand(jsonExpandProps)
+        }
+
+		inputs.properties(expandProps)
+	}
+}
+
+tasks.named("processResources") {
+	dependsOn(":common:${minecraft_version}:stonecutterGenerate")
 }
 
 tasks.named<Jar>("sourcesJar") {
@@ -138,56 +181,5 @@ tasks.named<Jar>("jar") {
                 "Built-On-Minecraft" to minecraft_version
             )
         )
-    }
-}
-
-tasks.named<ProcessResources>("processResources") {
-    val expandProps: Map<String, Any?> = mapOf(
-        "version" to project.version,
-        "group" to project.group,
-        "minecraft_version" to minecraft_version,
-        "minecraft_version_range" to minecraft_version_range,
-        "fabric_version" to fabric_version,
-        "fabric_loader_version" to fabric_loader_version,
-        "mod_name" to mod_name,
-        "mod_author" to mod_author,
-        "mod_id" to mod_id,
-        "license" to license,
-        "description" to project.description,
-        "neoforge_version" to neoforge_version,
-        "neoforge_loader_version_range" to neoforge_loader_version_range,
-        "credits" to credits,
-        "java_version" to java_version
-    )
-
-    val jsonExpandProps: Map<String, Any?> =
-        expandProps.mapValues { (_, value) ->
-            if (value is String) value.replace("\n", "\\\\n") else value
-        }
-
-    filesMatching(listOf("META-INF/mods.toml", "META-INF/neoforge.mods.toml")) {
-        expand(expandProps)
-    }
-
-    filesMatching(listOf("pack.mcmeta", "fabric.mod.json", "*.mixins.json")) {
-        expand(jsonExpandProps)
-    }
-
-    inputs.properties(expandProps)
-    
-    dependsOn(":common:${minecraft_version}:stonecutterGenerate")
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("mavenJava") {
-            artifactId = base.archivesName.get()
-            from(components["java"])
-        }
-    }
-    repositories {
-        maven {
-            url = uri(System.getenv("local_maven_url") ?: layout.buildDirectory.dir("repo").get().asFile)
-        }
     }
 }

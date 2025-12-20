@@ -4,17 +4,11 @@ plugins {
 }
 
 neoForge {
-    neoFormVersion = property("neo_form_version").toString()
-
-    // Automatically enable AccessTransformers if the file exists
-    val at = file("src/main/resources/META-INF/accesstransformer.cfg")
-    if (at.exists()) {
-        accessTransformers.from(at.absolutePath)
-    }
+    neoFormVersion = commonMod.prop("neo_form_version")
 
     parchment {
-        minecraftVersion = property("parchment_minecraft").toString()
-        mappingsVersion = property("parchment_version").toString()
+        minecraftVersion = commonMod.prop("parchment_minecraft")
+        mappingsVersion = commonMod.prop("parchment_version")
     }
 }
 
@@ -45,12 +39,17 @@ val commonResources by configurations.creating {
     isCanBeConsumed = true
 }
 
+// Get the Stonecutter-generated sources directory
+val stonecutterGeneratedJava = layout.buildDirectory.dir("generated/stonecutter/main/java")
+val stonecutterGeneratedResources = layout.buildDirectory.dir("generated/stonecutter/main/resources")
+
 artifacts {
-    sourceSets["main"].java.srcDirs.forEach { dir ->
-        add(commonJava.name, dir)
+    // Use the Stonecutter-generated sources after processing
+    add(commonJava.name, stonecutterGeneratedJava) {
+        builtBy("stonecutterGenerate")
     }
-    sourceSets["main"].resources.srcDirs.forEach { dir ->
-        add(commonResources.name, dir)
+    add(commonResources.name, stonecutterGeneratedResources) {
+        builtBy("stonecutterGenerate")
     }
 }
 

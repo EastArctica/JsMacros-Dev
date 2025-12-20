@@ -19,6 +19,9 @@ repositories {
     mavenCentral()
 }
 
+// Get minecraft version from stonecutter.active file
+val minecraftVersion = rootProject.file("stonecutter.active").readText().trim()
+
 // Configuration for runtime dependencies to embed in the extension jar
 val embedDeps by configurations.creating {
     isCanBeResolved = true
@@ -28,6 +31,9 @@ val embedDeps by configurations.creating {
 dependencies {
     // Depends on extension module
     implementation(project(":extension"))
+
+    // Compile against shared common code
+    compileOnly(project(":common:${minecraftVersion}"))
 
     // Graal core dependencies - these get embedded
     api("org.graalvm.sdk:graal-sdk:24.0.1")
@@ -52,6 +58,7 @@ dependencies {
 
     // Test dependencies
     testImplementation(project(":extension"))
+    testImplementation(project(":common:${minecraftVersion}"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.jetbrains:annotations:20.1.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")

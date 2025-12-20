@@ -20,6 +20,9 @@ repositories {
     mavenCentral()
 }
 
+// Get minecraft version from stonecutter.active file
+val minecraftVersion = rootProject.file("stonecutter.active").readText().trim()
+
 val extensionTestOutput = project(":extension")
     .extensions
     .getByType(SourceSetContainer::class.java)
@@ -53,6 +56,9 @@ dependencies {
     implementation(project(":extension:graal"))
     implementation(project(":extension"))
 
+    // Compile against shared common code
+    compileOnly(project(":common:${minecraftVersion}"))
+
     // Graal Python specific dependencies
     implementation("org.graalvm.polyglot:python:24.0.1")
     implementation("org.graalvm.polyglot:llvm:24.0.1")
@@ -66,6 +72,7 @@ dependencies {
 
     // Test dependencies
     testImplementation(project(":extension"))
+    testImplementation(project(":common:${minecraftVersion}"))
     testImplementation(extensionTestOutput)
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.jetbrains:annotations:20.1.0")

@@ -7,48 +7,51 @@ plugins {
     id("multiloader-common")
 }
 
-val mod_id: String by project
-val minecraft_version: String by project
+// Use Stonecutter-aware property access
+val mod_id = commonMod.prop("mod_id")
+val minecraft_version = commonMod.mc
 
-val commonJava by configurations.creating {
-    isCanBeResolved = true
-    // canBeConsumed stays default (false), same as your Groovy
-}
+// Get the common project reference
+val commonProject = project(":common:${minecraft_version}")
 
-val commonResources by configurations.creating {
-    isCanBeResolved = true
-}
+// Get the Stonecutter-generated sources directory from common
+val commonStonecutterJava = commonProject.layout.buildDirectory.dir("generated/stonecutter/main/java")
+val commonStonecutterResources = commonProject.layout.buildDirectory.dir("generated/stonecutter/main/resources")
 
-dependencies {
-    compileOnly(project(":common:${minecraft_version}")) {
-        capabilities {
-            requireCapability("${project.group}:$mod_id")
-        }
-    }
+// Get this project's Stonecutter-generated sources directory
+val selfStonecutterJava = layout.buildDirectory.dir("generated/stonecutter/main/java")
+val selfStonecutterResources = layout.buildDirectory.dir("generated/stonecutter/main/resources")
 
-    add(commonJava.name, project(mapOf("path" to ":common:${minecraft_version}", "configuration" to "commonJava")))
-    add(commonResources.name, project(mapOf("path" to ":common:${minecraft_version}", "configuration" to "commonResources")))
+// Ensure stonecutterGenerate runs before compiling for both common and this project
+val ensureStonecutterGenerate = tasks.register("ensureStonecutterGenerate") {
+    dependsOn(":common:${minecraft_version}:stonecutterGenerate")
+    dependsOn("stonecutterGenerate")
 }
 
 tasks.named<JavaCompile>("compileJava") {
-    dependsOn(commonJava)
-    source(commonJava)
+    dependsOn(ensureStonecutterGenerate)
+    // Add common's Stonecutter-generated sources
+    source(commonStonecutterJava)
 }
 
 tasks.named<ProcessResources>("processResources") {
-    dependsOn(commonResources)
-    from(commonResources)
+    dependsOn(ensureStonecutterGenerate)
+    // Include common's Stonecutter-generated resources
+    from(commonStonecutterResources)
 }
 
 tasks.named<Javadoc>("javadoc") {
-    dependsOn(commonJava)
-    source(commonJava)
+    dependsOn(ensureStonecutterGenerate)
+    source(commonStonecutterJava)
 }
 
 tasks.named<Jar>("sourcesJar") {
-    dependsOn(commonJava)
-    from(commonJava)
+    dependsOn(ensureStonecutterGenerate)
+    from(commonStonecutterJava)
+    from(commonStonecutterResources)
+}
 
-    dependsOn(commonResources)
-    from(commonResources)
+// Exclude access wideners folder from the jar (each loader handles this separately)
+tasks.named<Jar>("jar") {
+    exclude("accesswideners/**")
 }

@@ -1,15 +1,14 @@
 plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
-    kotlin("jvm") version "1.9.24"
+    kotlin("jvm") version "2.2.0"
 }
 
 repositories {
-    mavenLocal()
-    maven("https://maven.wagyourtail.xyz/releases")
-    maven("https://maven.wagyourtail.xyz/snapshots")
     maven("https://maven.neoforged.net/releases")
+    maven("https://maven.kikugie.dev/snapshots")
     mavenCentral()
+    gradlePluginPortal()
 }
 
 java {
@@ -21,6 +20,7 @@ dependencies {
     implementation(gradleApi())
     implementation("com.google.code.gson:gson:2.9.0")
     implementation("commons-io:commons-io:2.7")
+    implementation("dev.kikugie:stonecutter:0.7.11")
 }
 
 tasks.withType<JavaCompile>().configureEach {

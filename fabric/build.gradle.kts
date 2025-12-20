@@ -1,13 +1,16 @@
 import org.gradle.language.jvm.tasks.ProcessResources
-import java.io.File
 
 plugins {
-    id("multiloader-loader")
     id("fabric-loom")
+    id("multiloader-loader")
 }
 
+val mod_id = commonMod.prop("mod_id")
+val minecraft_version = commonMod.prop("minecraft_version")
+var mod_version = project.version.toString()
+
 base {
-    archivesName.set("${property("mod_id")}-${property("minecraft_version")}-fabric-${project.version}")
+    archivesName.set("$mod_id-$minecraft_version-fabric-$mod_version")
 }
 
 // Configuration for embedding extension jars
@@ -22,22 +25,27 @@ fun DependencyHandlerScope.implInclude(notation: Any) {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${property("minecraft_version")}")
+    minecraft("com.mojang:minecraft:$minecraft_version")
 
-    mappings(
-        loom.layered {
-            officialMojangMappings()
-            parchment(
-                "org.parchmentmc.data:parchment-${property("parchment_minecraft")}:${property("parchment_version")}@zip"
-            )
-        }
-    )
+    mappings(loom.layered {
+        val parchment_minecraft = commonMod.prop("parchment_minecraft")
+        val parchment_version = commonMod.prop("parchment_version")
 
-    modImplementation("net.fabricmc:fabric-loader:${property("fabric_loader_version")}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
+        officialMojangMappings()
+        parchment(
+            "org.parchmentmc.data:parchment-$parchment_minecraft:$parchment_version@zip"
+        )
+    })
+
+    val fabric_loader_version = commonMod.prop("fabric_loader_version")
+    val fabric_version = commonMod.prop("fabric_version")
+
+    modImplementation("net.fabricmc:fabric-loader:$fabric_loader_version")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
 
     // ModMenu integration
-    modImplementation("com.terraformersmc:modmenu:15.0.0")
+    val mod_menu_version = commonMod.prop("mod_menu_version");
+    modImplementation("com.terraformersmc:modmenu:$mod_menu_version")
 
     // Common library dependencies - include for bundling in jar
     implInclude("io.noties:prism4j:2.0.0")
@@ -67,19 +75,33 @@ tasks.named<ProcessResources>("processResources") {
     filesMatching("jsmacros.extension.json") {
         expand(mapOf("dependencies" to getExtensionJarPaths()))
     }
+    
+    // Expand fabric.mod.json with minecraft version
+    filesMatching("fabric.mod.json") {
+        expand(mapOf(
+            "version" to mod_version,
+            "minecraft_version" to minecraft_version
+        ))
+    }
+}
+
+// Copy the version-specific access widener and rename it for the jar
+tasks.named<ProcessResources>("processResources") {
+    val awFile = project(":common").file("src/main/resources/accesswideners/$minecraft_version-$mod_id.accesswidener")
+    
+    from(awFile.parentFile) {
+        include(awFile.name)
+        rename(awFile.name, "$mod_id.accesswidener")
+        into("")
+    }
 }
 
 loom {
-    val modId = property("mod_id").toString()
-    val mcVersion = property("minecraft_version").toString()
-
-    val aw = project(":common:${mcVersion}").file("src/main/resources/$modId.accesswidener")
-    if (aw.exists()) {
-        accessWidenerPath.set(aw)
-    }
+    // Use the version-specific access widener
+    accessWidenerPath.set(project(":common").file("src/main/resources/accesswideners/$minecraft_version-$mod_id.accesswidener"))
 
     mixin {
-        defaultRefmapName.set("$modId.refmap.json")
+        defaultRefmapName.set("$mod_id.refmap.json")
     }
 
     runs {

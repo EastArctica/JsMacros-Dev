@@ -5,12 +5,17 @@ import org.gradle.language.jvm.tasks.ProcessResources
 import java.io.File
 
 plugins {
-    id("multiloader-loader")
+    `multiloader-loader`
     id("net.neoforged.moddev")
 }
 
+val mod_id = commonMod.prop("mod_id")
+val minecraft_version = commonMod.prop("minecraft_version")
+var mod_version = project.version.toString()
+var neoforge_version = commonMod.prop("neoforge_version")
+
 base {
-    archivesName.set("${property("mod_id")}-${property("minecraft_version")}-neoforge-${project.version}")
+    archivesName.set("$mod_id-$minecraft_version-neoforge-$mod_version")
 }
 
 // Configuration for embedding extension jars
@@ -21,7 +26,7 @@ val extensionJars by configurations.creating {
 
 // TODO: Look into https://github.com/neoforged/ModDevGradle?tab=readme-ov-file#disabling-decompilation-and-recompilation in CI
 neoForge {
-    version = property("neoforge_version").toString()
+    version = neoforge_version
 
     // Automatically enable neoforge AccessTransformers if the file exists
     val at = project(":common").file("src/main/resources/META-INF/accesstransformer.cfg")
@@ -29,14 +34,18 @@ neoForge {
         accessTransformers.from(at.absolutePath)
     }
 
+    val parchment_minecraft = commonMod.prop("parchment_minecraft")
+    val parchment_version = commonMod.prop("parchment_version")
+
     parchment {
-        minecraftVersion = property("parchment_minecraft").toString()
-        mappingsVersion = property("parchment_version").toString()
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
     }
 
     runs {
         configureEach {
-            systemProperty("neoforge.enabledGameTestNamespaces", property("mod_id").toString())
+            // TODO: Is this needed
+            systemProperty("neoforge.enabledGameTestNamespaces", commonMod.prop("mod_id"))
             ideName.set("NeoForge ${name.replaceFirstChar { it.uppercase() }} (${project.path})")
         }
 
@@ -44,12 +53,13 @@ neoForge {
             client()
         }
 
+        // TODO: I don't think we use any data runs
         register("data") {
             // matches your Groovy: "data" run name, but uses client lifecycle datagen
             clientData()
 
             programArguments.apply {
-                addAll("--mod", property("mod_id").toString())
+                addAll("--mod", commonMod.prop("mod_id"))
                 add("--all")
                 addAll("--output", file("src/generated/resources/").absolutePath)
                 addAll("--existing", file("src/main/resources/").absolutePath)
@@ -58,8 +68,8 @@ neoForge {
     }
 
     mods {
-        create(property("mod_id").toString()) {
-            sourceSet(sourceSets["main"])
+        register(commonMod.prop("mod_id")) {
+            sourceSet(sourceSets.main.get())
         }
     }
 }
@@ -78,19 +88,23 @@ dependencies {
     implementation("org.javassist:javassist:3.30.2-GA")
     jarJar("org.javassist:javassist:[3.30.2-GA,3.31.0)")
 
-    // Also add as runtimeOnly to ensure they're available during dev runs
-    runtimeOnly("io.noties:prism4j:2.0.0")
-    runtimeOnly("org.jooq:joor:0.9.15")
-    runtimeOnly("com.neovisionaries:nv-websocket-client:2.14")
-    runtimeOnly("org.javassist:javassist:3.30.2-GA")
+    // For NeoForge < 1.21.9, external libraries need to be added to additionalRuntimeClasspath
+    // to be loaded by the modular classloader during dev runs.
+    // For 1.21.9+, this is handled automatically.
+    if (stonecutterBuild.eval(minecraft_version, "<1.21.9")) {
+        // Exclude annotations-java5 from prism4j as it has an invalid Java module name
+        configurations.named("additionalRuntimeClasspath").configure {
+            exclude(group = "org.jetbrains", module = "annotations-java5")
+        }
+        "additionalRuntimeClasspath"("io.noties:prism4j:2.0.0")
+        "additionalRuntimeClasspath"("org.jooq:joor:0.9.15")
+        "additionalRuntimeClasspath"("com.neovisionaries:nv-websocket-client:2.14")
+        "additionalRuntimeClasspath"("org.javassist:javassist:3.30.2-GA")
+    }
 
     // Extension jars to embed
     add(extensionJars.name, project(mapOf("path" to ":extension:graal", "configuration" to "archives")))
     add(extensionJars.name, project(mapOf("path" to ":extension:graal:js", "configuration" to "archives")))
-
-    // Extension runtime dependencies for dev mode
-    runtimeOnly(project(":extension:graal"))
-    runtimeOnly(project(":extension:graal:js"))
 }
 
 // Collect extension jar names for dependencies property
@@ -110,13 +124,27 @@ tasks.named<ProcessResources>("processResources") {
     filesMatching("jsmacros.extension.json") {
         expand(mapOf("dependencies" to getExtensionJarPaths()))
     }
+    
+    // Expand neoforge.mods.toml with version properties
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand(mapOf(
+            "version" to mod_version,
+            "minecraft_version" to minecraft_version
+        ))
+    }
 }
 
-sourceSets.named("main") {
+sourceSets.main {
     resources.srcDir("src/generated/resources")
 }
 
+tasks {
+    processResources {
+        exclude("$mod_id.accesswidener")
+        exclude("accesswideners/**")
+    }
+}
+
 tasks.named("createMinecraftArtifacts") {
-    val mcVersion = project.name  // The project name is the minecraft version (e.g., "1.21.10")
-    dependsOn(":common:${mcVersion}:stonecutterGenerate")
+    dependsOn(":neoforge:$minecraft_version:processResources")
 }
