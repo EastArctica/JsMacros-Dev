@@ -77,7 +77,8 @@ public class EventKey extends BaseEvent {
 
         if (mc.screen != null) {
             if (action != 0 || !wasNullOnDown.contains(key)) {
-                if (JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).disableKeyWhenScreenOpen) {
+                ClientConfigV2 config = JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class);
+                if (config.disableKeyWhenScreenOpen) {
                     return false;
                 }
                 if (mc.screen instanceof BaseScreen) {

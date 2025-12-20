@@ -6,6 +6,7 @@ import net.minecraft.core.UUIDUtil;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -67,12 +68,16 @@ public class ParrotEntityHelper extends TameableEntityHelper<Parrot> {
      */
     public boolean isSittingOnShoulder() {
         if (!isSitting()) return false;
-        return Minecraft.getInstance().level.players().stream()
-            .flatMap(e -> Stream.of(e.getShoulderEntityRight(), e.getShoulderEntityLeft()))
-            .filter(Objects::nonNull)
-            .flatMap(n -> n.getIntArray("UUID").stream())
-            .map(UUIDUtil::uuidFromIntArray)
-            .anyMatch(base.getUUID()::equals);
+        // TODO: Lots of this changed in 1.21.9/1.21.10, need to fix
+//        return Minecraft.getInstance().level.players().stream()
+//            .flatMap(e -> {
+//                return Stream.of(e.getEntityData().get(e.DATA_SHOULDER_PARROT_LEFT), e.getEntityData().get(e.DATA_SHOULDER_PARROT_RIGHT));
+//            })
+//            .filter(Optional::isPresent)
+//            .flatMap(n -> n.get().getIntArray("UUID").stream())
+//            .map(UUIDUtil::uuidFromIntArray)
+//            .anyMatch(base.getUUID()::equals);
+        return false;
     }
 
 }

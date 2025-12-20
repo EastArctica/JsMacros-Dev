@@ -1,16 +1,15 @@
 package xyz.wagyourtail.jsmacros.client.mixin.access;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.gui.screens.Overlay;
+//? if <=1.21.8 {
+import net.minecraft.client.gui.screens.ReceivingLevelScreen;
+//?}
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.Options;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.core.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -87,13 +86,18 @@ class MixinMinecraftClient {
     }
 
     @Inject(at = @At("HEAD"), method = "setLevel")
-    public void onJoinWorld(ClientLevel world, ReceivingLevelScreen.Reason worldEntryReason, CallbackInfo ci) {
+    public void onJoinWorld(
+            ClientLevel world,
+            //? if <=1.21.8 {
+            ReceivingLevelScreen.Reason reason,
+            //?}
+            CallbackInfo ci) {
         InteractionProxy.reset();
     }
 
     @Inject(
-        at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;isLocalServer:Z", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER),
-        method = "disconnect(Lnet/minecraft/client/gui/screens/Screen;Z)V"
+            at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;isLocalServer:Z", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER),
+            method = "disconnect(Lnet/minecraft/client/gui/screens/Screen;Z)V"
     )
     public void onDisconnect(Screen disconnectionScreen, boolean transferring, CallbackInfo ci) {
         InteractionProxy.reset();
@@ -143,11 +147,17 @@ class MixinMinecraftClient {
         InteractionProxy.Interact.ensureInteracting(rightClickDelay);
     }
 
-    @ModifyExpressionValue(method = "continueAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z"))
-    private boolean catchEmptyShapeException(boolean value, @Local BlockPos blockPos) {
-        if (value) return true;
-        assert level != null;
-        return level.getBlockState(blockPos).getShape(level, blockPos).isEmpty();
-    }
+    // TODO: Currently MixinStyleSerializer.redirectClickGetAction and MixinMinecraftClient.catchEmptyShapeException are
+    //  broken in production. I do not know why this is, but it works in dev (I think).
+    /*
+    @WrapOperation(method = "continueAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z"))
+    private boolean catchEmptyShapeException(BlockState state, Operation<Boolean> original, @Local BlockPos blockPos) {
+        // this.level.getBlockState(blockPos).isAir()
+        if (original.call(state)) {
+            return true;
+        }
 
+        return state.getShape(level, blockPos).isEmpty();
+    }
+    */
 }

@@ -975,7 +975,11 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot0Occupied() {
+        //? if >1.21.8 {
+        /*return base.getValue(BlockStateProperties.SLOT_0_OCCUPIED);
+        *///?} else {
         return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_0_OCCUPIED);
+        //?}
     }
 
     /**
@@ -983,7 +987,11 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot1Occupied() {
+        //? if >1.21.8 {
+        /*return base.getValue(BlockStateProperties.SLOT_1_OCCUPIED);
+        *///?} else {
         return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_1_OCCUPIED);
+        //?}
     }
 
     /**
@@ -991,7 +999,11 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot2Occupied() {
+        //? if >1.21.8 {
+        /*return base.getValue(BlockStateProperties.SLOT_2_OCCUPIED);
+        *///?} else {
         return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_2_OCCUPIED);
+        //?}
     }
 
     /**
@@ -999,7 +1011,11 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot3Occupied() {
+        //? if >1.21.8 {
+        /*return base.getValue(BlockStateProperties.SLOT_3_OCCUPIED);
+        *///?} else {
         return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_3_OCCUPIED);
+        //?}
     }
 
     /**
@@ -1007,7 +1023,11 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot4Occupied() {
+        //? if >1.21.8 {
+        /*return base.getValue(BlockStateProperties.SLOT_4_OCCUPIED);
+        *///?} else {
         return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_4_OCCUPIED);
+        //?}
     }
 
     /**
@@ -1015,7 +1035,11 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public boolean isSlot5Occupied() {
+        //? if >1.21.8 {
+        /*return base.getValue(BlockStateProperties.SLOT_5_OCCUPIED);
+        *///?} else {
         return base.getValue(BlockStateProperties.CHISELED_BOOKSHELF_SLOT_5_OCCUPIED);
+        //?}
     }
 
     /**

@@ -714,7 +714,12 @@ public class FWorld extends BaseLibrary {
     public BlockPosHelper getRespawnPos() {
         ClientLevel world = mc.level;
         if (world == null) return null;
+        //? if >1.21.8 {
+        
+        /*return new BlockPosHelper(world.getRespawnData().pos());
+        *///?} else {
         return new BlockPosHelper(world.getSharedSpawnPos());
+        //?}
     }
 
     /**

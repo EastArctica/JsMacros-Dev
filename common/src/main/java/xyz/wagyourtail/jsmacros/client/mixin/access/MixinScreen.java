@@ -707,7 +707,7 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
         CycleButton<String> cyclingButton;
         CycleButton.Builder<String> builder = CycleButton.builder(net.minecraft.network.chat.Component::literal);
         if (alternatives != null) {
-            BooleanSupplier supplier = alternateToggle == null ? Screen::hasAltDown : alternateToggle::get;
+            BooleanSupplier supplier = alternateToggle == null ? CycleButton.DEFAULT_ALT_LIST_SELECTOR : alternateToggle::get;
             builder.withValues(supplier, Arrays.asList(values), Arrays.asList(alternatives));
         } else {
             builder.withValues(values);

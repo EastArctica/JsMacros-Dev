@@ -9,6 +9,7 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ParticleStatus;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
@@ -319,13 +320,23 @@ public class OptionsHelper extends BaseHelper<Options> {
         return mc.getWindow().getScreenHeight();
     }
 
+    private long getWindowHandle() {
+        Window win = mc.getWindow();
+        //? if >1.21.8 {
+         /*long handle = win.handle(); 
+        *///?} else {
+        long handle = win.getWindow();
+        //?}
+        return handle;
+    }
+
     /**
      * @param w
      * @since 1.2.6
      */
     public OptionsHelper setWidth(int w) {
         Window win = mc.getWindow();
-        GLFW.glfwSetWindowSize(win.getWindow(), w, win.getScreenHeight());
+        GLFW.glfwSetWindowSize(getWindowHandle(), w, win.getScreenHeight());
         return this;
     }
 
@@ -335,7 +346,7 @@ public class OptionsHelper extends BaseHelper<Options> {
      */
     public OptionsHelper setHeight(int h) {
         Window win = mc.getWindow();
-        GLFW.glfwSetWindowSize(win.getWindow(), win.getScreenWidth(), h);
+        GLFW.glfwSetWindowSize(getWindowHandle(), win.getScreenWidth(), h);
         return this;
     }
 
@@ -346,7 +357,7 @@ public class OptionsHelper extends BaseHelper<Options> {
      */
     public OptionsHelper setSize(int w, int h) {
         Window win = mc.getWindow();
-        GLFW.glfwSetWindowSize(win.getWindow(), w, h);
+        GLFW.glfwSetWindowSize(getWindowHandle(), w, h);
         return this;
     }
 
@@ -1423,7 +1434,11 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public boolean isMouseInverted() {
+            //? if >1.21.8 {
+            /*return base.invertMouseY().get();
+            *///?} else {
             return base.invertYMouse().get();
+            //?}
         }
 
         /**
@@ -1432,7 +1447,11 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public ControlOptionsHelper invertMouse(boolean val) {
+            //? if >1.21.8 {
+            /*base.invertMouseY().set(val);
+            *///?} else {
             base.invertYMouse().set(val);
+            //?}
             return this;
         }
 
@@ -1584,7 +1603,14 @@ public class OptionsHelper extends BaseHelper<Options> {
          */
         @DocletReplaceReturn("JavaList<KeyCategory>")
         public List<String> getCategories() {
-            return Arrays.stream(base.keyMappings).map(KeyMapping::getCategory).distinct().collect(Collectors.toList());
+            return Arrays.stream(base.keyMappings)
+                    .map(KeyMapping::getCategory)
+                    //? if >1.21.8 {
+                    /*.map(KeyMapping.Category::id)
+                    .map(ResourceLocation::toString)
+                    *///?}
+                    .distinct()
+                    .collect(Collectors.toList());
         }
 
         /**
@@ -1630,7 +1656,11 @@ public class OptionsHelper extends BaseHelper<Options> {
 
             for (KeyMapping key : Minecraft.getInstance().options.keyMappings) {
                 Map<String, String> categoryMap;
+                //? >1.21.8 {
+                /*String category = key.getCategory().id().toLanguageKey();
+                *///?} else {
                 String category = key.getCategory();
+                //?}
                 if (!entries.containsKey(category)) {
                     categoryMap = new HashMap<>();
                     entries.put(category, categoryMap);

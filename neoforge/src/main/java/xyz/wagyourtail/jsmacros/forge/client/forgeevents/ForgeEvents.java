@@ -53,7 +53,10 @@ public class ForgeEvents {
     }
 
     public static void onScreenCharTyped(ScreenEvent.CharacterTyped.Pre event) {
-        ((IScreenInternal) event.getScreen()).jsmacros_charTyped(event.getCodePoint(), event.getModifiers());
+        // getCodePoint returns int in all versions - cast to char
+        char codepoint = (char) event.getCodePoint();
+
+        ((IScreenInternal) event.getScreen()).jsmacros_charTyped(codepoint, event.getModifiers());
     }
 
     public static void onScreenDraw(ScreenEvent.Render.Post event) {
@@ -88,7 +91,15 @@ public class ForgeEvents {
     }
 
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent ev) {
-        ev.registerBelow(VanillaGuiLayers.DEBUG_OVERLAY, ResourceLocation.parse("jsmacros:hud"), ForgeEvents::renderHudListener);
+        // TODO: This used to be DEBUG_OVERLAY in 1.21.8, removed in 1.21.9 or 1.21.10.
+        //  How did this get handled on the fabric side?
+        //? if >1.21.8 {
+        /*ResourceLocation layer = VanillaGuiLayers.AFTER_CAMERA_DECORATIONS;
+        *///?} else {
+         ResourceLocation layer = VanillaGuiLayers.DEBUG_OVERLAY;
+        //?}
+
+        ev.registerBelow(layer, ResourceLocation.parse("jsmacros:hud"), ForgeEvents::renderHudListener);
     }
 
     public static void renderWorldListener(RenderLevelStageEvent.AfterLevel e) {
@@ -96,7 +107,12 @@ public class ForgeEvents {
         profiler.push("jsmacros_draw3d");
         try {
             MultiBufferSource.BufferSource consumers = Minecraft.getInstance().renderBuffers().bufferSource();
-            float tickDelta = e.getPartialTick().getGameTimeDeltaPartialTick(true);
+            //? if >1.21.8 {
+            /*DeltaTracker deltaTracker = Minecraft.getInstance().getDeltaTracker();
+            *///?} else {
+             DeltaTracker deltaTracker = e.getPartialTick();
+            //?}
+            float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(true);
             PoseStack poseStack = new PoseStack();
 
             for (Draw3D d : ImmutableSet.copyOf(FHud.renders)) {

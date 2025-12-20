@@ -70,7 +70,7 @@ abstract class MixinClientPlayerEntity extends AbstractClientPlayer {
     @Inject(at = @At("HEAD"), method = "openTextEdit", cancellable = true)
     public void onOpenEditSignScreen(SignBlockEntity sign, boolean front, CallbackInfo ci) {
         var originalLines = Arrays.stream(sign.getText(front)
-                .getMessages(minecraft.isTextFilteringEnabled()))
+                        .getMessages(minecraft.isTextFilteringEnabled()))
                 .map(Component::getString)
                 .toList();
 
@@ -127,7 +127,11 @@ abstract class MixinClientPlayerEntity extends AbstractClientPlayer {
     }
 
     @Inject(method = "startRiding", at = @At(value = "RETURN", ordinal = 1))
-    public void onStartRiding(Entity entity, boolean force, CallbackInfoReturnable<Boolean> cir) {
+    public void onStartRiding(Entity entity, boolean force,
+                              //? if >1.21.8 {
+                              /*boolean unknown,
+                              *///?}
+                              CallbackInfoReturnable<Boolean> cir) {
         new EventRiding(true, entity).trigger();
     }
 

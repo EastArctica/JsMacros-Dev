@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.EventQuitGame;
 import xyz.wagyourtail.jsmacros.client.api.helper.PacketByteBufferHelper;
@@ -24,7 +25,13 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 public class JsMacrosClient extends JsMacros {
-    public static KeyMapping keyBinding = new KeyMapping("jsmacros.menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, I18n.get("jsmacros.title"));
+    //? if >1.21.8 {
+    /*// TODO: This isn't properly getting the name
+    public static KeyMapping.Category keyBindingCategory = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath("jsmacros", "jsmacros.title"));
+    *///?} else {
+    public static String keyBindingCategory = I18n.get("jsmacros.title");
+    //?}
+    public static KeyMapping keyBinding = new KeyMapping("jsmacros.menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, keyBindingCategory);
     public static final Core<ClientProfile, EventRegistry> clientCore = new Core<>(EventRegistry::new, ClientProfile::new, configFolder.getAbsoluteFile(), new File(configFolder, "Macros"), LOGGER);
 
     public static BaseScreen prevScreen;
@@ -62,31 +69,31 @@ public class JsMacrosClient extends JsMacros {
         return switch (s) {
             case null -> null;
             case AbstractContainerScreen<?> handledScreen -> //add more ?
-                switch (handledScreen) {
-                    case ContainerScreen genericContainerScreen ->
-                        String.format("%d Row Chest", genericContainerScreen.getMenu().getRowCount());
-                    case DispenserScreen ignored -> "3x3 Container";
-                    case AnvilScreen ignored -> "Anvil";
-                    case BeaconScreen ignored -> "Beacon";
-                    case BlastFurnaceScreen ignored -> "Blast Furnace";
-                    case BrewingStandScreen ignored -> "Brewing Stand";
-                    case CraftingScreen ignored -> "Crafting Table";
-                    case EnchantmentScreen ignored -> "Enchanting Table";
-                    case FurnaceScreen ignored -> "Furnace";
-                    case GrindstoneScreen ignored -> "Grindstone";
-                    case HopperScreen ignored -> "Hopper";
-                    case LoomScreen ignored -> "Loom";
-                    case MerchantScreen ignored -> "Villager";
-                    case ShulkerBoxScreen ignored -> "Shulker Box";
-                    case SmithingScreen ignored -> "Smithing Table";
-                    case SmokerScreen ignored -> "Smoker";
-                    case CartographyTableScreen ignored -> "Cartography Table";
-                    case StonecutterScreen ignored -> "Stonecutter";
-                    case InventoryScreen ignored -> "Survival Inventory";
-                    case HorseInventoryScreen ignored -> "Horse";
-                    case CreativeModeInventoryScreen ignored -> "Creative Inventory";
-                    default -> s.getClass().getName();
-                };
+                    switch (handledScreen) {
+                        case ContainerScreen genericContainerScreen ->
+                                String.format("%d Row Chest", genericContainerScreen.getMenu().getRowCount());
+                        case DispenserScreen ignored -> "3x3 Container";
+                        case AnvilScreen ignored -> "Anvil";
+                        case BeaconScreen ignored -> "Beacon";
+                        case BlastFurnaceScreen ignored -> "Blast Furnace";
+                        case BrewingStandScreen ignored -> "Brewing Stand";
+                        case CraftingScreen ignored -> "Crafting Table";
+                        case EnchantmentScreen ignored -> "Enchanting Table";
+                        case FurnaceScreen ignored -> "Furnace";
+                        case GrindstoneScreen ignored -> "Grindstone";
+                        case HopperScreen ignored -> "Hopper";
+                        case LoomScreen ignored -> "Loom";
+                        case MerchantScreen ignored -> "Villager";
+                        case ShulkerBoxScreen ignored -> "Shulker Box";
+                        case SmithingScreen ignored -> "Smithing Table";
+                        case SmokerScreen ignored -> "Smoker";
+                        case CartographyTableScreen ignored -> "Cartography Table";
+                        case StonecutterScreen ignored -> "Stonecutter";
+                        case InventoryScreen ignored -> "Survival Inventory";
+                        case HorseInventoryScreen ignored -> "Horse";
+                        case CreativeModeInventoryScreen ignored -> "Creative Inventory";
+                        default -> s.getClass().getName();
+                    };
             case ChatScreen ignored -> "Chat";
             default -> {
                 Component t = s.getTitle();

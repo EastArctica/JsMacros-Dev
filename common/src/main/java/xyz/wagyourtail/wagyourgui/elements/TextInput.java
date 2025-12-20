@@ -4,6 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+//? if >1.21.8 {
+/*import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 
@@ -53,24 +58,49 @@ public class TextInput extends Button {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean mouseClicked(MouseButtonEvent buttonEvent, boolean debounce) {
+        double mouseX = buttonEvent.x();
+    *///?} else {
+    
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    //?}
+
         if (this.isFocused()) {
             int pos = textRenderer.plainSubstrByWidth(content, (int) (mouseX - getX() - 2)).length();
             updateSelStart(pos);
             updateSelEnd(pos);
             arrowCursor = pos;
         }
+        //? if >1.21.8 {
+        /*return super.mouseClicked(buttonEvent, debounce);
+        *///?} else {
+        
         return super.mouseClicked(mouseX, mouseY, button);
+        //?}
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean mouseDragged(MouseButtonEvent buttonEvent, double deltaX, double deltaY) {
+        double mouseX = buttonEvent.x();
+    *///?} else {
+    
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    //?}
+
         if (this.isFocused()) {
             int pos = textRenderer.plainSubstrByWidth(content, (int) (mouseX - getX() - 2)).length();
             updateSelEnd(pos);
             arrowCursor = pos;
         }
+
+        //? if >1.21.8 {
+        /*return super.mouseDragged(buttonEvent, deltaX, deltaY);
+        *///?} else {
+        
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        //?}
     }
 
     public void swapStartEnd() {
@@ -81,26 +111,41 @@ public class TextInput extends Button {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean keyPressed(KeyEvent keyEvent) {
+        boolean selectAll = keyEvent.isSelectAll();
+        boolean isCopy = keyEvent.isCopy();
+        boolean isPaste = keyEvent.isPaste();
+        boolean isCut = keyEvent.isCut();
+        boolean isCtrl = keyEvent.hasControlDown();
+        int keyCode = keyEvent.key();
+        *///?} else {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        boolean ctrl;
+        boolean selectAll = Screen.isSelectAll(keyCode);
+        boolean isCopy = Screen.isCopy(keyCode);
+        boolean isPaste = Screen.isPaste(keyCode);
+        boolean isCut = Screen.isCut(keyCode);
+        boolean isCtrl = Screen.hasControlDown();
+        //?}
+
         if (this.isFocused()) {
             if (selEndIndex < selStartIndex) {
                 swapStartEnd();
             }
             Minecraft mc = Minecraft.getInstance();
-            if (Screen.isSelectAll(keyCode)) {
+            if (selectAll) {
                 this.updateSelStart(0);
                 this.updateSelEnd(content.length());
-            } else if (Screen.isCopy(keyCode)) {
+            } else if (isCopy) {
                 mc.keyboardHandler.setClipboard(this.content.substring(selStartIndex, selEndIndex));
-            } else if (Screen.isPaste(keyCode)) {
+            } else if (isPaste) {
                 content = content.substring(0, selStartIndex) + mc.keyboardHandler.getClipboard() + content.substring(selEndIndex);
                 if (onChange != null) {
                     onChange.accept(content);
                 }
                 updateSelEnd(selStartIndex + mc.keyboardHandler.getClipboard().length());
                 arrowCursor = selStartIndex + mc.keyboardHandler.getClipboard().length();
-            } else if (Screen.isCut(keyCode)) {
+            } else if (isCut) {
                 mc.keyboardHandler.setClipboard(this.content.substring(selStartIndex, selEndIndex));
                 content = content.substring(0, selStartIndex) + content.substring(selEndIndex);
                 if (onChange != null) {
@@ -141,32 +186,30 @@ public class TextInput extends Button {
                     this.updateSelEnd(content.length());
                     break;
                 case GLFW.GLFW_KEY_LEFT:
-                    ctrl = !Screen.hasControlDown();
                     if (arrowCursor > 0) {
                         if (arrowCursor < selEndIndex) {
                             updateSelStart(--arrowCursor);
-                            if (ctrl) {
+                            if (!isCtrl) {
                                 updateSelEnd(selStartIndex);
                             }
                         } else if (arrowCursor >= selEndIndex) {
                             updateSelEnd(--arrowCursor);
-                            if (ctrl) {
+                            if (!isCtrl) {
                                 updateSelStart(selEndIndex);
                             }
                         }
                     }
                     break;
                 case GLFW.GLFW_KEY_RIGHT:
-                    ctrl = !Screen.hasControlDown();
                     if (arrowCursor < content.length()) {
                         if (arrowCursor < selEndIndex) {
                             updateSelStart(++arrowCursor);
-                            if (ctrl) {
+                            if (!isCtrl) {
                                 updateSelEnd(selStartIndex);
                             }
                         } else {
                             updateSelEnd(++arrowCursor);
-                            if (ctrl) {
+                            if (!isCtrl) {
                                 updateSelStart(selEndIndex);
                             }
                         }
@@ -175,11 +218,20 @@ public class TextInput extends Button {
                 default:
             }
         }
+        //? if >1.21.8 {
+        /*return super.keyPressed(keyEvent);
+        *///?} else {
         return super.keyPressed(keyCode, scanCode, modifiers);
+        //?}
     }
 
     @Override
-    public boolean charTyped(char chr, int keyCode) {
+    //? if >1.21.8 {
+    /*public boolean charTyped(CharacterEvent characterEvent) {
+    String chr = characterEvent.codepointAsString();
+        *///?} else {
+    public boolean charTyped(char chr, int modifiers) {
+        //?}
         if (selEndIndex < selStartIndex) {
             swapStartEnd();
         }

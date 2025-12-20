@@ -3,6 +3,9 @@ package xyz.wagyourtail.wagyourgui.elements;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.components.AbstractWidget;
+//? if >1.21.8 {
+/*import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
@@ -59,9 +62,14 @@ public class Scrollbar extends AbstractWidget {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
+        double mouseX = buttonEvent.y();
+    *///?} else {
     public void onClick(double mouseX, double mouseY) {
+    //?}
         if (this.active) {
-            double mpos = mouseY - getY() - 1;
+            double mpos = mouseX - getY() - 1;
             if (mpos < scrollAmount) {
                 scrollAmount = Math.max(mpos - (scrollbarHeight / 2), 0);
                 onChange();
@@ -80,7 +88,12 @@ public class Scrollbar extends AbstractWidget {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean mouseDragged(MouseButtonEvent buttonEvent, double deltaX, double deltaY) {
+        double mouseX = buttonEvent.y();
+    *///?} else {
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    //?}
         scrollAmount += deltaY;
         if (scrollAmount > scrollDistance) {
             scrollAmount = scrollDistance;
@@ -89,7 +102,11 @@ public class Scrollbar extends AbstractWidget {
             scrollAmount = 0;
         }
         onChange();
+        //? if >1.21.8 {
+        /*return super.mouseDragged(buttonEvent, deltaX, deltaY);
+        *///?} else {
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        //?}
     }
 
     @Override

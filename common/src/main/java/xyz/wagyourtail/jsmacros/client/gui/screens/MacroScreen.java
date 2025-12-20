@@ -91,7 +91,9 @@ public class MacroScreen extends BaseScreen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horiz, double vert) {
         if (overlay == null) {
-            macroScroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
+            //  If this is *really* what we want, we'll need to make a fake event
+            // macroScroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
@@ -216,7 +218,7 @@ public class MacroScreen extends BaseScreen {
         drawContext.fill(this.width / 6 * 3 + 1, 0, this.width / 6 * 3 + 3, 20, 0xFFFFFFFF);
         drawContext.fill(0, 20, width, 22, 0xFFFFFFFF);
         drawContext.drawCenteredString(this.font, JsMacrosClient.clientCore.profile.getCurrentProfileName(), this.width * 8 / 12, 5, 0xFF7F7F7F);
-        
+
         super.render(drawContext, mouseX, mouseY, delta);
     }
 

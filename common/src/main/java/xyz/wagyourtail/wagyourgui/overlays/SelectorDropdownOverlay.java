@@ -2,6 +2,10 @@ package xyz.wagyourtail.wagyourgui.overlays;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+//? if >1.21.8 {
+/*import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import org.lwjgl.glfw.GLFW;
@@ -66,7 +70,14 @@ public class SelectorDropdownOverlay extends OverlayContainer {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
+        double mouseX = buttonEvent.x();
+        double mouseY = buttonEvent.y();
+    *///?} else {
+    
     public void onClick(double mouseX, double mouseY, int button) {
+    //?}
         if (mouseX < x || mouseX > x + width || mouseY < y || mouseY > y + height) {
             close();
         }
@@ -83,8 +94,15 @@ public class SelectorDropdownOverlay extends OverlayContainer {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean keyPressed(KeyEvent keyEvent) {
+        switch (keyEvent.key()) {
+    *///?} else {
+    
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        switch (keyCode) {
+         switch (keyCode) {
+    
+    //?}
             case GLFW.GLFW_KEY_UP:
                 if (selected == -1) {
                     return false;
