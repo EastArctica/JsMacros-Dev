@@ -62,10 +62,8 @@ public class TextInput extends Button {
     /*public boolean mouseClicked(MouseButtonEvent buttonEvent, boolean debounce) {
         double mouseX = buttonEvent.x();
     *///?} else {
-    
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
     //?}
-
         if (this.isFocused()) {
             int pos = textRenderer.plainSubstrByWidth(content, (int) (mouseX - getX() - 2)).length();
             updateSelStart(pos);
@@ -75,7 +73,6 @@ public class TextInput extends Button {
         //? if >1.21.8 {
         /*return super.mouseClicked(buttonEvent, debounce);
         *///?} else {
-        
         return super.mouseClicked(mouseX, mouseY, button);
         //?}
     }
@@ -85,10 +82,8 @@ public class TextInput extends Button {
     /*public boolean mouseDragged(MouseButtonEvent buttonEvent, double deltaX, double deltaY) {
         double mouseX = buttonEvent.x();
     *///?} else {
-    
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
     //?}
-
         if (this.isFocused()) {
             int pos = textRenderer.plainSubstrByWidth(content, (int) (mouseX - getX() - 2)).length();
             updateSelEnd(pos);
@@ -98,7 +93,6 @@ public class TextInput extends Button {
         //? if >1.21.8 {
         /*return super.mouseDragged(buttonEvent, deltaX, deltaY);
         *///?} else {
-        
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
         //?}
     }

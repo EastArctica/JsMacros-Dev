@@ -147,7 +147,8 @@ public abstract class BaseScreen extends Screen implements IOverlayParent {
             }
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
-    }//?}
+    }
+    //?}
 
     // TODO: This is a bad way to scroll
     @Override
@@ -165,7 +166,8 @@ public abstract class BaseScreen extends Screen implements IOverlayParent {
                     *///?} else {
                     mouseX,
                     mouseY,
-                    0,//?}
+                    0,
+                    //?}
                     0, -vert * 2);
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
@@ -186,7 +188,8 @@ public abstract class BaseScreen extends Screen implements IOverlayParent {
             overlay.onClick(mouseX, mouseY, button);
         }
         return super.mouseClicked(mouseX, mouseY, button);
-    }//?}
+    }
+    //?}
 
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {

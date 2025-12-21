@@ -338,11 +338,11 @@ public class EditorScreen extends BaseScreen {
         assert minecraft != null;
         if (overlay == null) {
             setFocused(null);
-            //? if >1.21.8 {
-            /*} else if (overlay.keyPressed(keyEvent)) {
-             *///?} else {
+//? if >1.21.8 {
+      /*} else if (overlay.keyPressed(keyEvent)) {
+*///?} else {
         } else if (overlay.keyPressed(keyCode, scanCode, modifiers)) {
-            //?}
+//?}
             return true;
         }
         if (isSelectAll) {
@@ -701,7 +701,10 @@ public class EditorScreen extends BaseScreen {
         if (overlay == null && scrollbar != null) {
             // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
             //  If this is *really* what we want, we'll need to make a fake event
-            // scrollbar.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            //  Later note: I believe this is how scrolling is done in the editor?
+            //? if <=1.21.8 {
+            scrollbar.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            //?}
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }

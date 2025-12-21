@@ -90,7 +90,10 @@ public class CancelScreen extends BaseScreen {
     public boolean mouseScrolled(double mouseX, double mouseY, double horiz, double vert) {
         // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
         //  If this is *really* what we want, we'll need to make a fake event
-        // s.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+        //  Later note: I believe this is how scrolling is done in the editor?
+        //? if <=1.21.8 {
+        s.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+        //?}
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
 

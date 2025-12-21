@@ -25,7 +25,6 @@ public class AnnotatedCheckBox extends Button {
         super.onPress(input);
     }
     *///?} else {
-    
     @Override
     public void onPress() {
         value = !value;

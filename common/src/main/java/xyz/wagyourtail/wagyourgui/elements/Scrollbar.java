@@ -64,12 +64,12 @@ public class Scrollbar extends AbstractWidget {
     @Override
     //? if >1.21.8 {
     /*public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
-        double mouseX = buttonEvent.y();
+        double mouseY = buttonEvent.y();
     *///?} else {
     public void onClick(double mouseX, double mouseY) {
     //?}
         if (this.active) {
-            double mpos = mouseX - getY() - 1;
+            double mpos = mouseY - getY() - 1;
             if (mpos < scrollAmount) {
                 scrollAmount = Math.max(mpos - (scrollbarHeight / 2), 0);
                 onChange();
@@ -90,7 +90,7 @@ public class Scrollbar extends AbstractWidget {
     @Override
     //? if >1.21.8 {
     /*public boolean mouseDragged(MouseButtonEvent buttonEvent, double deltaX, double deltaY) {
-        double mouseX = buttonEvent.y();
+        double mouseY = buttonEvent.y();
     *///?} else {
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
     //?}

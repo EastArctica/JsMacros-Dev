@@ -68,16 +68,19 @@ public class ParrotEntityHelper extends TameableEntityHelper<Parrot> {
      */
     public boolean isSittingOnShoulder() {
         if (!isSitting()) return false;
-        // TODO: Lots of this changed in 1.21.9/1.21.10, need to fix
-//        return Minecraft.getInstance().level.players().stream()
-//            .flatMap(e -> {
-//                return Stream.of(e.getEntityData().get(e.DATA_SHOULDER_PARROT_LEFT), e.getEntityData().get(e.DATA_SHOULDER_PARROT_RIGHT));
-//            })
-//            .filter(Optional::isPresent)
-//            .flatMap(n -> n.get().getIntArray("UUID").stream())
-//            .map(UUIDUtil::uuidFromIntArray)
-//            .anyMatch(base.getUUID()::equals);
+        //? if >1.21.8 {
+        /*// TODO: Lots of this changed in 1.21.9/1.21.10, need to fix
         return false;
+        *///?} else {
+        return Minecraft.getInstance().level.players().stream()
+            .flatMap(e -> {
+                return Stream.of(e.getEntityData().get(e.DATA_SHOULDER_PARROT_LEFT), e.getEntityData().get(e.DATA_SHOULDER_PARROT_RIGHT));
+            })
+            .filter(Optional::isPresent)
+            .flatMap(n -> n.get().getIntArray("UUID").stream())
+            .map(UUIDUtil::uuidFromIntArray)
+            .anyMatch(base.getUUID()::equals);
+        //?}
     }
 
 }

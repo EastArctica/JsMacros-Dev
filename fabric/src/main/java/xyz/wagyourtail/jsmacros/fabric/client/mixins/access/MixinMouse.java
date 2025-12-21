@@ -33,7 +33,6 @@ public class MixinMouse {
         return original.call(instance, buttonEvent, dx, dy);
     }
 *///?} else {
-
     @WrapOperation(method = "onPress", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;mouseClicked(DDI)Z"))
     private boolean onMouseClicked(Screen instance, double x, double y, int button, Operation<Boolean> original) {
         ((IScreenInternal) instance).jsmacros_mouseClicked(x, y, button);
@@ -52,6 +51,7 @@ public class MixinMouse {
         return original.call(instance, x, y, button, dx, dy);
     }
     //?}
+
     @WrapOperation(method = "onScroll", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;mouseScrolled(DDDD)Z"))
     private boolean onMouseScrolled(Screen instance, double x, double y, double dx, double dy, Operation<Boolean> original) {
         ((IScreenInternal) instance).jsmacros_mouseScrolled(x, y, dx, dy);

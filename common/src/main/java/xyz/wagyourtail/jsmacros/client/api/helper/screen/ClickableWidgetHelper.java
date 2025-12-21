@@ -193,7 +193,9 @@ public class ClickableWidgetHelper<B extends ClickableWidgetHelper<B, T>, T exte
                 *///?} else {
                 base.mouseClicked(base.getX(), base.getY(), 0);
                 base.mouseReleased(base.getX(), base.getY(), 0);
+
                 //?}
+                waiter.release();
             });
             waiter.acquire();
         }

@@ -37,8 +37,6 @@ public class MixinWorldRenderer {
     @Final
     private LevelTargetBundle targets;
 
-    // FrameGraphBuilder frameGraphBuilder, Frustum frustum, Camera camera, Matrix4f frustumMatrix, GpuBufferSlice shaderFog, boolean renderBlockOutline, boolean renderEntityOutline, DeltaTracker deltaTracker, ProfilerFiller profiler
-
     @Inject(method = "addMainPass", at = @At("TAIL"))
     private void onRenderMain(
             //? if >1.21.8 {

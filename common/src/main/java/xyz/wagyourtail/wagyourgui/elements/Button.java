@@ -128,7 +128,7 @@ public class Button extends AbstractButton {
     }
     *///?} else {
     public void onRelease(double mouseX, double mouseY) {
-        if (this.isActive()) {
+        if (this.active) {
             super.onClick(mouseX, mouseY);
         }
     }

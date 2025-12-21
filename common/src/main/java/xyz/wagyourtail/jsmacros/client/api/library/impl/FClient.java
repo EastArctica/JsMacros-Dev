@@ -184,8 +184,8 @@ public class FClient extends PerExecLibrary {
      * @since 1.2.0 (was in the {@code jsmacros} library until 1.2.9)
      */
     public String getFPS() {
-        // Removed from mc in 1.21.9 or 1.21.10, reimplemented here.
-        int framerateLimit = mc.options.framerateLimit().get();
+        //? if >1.21.8 {
+        /*int framerateLimit = mc.options.framerateLimit().get();
         String string;
         if (mc.getGpuUtilization() > 0.0) {
             string = " GPU: " + (mc.getGpuUtilization() > 100.0 ? ChatFormatting.RED + "100%" : Math.round(mc.getGpuUtilization()) + "%");
@@ -206,6 +206,9 @@ public class FClient extends PerExecLibrary {
                 mc.options.biomeBlendRadius().get(),
                 string
         );
+        *///?} else {
+        return mc.fpsString;
+        //?}
     }
 
     /**

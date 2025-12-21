@@ -69,31 +69,31 @@ public class JsMacrosClient extends JsMacros {
         return switch (s) {
             case null -> null;
             case AbstractContainerScreen<?> handledScreen -> //add more ?
-                    switch (handledScreen) {
-                        case ContainerScreen genericContainerScreen ->
-                                String.format("%d Row Chest", genericContainerScreen.getMenu().getRowCount());
-                        case DispenserScreen ignored -> "3x3 Container";
-                        case AnvilScreen ignored -> "Anvil";
-                        case BeaconScreen ignored -> "Beacon";
-                        case BlastFurnaceScreen ignored -> "Blast Furnace";
-                        case BrewingStandScreen ignored -> "Brewing Stand";
-                        case CraftingScreen ignored -> "Crafting Table";
-                        case EnchantmentScreen ignored -> "Enchanting Table";
-                        case FurnaceScreen ignored -> "Furnace";
-                        case GrindstoneScreen ignored -> "Grindstone";
-                        case HopperScreen ignored -> "Hopper";
-                        case LoomScreen ignored -> "Loom";
-                        case MerchantScreen ignored -> "Villager";
-                        case ShulkerBoxScreen ignored -> "Shulker Box";
-                        case SmithingScreen ignored -> "Smithing Table";
-                        case SmokerScreen ignored -> "Smoker";
-                        case CartographyTableScreen ignored -> "Cartography Table";
-                        case StonecutterScreen ignored -> "Stonecutter";
-                        case InventoryScreen ignored -> "Survival Inventory";
-                        case HorseInventoryScreen ignored -> "Horse";
-                        case CreativeModeInventoryScreen ignored -> "Creative Inventory";
-                        default -> s.getClass().getName();
-                    };
+                switch (handledScreen) {
+                    case ContainerScreen genericContainerScreen ->
+                        String.format("%d Row Chest", genericContainerScreen.getMenu().getRowCount());
+                    case DispenserScreen ignored -> "3x3 Container";
+                    case AnvilScreen ignored -> "Anvil";
+                    case BeaconScreen ignored -> "Beacon";
+                    case BlastFurnaceScreen ignored -> "Blast Furnace";
+                    case BrewingStandScreen ignored -> "Brewing Stand";
+                    case CraftingScreen ignored -> "Crafting Table";
+                    case EnchantmentScreen ignored -> "Enchanting Table";
+                    case FurnaceScreen ignored -> "Furnace";
+                    case GrindstoneScreen ignored -> "Grindstone";
+                    case HopperScreen ignored -> "Hopper";
+                    case LoomScreen ignored -> "Loom";
+                    case MerchantScreen ignored -> "Villager";
+                    case ShulkerBoxScreen ignored -> "Shulker Box";
+                    case SmithingScreen ignored -> "Smithing Table";
+                    case SmokerScreen ignored -> "Smoker";
+                    case CartographyTableScreen ignored -> "Cartography Table";
+                    case StonecutterScreen ignored -> "Stonecutter";
+                    case InventoryScreen ignored -> "Survival Inventory";
+                    case HorseInventoryScreen ignored -> "Horse";
+                    case CreativeModeInventoryScreen ignored -> "Creative Inventory";
+                    default -> s.getClass().getName();
+                };
             case ChatScreen ignored -> "Chat";
             default -> {
                 Component t = s.getTitle();

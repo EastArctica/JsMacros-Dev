@@ -26,7 +26,6 @@ class MixinMouse {
         //? if >1.21.8 {
         /*if (window != minecraft.getWindow().handle()) return;
         *///?} else {
-        
         if (window != minecraft.getWindow().getWindow()) return;
         //?}
         
@@ -51,7 +50,6 @@ class MixinMouse {
         }
     }
     *///?} else {
-    
     @Inject(at = @At("HEAD"), method = "onPress", cancellable = true)
     private void onMouseButton(long window, int key, int action, int mods, final CallbackInfo info) {
         if (window != minecraft.getWindow().getWindow()) {

@@ -92,7 +92,6 @@ public abstract class OverlayContainer extends MultiElementContainer<IOverlayPar
         }
     }
     *///?} else {
-    
     public void onClick(double mouseX, double mouseY, int button) {
         if (overlay != null) {
             overlay.onClick(mouseX, mouseY, button);
@@ -111,7 +110,6 @@ public abstract class OverlayContainer extends MultiElementContainer<IOverlayPar
         return false;
     }
     *///?} else {
-    
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (overlay != null) {
             overlay.keyPressed(keyCode, scanCode, modifiers);

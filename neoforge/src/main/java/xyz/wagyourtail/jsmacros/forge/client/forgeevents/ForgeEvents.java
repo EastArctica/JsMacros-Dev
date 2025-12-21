@@ -96,7 +96,7 @@ public class ForgeEvents {
         //? if >1.21.8 {
         /*ResourceLocation layer = VanillaGuiLayers.AFTER_CAMERA_DECORATIONS;
         *///?} else {
-         ResourceLocation layer = VanillaGuiLayers.DEBUG_OVERLAY;
+        ResourceLocation layer = VanillaGuiLayers.DEBUG_OVERLAY;
         //?}
 
         ev.registerBelow(layer, ResourceLocation.parse("jsmacros:hud"), ForgeEvents::renderHudListener);
@@ -110,7 +110,7 @@ public class ForgeEvents {
             //? if >1.21.8 {
             /*DeltaTracker deltaTracker = Minecraft.getInstance().getDeltaTracker();
             *///?} else {
-             DeltaTracker deltaTracker = e.getPartialTick();
+            DeltaTracker deltaTracker = e.getPartialTick();
             //?}
             float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(true);
             PoseStack poseStack = new PoseStack();

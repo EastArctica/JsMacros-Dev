@@ -75,7 +75,6 @@ public class SelectorDropdownOverlay extends OverlayContainer {
         double mouseX = buttonEvent.x();
         double mouseY = buttonEvent.y();
     *///?} else {
-    
     public void onClick(double mouseX, double mouseY, int button) {
     //?}
         if (mouseX < x || mouseX > x + width || mouseY < y || mouseY > y + height) {
@@ -98,10 +97,8 @@ public class SelectorDropdownOverlay extends OverlayContainer {
     /*public boolean keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.key()) {
     *///?} else {
-    
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-         switch (keyCode) {
-    
+        switch (keyCode) {
     //?}
             case GLFW.GLFW_KEY_UP:
                 if (selected == -1) {

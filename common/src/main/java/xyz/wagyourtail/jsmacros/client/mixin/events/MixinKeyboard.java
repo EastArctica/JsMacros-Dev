@@ -34,7 +34,6 @@ class MixinKeyboard {
         }
     }
     *///?} else {
-    
     @Inject(at = @At("HEAD"), method = "keyPress", cancellable = true)
     private void onKey(long window, int key, int scancode, int action, int mods, final CallbackInfo info) {
         if (window != minecraft.getWindow().getWindow()) {

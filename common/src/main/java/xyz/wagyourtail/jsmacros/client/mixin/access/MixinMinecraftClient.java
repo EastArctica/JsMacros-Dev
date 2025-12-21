@@ -147,6 +147,16 @@ class MixinMinecraftClient {
         InteractionProxy.Interact.ensureInteracting(rightClickDelay);
     }
 
+    // TODO: Fix the below todo. In the meantime, I'll keep the pre 1.21.9 code in
+    //? if <=1.21.8 {
+    @ModifyExpressionValue(method = "continueAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z"))
+    private boolean catchEmptyShapeException(boolean value, @Local BlockPos blockPos) {
+        if (value) return true;
+        assert level != null;
+        return level.getBlockState(blockPos).getShape(level, blockPos).isEmpty();
+    }
+    //?}
+
     // TODO: Currently MixinStyleSerializer.redirectClickGetAction and MixinMinecraftClient.catchEmptyShapeException are
     //  broken in production. I do not know why this is, but it works in dev (I think).
     /*
