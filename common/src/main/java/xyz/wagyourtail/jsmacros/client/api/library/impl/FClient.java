@@ -1,5 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.library.impl;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.CloudStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -41,6 +43,7 @@ import xyz.wagyourtail.jsmacros.core.library.PerExecLibrary;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
@@ -181,7 +184,31 @@ public class FClient extends PerExecLibrary {
      * @since 1.2.0 (was in the {@code jsmacros} library until 1.2.9)
      */
     public String getFPS() {
+        //? if >1.21.8 {
+        /*int framerateLimit = mc.options.framerateLimit().get();
+        String string;
+        if (mc.getGpuUtilization() > 0.0) {
+            string = " GPU: " + (mc.getGpuUtilization() > 100.0 ? ChatFormatting.RED + "100%" : Math.round(mc.getGpuUtilization()) + "%");
+        } else {
+            string = "";
+        }
+
+        return String.format(
+                Locale.ROOT,
+                "%d fps T: %s%s%s%s B: %d%s",
+                mc.getFps(),
+                framerateLimit == 260 ? "inf" : framerateLimit,
+                mc.options.enableVsync().get() ? " vsync " : " ",
+                mc.options.graphicsMode().get(),
+                mc.options.cloudStatus().get() == CloudStatus.OFF
+                        ? ""
+                        : (mc.options.cloudStatus().get() == CloudStatus.FAST ? " fast-clouds" : " fancy-clouds"),
+                mc.options.biomeBlendRadius().get(),
+                string
+        );
+        *///?} else {
         return mc.fpsString;
+        //?}
     }
 
     /**

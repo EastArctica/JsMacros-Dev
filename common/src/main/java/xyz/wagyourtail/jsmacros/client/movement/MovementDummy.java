@@ -118,11 +118,11 @@ public class MovementDummy extends LivingEntity {
         } else {
             this.jumpingCooldown = 0;
         }
-        /** Juming END **/
+        /** Jumping END **/
 
         this.travel(new Vec3(currentInput.movementSideways * 0.98, 0.0, currentInput.movementForward * 0.98));
 
-// TODO: fix, var was removed
+// TODO: airStrafingSpeed was removed and replaced with getOffGroundSpeed()
 //        /* flyingSpeed only gets set after travel */
 //        this.airStrafingSpeed = this.isSprinting() ? 0.026F : 0.02F;
 

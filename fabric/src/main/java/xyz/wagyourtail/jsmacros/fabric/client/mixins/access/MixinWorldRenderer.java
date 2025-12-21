@@ -7,6 +7,10 @@ import com.mojang.blaze3d.framegraph.FramePass;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
+//? if >1.21.8 {
+/*import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.state.LevelRenderState;
+*///?}
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LevelTargetBundle;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -34,16 +38,30 @@ public class MixinWorldRenderer {
     private LevelTargetBundle targets;
 
     @Inject(method = "addMainPass", at = @At("TAIL"))
-    private void onRenderMain(FrameGraphBuilder frameGraphBuilder,
-                              Frustum frustum,
-                              Camera camera,
-                              Matrix4f positionMatrix,
-                              GpuBufferSlice fog,
-                              boolean renderBlockOutline,
-                              boolean renderEntityOutlines,
-                              DeltaTracker renderTickCounter,
-                              ProfilerFiller profiler,
-                              CallbackInfo ci) {
+    private void onRenderMain(
+            //? if >1.21.8 {
+            /*FrameGraphBuilder frameGraphBuilder,
+            Frustum frustum,
+            Matrix4f frustumMatrix,
+            GpuBufferSlice shaderFog,
+            boolean renderBlockOutline,
+            LevelRenderState levelRenderState,
+            DeltaTracker deltaTracker,
+            ProfilerFiller profiler,
+            CallbackInfo ci
+            *///?} else {
+            FrameGraphBuilder frameGraphBuilder,
+            Frustum frustum,
+            Camera camera,
+            Matrix4f frustumMatrix,
+            GpuBufferSlice shaderFog,
+            boolean renderBlockOutline,
+            boolean renderEntityOutline,
+            DeltaTracker deltaTracker,
+            ProfilerFiller profiler,
+            CallbackInfo ci
+            //?}
+    ) {
         if (this.targets == null) {
             return;
         }
@@ -57,7 +75,7 @@ public class MixinWorldRenderer {
             try {
                 MultiBufferSource.BufferSource consumers = renderBuffers.crumblingBufferSource();
 
-                float tickDelta = renderTickCounter.getGameTimeDeltaPartialTick(true);
+                float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(true);
 
                 PoseStack matrixStack = new PoseStack();
                 matrixStack.pushPose();

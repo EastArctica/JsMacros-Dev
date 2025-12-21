@@ -29,10 +29,8 @@ import xyz.wagyourtail.jsmacros.client.access.IScreenInternal;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw2D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IScreen;
-import xyz.wagyourtail.jsmacros.client.api.classes.render.components.*;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
-import xyz.wagyourtail.jsmacros.client.api.helper.screen.*;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 import xyz.wagyourtail.wagyourgui.elements.Slider;
 
@@ -709,7 +707,7 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
         CycleButton<String> cyclingButton;
         CycleButton.Builder<String> builder = CycleButton.builder(net.minecraft.network.chat.Component::literal);
         if (alternatives != null) {
-            BooleanSupplier supplier = alternateToggle == null ? Screen::hasAltDown : alternateToggle::get;
+            BooleanSupplier supplier = alternateToggle == null ? CycleButton.DEFAULT_ALT_LIST_SELECTOR : alternateToggle::get;
             builder.withValues(supplier, Arrays.asList(values), Arrays.asList(alternatives));
         } else {
             builder.withValues(values);
@@ -1026,7 +1024,7 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     public void handleCustomClickEvent(Style style, CallbackInfoReturnable<Boolean> cir) {
         ClickEvent clickEvent = style.getClickEvent();
         if (clickEvent instanceof CustomClickEvent) {
-            ((CustomClickEvent) clickEvent).getEvent().run();
+            ((CustomClickEvent) clickEvent).event().run();
             cir.setReturnValue(true);
             cir.cancel();
         }

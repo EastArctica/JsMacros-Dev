@@ -1,0 +1,100 @@
+name: Beta Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      beta_number:
+        description: 'Beta iteration number (N)'
+        required: true
+      mod_version:
+        description: 'Override base MODVER (optional)'
+        required: false
+
+env:
+  JAVA_VERSION: '21'
+  MODRINTH_PROJECT: 2m9WfquA
+  MOD_ID: jsmacros
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      mod_version: ${{ steps.versions.outputs.mod_version }}
+      mc_version: ${{ steps.versions.outputs.mc_version }}
+      gradle_args: ${{ steps.versions.outputs.gradle_args }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Compute versions
+        id: versions
+        shell: bash
+        run: |
+          ARGS="-Pchannel=beta -Pbeta_number=${{ inputs.beta_number }}"
+          if [ -n "${{ inputs.mod_version }}" ]; then
+            ARGS="$ARGS -Pmod_version=${{ inputs.mod_version }}"
+          fi
+          MOD_VERSION=$(./gradlew -q printVersion $ARGS | tail -1 | tr -d '\n\r')
+          MC_VERSION=$(./gradlew -q printMinecraftVersion $ARGS | tail -1 | tr -d '\n\r')
+          echo "gradle_args=$ARGS" >> "$GITHUB_OUTPUT"
+          echo "mod_version=${MOD_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "mc_version=${MC_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Build distribution
+        run: ./gradlew createDist ${{ steps.versions.outputs.gradle_args }}
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: beta-dist-${{ steps.versions.outputs.mod_version }}
+          path: dist/**/*
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        loader: [fabric, neoforge]
+    steps:
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: beta-dist-${{ needs.build.outputs.mod_version }}
+          path: dist
+
+      - name: List dist contents
+        run: ls -R dist
+
+      - name: Publish to GitHub and Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: ${{ env.MODRINTH_PROJECT }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-tag: v${{ needs.build.outputs.mod_version }}+${{ needs.build.outputs.mc_version }}
+          github-prerelease: true
+          name: JsMacros ${{ needs.build.outputs.mod_version }} (${{ matrix.loader }}, MC ${{ needs.build.outputs.mc_version }})
+          version: ${{ needs.build.outputs.mod_version }}+${{ matrix.loader }}
+          version-type: beta
+          loaders: ${{ matrix.loader }}
+          game-versions: ${{ needs.build.outputs.mc_version }}
+          files: |
+            dist/jsmacros-${{ needs.build.outputs.mc_version }}-${{ matrix.loader }}-${{ needs.build.outputs.mod_version }}.jar
+            dist/jsmacros-devkit-${{ needs.build.outputs.mc_version }}-${{ needs.build.outputs.mod_version }}.zip
+            dist/jsmacros-extensions-${{ needs.build.outputs.mc_version }}-${{ needs.build.outputs.mod_version }}.zip
+            dist/extensions/jsmacros-ext-*-${{ needs.build.outputs.mc_version }}-${{ matrix.loader }}-${{ needs.build.outputs.mod_version }}.jar
+          retry-attempts: 5
+          retry-delay: 60000

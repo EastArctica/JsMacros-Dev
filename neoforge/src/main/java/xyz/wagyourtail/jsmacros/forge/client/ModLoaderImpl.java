@@ -16,7 +16,11 @@ public class ModLoaderImpl implements ModLoader {
 
     @Override
     public boolean isDevEnv() {
+        //? if >1.21.8 {
+         /*return !FMLEnvironment.isProduction();
+        *///?} else {
         return !FMLEnvironment.production;
+        //?}
     }
 
     @Override

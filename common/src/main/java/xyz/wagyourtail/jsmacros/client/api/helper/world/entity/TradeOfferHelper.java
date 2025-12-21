@@ -102,7 +102,7 @@ public class TradeOfferHelper extends BaseHelper<MerchantOffer> {
      */
     @DocletReplaceReturn("NBTElementHelper$NBTCompoundHelper")
     public NBTElementHelper<?> getNBT() {
-        return NBTElementHelper.wrap(MerchantOffer.CODEC.encodeStart(RegistryHelper.NBT_OPS_UNLIMITED, base).getOrThrow());
+        return NBTElementHelper.wrap(MerchantOffer.CODEC.encodeStart(RegistryHelper.getNbtOps(), base).getOrThrow());
     }
 
     /**
