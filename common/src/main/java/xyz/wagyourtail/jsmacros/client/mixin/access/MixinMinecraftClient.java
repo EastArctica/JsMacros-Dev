@@ -1,10 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.mixin.access;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Overlay;
 //? if <=1.21.8 {
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.BlockPos;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 //?}
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.Options;
