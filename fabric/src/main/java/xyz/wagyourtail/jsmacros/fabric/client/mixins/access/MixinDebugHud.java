@@ -16,7 +16,6 @@ import java.util.Comparator;
 class MixinDebugHud {
     //? if >1.21.8 {
     // TODO: I didn't want to find the mixin reference, changed in 1.21.9 or 1.21.10
-    //? if >1.21.8 {
     //?} else {
     @Inject(
             method = "drawGameInformation(Lnet/minecraft/client/gui/GuiGraphics;)V",
