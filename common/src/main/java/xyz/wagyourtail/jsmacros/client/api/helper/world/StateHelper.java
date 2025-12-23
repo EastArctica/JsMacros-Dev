@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world;
 
+import net.minecraft.Util;
 import net.minecraft.world.level.block.state.StateHolder;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.Util;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
 import java.util.Map;

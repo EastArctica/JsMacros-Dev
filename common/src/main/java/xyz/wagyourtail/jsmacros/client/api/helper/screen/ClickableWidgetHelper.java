@@ -2,11 +2,8 @@ package xyz.wagyourtail.jsmacros.client.api.helper.screen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.components.AbstractWidget;
-//? if >1.21.8 {
-/*import net.minecraft.client.input.MouseButtonEvent;
-*///?}
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
@@ -15,6 +12,10 @@ import xyz.wagyourtail.jsmacros.client.api.classes.render.components.Alignable;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.components.RenderElement;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
+
+//? if >1.21.8 {
+/*import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 
 import java.util.ArrayList;
 import java.util.List;

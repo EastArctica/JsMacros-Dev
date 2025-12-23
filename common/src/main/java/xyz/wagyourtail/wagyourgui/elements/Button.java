@@ -2,15 +2,16 @@ package xyz.wagyourtail.wagyourgui.elements;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
+import xyz.wagyourtail.jsmacros.client.util.ColorUtil;
+
 //? if >1.21.8 {
 /*import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.input.MouseButtonEvent;
 *///?}
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.network.chat.Component;
-import xyz.wagyourtail.jsmacros.client.util.ColorUtil;
 
 import java.util.List;
 import java.util.function.Consumer;

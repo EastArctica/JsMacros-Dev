@@ -8,7 +8,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.EventQuitGame;
 import xyz.wagyourtail.jsmacros.client.api.helper.PacketByteBufferHelper;
@@ -23,6 +22,10 @@ import xyz.wagyourtail.wagyourgui.BaseScreen;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+
+//? if >1.21.8 {
+/*import net.minecraft.resources.ResourceLocation;
+*///?}
 
 public class JsMacrosClient extends JsMacros {
     //? if >1.21.8 {

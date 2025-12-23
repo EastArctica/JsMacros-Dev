@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.api.math;
 
-import xyz.wagyourtail.jsmacros.api.coordinate.ICoordinateConverter;
 import org.jetbrains.annotations.NotNull;
+import xyz.wagyourtail.jsmacros.api.coordinate.ICoordinateConverter;
 
 import java.util.Objects;
 

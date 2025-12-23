@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.mixin.events;
 
-import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.SyncedDataHolder;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import org.apache.commons.lang3.ObjectUtils;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

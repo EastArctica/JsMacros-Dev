@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.gui.editor;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.util.Mth;
 
 import java.util.function.Consumer;

@@ -2,7 +2,6 @@ package xyz.wagyourtail.jsmacros.client.api.classes.render;
 
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
-import xyz.wagyourtail.jsmacros.client.api.helper.screen.*;
 import xyz.wagyourtail.jsmacros.api.math.Pos2D;
 import xyz.wagyourtail.jsmacros.api.math.Vec2D;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;

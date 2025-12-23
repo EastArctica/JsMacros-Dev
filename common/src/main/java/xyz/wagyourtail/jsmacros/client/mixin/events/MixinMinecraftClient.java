@@ -1,16 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.mixin.events;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.User;
 import net.minecraft.client.gui.screens.DisconnectedScreen;
 import net.minecraft.client.gui.screens.Screen;
-//? if <=1.21.8 {
-import net.minecraft.client.gui.screens.ReceivingLevelScreen;
-//?}
-import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.multiplayer.MultiPlayerGameMode;
-import net.minecraft.client.User;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -26,6 +23,10 @@ import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventOpenScreen;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.EventDimensionChange;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.EventDisconnect;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinDisconnectedScreen;
+
+//? if <=1.21.8 {
+import net.minecraft.client.gui.screens.ReceivingLevelScreen;
+//?}
 
 @Mixin(Minecraft.class)
 public abstract class MixinMinecraftClient {

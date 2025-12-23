@@ -2,20 +2,19 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.core.ClientAsset;
-//? if >1.21.8 {
-/*import net.minecraft.world.entity.player.PlayerModelType;
-import net.minecraft.world.entity.player.PlayerSkin;
-*///?} else {
-import net.minecraft.client.resources.PlayerSkin;
-//?}
 import net.minecraft.world.level.GameType;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
-import java.util.Objects;
+//? if >1.21.8 {
+/*import net.minecraft.core.ClientAsset;
+import net.minecraft.world.entity.player.PlayerModelType;
+import net.minecraft.world.entity.player.PlayerSkin;
+*///?} else {
+import net.minecraft.client.resources.PlayerSkin;
+//?}
 
 /**
  * @author Wagyourtail

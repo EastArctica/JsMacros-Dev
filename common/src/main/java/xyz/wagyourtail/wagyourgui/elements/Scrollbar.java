@@ -1,14 +1,15 @@
 package xyz.wagyourtail.wagyourgui.elements;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.components.AbstractWidget;
-//? if >1.21.8 {
-/*import net.minecraft.client.input.MouseButtonEvent;
-*///?}
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
+
+//? if >1.21.8 {
+/*import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 
 public class Scrollbar extends AbstractWidget {
     protected double scrollPages = 1;

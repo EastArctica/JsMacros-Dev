@@ -1,12 +1,12 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
+import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeCollection;
-import net.minecraft.client.ClientRecipeBook;
-import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.RecipeBookMenu;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IScreen;

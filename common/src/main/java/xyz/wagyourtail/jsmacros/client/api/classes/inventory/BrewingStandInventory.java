@@ -1,11 +1,11 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
-import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
 import net.minecraft.client.gui.screens.inventory.BrewingStandScreen;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 
 import java.util.Arrays;

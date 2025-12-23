@@ -1,11 +1,11 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.screen;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.world.scores.ScoreHolder;
-import net.minecraft.world.scores.PlayerScoreEntry;
-import net.minecraft.world.scores.Objective;
-import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.scores.Objective;
+import net.minecraft.world.scores.PlayerScoreEntry;
+import net.minecraft.world.scores.PlayerTeam;
+import net.minecraft.world.scores.ScoreHolder;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 

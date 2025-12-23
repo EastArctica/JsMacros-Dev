@@ -1,7 +1,6 @@
 package xyz.wagyourtail.jsmacros.api.coordinate;
 
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
-import xyz.wagyourtail.jsmacros.api.math.Vec3D;
 
 /**
  * Platform-agnostic coordinate conversion interface.

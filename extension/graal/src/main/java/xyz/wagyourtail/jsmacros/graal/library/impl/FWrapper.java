@@ -3,7 +3,6 @@ package xyz.wagyourtail.jsmacros.graal.library.impl;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
-import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 import xyz.wagyourtail.jsmacros.core.language.BaseLanguage;
 import xyz.wagyourtail.jsmacros.core.language.BaseScriptContext;

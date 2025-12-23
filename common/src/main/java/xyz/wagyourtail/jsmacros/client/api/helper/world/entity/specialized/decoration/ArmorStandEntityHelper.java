@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.decoration;
 
-import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.core.Rotations;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.LivingEntityHelper;
 
 /**

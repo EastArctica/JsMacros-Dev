@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper;
 
 import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementTree;
 import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.advancements.AdvancementTree;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import xyz.wagyourtail.doclet.DocletReplaceParams;

@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity;
 
-import net.minecraft.world.BossEvent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.BossEvent;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.FormattingHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;

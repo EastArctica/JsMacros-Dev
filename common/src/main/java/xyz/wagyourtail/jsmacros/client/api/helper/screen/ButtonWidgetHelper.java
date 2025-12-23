@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.screen;
 
-import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;

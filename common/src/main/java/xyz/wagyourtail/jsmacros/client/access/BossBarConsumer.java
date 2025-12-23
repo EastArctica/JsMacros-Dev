@@ -2,9 +2,9 @@ package xyz.wagyourtail.jsmacros.client.access;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.LerpingBossEvent;
-import net.minecraft.world.BossEvent;
-import net.minecraft.network.protocol.game.ClientboundBossEventPacket;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBossEventPacket;
+import net.minecraft.world.BossEvent;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.EventBossbar;
 
 import java.util.UUID;

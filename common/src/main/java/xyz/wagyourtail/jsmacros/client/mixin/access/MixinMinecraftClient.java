@@ -1,17 +1,11 @@
 package xyz.wagyourtail.jsmacros.client.mixin.access;
 
-//? if <=1.21.8 {
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.core.BlockPos;
-import net.minecraft.client.gui.screens.ReceivingLevelScreen;
-//?}
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.multiplayer.MultiPlayerGameMode;
-import net.minecraft.client.Options;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
@@ -31,6 +25,13 @@ import xyz.wagyourtail.jsmacros.client.api.classes.render.IScreen;
 import xyz.wagyourtail.jsmacros.client.api.library.impl.FHud;
 
 import java.util.function.Consumer;
+
+//? if <=1.21.8 {
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.BlockPos;
+import net.minecraft.client.gui.screens.ReceivingLevelScreen;
+//?}
 
 @Mixin(Minecraft.class)
 abstract

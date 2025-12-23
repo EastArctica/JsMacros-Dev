@@ -9,7 +9,6 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ParticleStatus;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
@@ -31,6 +30,10 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+//? if >1.21.8 {
+/*import net.minecraft.resources.ResourceLocation;
+*///?}
 
 /**
  * @author Etheradon

@@ -2,15 +2,8 @@ package xyz.wagyourtail.jsmacros.core.test;
 
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
-import xyz.wagyourtail.jsmacros.core.Core;
-import xyz.wagyourtail.jsmacros.core.EventLockWatchdog;
-import xyz.wagyourtail.jsmacros.core.event.IEventListener;
 import xyz.wagyourtail.jsmacros.core.event.impl.EventCustom;
-import xyz.wagyourtail.jsmacros.core.language.EventContainer;
 import xyz.wagyourtail.jsmacros.test.BaseTest;
-import xyz.wagyourtail.jsmacros.test.stubs.CoreInstanceCreator;
-import xyz.wagyourtail.jsmacros.test.stubs.EventRegistryStub;
-import xyz.wagyourtail.jsmacros.test.stubs.ProfileStub;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

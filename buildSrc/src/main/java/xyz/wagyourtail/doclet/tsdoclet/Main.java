@@ -9,7 +9,10 @@ import xyz.wagyourtail.StringHelpers;
 import xyz.wagyourtail.doclet.options.IgnoredItem;
 import xyz.wagyourtail.doclet.options.OutputDirectory;
 import xyz.wagyourtail.doclet.options.Version;
-import xyz.wagyourtail.doclet.tsdoclet.parsers.*;
+import xyz.wagyourtail.doclet.tsdoclet.parsers.AbstractParser;
+import xyz.wagyourtail.doclet.tsdoclet.parsers.ClassParser;
+import xyz.wagyourtail.doclet.tsdoclet.parsers.EventParser;
+import xyz.wagyourtail.doclet.tsdoclet.parsers.LibraryParser;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;

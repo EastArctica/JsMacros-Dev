@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.mixin.access;
 
-import net.minecraft.world.level.block.entity.SignText;
-import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraft.client.gui.font.TextFieldHelper;
+import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.entity.SignText;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

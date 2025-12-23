@@ -1,22 +1,20 @@
 package xyz.wagyourtail.jsmacros.client.api.library.impl;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.CloudStatus;
+import com.mojang.realmsclient.RealmsMainScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
-import com.mojang.realmsclient.RealmsMainScreen;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.storage.LevelStorageSource;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.level.storage.LevelStorageException;
+import net.minecraft.world.level.storage.LevelStorageSource;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
@@ -43,10 +41,15 @@ import xyz.wagyourtail.jsmacros.core.library.PerExecLibrary;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
+
+//? if >1.21.8 {
+/*import net.minecraft.ChatFormatting;
+import net.minecraft.client.CloudStatus;
+import java.util.Locale;
+*///? }
 
 /**
  * Functions that interact with minecraft that don't fit into their own module.

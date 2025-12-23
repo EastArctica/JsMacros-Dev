@@ -1,12 +1,11 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.world.entity.animal.Parrot;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**

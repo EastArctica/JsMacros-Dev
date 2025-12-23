@@ -1,7 +1,10 @@
 package xyz.wagyourtail.jsmacros.graal;
 
 import com.google.common.collect.Sets;
-import org.graalvm.polyglot.*;
+import org.graalvm.polyglot.PolyglotException;
+import org.graalvm.polyglot.Source;
+import org.graalvm.polyglot.SourceSection;
+import org.graalvm.polyglot.Value;
 import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.extensions.LanguageExtension;
 import xyz.wagyourtail.jsmacros.core.extensions.LibraryExtension;
