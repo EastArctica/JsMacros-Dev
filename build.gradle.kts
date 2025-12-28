@@ -161,6 +161,35 @@ if (isVersionedProject && hasMinecraftVersion) {
             }
         }
 
+        tasks.register("generateVitepressDoc", Javadoc::class.java) {
+            group = "documentation"
+            description = "Generates the Vitepress documentation for the project"
+            source(documentationSources)
+            classpath = documentationClasspath
+            destinationDir = File(docsBuildDir, "vitepress")
+            options.doclet = "xyz.wagyourtail.doclet.mddoclet.Main"
+            options.docletpath = mutableListOf(docletJarFile)
+            (options as CoreJavadocOptions).addStringOption("v", project.version.toString())
+            (options as CoreJavadocOptions).addStringOption("mcv", mcVersion)
+            (options as StandardJavadocDocletOptions).links(
+                "https://docs.oracle.com/javase/8/docs/api/",
+                "https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/",
+                "https://javadoc.io/doc/com.neovisionaries/nv-websocket-client/latest/"
+            )
+        }
+
+        tasks.register("copyVitepressDoc", Copy::class.java) {
+            group = "documentation"
+            description = "Copies the Vitepress documentation to the build folder"
+            dependsOn("generateVitepressDoc")
+            from(rootProject.file("docs/vitepress"))
+            into(File(docsBuildDir, "vitepress"))
+            inputs.property("version", project.version.toString())
+            filesMatching("index.html") {
+                expand(mapOf("version" to project.version.toString()))
+            }
+        }
+
         tasks.register("createDistDocs", Copy::class.java) {
             group = "distribution"
             description = "Packages generated documentation into the dist directory"
