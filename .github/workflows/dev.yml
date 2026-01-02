@@ -52,7 +52,7 @@ jobs:
       - name: Publish GitHub prerelease
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.versions.outputs.mod_version }}-dev-${{ steps.versions.outputs.short_sha }}
+          tag_name: v${{ steps.versions.outputs.mod_version }}
           name: Dev ${{ steps.versions.outputs.mod_version }}
           body: |
             Dev build for commit ${{ github.sha }}.
@@ -71,4 +71,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REF: refs/tags/v${{ steps.versions.outputs.mod_version }}-dev-${{ steps.versions.outputs.short_sha }}
+          GITHUB_REF: refs/tags/v${{ steps.versions.outputs.mod_version }}
