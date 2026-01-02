@@ -17,12 +17,6 @@ import java.util.Objects;
  */
 @SuppressWarnings("unused")
 public class TraceLine implements RenderElement3D<TraceLine> {
-    /**
-     * this is not meant to be exposed because it works in a poor way<br>
-     * it needs fov and aspect ratio info to render normally when not on center<br>
-     * but for customize availability I just put it here as a field
-     */
-
     private final Line3D render;
 
     public TraceLine(double x, double y, double z, int color) {

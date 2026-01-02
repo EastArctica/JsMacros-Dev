@@ -60,8 +60,6 @@ public class Box implements RenderElement3D<Box> {
         this.cull = cull;
     }
 
-    // ... All methods from setPos to compareToSame are unchanged ...
-
     /**
      * @param x1
      * @param y1
@@ -253,7 +251,6 @@ public class Box implements RenderElement3D<Box> {
         }
     }
 
-    // ... Builder class is unchanged ...
     /**
      * @author Etheradon
      * @since 1.8.4

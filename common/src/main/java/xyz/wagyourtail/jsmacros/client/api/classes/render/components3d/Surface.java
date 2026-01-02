@@ -1,8 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.platform.DepthTestFunction;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderPipelines;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2fStack;
 import org.joml.Quaternionf;
@@ -252,7 +257,55 @@ public class Surface extends Draw2D implements RenderElement, RenderElement3D<Su
     @Override
     @DocletIgnore
     public void render(PoseStack matrices, MultiBufferSource consumers, float tickDelta) {
-        // TODO: I cba to update rendering code
+//        matrices.push();
+//        if (boundEntity != null && boundEntity.isAlive()) {
+//            Pos3D entityPos = boundEntity.getPos().add(boundOffset);
+//            pos.x += (entityPos.x - pos.x) * tickDelta;
+//            pos.y += (entityPos.y - pos.y) * tickDelta;
+//            pos.z += (entityPos.z - pos.z) * tickDelta;
+//        }
+//
+//        matrices.translate(pos.x, pos.y, pos.z);
+//
+//        if (rotateToPlayer) {
+//            Vector3f rot = toEulerDegrees(Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
+//            rotations.x = -rot.x();
+//            rotations.y = 180 + rot.y();
+//            rotations.z = 0;
+//        }
+//        if (rotateCenter) {
+//            matrices.translate(sizes.x / 2, 0, 0);
+//            matrices.multiply(new Quaternionf().rotateLocalY((float) Math.toRadians(rotations.y)));
+//            matrices.translate(-sizes.x / 2, 0, 0);
+//            matrices.translate(0, -sizes.y / 2, 0);
+//            matrices.multiply(new Quaternionf().rotateLocalX((float) Math.toRadians(rotations.x)));
+//            matrices.translate(0, sizes.y / 2, 0);
+//            matrices.translate(sizes.x / 2, -sizes.y / 2, 0);
+//            matrices.multiply(new Quaternionf().rotateLocalZ((float) Math.toRadians(rotations.z)));
+//            matrices.translate(-sizes.x / 2, sizes.y / 2, 0);
+//        } else {
+//            Quaternionf q = new Quaternionf();
+//            q.rotateLocalY((float) Math.toRadians(rotations.y));
+//            q.rotateLocalX((float) Math.toRadians(rotations.x));
+//            q.rotateLocalZ((float) Math.toRadians(rotations.z));
+//            matrices.multiply(q);
+//        }
+//        // fix it so that y-axis goes down instead of up
+//        matrices.scale(1, -1, 1);
+//        // scale so that x or y have minSubdivisions units between them
+//        matrices.scale((float) scale, (float) scale, (float) scale);
+//
+//        synchronized (elements) {
+//            renderElements3D(drawContext, getElementsByZIndex());
+//        }
+//        matrices.pop();
+//
+//        if (!cull) {
+//            RenderSystem.enableDepthTest();
+//        }
+//        if (renderBack) {
+//            RenderSystem.enableCull();
+//        }
     }
 
     private static Vector3f toEulerDegrees(Quaternionf quaternion) {
@@ -295,31 +348,72 @@ public class Surface extends Draw2D implements RenderElement, RenderElement3D<Su
     }
 
     private void renderDraw2D3D(GuiGraphics drawContext, Draw2DElement element) {
+        // TODO: Does setupMatrix operate the same here? Why does it have the final translation?
+        //? if >1.21.5 {
         Matrix3x2fStack matrixStack = drawContext.pose();
         matrixStack.pushMatrix();
         setupMatrix(matrixStack, element.x, element.y, element.scale, element.rotation, element.getWidth(), element.getHeight(), element.rotateCenter);
+        //?} else {
+        /*PoseStack matrixStack = drawContext.pose();
+        matrixStack.pushPose();
+        matrixStack.translate(element.x, element.y, 0);
+        matrixStack.scale(element.scale, element.scale, 1);
+        if (rotateCenter) {
+            matrixStack.translate(element.width.getAsInt() / 2d, element.height.getAsInt() / 2d, 0);
+        }
+        matrixStack.mulPose(new Quaternionf().rotateLocalZ((float) Math.toRadians(element.rotation)));
+        if (rotateCenter) {
+            matrixStack.translate(-element.width.getAsInt() / 2d, -element.height.getAsInt() / 2d, 0);
+        }
+        *///?}
 
         // Don't translate back!
         Draw2D draw2D = element.getDraw2D();
         synchronized (draw2D.getElements()) {
             renderElements3D(drawContext, draw2D.getElementsByZIndex());
         }
+        //? if >1.21.5 {
         matrixStack.popMatrix();
+        //?} else {
+        /*matrixStack.popPose();
+        *///?}
     }
 
     private void renderElement3D(GuiGraphics drawContext, RenderElement element) {
-        // TODO: I cba to update rendering code
+        // TODO: Someone removed this around 1.21.5, is it needed?
+        /*
+        if (renderBack) {
+            RenderSystem.disableCull();
+        } else {
+            RenderSystem.enableCull();
+        }
+
+        if (!cull) {
+            RenderSystem.disableDepthTest();
+        } else {
+            RenderSystem.enableDepthTest();
+        }
+        */
+
+        //? if >1.21.5 {
         Matrix3x2fStack matrixStack = drawContext.pose();
         matrixStack.pushMatrix();
         // Z-index is no longer possible as this is a 3x2 matrix now.
         //matrixStack.translate(0, 0, zIndexScale * element.getZIndex());
         element.render3D(drawContext, 0, 0, 0);
         matrixStack.popMatrix();
+        //?} else {
+        /*PoseStack matrices = drawContext.pose();
+        matrices.pushPose();
+        matrices.translate(0, 0, zIndexScale * element.getZIndex());
+        element.render3D(drawContext, 0, 0, 0);
+        matrices.popPose();
+        *///?}
     }
 
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-
+        // This does nothing I guess?
     }
 
     /**

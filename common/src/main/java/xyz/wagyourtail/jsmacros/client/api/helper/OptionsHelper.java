@@ -57,6 +57,14 @@ public class OptionsHelper extends BaseHelper<Options> {
         super(options);
     }
 
+    private float getSoundSourceVolume(SoundSource source) {
+        //? if >1.21.5 {
+        return base.getFinalSoundSourceVolume(source);
+         //?} else {
+        /*return base.getSoundSourceVolume(source);
+        *///?}
+    }
+
     /**
      * @return a helper for the skin options.
      * @since 1.8.4
@@ -1138,7 +1146,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getMasterVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.MASTER);
+            return getSoundSourceVolume(SoundSource.MASTER);
         }
 
         /**
@@ -1156,7 +1164,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getMusicVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.MUSIC);
+            return getSoundSourceVolume(SoundSource.MUSIC);
         }
 
         /**
@@ -1174,7 +1182,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getRecordsVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.RECORDS);
+            return getSoundSourceVolume(SoundSource.RECORDS);
         }
 
         /**
@@ -1192,7 +1200,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getWeatherVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.WEATHER);
+            return getSoundSourceVolume(SoundSource.WEATHER);
         }
 
         /**
@@ -1210,7 +1218,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getBlocksVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.BLOCKS);
+            return getSoundSourceVolume(SoundSource.BLOCKS);
         }
 
         /**
@@ -1228,7 +1236,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getHostileVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.HOSTILE);
+            return getSoundSourceVolume(SoundSource.HOSTILE);
         }
 
         /**
@@ -1246,7 +1254,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getNeutralVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.NEUTRAL);
+            return getSoundSourceVolume(SoundSource.NEUTRAL);
         }
 
         /**
@@ -1264,7 +1272,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getPlayerVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.PLAYERS);
+            return getSoundSourceVolume(SoundSource.PLAYERS);
         }
 
         /**
@@ -1282,7 +1290,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getAmbientVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.AMBIENT);
+            return getSoundSourceVolume(SoundSource.AMBIENT);
         }
 
         /**
@@ -1300,7 +1308,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          * @since 1.8.4
          */
         public float getVoiceVolume() {
-            return base.getFinalSoundSourceVolume(SoundSource.VOICE);
+            return getSoundSourceVolume(SoundSource.VOICE);
         }
 
         /**
@@ -1319,7 +1327,7 @@ public class OptionsHelper extends BaseHelper<Options> {
          */
         @DocletReplaceParams("category: SoundCategory")
         public float getVolume(String category) {
-            return base.getFinalSoundSourceVolume(SOUND_CATEGORY_MAP.get(category));
+            return getSoundSourceVolume(SOUND_CATEGORY_MAP.get(category));
         }
 
         /**
@@ -1329,7 +1337,7 @@ public class OptionsHelper extends BaseHelper<Options> {
         public Map<String, Float> getVolumes() {
             Map<String, Float> volumes = new HashMap<>();
             for (SoundSource category : SoundSource.values()) {
-                volumes.put(category.getName(), base.getFinalSoundSourceVolume(category));
+                volumes.put(category.getName(), getSoundSourceVolume(category));
             }
             return volumes;
         }
@@ -2498,7 +2506,7 @@ public class OptionsHelper extends BaseHelper<Options> {
     public Map<String, Float> getVolumes() {
         Map<String, Float> volumes = new HashMap<>();
         for (SoundSource category : SoundSource.values()) {
-            volumes.put(category.getName(), base.getFinalSoundSourceVolume(category));
+            volumes.put(category.getName(), getSoundSourceVolume(category));
         }
         return volumes;
     }
@@ -2536,7 +2544,7 @@ public class OptionsHelper extends BaseHelper<Options> {
     @Deprecated
     @DocletReplaceParams("category: SoundCategory")
     public float getVolume(String category) {
-        return base.getFinalSoundSourceVolume(SOUND_CATEGORY_MAP.get(category));
+        return getSoundSourceVolume(SOUND_CATEGORY_MAP.get(category));
     }
 
 }

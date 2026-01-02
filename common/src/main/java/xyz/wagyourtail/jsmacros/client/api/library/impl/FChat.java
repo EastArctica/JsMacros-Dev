@@ -418,9 +418,8 @@ public class FChat extends BaseLibrary {
      */
     @Nullable
     public TextHelper createTextHelperFromJSON(String json) {
-        Component s = Component.nullToEmpty(json);
-        TextHelper t = TextHelper.wrap(s);
-        return t;
+        Component jsonStr = Component.nullToEmpty(json);
+        return TextHelper.wrap(jsonStr);
     }
 
     /**

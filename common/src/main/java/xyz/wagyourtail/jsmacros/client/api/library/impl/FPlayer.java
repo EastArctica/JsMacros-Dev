@@ -241,7 +241,13 @@ public class FPlayer extends BaseLibrary {
      */
     public void takeScreenshot(String folder, String file, @Nullable MethodWrapper<TextHelper, Object, Object, ?> callback) {
         assert folder != null && file != null;
-        Screenshot.grab(new File(runner.config.macroFolder, folder), file, mc.getMainRenderTarget(), 0,
+        Screenshot.grab(
+                new File(runner.config.macroFolder, folder),
+                file,
+                mc.getMainRenderTarget(),
+                //? if >1.21.5 {
+                0,
+                //?}
                 (text) -> {
                     if (callback != null) {
                         callback.accept(TextHelper.wrap(text));
@@ -258,7 +264,13 @@ public class FPlayer extends BaseLibrary {
      */
     public void takePanorama(String folder, int width, int height, @Nullable MethodWrapper<TextHelper, Object, Object, ?> callback) {
         assert folder != null;
-        Component result = mc.grabPanoramixScreenshot(new File(runner.config.macroFolder, folder));
+        Component result = mc.grabPanoramixScreenshot(
+                new File(runner.config.macroFolder, folder)
+                //? if <=1.21.5 {
+                /*, width,
+                height
+                *///?}
+        );
         if (callback != null) {
             callback.accept(TextHelper.wrap(result));
         }

@@ -1,7 +1,9 @@
 package xyz.wagyourtail.jsmacros.fabric.client.mixins.access;
 
 import com.google.common.collect.ImmutableSet;
+//? if >1.21.5 {
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
+//?}
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import com.mojang.blaze3d.framegraph.FramePass;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,10 +13,7 @@ import net.minecraft.client.DeltaTracker;
 /*import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.state.LevelRenderState;
 *///?}
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.LevelTargetBundle;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.joml.Matrix4f;
@@ -28,7 +27,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw3D;
 import xyz.wagyourtail.jsmacros.client.api.library.impl.FHud;
 
 @Mixin(value = LevelRenderer.class)
-public class MixinWorldRenderer {
+public class MixinLevelRenderer {
 
     @Shadow
     @Final
@@ -49,7 +48,7 @@ public class MixinWorldRenderer {
             DeltaTracker deltaTracker,
             ProfilerFiller profiler,
             CallbackInfo ci
-            *///?} else {
+            *///?} else if >1.21.5 {
             FrameGraphBuilder frameGraphBuilder,
             Frustum frustum,
             Camera camera,
@@ -60,7 +59,19 @@ public class MixinWorldRenderer {
             DeltaTracker deltaTracker,
             ProfilerFiller profiler,
             CallbackInfo ci
-            //?}
+            //?} else {
+            /*FrameGraphBuilder frameGraphBuilder,
+            Frustum frustum,
+            Camera camera,
+            Matrix4f frustumMatrix,
+            Matrix4f projectionMatrix,
+            FogParameters fogParameters,
+            boolean renderBlockOutline,
+            boolean renderEntityOutline,
+            DeltaTracker deltaTracker,
+            ProfilerFiller profiler,
+            CallbackInfo ci
+            *///?}
     ) {
         if (this.targets == null) {
             return;

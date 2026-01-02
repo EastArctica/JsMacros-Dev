@@ -76,7 +76,7 @@
     "events.MixinMessageHandler",
     "events.MixinMinecraftClient",
     "events.MixinMouse",
-    "events.MixinSoundSystem",
+    "events.MixinSoundEngine",
     "events.MixinSplashOverlay",
     "events.MixinWorldRenderer"
   ],

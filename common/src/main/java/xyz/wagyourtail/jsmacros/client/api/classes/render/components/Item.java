@@ -265,30 +265,55 @@ public class Item implements RenderElement, Alignable<Item> {
         if (item == null) {
             return;
         }
+
+        //? if >1.21.5 {
         Matrix3x2fStack matrices = drawContext.pose();
         matrices.pushMatrix();
+        //?} else {
+        /*var matrices = drawContext.pose();
+        matrices.pushPose();
+        *///?}
+
+        // TODO: This looks like it wasn't properly updated between 1.21.5 and 1.21.7, why does this pass matrices?
         setupMatrix(matrices, x, y, (float) scale, rotation, DEFAULT_ITEM_SIZE, DEFAULT_ITEM_SIZE, rotateCenter);
         Font textRenderer = Minecraft.getInstance().font;
         if (is3dRender) {
+            // Don't make this to small, otherwise there will be z-fighting for items like anvils
+            final float scaleZ = 0.001f;
+
             // The item has an offset of 100 and item texts of 200. This will make them render at the correct position
             // by translating them back and scaling the item down to be flat
             // Translate by -0.1 = scaleZ * 100 to get it to the render in the plane
+            //? if >1.21.5 {
             matrices.translate(0, 0, matrices);
-            // Don't make this to small, otherwise there will be z-fighting for items like anvils
-            final float scaleZ = 0.001f;
             matrices.scale(1, 1, matrices);
             drawContext.renderItem(item, x, y);
             matrices.scale(1, 1, matrices);
+            //?} else {
+            /*matrices.translate(0, 0, -0.1f);
+            matrices.scale(1, 1, scaleZ);
+            drawContext.renderItem(item, x, y);
+            matrices.scale(1, 1, 1 / scaleZ);
+            *///?}
         } else {
             drawContext.renderItem(item, x, y);
         }
         if (overlay) {
             if (is3dRender) {
+                //? if >1.21.5 {
                 matrices.translate(0, 0, matrices);
+                //?} else {
+                /*matrices.translate(0, 0, -199.5);
+                *///?}
             }
             drawContext.renderItemDecorations(mc.font, item, x, y, ovText);
         }
+
+        //? if >1.21.5 {
         matrices.popMatrix();
+        //?} else {
+        /*matrices.popPose();
+        *///?}
     }
 
     public Item setParent(IDraw2D<?> parent) {

@@ -41,8 +41,10 @@ import net.minecraft.world.entity.vehicle.MinecartTNT;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+//? if >1.21.5 {
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueOutput;
+//?}
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
@@ -86,8 +88,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static xyz.wagyourtail.jsmacros.client.api.classes.render.components.RenderElement.mc;
 
 /**
  * @author Wagyourtail
@@ -303,13 +303,18 @@ public class EntityHelper<T extends Entity> extends BaseHelper<T> {
      */
     public NBTElementHelper.NBTCompoundHelper getNBT() {
         CompoundTag nbt = new CompoundTag();
+        //? if >1.21.5 {
         ValueOutput view = TagValueOutput.createWithContext(
                 ProblemReporter.DISCARDING,
-                Objects.requireNonNull(mc.getConnection()).registryAccess()
+                Objects.requireNonNull(Minecraft.getInstance().getConnection()).registryAccess()
         );
         base.saveWithoutId(view);
         CompoundTag result = ((TagValueOutput) view).buildResult();
-        return NBTElementHelper.wrapCompound(result);
+        //?} else {
+        /*base.saveWithoutId(nbt);
+        *///?}
+
+        return NBTElementHelper.wrapCompound(nbt);
     }
 
     /**
@@ -777,16 +782,18 @@ public class EntityHelper<T extends Entity> extends BaseHelper<T> {
      */
     @Nullable
     public EntityHelper<?> asServerEntity() {
-        Minecraft client = Minecraft.getInstance();
+        // TODO: Implement server entity retrieval on integrated server from client
+        throw new UnsupportedOperationException("asServerEntity is not supported in client environment.");
+        /*Minecraft client = Minecraft.getInstance();
         if (!client.hasSingleplayerServer()) {
             return null;
         }
-        Entity entity = client.getSingleplayerServer().getPlayerList().getPlayer(client.player.getUUID()).level().getEntity(base.getUUID());
+        Entity entity = client.getSingleplayerServer().getPlayerList().getPlayer(client.player.getUUID()).serverLevel().getEntity(base.getUUID());
         if (entity == null) {
             return null;
         } else {
             return create(entity);
-        }
+        }*/
     }
 
 }

@@ -1,10 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.gui.containers;
 
 import com.mojang.blaze3d.opengl.GlStateManager;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,6 +24,7 @@ import xyz.wagyourtail.wagyourgui.elements.Button;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 
 public class MacroContainer extends MultiElementContainer<MacroScreen> {
     private static final ResourceLocation key_down_tex = ResourceLocation.fromNamespaceAndPath(JsMacros.MOD_ID, "resources/key_down.png");
@@ -227,6 +231,13 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
             drawContext.fill(x + (w / 4), y + 1, x + (w / 4) + 1, y + height - 1, 0xFFFFFFFF);
             drawContext.fill(x + width - 14, y + 1, x + width - 13, y + height - 1, 0xFFFFFFFF);
             //RenderSystem.setShader(VertexFormats.POSITION_TEXTURE);
+
+            //? if >1.21.5 {
+            RenderPipeline renderType = RenderPipelines.GUI_TEXTURED;
+            //?} else {
+            /*Function<ResourceLocation, RenderType> renderType = RenderType::guiTextured;
+            *///?}
+
             // icon for keystate
             ResourceLocation tex;
             if (macro.triggerType != ScriptTrigger.TriggerType.EVENT) {
@@ -236,7 +247,20 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
                     tex = script_fork_tex;
                 }
                 GlStateManager._enableBlend();
-                drawContext.blit(RenderPipelines.GUI_TEXTURED, tex, x + w / 4 - 2 * height + 2, y + 2, 0, 0, height - 4, height - 4, 32, 32, 32, 32);
+                drawContext.blit(
+                        renderType,
+                        tex,
+                        x + w / 4 - 2 * height + 2,
+                        y + 2,
+                        0,
+                        0,
+                        height - 4,
+                        height - 4,
+                        32,
+                        32,
+                        32,
+                        32
+                );
                 GlStateManager._disableBlend();
                 switch (macro.triggerType) {
                     default:
@@ -251,7 +275,20 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
                         break;
                 }
                 GlStateManager._enableBlend();
-                drawContext.blit(RenderPipelines.GUI_TEXTURED, tex, x + w / 4 - height + 2, y + 2, 0, 0, height - 4, height - 4, 32, 32, 32, 32);
+                drawContext.blit(
+                        renderType,
+                        tex,
+                        x + w / 4 - height + 2,
+                        y + 2,
+                        0,
+                        0,
+                        height - 4,
+                        height - 4,
+                        32,
+                        32,
+                        32,
+                        32
+                );
                 GlStateManager._disableBlend();
             } else {
                 if (macro.joined) {
@@ -260,7 +297,20 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
                     tex = script_fork_tex;
                 }
                 GlStateManager._enableBlend();
-                drawContext.blit(RenderPipelines.GUI_TEXTURED, tex, x + w / 4 - height + 2, y + 2, 0, 0, height - 4, height - 4, 32, 32, 32, 32);
+                drawContext.blit(
+                        renderType,
+                        tex,
+                        x + w / 4 - height + 2,
+                        y + 2,
+                        0,
+                        0,
+                        height - 4,
+                        height - 4,
+                        32,
+                        32,
+                        32,
+                        32
+                );
                 GlStateManager._disableBlend();
             }
 

@@ -52,6 +52,7 @@ public class GraalLanguageDefinition extends BaseLanguage<Context, GraalScriptCo
             for (Map.Entry<String, String> e2 : conf.extraEngineOptions.entrySet()) {
                 try {
                     b.option(e2.getKey(), e2.getValue());
+                    runner.profile.LOGGER.info("Added GraalVM engine option from config: {} = {}", e2.getKey(), e2.getValue());
                 } catch (IllegalArgumentException ex) {
                     runner.profile.logError(new RuntimeException("Invalid GraalVM option: " + e2.getKey() + " = " + e2.getValue(), ex));
                 }

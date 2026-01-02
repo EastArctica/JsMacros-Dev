@@ -1,13 +1,18 @@
 package xyz.wagyourtail.jsmacros.client.mixin.events;
 
 import com.google.common.collect.ImmutableSet;
+//? if >1.21.5 {
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
+//?}
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import com.mojang.blaze3d.framegraph.FramePass;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+//? if <=1.21.5 {
+/*import net.minecraft.client.renderer.FogParameters;
+*///?}
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LevelTargetBundle;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -42,8 +47,7 @@ public class MixinWorldRenderer {
             LevelRenderState levelRenderState,
             DeltaTracker deltaTracker,
             ProfilerFiller profiler,
-            CallbackInfo ci
-            *///?} else {
+            *///?} else if >1.21.5 {
             FrameGraphBuilder frameGraphBuilder,
             Frustum frustum,
             Camera camera,
@@ -53,8 +57,19 @@ public class MixinWorldRenderer {
             boolean renderEntityOutline,
             DeltaTracker deltaTracker,
             ProfilerFiller profiler,
+            //?} else {
+            /*FrameGraphBuilder frameGraphBuilder,
+            Frustum frustum,
+            Camera camera,
+            Matrix4f frustumMatrix,
+            Matrix4f projectionMatrix,
+            FogParameters fogParameters,
+            boolean renderBlockOutline,
+            boolean renderEntityOutline,
+            DeltaTracker deltaTracker,
+            ProfilerFiller profiler,
+            *///?}
             CallbackInfo ci
-            //?}
     ) {
         if (this.targets == null) {
             return;

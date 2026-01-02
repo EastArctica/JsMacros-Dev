@@ -84,11 +84,6 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     @Shadow
     public Font font;
 
-    @Inject(method = "handleComponentClicked", at = @At("HEAD"), cancellable = true)
-    private void onHandleTextClick(Style style, CallbackInfoReturnable<Boolean> cir) {
-        handleCustomClickEvent(style, cir);
-    }
-
     @Shadow(aliases = {"method_37063", "m_142416_"})
     protected abstract <T extends GuiEventListener & Renderable & NarratableEntry> T addRenderableWidget(T drawableElement);
 
@@ -1021,6 +1016,14 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     }
 
     //TODO: switch to enum extension with mixin 9.0 or whenever Mumfrey gets around to it
+    //? if >1.21.5 {
+    @Inject(method = "handleComponentClicked", at = @At("HEAD"), cancellable = true)
+    private void onHandleTextClick(Style style, CallbackInfoReturnable<Boolean> cir) {
+        handleCustomClickEvent(style, cir);
+    }
+    //?} else {
+    /*@Inject(at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V", remap = false), method = "handleComponentClicked", cancellable = true)
+    *///?}
     public void handleCustomClickEvent(Style style, CallbackInfoReturnable<Boolean> cir) {
         ClickEvent clickEvent = style.getClickEvent();
         if (clickEvent instanceof CustomClickEvent) {

@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
 import com.mojang.blaze3d.vertex.ByteBufferBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -261,19 +262,39 @@ public class Text implements RenderElement, Alignable<Text> {
 
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+        //? if >1.21.5 {
         Matrix3x2fStack matrices = drawContext.pose();
         matrices.pushMatrix();
+        //?} else {
+        /*PoseStack matrices = drawContext.pose();
+        matrices.pushPose();
+        *///?}
+
         setupMatrix(matrices, x, y, (float) scale, rotation, getWidth(), getHeight(), rotateCenter);
+        // TODO: This confuses me, do we render the string at 0, 0 because we've already translated the matrix?
+        //      That seems to be the case, but wagyourtail originally wrote it with the x and y passed in...
         drawContext.drawString(mc.font, text, 0, 0, color, shadow);
+
+        //? if >1.21.5 {
         matrices.popMatrix();
+        //?} else {
+        /*matrices.popPose();
+        *///?}
     }
 
     @Override
     @DocletIgnore
     public void render3D(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+        //? if >1.21.5 {
         Matrix3x2fStack matrices = drawContext.pose();
         matrices.pushMatrix();
+        //?} else {
+        /*PoseStack matrices = drawContext.pose();
+        matrices.pushPose();
+        *///?}
+
         setupMatrix(matrices, x, y, (float) scale, rotation, getWidth(), getHeight(), rotateCenter);
+        //? if >1.21.5 {
         Matrix4f matrix4f;
         try (MemoryStack memoryStack = MemoryStack.stackPush()) {
             FloatBuffer buf = memoryStack.mallocFloat(16);
@@ -281,6 +302,7 @@ public class Text implements RenderElement, Alignable<Text> {
             buf.rewind();
             matrix4f = new Matrix4f().set(buf);
         }
+        //?}
         MultiBufferSource.BufferSource buffer = MultiBufferSource.immediate(new ByteBufferBuilder(1536));
         mc.font.drawInBatch(
             text,
@@ -288,14 +310,23 @@ public class Text implements RenderElement, Alignable<Text> {
             y,
             color,
             shadow,
+            //? if >1.21.5 {
             matrix4f,
+            //?} else {
+            /*matrices.last().pose(),
+            *///?}
             buffer,
             Font.DisplayMode.NORMAL,
             0,
             0xFFF000F0
         );
         buffer.endBatch();
+
+        //? if >1.21.5 {
         matrices.popMatrix();
+         //?} else {
+        /*matrices.popPose();
+        *///?}
     }
 
     public Text setParent(IDraw2D<?> parent) {

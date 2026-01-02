@@ -1,16 +1,21 @@
 package xyz.wagyourtail.wagyourgui.elements;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 //? if >1.21.8 {
 /*import net.minecraft.client.input.KeyEvent;
@@ -99,9 +104,15 @@ public class Slider extends AbstractWidget {
 
     @Override
     protected void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        //context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, this.getTexture(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, this.getHandleTexture(), this.getX() + (int)(this.value * (double)(this.width - 8)), this.getY(), 8, this.getHeight());
+        //? if >1.21.5 {
+        RenderPipeline renderType = RenderPipelines.GUI_TEXTURED;
+        //?} else {
+        /*RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        Function<ResourceLocation, RenderType> renderType = RenderType::guiTextured;
+        *///?}
+
+        context.blitSprite(renderType, this.getTexture(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        context.blitSprite(renderType, this.getHandleTexture(), this.getX() + (int)(this.value * (double)(this.width - 8)), this.getY(), 8, this.getHeight());
     }
 
     @Override

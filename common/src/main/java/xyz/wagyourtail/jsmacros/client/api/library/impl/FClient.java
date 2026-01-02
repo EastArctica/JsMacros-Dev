@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
 /*import net.minecraft.ChatFormatting;
 import net.minecraft.client.CloudStatus;
 import java.util.Locale;
-*///? }
+*///?}
 
 /**
  * Functions that interact with minecraft that don't fit into their own module.
@@ -231,7 +231,11 @@ public class FClient extends PerExecLibrary {
         mc.execute(() -> {
             boolean bl = mc.isLocalServer();
             if (mc.level != null) {
-                mc.level.disconnect(Component.nullToEmpty(""));
+                mc.level.disconnect(
+                        //? if >1.21.5 {
+                        Component.nullToEmpty("")
+                        //?}
+                );
             }
             if (bl) {
                 mc.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), false);
@@ -261,12 +265,16 @@ public class FClient extends PerExecLibrary {
      */
     public void connect(String ip, int port) {
         mc.execute(() -> {
-            boolean bl = mc.isLocalServer();
+            boolean localServer = mc.isLocalServer();
             if (mc.level != null) {
-                mc.level.disconnect(Component.nullToEmpty(""));
+                mc.level.disconnect(
+                        //? if >1.21.5 {
+                        Component.nullToEmpty("")
+                         //?}
+                );
             }
-            if (bl) {
-                mc.disconnect(new GenericMessageScreen(Component.nullToEmpty("Saving World")),false);
+            if (localServer) {
+                mc.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), true);
             } else {
                 mc.disconnect(new GenericMessageScreen(Component.nullToEmpty("")),false);
             }
@@ -297,7 +305,11 @@ public class FClient extends PerExecLibrary {
             if (isWorld) {
                 // logic in death screen disconnect button
                 if (mc.level != null) {
-                    mc.level.disconnect(Component.nullToEmpty(""));
+                    mc.level.disconnect(
+                            //? if >1.21.5 {
+                            Component.nullToEmpty("")
+                             //?}
+                    );
                 }
                 mc.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), false);
                 mc.setScreen(new TitleScreen());

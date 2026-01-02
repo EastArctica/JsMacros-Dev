@@ -5,13 +5,19 @@ import net.minecraft.client.sounds.SoundEngine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.EventSound;
 
 @Mixin(SoundEngine.class)
-public class MixinSoundSystem {
+public class MixinSoundEngine {
+    //? if >1.21.5 {
     @Inject(at = @At("HEAD"), method = "play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;", cancellable = true)
     public void onPlay(SoundInstance instance, CallbackInfoReturnable<SoundEngine.PlayResult> info) {
+    //?} else {
+    /*@Inject(at = @At("HEAD"), method = "play(Lnet/minecraft/client/resources/sounds/SoundInstance;)V", cancellable = true)
+    public void onPlay(SoundInstance instance, CallbackInfo info) {
+    *///?}
         String id = null;
         try {
             id = instance.getLocation().toString();
