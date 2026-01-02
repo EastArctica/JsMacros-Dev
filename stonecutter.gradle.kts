@@ -19,7 +19,7 @@ plugins {
 val IS_CI = System.getenv("CI") == "true"
 
 if (IS_CI) stonecutter active null
-else stonecutter active "1.21.8" /* [SC] DO NOT EDIT */
+else stonecutter active file("stonecutter.active") /* [SC] DO NOT EDIT */
 
 // Root-level distribution setup
 val distDir = layout.projectDirectory.dir("dist")
