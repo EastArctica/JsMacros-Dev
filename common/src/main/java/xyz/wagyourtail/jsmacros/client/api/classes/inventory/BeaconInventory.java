@@ -1,12 +1,12 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.client.gui.screens.inventory.BeaconScreen;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.protocol.game.ServerboundSetBeaconPacket;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.network.protocol.game.ServerboundSetBeaconPacket;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;

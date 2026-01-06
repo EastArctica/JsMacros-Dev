@@ -1,8 +1,10 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
@@ -299,14 +301,23 @@ public class Image implements RenderElement, Alignable<Image> {
 
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+        //? if >1.21.5 {
         Matrix3x2fStack matrices = drawContext.pose();
         matrices.pushMatrix();
+        //?} else {
+        /*PoseStack matrices = drawContext.pose();
+        matrices.pushPose();
+        *///?}
         setupMatrix(matrices, x, y, 1, rotation, getWidth(), getHeight(), rotateCenter);
         float u = this.imageX / (float) this.textureWidth;
         float v = this.imageY / (float) this.textureHeight;
 
         drawContext.blit(
+                //? if >1.21.5 {
                 RenderPipelines.GUI_TEXTURED,
+                //?} else {
+                /*RenderType::guiTextured,
+                *///?}
                 this.imageid,
                 this.x,
                 this.y,
@@ -317,7 +328,11 @@ public class Image implements RenderElement, Alignable<Image> {
                 this.textureWidth,
                 this.textureHeight,
                 this.color);
+        //? if >1.21.5 {
         matrices.popMatrix();
+        //?} else {
+        /*matrices.popPose();
+        *///?}
     }
 
     public Image setParent(IDraw2D<?> parent) {

@@ -1,9 +1,11 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2fStack;
+import org.joml.Quaternionf;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 import xyz.wagyourtail.jsmacros.client.util.ColorUtil;
 
@@ -268,8 +270,13 @@ public class Line implements RenderElement, Alignable<Line> {
 
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+        //? if >1.21.5 {
         Matrix3x2fStack matrices = drawContext.pose();
         matrices.pushMatrix();
+        //?} else {
+        /*PoseStack matrices = drawContext.pose();
+        matrices.pushPose();
+        *///?}
         setupMatrix(matrices, x1, y1, 1, rotation, getScaledWidth(), getScaledHeight(), rotateCenter);
 
         float halfWidth = this.width / 2.0f;
@@ -278,8 +285,13 @@ public class Line implements RenderElement, Alignable<Line> {
         float length = (float) Math.sqrt(dx * dx + dy * dy);
         float angle = (float) Math.atan2(dy, dx);
 
+        //? if >1.21.5 {
         matrices.translate(this.x1, this.y1);
         matrices.rotate(angle);
+        //?} else {
+        /*matrices.translate(this.x1, this.y1, 0);
+        matrices.mulPose(new Quaternionf().rotateLocalZ(angle));
+        *///?}
 
         drawContext.fill(
                 0,
@@ -288,7 +300,12 @@ public class Line implements RenderElement, Alignable<Line> {
                 (int) halfWidth,
                 this.color
         );
+
+        //? if >1.21.5 {
         matrices.popMatrix();
+        //?} else {
+        /*matrices.popPose();
+        *///?}
     }
 
     public Line setParent(IDraw2D<?> parent) {

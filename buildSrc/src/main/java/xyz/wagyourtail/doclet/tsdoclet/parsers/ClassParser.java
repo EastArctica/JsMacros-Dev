@@ -1,14 +1,13 @@
 package xyz.wagyourtail.doclet.tsdoclet.parsers;
 
-import xyz.wagyourtail.doclet.tsdoclet.Main;
 import xyz.wagyourtail.StringHelpers;
+import xyz.wagyourtail.doclet.tsdoclet.Main;
 
 import javax.lang.model.element.*;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
-import java.lang.Override;
 import java.util.*;
 
 public class ClassParser extends AbstractParser {

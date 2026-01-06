@@ -4,7 +4,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import xyz.wagyourtail.jsmacros.client.gui.settings.SettingsOverlay;
 import xyz.wagyourtail.jsmacros.client.gui.settings.settingfields.*;
-import xyz.wagyourtail.jsmacros.client.gui.settings.settingfields.*;
 import xyz.wagyourtail.wagyourgui.elements.Scrollbar;
 
 import java.util.LinkedList;

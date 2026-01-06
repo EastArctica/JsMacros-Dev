@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.api.helper;
 
-import net.minecraft.world.level.block.state.pattern.BlockInWorld;
-import net.minecraft.client.Minecraft;
 import net.minecraft.advancements.critereon.BlockPredicate;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;

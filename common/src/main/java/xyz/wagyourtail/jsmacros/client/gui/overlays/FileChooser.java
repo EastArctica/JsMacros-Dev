@@ -1,11 +1,11 @@
 package xyz.wagyourtail.jsmacros.client.gui.overlays;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
-import net.minecraft.Util;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.wagyourgui.elements.Button;
 import xyz.wagyourtail.wagyourgui.elements.Scrollbar;

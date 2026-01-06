@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.mixin.access;
 
-import net.minecraft.world.level.block.entity.SignText;
-import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraft.client.gui.font.TextFieldHelper;
+import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.entity.SignText;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,9 +37,13 @@ public abstract class MixinSignEditScreen implements ISignEditScreen {
 
     @Override
     public void jsmacros_setLine(int line, String text) {
+        if (line < 0 || line >= this.messages.length) {
+            throw new IndexOutOfBoundsException("Line index out of bounds: " + line);
+        }
+
         this.messages[line] = text; // actual
         this.text = this.text.setMessage(line, Component.nullToEmpty(text)); // gui visual
-        // this needs to be called on main thread when sodium is installed
+        // TODO: On sodium, this line is needed
 //        this.blockEntity.setText(this.text, this.front); // block visual
     }
 

@@ -2,10 +2,10 @@ package xyz.wagyourtail.jsmacros.client.gui.screens;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
 import xyz.wagyourtail.jsmacros.client.JsMacros;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
@@ -88,7 +88,12 @@ public class CancelScreen extends BaseScreen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horiz, double vert) {
+        // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
+        //  If this is *really* what we want, we'll need to make a fake event
+        //  Later note: I believe this is how scrolling is done in the editor?
+        //? if <=1.21.8 {
         s.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+        //?}
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
 

@@ -1,30 +1,17 @@
 package xyz.wagyourtail.jsmacros.access;
 
-public class CustomClickEvent implements ICustomClickEvent {
-    private final Runnable event;
+import net.minecraft.network.chat.ClickEvent;
+import org.jetbrains.annotations.NotNull;
 
-    public CustomClickEvent(Runnable event) {
-        this.event = event;
-    }
+public record CustomClickEvent(Runnable event) implements ClickEvent {
 
+    @NotNull
     @Override
-    public int hashCode() {
-        return event.hashCode();
-    }
-
-    @Override
-    public Runnable getEvent() {
-        return event;
-    }
-
-    @Override
-    public Object toPlatformClickEvent() {
-        // Platform-specific implementations should override this
-        throw new UnsupportedOperationException("Platform-specific implementation required");
-    }
-
-    @Override
-    public String getActionType() {
-        return "CUSTOM";
+    public Action action() {
+        //? if >1.21.5 {
+        return Action.CUSTOM;
+        //?} else {
+            /*return Action.RUN_COMMAND;
+        *///?}
     }
 }

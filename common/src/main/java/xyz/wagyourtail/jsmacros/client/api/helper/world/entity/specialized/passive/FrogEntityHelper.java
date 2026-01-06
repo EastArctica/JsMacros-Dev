@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.animal.frog.Frog;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;

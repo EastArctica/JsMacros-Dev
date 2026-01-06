@@ -2,10 +2,10 @@ package xyz.wagyourtail.jsmacros.client.gui.screens;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.config.ClientConfigV2;
@@ -91,7 +91,12 @@ public class MacroScreen extends BaseScreen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horiz, double vert) {
         if (overlay == null) {
+            // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
+            //  If this is *really* what we want, we'll need to make a fake event
+            //  Later note: I believe this is how scrolling is done in the editor?
+            //? if <=1.21.8 {
             macroScroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            //?}
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
@@ -216,7 +221,7 @@ public class MacroScreen extends BaseScreen {
         drawContext.fill(this.width / 6 * 3 + 1, 0, this.width / 6 * 3 + 3, 20, 0xFFFFFFFF);
         drawContext.fill(0, 20, width, 22, 0xFFFFFFFF);
         drawContext.drawCenteredString(this.font, JsMacrosClient.clientCore.profile.getCurrentProfileName(), this.width * 8 / 12, 5, 0xFF7F7F7F);
-        
+
         super.render(drawContext, mouseX, mouseY, delta);
     }
 

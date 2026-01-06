@@ -2,8 +2,8 @@ package xyz.wagyourtail.jsmacros.client.gui.editor.highlighting.scriptimpl;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.gui.editor.highlighting.AbstractRenderCodeCompiler;

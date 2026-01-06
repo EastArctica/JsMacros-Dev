@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.api.helper;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.access.CustomClickEvent;
@@ -134,7 +134,7 @@ public class StyleHelper extends BaseHelper<Style> {
     @Nullable
     public Runnable getCustomClickValue() {
         if (base.getClickEvent() instanceof CustomClickEvent ce) {
-            return ce.getEvent();
+            return ce.event();
         }
         return null;
     }

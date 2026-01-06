@@ -2,8 +2,8 @@ package xyz.wagyourtail.jsmacros.client.api.helper.screen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
@@ -12,6 +12,10 @@ import xyz.wagyourtail.jsmacros.client.api.classes.render.components.Alignable;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.components.RenderElement;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
+
+//? if >1.21.8 {
+/*import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,13 +176,26 @@ public class ClickableWidgetHelper<B extends ClickableWidgetHelper<B, T>, T exte
      */
     public B click(boolean await) throws InterruptedException {
         if (JsMacrosClient.clientCore.profile.checkJoinedThreadStack()) {
+            //? if >1.21.8 {
+            /*MouseButtonEvent fakeEvent = new MouseButtonEvent(base.getX(), base.getY(), null);
+            base.mouseClicked(fakeEvent, false);
+            base.mouseReleased(fakeEvent);
+            *///?} else {
             base.mouseClicked(base.getX(), base.getY(), 0);
             base.mouseReleased(base.getX(), base.getY(), 0);
+            //?}
         } else {
             final Semaphore waiter = new Semaphore(await ? 0 : 1);
             Minecraft.getInstance().execute(() -> {
+                //? if >1.21.8 {
+                /*MouseButtonEvent fakeEvent = new MouseButtonEvent(base.getX(), base.getY(), null);
+                base.mouseClicked(fakeEvent, false);
+                base.mouseReleased(fakeEvent);
+                *///?} else {
                 base.mouseClicked(base.getX(), base.getY(), 0);
                 base.mouseReleased(base.getX(), base.getY(), 0);
+
+                //?}
                 waiter.release();
             });
             waiter.acquire();
@@ -250,8 +267,12 @@ public class ClickableWidgetHelper<B extends ClickableWidgetHelper<B, T>, T exte
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         base.render(drawContext, mouseX, mouseY, delta);
-        if (base.isMouseOver(mouseX, mouseY) && tooltips.size() > 0) {
+        if (base.isMouseOver(mouseX, mouseY) && !tooltips.isEmpty()) {
+            //? if >1.21.5 {
             drawContext.setComponentTooltipForNextFrame(mc.font, tooltips, mouseX, mouseY);
+            //?} else {
+            /*drawContext.renderComponentTooltip(mc.font, tooltips, mouseX, mouseY);
+            *///?}
         }
     }
 

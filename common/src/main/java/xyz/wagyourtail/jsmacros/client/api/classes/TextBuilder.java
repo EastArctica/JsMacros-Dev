@@ -177,14 +177,14 @@ public class TextBuilder {
      * @since 1.3.0
      */
     public TextBuilder withCustomClickEvent(MethodWrapper<Object, Object, Object, ?> action) {
-        CustomClickEvent customEvent = new CustomClickEvent(() -> {
+        self.withStyle(style -> style.withClickEvent(new CustomClickEvent(() -> {
             try {
                 action.run();
             } catch (Throwable ex) {
                 JsMacrosClient.clientCore.profile.logError(ex);
             }
-        });
-        self.withStyle(style -> style.withClickEvent((ClickEvent) customEvent.toPlatformClickEvent()));
+        })));
+
         return this;
     }
 
@@ -208,15 +208,17 @@ public class TextBuilder {
             case OPEN_FILE -> new ClickEvent.OpenFile(value);
             case RUN_COMMAND -> new ClickEvent.RunCommand(value);
             case SUGGEST_COMMAND -> new ClickEvent.SuggestCommand(value);
+            case CHANGE_PAGE -> new ClickEvent.ChangePage(Integer.parseInt(value));
+            case COPY_TO_CLIPBOARD -> new ClickEvent.CopyToClipboard(value);
+            //? if >1.21.5 {
             case SHOW_DIALOG -> {
                 var registryWrapper = lookup.lookupOrThrow(Registries.DIALOG);
                 var dialogKey = ResourceKey.create(Registries.DIALOG, ResourceLocation.parse(value));
                 var entry = registryWrapper.get(dialogKey).orElseThrow(() -> new IllegalArgumentException("Unknown dialog type: " + value));
                 yield new ClickEvent.ShowDialog(entry);
             }
-            case CHANGE_PAGE -> new ClickEvent.ChangePage(Integer.parseInt(value));
-            case COPY_TO_CLIPBOARD -> new ClickEvent.CopyToClipboard(value);
             case CUSTOM -> new ClickEvent.Custom(ResourceLocation.parse(value),null);
+            //?}
         }));
         return this;
     }

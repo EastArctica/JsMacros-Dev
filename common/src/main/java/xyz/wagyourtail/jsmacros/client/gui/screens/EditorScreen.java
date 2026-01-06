@@ -2,19 +2,19 @@ package xyz.wagyourtail.jsmacros.client.gui.screens;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.ChatFormatting;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.locale.Language;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -40,6 +40,13 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+//? if >1.21.8 {
+/*import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.network.chat.FontDescription;
+*///?}
+
 public class EditorScreen extends BaseScreen {
     private static final FormattedCharSequence ellipses = Component.literal("...").withStyle(ChatFormatting.DARK_GRAY).getVisualOrderText();
     public static final List<String> langs = Lists.newArrayList(
@@ -55,7 +62,13 @@ public class EditorScreen extends BaseScreen {
             "kotlin",
             "none"
     );
-    public static Style defaultStyle = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath("jsmacros", "ubuntumono"));
+    // TODO: Why in the everloving fuck would we be changing this multiple times in here. Mistake?
+    //? if >1.21.8 {
+    /*public static FontDescription.Resource defaultFontResource = new FontDescription.Resource(ResourceLocation.fromNamespaceAndPath("jsmacros", "ubuntumono"));
+    *///?} else {
+    public static ResourceLocation defaultFontResource = ResourceLocation.fromNamespaceAndPath("jsmacros", "ubuntumono");
+    //?}
+    public static Style defaultStyle = Style.EMPTY.withFont(defaultFontResource);
     protected final File file;
     protected final FileHandler handler;
     public final History history;
@@ -94,7 +107,12 @@ public class EditorScreen extends BaseScreen {
         savedString = content;
 
         this.handler = handler;
-        defaultStyle = Style.EMPTY.withFont(ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont));
+        //? if >1.21.8 {
+        /*defaultFontResource = new FontDescription.Resource((ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont)));
+        *///?} else {
+        defaultFontResource = ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont);
+        //?}
+        defaultStyle = Style.EMPTY.withFont(defaultFontResource);
 
         cursor = new SelectCursor(defaultStyle);
 
@@ -298,26 +316,49 @@ public class EditorScreen extends BaseScreen {
     }
 
     @Override
+            //? if >1.21.8 {
+    /*public boolean keyPressed(KeyEvent keyEvent) {
+        boolean isSelectAll = keyEvent.isSelectAll();
+        boolean isCopy = keyEvent.isCopy();
+        boolean isPaste = keyEvent.isPaste();
+        boolean isCut = keyEvent.isCut();
+        boolean hasCtrl = keyEvent.hasControlDown();
+        boolean hasShift = keyEvent.hasShiftDown();
+        boolean hasAlt = keyEvent.hasAltDown();
+        int keyCode = keyEvent.key();
+        *///?} else {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        boolean isSelectAll = Screen.isSelectAll(keyCode);
+        boolean isCopy = Screen.isCopy(keyCode);
+        boolean isPaste = Screen.isPaste(keyCode);
+        boolean isCut = Screen.isCut(keyCode);
+        boolean hasCtrl = Screen.hasControlDown();
+        boolean hasShift = Screen.hasShiftDown();
+        boolean hasAlt = Screen.hasAltDown();
+        //?}
         assert minecraft != null;
         if (overlay == null) {
             setFocused(null);
+//? if >1.21.8 {
+      /*} else if (overlay.keyPressed(keyEvent)) {
+*///?} else {
         } else if (overlay.keyPressed(keyCode, scanCode, modifiers)) {
+//?}
             return true;
         }
-        if (Screen.isSelectAll(keyCode)) {
+        if (isSelectAll) {
             cursor.updateStartIndex(0, history.current);
             cursor.updateEndIndex(history.current.length(), history.current);
             cursor.arrowEnd = true;
 
             return true;
-        } else if (Screen.isCopy(keyCode)) {
+        } else if (isCopy) {
             copyToClipboard();
             return true;
-        } else if (Screen.isPaste(keyCode)) {
+        } else if (isPaste) {
             pasteFromClipboard();
             return true;
-        } else if (Screen.isCut(keyCode)) {
+        } else if (isCut) {
             cutToClipboard();
             return true;
         }
@@ -350,7 +391,7 @@ public class EditorScreen extends BaseScreen {
                 } else {
                     cursor.updateStartIndex(cursor.startIndex - cursor.startLineIndex + startSpaces.length(), history.current);
                 }
-                if (!Screen.hasShiftDown()) {
+                if (!hasShift) {
                     cursor.updateEndIndex(cursor.startIndex, history.current);
                 }
 /*
@@ -364,7 +405,7 @@ public class EditorScreen extends BaseScreen {
             case GLFW.GLFW_KEY_END:
                 int endLineLength = history.current.split("\n", -1)[cursor.endLine].length();
                 cursor.updateEndIndex(cursor.endIndex + (endLineLength - cursor.endLineIndex), history.current);
-                if (!Screen.hasShiftDown()) {
+                if (!hasShift) {
                     cursor.updateStartIndex(cursor.endIndex, history.current);
                 }
 /*
@@ -376,7 +417,7 @@ public class EditorScreen extends BaseScreen {
 */
                 return true;
             case GLFW.GLFW_KEY_LEFT:
-                if (Screen.hasShiftDown()) {
+                if (hasShift) {
                     if (cursor.arrowEnd && cursor.startIndex != cursor.endIndex) {
                         cursor.updateEndIndex(cursor.endIndex - 1, history.current);
                         cursor.arrowLineIndex = cursor.endLineIndex;
@@ -397,7 +438,7 @@ public class EditorScreen extends BaseScreen {
                 scrollToCursor();
                 return true;
             case GLFW.GLFW_KEY_RIGHT:
-                if (Screen.hasShiftDown()) {
+                if (hasShift) {
                     if (cursor.arrowEnd || cursor.endIndex == cursor.startIndex) {
                         cursor.updateEndIndex(cursor.endIndex + 1, history.current);
                         cursor.arrowLineIndex = cursor.endLineIndex;
@@ -418,7 +459,7 @@ public class EditorScreen extends BaseScreen {
                 scrollToCursor();
                 return true;
             case GLFW.GLFW_KEY_UP:
-                if (Screen.hasAltDown()) {
+                if (hasAlt) {
                     history.shiftLine(cursor.startLine, cursor.endLine - cursor.startLine + 1, false);
                     cursor.arrowEnd = false;
                     compileRenderedText();
@@ -432,7 +473,7 @@ public class EditorScreen extends BaseScreen {
                         }
                         index += Math.min(lines[line].length(), cursor.arrowLineIndex);
                     }
-                    if (Screen.hasShiftDown()) {
+                    if (hasShift) {
                         if (cursor.arrowEnd && index >= cursor.startIndex) {
                             cursor.updateEndIndex(index, history.current);
                             cursor.arrowEnd = true;
@@ -450,7 +491,7 @@ public class EditorScreen extends BaseScreen {
                 scrollToCursor();
                 return true;
             case GLFW.GLFW_KEY_DOWN:
-                if (Screen.hasAltDown()) {
+                if (hasAlt) {
                     history.shiftLine(cursor.startLine, cursor.endLine - cursor.startLine + 1, true);
                     cursor.arrowEnd = true;
                     compileRenderedText();
@@ -466,7 +507,7 @@ public class EditorScreen extends BaseScreen {
                     } else {
                         index = history.current.length();
                     }
-                    if (Screen.hasShiftDown()) {
+                    if (hasShift) {
                         if (!cursor.arrowEnd && index <= cursor.endIndex) {
                             cursor.updateStartIndex(index, history.current);
                             cursor.arrowEnd = false;
@@ -486,8 +527,8 @@ public class EditorScreen extends BaseScreen {
                 scrollToCursor();
                 return true;
             case GLFW.GLFW_KEY_Z:
-                if (Screen.hasControlDown()) {
-                    if (Screen.hasShiftDown()) {
+                if (hasCtrl) {
+                    if (hasShift) {
                         int i = history.redo();
 
                         if (i != -1) {
@@ -509,7 +550,7 @@ public class EditorScreen extends BaseScreen {
                     compileRenderedText();
                 }
             case GLFW.GLFW_KEY_S:
-                if (Screen.hasControlDown()) {
+                if (hasCtrl) {
                     save();
                 }
                 return true;
@@ -525,8 +566,8 @@ public class EditorScreen extends BaseScreen {
                 compileRenderedText();
                 return true;
             case GLFW.GLFW_KEY_TAB:
-                if (cursor.startIndex != cursor.endIndex || Screen.hasShiftDown()) {
-                    history.tabLines(cursor.startLine, cursor.endLine - cursor.startLine + 1, Screen.hasShiftDown());
+                if (cursor.startIndex != cursor.endIndex || hasShift) {
+                    history.tabLines(cursor.startLine, cursor.endLine - cursor.startLine + 1, hasShift);
                 } else {
                     history.addChar(cursor.startIndex, '\t');
                 }
@@ -541,14 +582,14 @@ public class EditorScreen extends BaseScreen {
                 scrollbar.scrollToPercent(Mth.clamp((currentPage + 1) / (calcTotalPages() - 1), 0, 1));
                 return true;
             case GLFW.GLFW_KEY_RIGHT_BRACKET:
-                if (Screen.hasControlDown()) {
+                if (hasCtrl) {
                     history.tabLinesKeepCursor(cursor.startLine, cursor.startLineIndex, cursor.endLineIndex, cursor.endLine - cursor.startLine + 1, false);
                     compileRenderedText();
                     return true;
                 }
                 break;
             case GLFW.GLFW_KEY_LEFT_BRACKET:
-                if (Screen.hasControlDown()) {
+                if (hasCtrl) {
                     history.tabLinesKeepCursor(cursor.startLine, cursor.startLineIndex, cursor.endLineIndex, cursor.endLine - cursor.startLine + 1, true);
                     compileRenderedText();
                     return true;
@@ -556,7 +597,12 @@ public class EditorScreen extends BaseScreen {
                 break;
             default:
         }
+
+        //? if >1.21.8 {
+        /*return super.keyPressed(keyEvent);
+        *///?} else {
         return super.keyPressed(keyCode, scanCode, modifiers);
+        //?}
     }
 
     private synchronized void compileRenderedText() {
@@ -654,7 +700,12 @@ public class EditorScreen extends BaseScreen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horiz, double vert) {
         if (overlay == null && scrollbar != null) {
+            // TODO: This doesn't make sense? Why would we trigger a drag event when we scrolL??
+            //  If this is *really* what we want, we'll need to make a fake event
+            //  Later note: I believe this is how scrolling is done in the editor?
+            //? if <=1.21.8 {
             scrollbar.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            //?}
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
@@ -728,13 +779,24 @@ public class EditorScreen extends BaseScreen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int btn) {
+    //? if >1.21.8 {
+    /*public boolean mouseClicked(MouseButtonEvent buttonEvent, boolean debounce) {
         setFocused(null);
-        boolean handled = super.mouseClicked(mouseX, mouseY, btn);
+        boolean handled = super.mouseClicked(buttonEvent, debounce);
+        double mouseX = buttonEvent.x();
+        double mouseY = buttonEvent.y();
+        int button = buttonEvent.button();
+        boolean hasShift = buttonEvent.hasShiftDown();
+    *///?} else {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        setFocused(null);
+        boolean handled = super.mouseClicked(mouseX, mouseY, button);
+        boolean hasShift = Screen.hasShiftDown();
+    //?}
         if (!handled && overlay == null) {
             int index = getIndexPosition(mouseX - 30, mouseY - 12 + 1);
-            if (btn != 1 || (cursor.startIndex > index || cursor.endIndex < index)) {
-                if (Screen.hasShiftDown()) {
+            if (button != 1 || (cursor.startIndex > index || cursor.endIndex < index)) {
+                if (hasShift) {
                     if (index < cursor.dragStartIndex) {
                         cursor.updateEndIndex(cursor.dragStartIndex, history.current);
                         cursor.updateStartIndex(index, history.current);
@@ -758,7 +820,7 @@ public class EditorScreen extends BaseScreen {
                     cursor.arrowLineIndex = cursor.startLineIndex;
                 }
             }
-            if (btn == 1) {
+            if (button == 1) {
                 openRClickMenu(index, (int) mouseX, (int) mouseY);
             }
         }
@@ -814,9 +876,15 @@ public class EditorScreen extends BaseScreen {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean mouseDragged(MouseButtonEvent buttonEvent, double deltaX, double deltaY) {
+        if (!(getFocused() instanceof Scrollbar) && buttonEvent.isLeft() && overlay == null) {
+            int index = getIndexPosition(buttonEvent.x() - 30, buttonEvent.y() - 12);
+    *///?} else {
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if (!(getFocused() instanceof Scrollbar) && button == GLFW.GLFW_MOUSE_BUTTON_LEFT && overlay == null) {
             int index = getIndexPosition(mouseX - 30, mouseY - 12);
+    //?}
             if (index == cursor.dragStartIndex) {
                 cursor.updateStartIndex(index, history.current);
                 cursor.updateEndIndex(index, history.current);
@@ -832,12 +900,22 @@ public class EditorScreen extends BaseScreen {
                 cursor.arrowLineIndex = cursor.endLineIndex;
             }
         }
+
+        //? if >1.21.8 {
+        /*return super.mouseDragged(buttonEvent, deltaX, deltaY);
+        *///?} else {
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        //?}
     }
 
     @Override
     public void updateSettings() {
-        defaultStyle = Style.EMPTY.withFont(ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont));
+        //? if >1.21.8 {
+        /*defaultFontResource = new FontDescription.Resource((ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont)));
+        *///?} else {
+        defaultFontResource = ResourceLocation.parse(JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).editorFont);
+        //?}
+        defaultStyle = Style.EMPTY.withFont(defaultFontResource);
         cursor.defaultStyle = defaultStyle;
         cursor.updateStartIndex(cursor.startIndex, history.current);
         cursor.updateEndIndex(cursor.endIndex, history.current);
@@ -845,11 +923,20 @@ public class EditorScreen extends BaseScreen {
     }
 
     @Override
-    public synchronized boolean charTyped(char chr, int keyCode) {
+    //? if >1.21.8 {
+    /*public synchronized boolean charTyped(CharacterEvent characterEvent) {
+        char chr = (char) characterEvent.codepoint();
+    *///?} else {
+    public synchronized  boolean charTyped(char chr, int keyCode) {
+    //?}
         if (overlay == null) {
             setFocused(null);
         } else if (overlay instanceof SettingsOverlay) {
+            //? if >1.21.8 {
+            /*return super.charTyped(characterEvent);
+            *///?} else {
             return super.charTyped(chr, keyCode);
+            //?}
         }
         if (blockFirst) {
             blockFirst = false;

@@ -3,12 +3,12 @@ package xyz.wagyourtail.jsmacros.client.api.helper.inventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
-import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
-import net.minecraft.core.registries.BuiltInRegistries;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
 import java.util.ArrayList;

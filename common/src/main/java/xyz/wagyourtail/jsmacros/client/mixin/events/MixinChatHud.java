@@ -1,12 +1,12 @@
 package xyz.wagyourtail.jsmacros.client.mixin.events;
 
-import net.minecraft.client.gui.components.ChatComponent;
-import net.minecraft.client.GuiMessageTag;
-import net.minecraft.network.chat.MessageSignature;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.GuiMessageTag;
+import net.minecraft.client.gui.components.ChatComponent;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MessageSignature;
+import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

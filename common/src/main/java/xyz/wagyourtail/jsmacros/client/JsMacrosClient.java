@@ -23,8 +23,18 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+//? if >1.21.8 {
+/*import net.minecraft.resources.ResourceLocation;
+*///?}
+
 public class JsMacrosClient extends JsMacros {
-    public static KeyMapping keyBinding = new KeyMapping("jsmacros.menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, I18n.get("jsmacros.title"));
+    //? if >1.21.8 {
+    /*// TODO: This isn't properly getting the name
+    public static KeyMapping.Category keyBindingCategory = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath("jsmacros", "jsmacros.title"));
+    *///?} else {
+    public static String keyBindingCategory = I18n.get("jsmacros.title");
+    //?}
+    public static KeyMapping keyBinding = new KeyMapping("jsmacros.menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, keyBindingCategory);
     public static final Core<ClientProfile, EventRegistry> clientCore = new Core<>(EventRegistry::new, ClientProfile::new, configFolder.getAbsoluteFile(), new File(configFolder, "Macros"), LOGGER);
 
     public static BaseScreen prevScreen;

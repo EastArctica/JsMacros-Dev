@@ -1,10 +1,10 @@
 package xyz.wagyourtail.jsmacros.client.gui.overlays;
 
+import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.network.chat.Component;
-import net.minecraft.Util;
+import net.minecraft.util.FormattedCharSequence;
 import xyz.wagyourtail.wagyourgui.elements.Button;
 import xyz.wagyourtail.wagyourgui.overlays.IOverlayParent;
 import xyz.wagyourtail.wagyourgui.overlays.OverlayContainer;

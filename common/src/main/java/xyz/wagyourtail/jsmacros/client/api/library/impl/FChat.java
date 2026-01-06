@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.api.library.impl;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
+import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -247,7 +247,11 @@ public class FChat extends BaseLibrary {
             String finalMessage = message;
             final Semaphore semaphore = new Semaphore(await ? 0 : 1);
             mc.execute(() -> {
+                //? if >1.21.8 {
+                /*mc.setScreen(new ChatScreen(finalMessage, true));
+                *///?} else {
                 mc.setScreen(new ChatScreen(finalMessage));
+                //?}
                 semaphore.release();
             });
             semaphore.acquire();
@@ -414,9 +418,8 @@ public class FChat extends BaseLibrary {
      */
     @Nullable
     public TextHelper createTextHelperFromJSON(String json) {
-        Component s = Component.nullToEmpty(json);
-        TextHelper t = TextHelper.wrap(s);
-        return t;
+        Component jsonStr = Component.nullToEmpty(json);
+        return TextHelper.wrap(jsonStr);
     }
 
     /**

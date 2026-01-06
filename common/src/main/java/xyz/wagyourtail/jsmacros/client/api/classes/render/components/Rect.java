@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
@@ -306,11 +307,21 @@ public class Rect implements RenderElement, Alignable<Rect> {
 
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+        //? if >1.21.5 {
         Matrix3x2fStack matrices = drawContext.pose();
         matrices.pushMatrix();
+        //?} else {
+        /*PoseStack matrices = drawContext.pose();
+        matrices.pushPose();
+        *///?}
+
         setupMatrix(matrices, x1, y1, 1, rotation, getWidth(), getHeight(), rotateCenter);
         drawContext.fill(x1, y1, x2, y2, this.color);
+        //? if >1.21.5 {
         matrices.popMatrix();
+        //?} else {
+        /*matrices.popPose();
+        *///?}
     }
 
     public Rect setParent(IDraw2D<?> parent) {

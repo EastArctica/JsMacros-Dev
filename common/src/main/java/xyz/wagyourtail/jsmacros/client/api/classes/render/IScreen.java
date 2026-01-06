@@ -2,7 +2,6 @@ package xyz.wagyourtail.jsmacros.client.api.classes.render;
 
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
-import xyz.wagyourtail.jsmacros.client.api.helper.screen.*;
 import xyz.wagyourtail.jsmacros.api.math.Pos2D;
 import xyz.wagyourtail.jsmacros.api.math.Vec2D;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
@@ -432,6 +431,7 @@ public interface IScreen extends IDraw2D<IScreen> {
      */
     ButtonWidgetHelper.TexturedButtonBuilder texturedButtonBuilder();
 
+    //? if <=1.21.8 {
     /**
      * @return {@code true} if the shift key is pressed, {@code false} otherwise.
      * @since 1.8.4
@@ -455,6 +455,7 @@ public interface IScreen extends IDraw2D<IScreen> {
     default boolean isAltDown() {
         return Screen.hasAltDown();
     }
+    //?}
 
     @Nullable
     MethodWrapper<IScreen, Object, Object, ?> getOnClose();

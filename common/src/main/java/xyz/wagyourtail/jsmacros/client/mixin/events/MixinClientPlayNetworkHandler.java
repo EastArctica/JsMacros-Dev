@@ -3,21 +3,17 @@ package xyz.wagyourtail.jsmacros.client.mixin.events;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
-import net.minecraft.client.multiplayer.CommonListenerCookie;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.network.protocol.game.*;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.Entry;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.multiplayer.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.Entry;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,7 +30,6 @@ import xyz.wagyourtail.jsmacros.client.api.event.impl.inventory.EventItemPickup;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.inventory.EventSlotUpdate;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventDeath;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.player.EventStatusEffectUpdate;
-import xyz.wagyourtail.jsmacros.client.api.event.impl.world.*;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.world.*;
 import xyz.wagyourtail.jsmacros.client.api.helper.StatusEffectHelper;
 
@@ -152,7 +147,18 @@ public abstract class MixinClientPlayNetworkHandler extends ClientCommonPacketLi
         new EventChunkUnload(packet.pos().x, packet.pos().z).trigger();
     }
 
-    @Inject(method = "handleUpdateMobEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V", shift = At.Shift.AFTER))
+    @Inject(
+            method = "handleUpdateMobEffect",
+            at = @At(
+                    value = "INVOKE",
+                    //? if >1.21.8 {
+                    /*target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V",
+                    *///?} else {
+                    target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V",
+                    //?}
+                    shift = At.Shift.AFTER
+            )
+    )
     public void onEntityStatusEffect(ClientboundUpdateMobEffectPacket packet, CallbackInfo info) {
         assert minecraft.player != null;
         if (packet.getEntityId() == minecraft.player.getId()) {
@@ -162,7 +168,16 @@ public abstract class MixinClientPlayNetworkHandler extends ClientCommonPacketLi
         }
     }
 
-    @Inject(method = "handleRemoveMobEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V", shift = At.Shift.AFTER))
+    @Inject(
+            method = "handleRemoveMobEffect",
+            at = @At(
+                    value = "INVOKE",
+                    //? if >1.21.8 {
+                    /*target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V",
+                    *///?} else {
+                    target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V",
+                    //?}
+                    shift = At.Shift.AFTER))
     public void onEntityStatusEffect(ClientboundRemoveMobEffectPacket packet, CallbackInfo info) {
         if (packet.getEntity(minecraft.level) == minecraft.player) {
             assert minecraft.player != null;

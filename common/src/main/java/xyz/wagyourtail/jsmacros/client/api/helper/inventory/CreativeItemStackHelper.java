@@ -1,17 +1,17 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.inventory;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.item.component.ItemLore;
-import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;

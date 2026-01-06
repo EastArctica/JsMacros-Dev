@@ -44,7 +44,7 @@ public class TextHelper extends BaseHelper<Component> {
      */
     @Deprecated
     public String replaceFromJson(String json) {
-        return "dont use this";
+        throw new UnsupportedOperationException("replaceFromJson is deprecated, use FChat.createTextHelperFromJSON instead.");
     }
 
     /**

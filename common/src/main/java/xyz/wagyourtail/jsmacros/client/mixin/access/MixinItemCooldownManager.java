@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.mixin.access;
 
-import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemCooldowns;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

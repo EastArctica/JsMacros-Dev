@@ -2,13 +2,18 @@ package xyz.wagyourtail.wagyourgui.overlays;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import xyz.wagyourtail.wagyourgui.containers.MultiElementContainer;
 import xyz.wagyourtail.wagyourgui.elements.Scrollbar;
 
 import java.util.HashMap;
 import java.util.Map;
+
+//? if >1.21.8 {
+/*import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 
 public abstract class OverlayContainer extends MultiElementContainer<IOverlayParent> implements IOverlayParent {
     public Map<AbstractWidget, Boolean> savedBtnStates = new HashMap<>();
@@ -81,21 +86,38 @@ public abstract class OverlayContainer extends MultiElementContainer<IOverlayPar
         parent.setFocused(focused);
     }
 
+    //? if >1.21.8 {
+    /*public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
+        if (overlay != null) {
+            overlay.onClick(buttonEvent, debounce);
+        }
+    }
+    *///?} else {
     public void onClick(double mouseX, double mouseY, int button) {
         if (overlay != null) {
             overlay.onClick(mouseX, mouseY, button);
         }
     }
+    //?}
 
     /**
      * @return true if should be handled by overlay
      */
+    //? if >1.21.8 {
+    /*public boolean keyPressed(KeyEvent keyEvent) {
+        if (overlay != null) {
+            overlay.keyPressed(keyEvent);
+        }
+        return false;
+    }
+    *///?} else {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (overlay != null) {
             overlay.keyPressed(keyCode, scanCode, modifiers);
         }
         return false;
     }
+    //?}
 
     public void close() {
         parent.closeOverlay(this);

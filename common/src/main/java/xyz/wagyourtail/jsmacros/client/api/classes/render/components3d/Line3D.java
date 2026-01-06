@@ -1,10 +1,10 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
 import com.mojang.blaze3d.platform.DepthTestFunction;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.MultiBufferSource;
-import com.mojang.blaze3d.vertex.PoseStack;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;

@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.other;
 
-import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.AreaEffectCloud;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 

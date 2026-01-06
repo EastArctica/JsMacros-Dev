@@ -2,12 +2,12 @@ package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.client.gui.screens.inventory.GrindstoneScreen;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 
 /**

@@ -1,17 +1,25 @@
 package xyz.wagyourtail.jsmacros.client.mixin.events;
 
 import com.google.common.collect.ImmutableSet;
+//? if >1.21.5 {
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
+//?}
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import com.mojang.blaze3d.framegraph.FramePass;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+//? if <=1.21.5 {
+/*import net.minecraft.client.renderer.FogParameters;
+*///?}
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LevelTargetBundle;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
+//? if >1.21.8 {
+/*import net.minecraft.client.renderer.state.LevelRenderState;
+*///?}
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,15 +38,37 @@ public class MixinWorldRenderer {
 
     @Inject(method = "addMainPass", at = @At("TAIL"))
     private void onRenderMain(
+            //? if >1.21.8 {
+            /*FrameGraphBuilder frameGraphBuilder,
+            Frustum frustum,
+            Matrix4f frustumMatrix,
+            GpuBufferSlice shaderFog,
+            boolean renderBlockOutline,
+            LevelRenderState levelRenderState,
+            DeltaTracker deltaTracker,
+            ProfilerFiller profiler,
+            *///?} else if >1.21.5 {
             FrameGraphBuilder frameGraphBuilder,
             Frustum frustum,
             Camera camera,
-            Matrix4f positionMatrix,
-            GpuBufferSlice fog,
+            Matrix4f frustumMatrix,
+            GpuBufferSlice shaderFog,
             boolean renderBlockOutline,
             boolean renderEntityOutline,
-            DeltaTracker tickCounter,
+            DeltaTracker deltaTracker,
             ProfilerFiller profiler,
+            //?} else {
+            /*FrameGraphBuilder frameGraphBuilder,
+            Frustum frustum,
+            Camera camera,
+            Matrix4f frustumMatrix,
+            Matrix4f projectionMatrix,
+            FogParameters fogParameters,
+            boolean renderBlockOutline,
+            boolean renderEntityOutline,
+            DeltaTracker deltaTracker,
+            ProfilerFiller profiler,
+            *///?}
             CallbackInfo ci
     ) {
         if (this.targets == null) {
@@ -54,7 +84,7 @@ public class MixinWorldRenderer {
             try {
                 MultiBufferSource.BufferSource consumers = Minecraft.getInstance().renderBuffers().bufferSource();
 
-                float tickDelta = tickCounter.getGameTimeDeltaPartialTick(true);
+                float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(true);
 
                 PoseStack matrixStack = new PoseStack();
 

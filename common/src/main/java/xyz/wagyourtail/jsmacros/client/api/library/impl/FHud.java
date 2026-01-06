@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import org.jetbrains.annotations.Nullable;
-import xyz.wagyourtail.jsmacros.client.api.classes.render.*;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;

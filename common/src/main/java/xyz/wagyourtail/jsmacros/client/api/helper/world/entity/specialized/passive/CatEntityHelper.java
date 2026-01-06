@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.animal.Cat;
 import xyz.wagyourtail.jsmacros.client.api.helper.DyeColorHelper;
 
 /**

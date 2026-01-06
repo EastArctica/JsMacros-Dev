@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.gui.screens;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.gui.screens.Screen;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.gui.screens.Screen;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.event.impl.EventKey;
 import xyz.wagyourtail.jsmacros.client.config.ClientConfigV2;
@@ -15,6 +15,11 @@ import xyz.wagyourtail.jsmacros.core.event.IEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+//? if >1.21.8 {
+/*import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 
 public class KeyMacrosScreen extends MacroScreen {
 
@@ -46,30 +51,55 @@ public class KeyMacrosScreen extends MacroScreen {
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean keyReleased(KeyEvent keyEvent) {
+    int modifiers = keyEvent.modifiers();
+    *///?} else {
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+    //?}
         String translationKey = EventKey.getKeyModifiers(modifiers);
         if (!translationKey.equals("")) {
             translationKey += "+";
         }
+        //? if >1.21.8 {
+        /*translationKey += InputConstants.getKey(keyEvent).getName();
+        *///?} else {
         translationKey += InputConstants.getKey(keyCode, scanCode).getName();
+        //?}
         for (MacroContainer macro : (List<MacroContainer>) (List) macros) {
             if (!macro.onKey(translationKey)) {
                 return false;
             }
         }
+
+        //? if >1.21.8 {
+        /*return super.keyReleased(keyEvent);
+         *///?} else {
         return super.keyReleased(keyCode, scanCode, modifiers);
+        //?}
     }
 
     @Override
+    //? if >1.21.8 {
+    /*public boolean mouseReleased(MouseButtonEvent buttonEvent) {
+        boolean hasShift = buttonEvent.hasShiftDown();
+        boolean hasCtrl = buttonEvent.hasControlDown();
+        boolean hasAlt = buttonEvent.hasAltDown();
+        int button = buttonEvent.button();
+    *///?} else {
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        boolean hasShift = hasShiftDown();
+        boolean hasCtrl = hasControlDown();
+        boolean hasAlt = hasAltDown();
+    //?}
         int mods = 0;
-        if (hasShiftDown()) {
+        if (hasShift) {
             mods += 1;
         }
-        if (hasControlDown()) {
+        if (hasCtrl) {
             mods += 2;
         }
-        if (hasAltDown()) {
+        if (hasAlt) {
             mods += 4;
         }
         String translationKey = EventKey.getKeyModifiers(mods);
@@ -82,7 +112,11 @@ public class KeyMacrosScreen extends MacroScreen {
                 return false;
             }
         }
+        //? if >1.21.8 {
+        /*return super.mouseReleased(buttonEvent);
+        *///?} else {
         return super.mouseReleased(mouseX, mouseY, button);
+        //?}
     }
 
 }

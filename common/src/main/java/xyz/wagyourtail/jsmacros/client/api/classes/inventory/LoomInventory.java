@@ -1,14 +1,14 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.client.gui.screens.inventory.LoomScreen;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BannerPatternTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BannerPattern;
 import xyz.wagyourtail.jsmacros.client.access.ILoomScreen;
 
 import java.util.List;

@@ -1,14 +1,14 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
+import net.minecraft.client.HotbarManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
-import net.minecraft.client.HotbarManager;
+import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.util.Mth;
 import xyz.wagyourtail.jsmacros.client.api.classes.RegistryHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;

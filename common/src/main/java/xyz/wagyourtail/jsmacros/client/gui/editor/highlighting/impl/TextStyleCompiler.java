@@ -2,9 +2,9 @@ package xyz.wagyourtail.jsmacros.client.gui.editor.highlighting.impl;
 
 import io.noties.prism4j.AbsVisitor;
 import io.noties.prism4j.Prism4j;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import org.jetbrains.annotations.NotNull;
 

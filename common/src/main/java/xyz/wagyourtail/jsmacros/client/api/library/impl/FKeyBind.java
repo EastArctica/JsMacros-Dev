@@ -2,10 +2,10 @@ package xyz.wagyourtail.jsmacros.client.api.library.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.KeyMapping;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.InputConstants.Key;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;

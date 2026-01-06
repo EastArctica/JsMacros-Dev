@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
-import net.minecraft.world.entity.monster.piglin.PiglinArmPose;
 import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.monster.piglin.PiglinArmPose;
 
 /**
  * @author Etheradon

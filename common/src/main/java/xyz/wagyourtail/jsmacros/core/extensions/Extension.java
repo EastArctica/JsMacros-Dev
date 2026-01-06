@@ -32,7 +32,7 @@ public interface Extension {
      * @return
      */
     default String maxCoreVersion() {
-        return "2.0.0";
+        return "2.1.0";
     }
 
     void init(Core<?, ?> runner);

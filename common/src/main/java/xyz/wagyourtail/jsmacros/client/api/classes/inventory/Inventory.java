@@ -51,7 +51,7 @@ public class Inventory<T extends AbstractContainerScreen<?>> {
 
     public static Inventory<?> create() {
         Inventory<?> inv = create(mc.screen);
-        // What to do with horses? The horse inventory would need to be opened with a packet
+        // TODO: What to do with horses? The horse inventory would need to be opened with a packet
         if (inv == null) {
             assert mc.player != null;
             if (mc.player.getAbilities().instabuild) {
@@ -79,8 +79,8 @@ public class Inventory<T extends AbstractContainerScreen<?>> {
                 return new BrewingStandInventory((BrewingStandScreen) s);
             } else if (s instanceof CartographyTableScreen) {
                 return new CartographyInventory((CartographyTableScreen) s);
-            } else if (s instanceof AbstractFurnaceScreen) {
-                return new FurnaceInventory((AbstractFurnaceScreen) s);
+            } else if (s instanceof FurnaceScreen) {
+                return new FurnaceInventory((FurnaceScreen) s);
             } else if (s instanceof GrindstoneScreen) {
                 return new GrindStoneInventory((GrindstoneScreen) s);
             } else if (s instanceof SmithingScreen) {
@@ -474,6 +474,7 @@ public class Inventory<T extends AbstractContainerScreen<?>> {
     }
 
     /**
+     *
      * equivalent to hitting the numbers or f for swapping slots to hotbar
      *
      * @param slot
@@ -658,7 +659,7 @@ public class Inventory<T extends AbstractContainerScreen<?>> {
      */
     public Pos2D getSlotPos(int slot) {
         Slot s = handler.getSlot(slot);
-        return new Pos2D(s.x - ((IInventory) inventory).jsmacros$getX(), s.y - ((IInventory) inventory).jsmacros$getY());
+        return new Pos2D(((IInventory) inventory).jsmacros$getX(), ((IInventory) inventory).jsmacros$getY());
     }
 
     private Map<String, int[]> getMapInternal() {

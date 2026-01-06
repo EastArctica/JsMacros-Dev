@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
-import net.minecraft.client.renderer.MultiBufferSource;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import org.jetbrains.annotations.NotNull;
 import xyz.wagyourtail.doclet.DocletIgnore;
 

@@ -1,20 +1,20 @@
 package xyz.wagyourtail.jsmacros.client.api.library.impl;
 
+import com.mojang.realmsclient.RealmsMainScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
-import com.mojang.realmsclient.RealmsMainScreen;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.storage.LevelStorageSource;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.level.storage.LevelStorageException;
+import net.minecraft.world.level.storage.LevelStorageSource;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
@@ -44,6 +44,12 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
+
+//? if >1.21.8 {
+/*import net.minecraft.ChatFormatting;
+import net.minecraft.client.CloudStatus;
+import java.util.Locale;
+*///?}
 
 /**
  * Functions that interact with minecraft that don't fit into their own module.
@@ -181,7 +187,31 @@ public class FClient extends PerExecLibrary {
      * @since 1.2.0 (was in the {@code jsmacros} library until 1.2.9)
      */
     public String getFPS() {
+        //? if >1.21.8 {
+        /*int framerateLimit = mc.options.framerateLimit().get();
+        String string;
+        if (mc.getGpuUtilization() > 0.0) {
+            string = " GPU: " + (mc.getGpuUtilization() > 100.0 ? ChatFormatting.RED + "100%" : Math.round(mc.getGpuUtilization()) + "%");
+        } else {
+            string = "";
+        }
+
+        return String.format(
+                Locale.ROOT,
+                "%d fps T: %s%s%s%s B: %d%s",
+                mc.getFps(),
+                framerateLimit == 260 ? "inf" : framerateLimit,
+                mc.options.enableVsync().get() ? " vsync " : " ",
+                mc.options.graphicsMode().get(),
+                mc.options.cloudStatus().get() == CloudStatus.OFF
+                        ? ""
+                        : (mc.options.cloudStatus().get() == CloudStatus.FAST ? " fast-clouds" : " fancy-clouds"),
+                mc.options.biomeBlendRadius().get(),
+                string
+        );
+        *///?} else {
         return mc.fpsString;
+        //?}
     }
 
     /**
@@ -201,7 +231,11 @@ public class FClient extends PerExecLibrary {
         mc.execute(() -> {
             boolean bl = mc.isLocalServer();
             if (mc.level != null) {
-                mc.level.disconnect(Component.nullToEmpty(""));
+                mc.level.disconnect(
+                        //? if >1.21.5 {
+                        Component.nullToEmpty("")
+                        //?}
+                );
             }
             if (bl) {
                 mc.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), false);
@@ -231,12 +265,16 @@ public class FClient extends PerExecLibrary {
      */
     public void connect(String ip, int port) {
         mc.execute(() -> {
-            boolean bl = mc.isLocalServer();
+            boolean localServer = mc.isLocalServer();
             if (mc.level != null) {
-                mc.level.disconnect(Component.nullToEmpty(""));
+                mc.level.disconnect(
+                        //? if >1.21.5 {
+                        Component.nullToEmpty("")
+                         //?}
+                );
             }
-            if (bl) {
-                mc.disconnect(new GenericMessageScreen(Component.nullToEmpty("Saving World")),false);
+            if (localServer) {
+                mc.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), true);
             } else {
                 mc.disconnect(new GenericMessageScreen(Component.nullToEmpty("")),false);
             }
@@ -267,7 +305,11 @@ public class FClient extends PerExecLibrary {
             if (isWorld) {
                 // logic in death screen disconnect button
                 if (mc.level != null) {
-                    mc.level.disconnect(Component.nullToEmpty(""));
+                    mc.level.disconnect(
+                            //? if >1.21.5 {
+                            Component.nullToEmpty("")
+                             //?}
+                    );
                 }
                 mc.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), false);
                 mc.setScreen(new TitleScreen());

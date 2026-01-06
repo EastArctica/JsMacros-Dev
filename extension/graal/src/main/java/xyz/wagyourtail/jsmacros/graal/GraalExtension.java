@@ -1,7 +1,10 @@
 package xyz.wagyourtail.jsmacros.graal;
 
 import com.google.common.collect.Sets;
-import org.graalvm.polyglot.*;
+import org.graalvm.polyglot.PolyglotException;
+import org.graalvm.polyglot.Source;
+import org.graalvm.polyglot.SourceSection;
+import org.graalvm.polyglot.Value;
 import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.extensions.LanguageExtension;
 import xyz.wagyourtail.jsmacros.core.extensions.LibraryExtension;
@@ -18,7 +21,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class GraalExtension implements LanguageExtension, LibraryExtension {
-
+    private Core<?, ?> runner;
     private static GraalLanguageDefinition languageDefinition;
 
     @Override
@@ -28,6 +31,8 @@ public class GraalExtension implements LanguageExtension, LibraryExtension {
 
     @Override
     public void init(Core<?, ?> runner) {
+        this.runner = runner;
+
         try {
             runner.config.addOptions("graal", GraalConfig.class);
         } catch (Exception e) {
@@ -43,7 +48,7 @@ public class GraalExtension implements LanguageExtension, LibraryExtension {
     @Override
     public ExtMatch extensionMatch(File fname) {
         try {
-            if (GraalLanguageDefinition.engine.getLanguages().containsKey(Source.findLanguage(fname))) {
+            if (GraalLanguageDefinition.getOrCreateEngine(runner).getLanguages().containsKey(Source.findLanguage(fname))) {
                 if (fname.getName().contains(getExtensionName())) {
                     return ExtMatch.MATCH_WITH_NAME;
                 }

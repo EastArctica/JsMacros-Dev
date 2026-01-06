@@ -1,9 +1,9 @@
 package xyz.wagyourtail.jsmacros.client.gui.containers;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.gui.overlays.TextOverlay;
 import xyz.wagyourtail.jsmacros.client.gui.screens.MacroScreen;

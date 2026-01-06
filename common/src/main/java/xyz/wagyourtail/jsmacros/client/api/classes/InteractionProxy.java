@@ -1,19 +1,19 @@
 package xyz.wagyourtail.jsmacros.client.api.classes;
 
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import xyz.wagyourtail.jsmacros.client.api.helper.InteractionManagerHelper;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
+import xyz.wagyourtail.jsmacros.client.api.helper.InteractionManagerHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
 
 import java.util.ArrayList;

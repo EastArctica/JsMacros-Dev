@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl;
 
 import net.minecraft.client.GuiMessageTag;
-import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MessageSignature;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;

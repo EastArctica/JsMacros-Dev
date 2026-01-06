@@ -3,7 +3,6 @@ package xyz.wagyourtail.jsmacros.graal.python;
 import org.graalvm.polyglot.Context;
 import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.extensions.Extension;
-import xyz.wagyourtail.jsmacros.graal.GraalConfig;
 
 public class PythonExtension implements Extension {
 

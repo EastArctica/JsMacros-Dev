@@ -1,8 +1,10 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2fStack;
+import org.joml.Quaternionf;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw2D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 
@@ -221,6 +223,7 @@ public class Draw2DElement implements RenderElement, Alignable<Draw2DElement> {
 
     @Override
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+        //? if >1.21.5 {
         Matrix3x2fStack matrices = drawContext.pose();
         matrices.pushMatrix();
         matrices.translate(x, y);
@@ -235,6 +238,22 @@ public class Draw2DElement implements RenderElement, Alignable<Draw2DElement> {
         //don't translate back
         draw2D.render(drawContext);
         matrices.popMatrix();
+        //?} else {
+        /*PoseStack matrices = drawContext.pose();
+        matrices.pushPose();
+        matrices.translate(x, y, 0);
+        matrices.scale(scale, scale, 1);
+        if (rotateCenter) {
+            matrices.translate(width.getAsInt() / 2d, height.getAsInt() / 2d, 0);
+        }
+        matrices.mulPose(new Quaternionf().rotateLocalZ((float) Math.toRadians(rotation)));
+        if (rotateCenter) {
+            matrices.translate(-width.getAsInt() / 2d, -height.getAsInt() / 2d, 0);
+        }
+        //don't translate back
+        draw2D.render(drawContext);
+        matrices.popPose();
+        *///?}
     }
 
     public Draw2DElement setParent(IDraw2D<?> parent) {

@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;

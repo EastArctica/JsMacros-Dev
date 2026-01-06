@@ -1,11 +1,11 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 
 import com.mojang.blaze3d.platform.DepthTestFunction;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShapeRenderer;
-import com.mojang.blaze3d.vertex.PoseStack;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;
@@ -59,8 +59,6 @@ public class Box implements RenderElement3D<Box> {
         this.fill = fill;
         this.cull = cull;
     }
-
-    // ... All methods from setPos to compareToSame are unchanged ...
 
     /**
      * @param x1
@@ -218,7 +216,23 @@ public class Box implements RenderElement3D<Box> {
             float g = ((color >> 8) & 0xFF) / 255.0F;
             float b = (color & 0xFF) / 255.0F;
             float a = ((color >> 24) & 0xFF) / 255.0F;
-            ShapeRenderer.renderLineBox(matrixStack, consumers.getBuffer(linesLayer), x1, y1, z1, x2, y2, z2, r, g, b, a);
+            // TODO: Is this correct?
+            ShapeRenderer.renderLineBox(
+                    //? if >1.21.8 {
+                    /*matrixStack.last(),
+                    *///?} else
+                    matrixStack,
+                    consumers.getBuffer(linesLayer),
+                    x1,
+                    y1,
+                    z1,
+                    x2,
+                    y2,
+                    z2,
+                    r,
+                    g,
+                    b,
+                    a);
             if (seeThrough) {
                 immediate.endBatch();
             }
@@ -237,7 +251,6 @@ public class Box implements RenderElement3D<Box> {
         }
     }
 
-    // ... Builder class is unchanged ...
     /**
      * @author Etheradon
      * @since 1.8.4

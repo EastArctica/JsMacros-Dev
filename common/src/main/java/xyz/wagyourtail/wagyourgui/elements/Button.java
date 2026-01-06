@@ -2,11 +2,16 @@ package xyz.wagyourtail.wagyourgui.elements;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.components.AbstractButton;
-import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import xyz.wagyourtail.jsmacros.client.util.ColorUtil;
+
+//? if >1.21.8 {
+/*import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -103,23 +108,47 @@ public class Button extends AbstractButton {
         }
     }
 
+    // This method is overridden to prevent mouseDown from triggering onPress
+    // if onPress is triggered on mouseDown, the keybind editor will detect the mouseUp
+    // as the target key.
     @Override
+    //? if >1.21.8 {
+    /*public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
+    }
+    *///?} else {
     public void onClick(double mouseX, double mouseY) {
-        //super.onClick(mouseX, mouseY);
     }
+    //?}
 
     @Override
+    //? if >1.21.8 {
+    /*public void onRelease(MouseButtonEvent buttonEvent) {
+        if (this.isActive()) {
+            super.onClick(buttonEvent, true);
+        }
+    }
+    *///?} else {
     public void onRelease(double mouseX, double mouseY) {
-        if (this.active)
+        if (this.active) {
             super.onClick(mouseX, mouseY);
+        }
     }
+    //?}
 
     @Override
+    //? if >1.21.8 {
+    /*public void onPress(InputWithModifiers input) {
+        if (onPress != null) {
+            onPress.accept(this);
+        }
+    }
+    *///?} else {
     public void onPress() {
         if (onPress != null) {
             onPress.accept(this);
         }
     }
+    //?}
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput builder) {

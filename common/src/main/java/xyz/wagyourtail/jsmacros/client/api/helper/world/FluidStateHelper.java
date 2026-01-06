@@ -1,8 +1,8 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.material.FluidState;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 
 /**

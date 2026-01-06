@@ -1,7 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.other;
 
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Interaction;
+import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.access.IMixinInteractionEntity;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;

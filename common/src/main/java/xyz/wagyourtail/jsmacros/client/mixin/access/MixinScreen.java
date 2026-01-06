@@ -19,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xyz.wagyourtail.jsmacros.client.api.classes.render.components.*;
-import xyz.wagyourtail.jsmacros.client.api.helper.screen.*;
 import xyz.wagyourtail.jsmacros.access.CustomClickEvent;
 import xyz.wagyourtail.jsmacros.api.math.Pos2D;
 import xyz.wagyourtail.jsmacros.api.math.Vec2D;
@@ -85,11 +83,6 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     public Minecraft minecraft;
     @Shadow
     public Font font;
-
-    @Inject(method = "handleComponentClicked", at = @At("HEAD"), cancellable = true)
-    private void onHandleTextClick(Style style, CallbackInfoReturnable<Boolean> cir) {
-        handleCustomClickEvent(style, cir);
-    }
 
     @Shadow(aliases = {"method_37063", "m_142416_"})
     protected abstract <T extends GuiEventListener & Renderable & NarratableEntry> T addRenderableWidget(T drawableElement);
@@ -709,7 +702,7 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
         CycleButton<String> cyclingButton;
         CycleButton.Builder<String> builder = CycleButton.builder(net.minecraft.network.chat.Component::literal);
         if (alternatives != null) {
-            BooleanSupplier supplier = alternateToggle == null ? Screen::hasAltDown : alternateToggle::get;
+            BooleanSupplier supplier = alternateToggle == null ? CycleButton.DEFAULT_ALT_LIST_SELECTOR : alternateToggle::get;
             builder.withValues(supplier, Arrays.asList(values), Arrays.asList(alternatives));
         } else {
             builder.withValues(values);
@@ -1023,10 +1016,18 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     }
 
     //TODO: switch to enum extension with mixin 9.0 or whenever Mumfrey gets around to it
+    //? if >1.21.5 {
+    @Inject(method = "handleComponentClicked", at = @At("HEAD"), cancellable = true)
+    private void onHandleTextClick(Style style, CallbackInfoReturnable<Boolean> cir) {
+        handleCustomClickEvent(style, cir);
+    }
+    //?} else {
+    /*@Inject(at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V", remap = false), method = "handleComponentClicked", cancellable = true)
+    *///?}
     public void handleCustomClickEvent(Style style, CallbackInfoReturnable<Boolean> cir) {
         ClickEvent clickEvent = style.getClickEvent();
         if (clickEvent instanceof CustomClickEvent) {
-            ((CustomClickEvent) clickEvent).getEvent().run();
+            ((CustomClickEvent) clickEvent).event().run();
             cir.setReturnValue(true);
             cir.cancel();
         }

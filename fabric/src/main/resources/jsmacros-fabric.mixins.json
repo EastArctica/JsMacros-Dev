@@ -8,7 +8,7 @@
     "access.MixinGameRenderer",
     "access.MixinKeyboard",
     "access.MixinMouse",
-    "access.MixinWorldRenderer"
+    "access.MixinLevelRenderer"
   ],
   "mixins": [],
   "injectors": {
