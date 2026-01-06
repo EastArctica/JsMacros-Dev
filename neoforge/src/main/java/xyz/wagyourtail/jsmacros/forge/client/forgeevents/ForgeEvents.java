@@ -97,13 +97,13 @@ public class ForgeEvents {
     }
 
     //? if >1.21.5 {
-    /*public static void renderWorldListener(RenderLevelStageEvent.AfterLevel e) {
-    *///?} else {
-    public static void renderWorldListener(RenderLevelStageEvent e) {
+    public static void renderWorldListener(RenderLevelStageEvent.AfterLevel e) {
+    //?} else {
+    /*public static void renderWorldListener(RenderLevelStageEvent e) {
         if (e.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL) {
             return;
         }
-    //?}
+    *///?}
         var profiler = Profiler.get();
         profiler.push("jsmacros_draw3d");
         try {
