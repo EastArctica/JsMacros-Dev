@@ -1,5 +1,6 @@
 package xyz.wagyourtail.doclet.core;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
@@ -89,6 +90,7 @@ public class DocletModelBuilder {
             String alias = null;
             boolean eventCancellable = false;
             String eventFilterer = null;
+            String category = null;
             AnnotationMirror library = findAnnotation(type, "Library");
             AnnotationMirror event = findAnnotation(type, "Event");
             if (library != null) {
@@ -111,6 +113,10 @@ public class DocletModelBuilder {
                         eventFilterer = name;
                     }
                 }
+            }
+            DocletCategory categoryAnnotation = type.getAnnotation(DocletCategory.class);
+            if (categoryAnnotation != null) {
+                category = categoryAnnotation.value();
             }
 
             ClassKind kind = switch (type.getKind()) {
@@ -259,6 +265,7 @@ public class DocletModelBuilder {
                 kind,
                 group,
                 alias,
+                category,
                 eventCancellable,
                 eventFilterer,
                 typeParams,

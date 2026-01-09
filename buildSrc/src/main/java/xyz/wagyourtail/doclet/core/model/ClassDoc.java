@@ -9,6 +9,7 @@ public record ClassDoc(
     ClassKind kind,
     String group,
     String alias,
+    String category,
     boolean eventCancellable,
     String eventFilterer,
     List<TypeRef> typeParams,
