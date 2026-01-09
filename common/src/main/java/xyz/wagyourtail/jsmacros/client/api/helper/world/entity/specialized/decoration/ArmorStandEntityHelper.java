@@ -2,12 +2,14 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.deco
 
 import net.minecraft.core.Rotations;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.LivingEntityHelper;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class ArmorStandEntityHelper extends LivingEntityHelper<ArmorStand> {
 

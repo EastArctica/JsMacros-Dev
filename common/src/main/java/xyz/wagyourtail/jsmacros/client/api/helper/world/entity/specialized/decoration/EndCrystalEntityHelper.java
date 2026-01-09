@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.deco
 
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 
@@ -9,6 +10,7 @@ import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class EndCrystalEntityHelper extends EntityHelper<EndCrystal> {
 

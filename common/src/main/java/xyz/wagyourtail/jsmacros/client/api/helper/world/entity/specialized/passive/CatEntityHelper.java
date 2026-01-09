@@ -3,12 +3,14 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.pass
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.animal.Cat;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.DyeColorHelper;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class CatEntityHelper extends TameableEntityHelper<Cat> {
     private static final Minecraft mc = Minecraft.getInstance();

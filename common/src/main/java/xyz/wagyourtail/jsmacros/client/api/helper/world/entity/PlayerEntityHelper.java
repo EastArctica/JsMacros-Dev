@@ -2,12 +2,14 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity;
 
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.projectile.FishingBobberEntityHelper;
 
 /**
  * @author Wagyourtail
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class PlayerEntityHelper<T extends Player> extends LivingEntityHelper<T> {
 

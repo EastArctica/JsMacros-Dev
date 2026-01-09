@@ -1,11 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.passive;
 
 import net.minecraft.world.entity.animal.MushroomCow;
+import xyz.wagyourtail.doclet.DocletCategory;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class MooshroomEntityHelper extends AnimalEntityHelper<MushroomCow> {
 

@@ -49,6 +49,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.doclet.DocletReplaceTypeParams;
@@ -92,6 +93,7 @@ import java.util.stream.Collectors;
 /**
  * @author Wagyourtail
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class EntityHelper<T extends Entity> extends BaseHelper<T> {
 

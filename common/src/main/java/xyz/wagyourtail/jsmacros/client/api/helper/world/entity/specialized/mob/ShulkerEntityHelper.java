@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
 import net.minecraft.world.entity.monster.Shulker;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.DyeColorHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.DirectionHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.MobEntityHelper;
@@ -11,6 +12,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinShulkerEntity;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class ShulkerEntityHelper extends MobEntityHelper<Shulker> {
 

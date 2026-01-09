@@ -2,12 +2,14 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.vehi
 
 import net.minecraft.world.entity.vehicle.MinecartFurnace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class FurnaceMinecartEntityHelper extends EntityHelper<MinecartFurnace> {
 

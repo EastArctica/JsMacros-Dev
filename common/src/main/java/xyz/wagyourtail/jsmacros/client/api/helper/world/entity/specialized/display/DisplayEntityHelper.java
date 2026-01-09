@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.disp
 import net.minecraft.util.Brightness;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.phys.AABB;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinDisplayEntity;
@@ -11,6 +12,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinDisplayEntity;
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class DisplayEntityHelper<T extends Display> extends EntityHelper<T> {
 

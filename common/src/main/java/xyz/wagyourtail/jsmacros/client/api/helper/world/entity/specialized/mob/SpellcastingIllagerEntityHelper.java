@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
 import net.minecraft.world.entity.monster.SpellcasterIllager;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinSpellcastingIllagerEntityHelper;
@@ -9,6 +10,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinSpellcastingIllagerEnti
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class SpellcastingIllagerEntityHelper<T extends SpellcasterIllager> extends IllagerEntityHelper<T> {
 

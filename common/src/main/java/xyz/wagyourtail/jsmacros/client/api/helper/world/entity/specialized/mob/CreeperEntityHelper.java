@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
 import net.minecraft.world.entity.monster.Creeper;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.MobEntityHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinCreeperEntity;
 
@@ -8,6 +9,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinCreeperEntity;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class CreeperEntityHelper extends MobEntityHelper<Creeper> {
 

@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.disp
 
 import net.minecraft.world.entity.Display;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
@@ -9,6 +10,7 @@ import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class TextDisplayEntityHelper extends DisplayEntityHelper<Display.TextDisplay> {
 

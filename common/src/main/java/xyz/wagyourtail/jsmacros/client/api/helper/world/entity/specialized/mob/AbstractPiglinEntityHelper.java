@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.MobEntityHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinAbstractPiglinEntity;
 
@@ -8,6 +9,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinAbstractPiglinEntity;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class AbstractPiglinEntityHelper<T extends AbstractPiglin> extends MobEntityHelper<T> {
 

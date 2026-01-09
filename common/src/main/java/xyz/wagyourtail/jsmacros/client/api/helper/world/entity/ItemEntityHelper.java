@@ -1,8 +1,10 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity;
 
 import net.minecraft.world.entity.item.ItemEntity;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class ItemEntityHelper extends EntityHelper<ItemEntity> {
     public ItemEntityHelper(ItemEntity e) {

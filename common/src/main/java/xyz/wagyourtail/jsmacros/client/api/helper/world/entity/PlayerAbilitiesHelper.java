@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity;
 
 import net.minecraft.world.entity.player.Abilities;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
 /**

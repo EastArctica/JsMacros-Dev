@@ -1,12 +1,14 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.other;
 
 import net.minecraft.world.entity.item.PrimedTnt;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class TntEntityHelper extends EntityHelper<PrimedTnt> {
 

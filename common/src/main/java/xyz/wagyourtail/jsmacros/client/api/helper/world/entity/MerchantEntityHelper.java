@@ -2,11 +2,13 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity;
 
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.item.trading.MerchantOffer;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.access.IMerchantEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class MerchantEntityHelper<T extends AbstractVillager> extends LivingEntityHelper<T> {
 

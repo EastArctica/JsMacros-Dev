@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.othe
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.AreaEffectCloud;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 
@@ -9,6 +10,7 @@ import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class AreaEffectCloudEntityHelper extends EntityHelper<AreaEffectCloud> {
 

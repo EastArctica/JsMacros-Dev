@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.pass
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.world.entity.animal.Parrot;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class ParrotEntityHelper extends TameableEntityHelper<Parrot> {
 

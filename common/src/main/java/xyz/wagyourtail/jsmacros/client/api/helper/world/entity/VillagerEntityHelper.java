@@ -1,11 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity;
 
 import net.minecraft.world.entity.npc.Villager;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 
 /**
  * @since 1.6.3
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class VillagerEntityHelper extends MerchantEntityHelper<Villager> {
 

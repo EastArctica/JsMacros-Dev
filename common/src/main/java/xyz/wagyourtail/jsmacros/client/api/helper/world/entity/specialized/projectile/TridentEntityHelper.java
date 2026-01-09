@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.projectile;
 
 import net.minecraft.world.entity.projectile.ThrownTrident;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinTridentEntity;
 
@@ -8,6 +9,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinTridentEntity;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class TridentEntityHelper extends EntityHelper<ThrownTrident> {
 

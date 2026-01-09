@@ -2,12 +2,14 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.disp
 
 import net.minecraft.world.entity.Display;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 
 /**
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class ItemDisplayEntityHelper extends DisplayEntityHelper<Display.ItemDisplay> {
 

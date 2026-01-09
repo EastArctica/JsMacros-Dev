@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.othe
 import net.minecraft.world.entity.Interaction;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.access.IMixinInteractionEntity;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinInteractionEntity2;
@@ -11,6 +12,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinInteractionEntity2;
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class InteractionEntityHelper extends EntityHelper<Interaction> {
 

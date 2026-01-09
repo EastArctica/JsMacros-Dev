@@ -1,11 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.mob;
 
 import net.minecraft.world.entity.monster.Vindicator;
+import xyz.wagyourtail.doclet.DocletCategory;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class VindicatorEntityHelper extends IllagerEntityHelper<Vindicator> {
 

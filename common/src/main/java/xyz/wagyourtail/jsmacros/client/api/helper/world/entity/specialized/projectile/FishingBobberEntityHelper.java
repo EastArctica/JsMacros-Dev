@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.helper.world.entity.specialized.proj
 
 import net.minecraft.world.entity.projectile.FishingHook;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinFishingBobberEntity;
 
@@ -9,6 +10,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinFishingBobberEntity;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Entity Helpers")
 @SuppressWarnings("unused")
 public class FishingBobberEntityHelper extends EntityHelper<FishingHook> {
 
