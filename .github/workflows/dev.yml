@@ -61,7 +61,7 @@ jobs:
           body: |
             Dev build for commit ${{ github.sha }}.
 
-            Alpha, beta, and release builds are available on Modrinth: https://modrinth.com/mod/easts-jsmacros/versions
+            Alpha, beta, and release builds are available on Modrinth: https://modrinth.com/mod/jsmacrosce/versions
           prerelease: true
           generate_release_notes: false
           files: |
