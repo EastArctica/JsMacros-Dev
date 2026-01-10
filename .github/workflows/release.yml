@@ -81,11 +81,11 @@ jobs:
             Release for JsMacrosCE ${{ needs.build.outputs.mod_version }}.
             Built game versions: ${{ needs.build.outputs.mc_versions }}
           files: |
-            dist/jsmacros-*-fabric-${{ needs.build.outputs.mod_version }}.jar
-            dist/jsmacros-*-neoforge-${{ needs.build.outputs.mod_version }}.jar
-            dist/jsmacros-devkit-*-${{ needs.build.outputs.mod_version }}.zip
-            dist/jsmacros-extensions-*-${{ needs.build.outputs.mod_version }}.zip
-            dist/extensions/jsmacros-ext-*-${{ needs.build.outputs.mod_version }}.jar
+            dist/jsmacrosce-*-fabric-${{ needs.build.outputs.mod_version }}.jar
+            dist/jsmacrosce-*-neoforge-${{ needs.build.outputs.mod_version }}.jar
+            dist/jsmacrosce-devkit-*-${{ needs.build.outputs.mod_version }}.zip
+            dist/jsmacrosce-extensions-*-${{ needs.build.outputs.mod_version }}.zip
+            dist/extensions/jsmacrosce-ext-*-${{ needs.build.outputs.mod_version }}.jar
             dist/*-source.zip
           fail_on_unmatched_files: false
         env:
@@ -97,8 +97,8 @@ jobs:
           modrinth-id: ${{ env.MODRINTH_PROJECT }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           files: |
-            dist/jsmacros-*-fabric-${{ needs.build.outputs.mod_version }}.jar
-            dist/jsmacros-*-neoforge-${{ needs.build.outputs.mod_version }}.jar
+            dist/jsmacrosce-*-fabric-${{ needs.build.outputs.mod_version }}.jar
+            dist/jsmacrosce-*-neoforge-${{ needs.build.outputs.mod_version }}.jar
           name: JsMacros ${{ needs.build.outputs.mod_version }}
           version: ${{ needs.build.outputs.mod_version }}
           version-type: release
