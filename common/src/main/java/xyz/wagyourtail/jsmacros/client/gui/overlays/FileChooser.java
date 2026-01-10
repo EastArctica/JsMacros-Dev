@@ -90,7 +90,7 @@ public class FileChooser extends OverlayContainer {
         this.addRenderableWidget(new Button(x + width - 12, y + 2, 10, 10, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("X"), (btn) -> this.close()));
         scroll = this.addRenderableWidget(new Scrollbar(x + width - 10, y + 13, 8, height - 28, 0, 0xFF000000, 0xFFFFFFFF, 2, this::onScrollbar));
 
-        this.addRenderableWidget(new Button(x + w * 5 / 6 + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.select"), (btn) -> {
+        this.addRenderableWidget(new Button(x + w * 5 / 6 + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.select"), (btn) -> {
             if (this.selected != null && this.setFile != null) {
                 this.setFile.accept(this.selected);
                 this.close();
@@ -103,9 +103,9 @@ public class FileChooser extends OverlayContainer {
             }
         }));
 
-        this.addRenderableWidget(new Button(x + w * 3 / 6 + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.rename"), (btn) -> {
+        this.addRenderableWidget(new Button(x + w * 3 / 6 + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.rename"), (btn) -> {
             if (selected != null) {
-                this.openOverlay(new TextPrompt(x + width / 2 - 100, y + height / 2 - 50, 200, 100, textRenderer, Component.translatable("jsmacros.filename"), selected.getName(), this, (str) -> {
+                this.openOverlay(new TextPrompt(x + width / 2 - 100, y + height / 2 - 50, 200, 100, textRenderer, Component.translatable("jsmacrosce.filename"), selected.getName(), this, (str) -> {
                     File f = new File(directory, str);
                     if (selected.renameTo(f)) {
                         this.setDir(directory);
@@ -130,7 +130,7 @@ public class FileChooser extends OverlayContainer {
             }
         }));
 
-        this.addRenderableWidget(new Button(x + w / 6 + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.new"), (btn) -> this.openOverlay(new TextPrompt(x + width / 2 - 100, y + height / 2 - 50, 200, 100, textRenderer, Component.translatable("jsmacros.filename"), "", this, (str) -> {
+        this.addRenderableWidget(new Button(x + w / 6 + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.new"), (btn) -> this.openOverlay(new TextPrompt(x + width / 2 - 100, y + height / 2 - 50, 200, 100, textRenderer, Component.translatable("jsmacrosce.filename"), "", this, (str) -> {
             if (str.trim().equals("")) {
                 return;
             }
@@ -150,7 +150,7 @@ public class FileChooser extends OverlayContainer {
             }
         }))));
 
-        this.addRenderableWidget(new Button(x + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.openfolder"), (btn) -> {
+        this.addRenderableWidget(new Button(x + 2, y + height - 14, w / 6, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.openfolder"), (btn) -> {
             Util.getPlatform().openFile(directory);
         }));
 
@@ -183,7 +183,7 @@ public class FileChooser extends OverlayContainer {
     }
 
     public void confirmDelete(fileObj f) {
-        this.openOverlay(new ConfirmOverlay(x + width / 2 - 100, y + height / 2 - 50, 200, 100, textRenderer, Component.translatable("jsmacros.confirmdeletefile"), this, (conf) -> {
+        this.openOverlay(new ConfirmOverlay(x + width / 2 - 100, y + height / 2 - 50, 200, 100, textRenderer, Component.translatable("jsmacrosce.confirmdeletefile"), this, (conf) -> {
             delete(f);
         }));
     }

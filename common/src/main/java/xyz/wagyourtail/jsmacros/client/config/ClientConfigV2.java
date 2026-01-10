@@ -18,43 +18,43 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ClientConfigV2 {
-    @Option(translationKey = "jsmacros.sort", group = "jsmacros.settings.gui")
+    @Option(translationKey = "jsmacrosce.sort", group = "jsmacrosce.settings.gui")
     public Sorting.MacroSortMethod sortMethod = Sorting.MacroSortMethod.Enabled;
 
-    @Option(translationKey = "jsmacros.sortservices", group = "jsmacros.settings.gui")
+    @Option(translationKey = "jsmacrosce.sortservices", group = "jsmacrosce.settings.gui")
     public Sorting.ServiceSortMethod sortServicesMethod = Sorting.ServiceSortMethod.Enabled;
 
-    @Option(translationKey = "jsmacros.showslotindexes", group = "jsmacros.settings.gui")
+    @Option(translationKey = "jsmacrosce.showslotindexes", group = "jsmacrosce.settings.gui")
     public boolean showSlotIndexes = false;
 
-    @Option(translationKey = "jsmacros.disablewithscreen", group = "jsmacros.settings.general")
+    @Option(translationKey = "jsmacrosce.disablewithscreen", group = "jsmacrosce.settings.general")
     public boolean disableKeyWhenScreenOpen = true;
 
-    @Option(translationKey = "jsmacros.theme", group = {"jsmacros.settings.editor", "jsmacros.settings.editor.color"}, getter = "getThemeData", type = @OptionType("color"))
+    @Option(translationKey = "jsmacrosce.theme", group = {"jsmacrosce.settings.editor", "jsmacrosce.settings.editor.color"}, getter = "getThemeData", type = @OptionType("color"))
     public Map<String, short[]> editorTheme = null;
 
-    @Option(translationKey = "jsmacros.linteroverrides", group = {"jsmacros.settings.editor", "jsmacros.settings.editor.linter"}, options = "languages", type = @OptionType("file"))
+    @Option(translationKey = "jsmacrosce.linteroverrides", group = {"jsmacrosce.settings.editor", "jsmacrosce.settings.editor.linter"}, options = "languages", type = @OptionType("file"))
     public Map<String, String> editorLinterOverrides = new HashMap<>();
 
-    @Option(translationKey = "jsmacros.history", group = "jsmacros.settings.editor")
+    @Option(translationKey = "jsmacrosce.history", group = "jsmacrosce.settings.editor")
     public int editorHistorySize = 20;
 
-    @Option(translationKey = "jsmacros.autocomplete", group = "jsmacros.settings.editor")
+    @Option(translationKey = "jsmacrosce.autocomplete", group = "jsmacrosce.settings.editor")
     public boolean editorSuggestions = true;
 
-    @Option(translationKey = "jsmacros.font", group = "jsmacros.settings.editor", options = "getFonts")
-    public String editorFont = "jsmacros:monocraft";
+    @Option(translationKey = "jsmacrosce.font", group = "jsmacrosce.settings.editor", options = "getFonts")
+    public String editorFont = "jsmacrosce:monocraft";
 
-    @Option(translationKey = "jsmacros.useexternaleditor", group = "jsmacros.settings.editor")
+    @Option(translationKey = "jsmacrosce.useexternaleditor", group = "jsmacrosce.settings.editor")
     public boolean externalEditor = false;
 
-    @Option(translationKey = "jsmacros.externaleditorcommand", group = "jsmacros.settings.editor")
+    @Option(translationKey = "jsmacrosce.externaleditorcommand", group = "jsmacrosce.settings.editor")
     public String externalEditorCommand = "code %MacroFolder %File";
 
-    @Option(translationKey = "jsmacros.showrunningservices", group = "jsmacros.settings.services")
+    @Option(translationKey = "jsmacrosce.showrunningservices", group = "jsmacrosce.settings.services")
     public boolean showRunningServices = false;
 
-    @Option(translationKey = "jsmacros.serviceautoreload", group = "jsmacros.settings.services", setter = "setServiceAutoReload")
+    @Option(translationKey = "jsmacrosce.serviceautoreload", group = "jsmacrosce.settings.services", setter = "setServiceAutoReload")
     public boolean serviceAutoReload = false;
 
     public List<String> languages() {

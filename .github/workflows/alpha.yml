@@ -8,7 +8,7 @@ on:
 env:
   JAVA_VERSION: '21'
   MODRINTH_PROJECT: 2m9WfquA
-  MOD_ID: jsmacros
+  MOD_ID: jsmacrosce
   TZ: America/New_York
 
 permissions:
@@ -72,9 +72,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.build.outputs.mod_version }}-alpha-${{ needs.build.outputs.alpha_date }}
-          name: JsMacros ${{ needs.build.outputs.mod_version }} (alpha)
+          name: JsMacrosCE ${{ needs.build.outputs.mod_version }} (alpha)
           body: |
-            Alpha build for JsMacros ${{ needs.build.outputs.mod_version }} (date: ${{ needs.build.outputs.alpha_date }}).
+            Alpha build for JsMacrosCE ${{ needs.build.outputs.mod_version }} (date: ${{ needs.build.outputs.alpha_date }}).
             Built game versions: ${{ needs.build.outputs.mc_versions }}
           files: |
             dist/**

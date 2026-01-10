@@ -63,7 +63,7 @@ class MixinChatHud {
     }
 
     @Unique
-    private final Component MODIFIED_TEXT = Component.translatable("jsmacros.chat.tag.modified").withStyle(ChatFormatting.UNDERLINE);
+    private final Component MODIFIED_TEXT = Component.translatable("jsmacrosce.chat.tag.modified").withStyle(ChatFormatting.UNDERLINE);
 
     @ModifyVariable(
             method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/GuiMessageTag;)V",

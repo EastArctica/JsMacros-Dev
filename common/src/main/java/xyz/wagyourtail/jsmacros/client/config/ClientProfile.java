@@ -89,7 +89,7 @@ public class ClientProfile extends BaseProfile {
                 e = runner.wrapException(ex);
             } catch (Throwable t) {
                 t.printStackTrace();
-                mc.execute(() -> ((IChatHud) mc.gui.getChat()).jsmacros_addMessageBypass(Component.translatable("jsmacros.errorerror").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_RED))));
+                mc.execute(() -> ((IChatHud) mc.gui.getChat()).jsmacros_addMessageBypass(Component.translatable("jsmacrosce.errorerror").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_RED))));
                 return;
             }
             Component text = compileError(e);
@@ -97,7 +97,7 @@ public class ClientProfile extends BaseProfile {
                 try {
                     ((IChatHud) mc.gui.getChat()).jsmacros_addMessageBypass(text);
                 } catch (Throwable t) {
-                    ((IChatHud) mc.gui.getChat()).jsmacros_addMessageBypass(Component.translatable("jsmacros.errorerror").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_RED)));
+                    ((IChatHud) mc.gui.getChat()).jsmacros_addMessageBypass(Component.translatable("jsmacrosce.errorerror").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_RED)));
                     t.printStackTrace();
                 }
             });
@@ -124,7 +124,7 @@ public class ClientProfile extends BaseProfile {
                     BaseWrappedException.GuestLocation loc = (BaseWrappedException.GuestLocation) head.location;
                     if (loc.file != null) {
                         locationStyle = locationStyle.withHoverEvent(
-                                new HoverEvent.ShowText(Component.translatable("jsmacros.clicktoview"))
+                                new HoverEvent.ShowText(Component.translatable("jsmacrosce.clicktoview"))
                         ).withClickEvent(new CustomClickEvent(() -> {
                             if (loc.startIndex > -1) {
                                 EditorScreen.openAndScrollToIndex(loc.file, loc.startIndex, loc.endIndex);

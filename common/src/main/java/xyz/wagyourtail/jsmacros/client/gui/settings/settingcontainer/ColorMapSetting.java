@@ -64,7 +64,7 @@ public class ColorMapSetting extends AbstractMapSettingContainer<short[], ColorM
                 int y = parent.y;
                 int width = parent.width;
                 int height = parent.height;
-                TextPrompt prompt = new TextPrompt(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacros.setvalue"), convertColorToString(value), getFirstOverlayParent(), (str) -> {
+                TextPrompt prompt = new TextPrompt(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacrosce.setvalue"), convertColorToString(value), getFirstOverlayParent(), (str) -> {
                     try {
                         short[] newVal = convertStringToColor(str);
                         parent.changeValue(key, newVal);

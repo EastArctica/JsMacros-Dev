@@ -39,35 +39,35 @@ public class MacroScreen extends BaseScreen {
     protected Button aboutBtn;
 
     public MacroScreen(Screen parent) {
-        super(Component.translatable("jsmacros.title"), parent);
+        super(Component.translatable("jsmacrosce.title"), parent);
     }
 
     @Override
     protected void init() {
         super.init();
         macros.clear();
-        keyScreen = this.addRenderableWidget(new Button(0, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.keys"), btn -> {
+        keyScreen = this.addRenderableWidget(new Button(0, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.keys"), btn -> {
             assert minecraft != null;
             if (minecraft.screen.getClass() != KeyMacrosScreen.class) {
                 minecraft.setScreen(new KeyMacrosScreen(this));
             }
         }));
 
-        eventScreen = this.addRenderableWidget(new Button(this.width / 6 + 1, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.events"), btn -> {
+        eventScreen = this.addRenderableWidget(new Button(this.width / 6 + 1, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.events"), btn -> {
             assert minecraft != null;
             if (minecraft.screen.getClass() != EventMacrosScreen.class) {
                 minecraft.setScreen(new EventMacrosScreen(this));
             }
         }));
 
-        serviceScreen = this.addRenderableWidget(new Button(2 * this.width / 6 + 2, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.services"), btn -> {
+        serviceScreen = this.addRenderableWidget(new Button(2 * this.width / 6 + 2, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.services"), btn -> {
             assert minecraft != null;
             if (minecraft.screen.getClass() != ServiceScreen.class) {
                 minecraft.setScreen(new ServiceScreen(this));
             }
         }));
 
-        this.addRenderableWidget(new Button(this.width * 5 / 6 + 1, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.settings"), (btn) -> {
+        this.addRenderableWidget(new Button(this.width * 5 / 6 + 1, 0, this.width / 6 - 1, 20, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.settings"), (btn) -> {
             openOverlay(new SettingsOverlay(this.width / 4, this.height / 4, this.width / 2, this.height / 2, font, this));
         }));
 
@@ -76,12 +76,12 @@ public class MacroScreen extends BaseScreen {
         topScroll = 40;
         macroScroll = this.addRenderableWidget(new Scrollbar(this.width * 23 / 24 - 4, 50, 8, this.height - 75, 0, 0xFF000000, 0xFFFFFFFF, 2, this::onScrollbar));
 
-        runningBtn = this.addRenderableWidget(new Button(0, this.height - 12, this.width / 12, 12, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.running"), (btn) -> {
+        runningBtn = this.addRenderableWidget(new Button(0, this.height - 12, this.width / 12, 12, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.running"), (btn) -> {
             assert minecraft != null;
             minecraft.setScreen(new CancelScreen(this));
         }));
 
-        aboutBtn = this.addRenderableWidget(new Button(this.width * 11 / 12, this.height - 12, this.width / 12, 12, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.about"), (btn) -> this.openOverlay(new AboutOverlay(this.width / 4, this.height / 4, this.width / 2, this.height / 2, font, this))));
+        aboutBtn = this.addRenderableWidget(new Button(this.width * 11 / 12, this.height - 12, this.width / 12, 12, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.about"), (btn) -> this.openOverlay(new AboutOverlay(this.width / 4, this.height / 4, this.width / 2, this.height / 2, font, this))));
     }
 
     protected MultiElementContainer<MacroScreen> createTopbar() {
@@ -95,8 +95,8 @@ public class MacroScreen extends BaseScreen {
             //  If this is *really* what we want, we'll need to make a fake event
             //  Later note: I believe this is how scrolling is done in the editor?
             //? if <=1.21.8 {
-            macroScroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
-            //?}
+            /*macroScroll.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+            *///?}
         }
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
@@ -132,7 +132,7 @@ public class MacroScreen extends BaseScreen {
     }
 
     public void confirmRemoveMacro(MultiElementContainer<MacroScreen> macro) {
-        openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, this.font, Component.translatable("jsmacros.confirmdeletemacro"), this, (conf) -> removeMacro(macro)));
+        openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, this.font, Component.translatable("jsmacrosce.confirmdeletemacro"), this, (conf) -> removeMacro(macro)));
     }
 
     public void removeMacro(MultiElementContainer<MacroScreen> macro) {

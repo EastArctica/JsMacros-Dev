@@ -10,7 +10,7 @@ permissions:
 env:
   JAVA_VERSION: '21'
   MODRINTH_PROJECT: 2m9WfquA
-  MOD_ID: jsmacros
+  MOD_ID: jsmacrosce
 
 jobs:
   build:
@@ -61,11 +61,11 @@ jobs:
           prerelease: true
           generate_release_notes: false
           files: |
-            dist/jsmacros-*-fabric-${{ steps.versions.outputs.mod_version }}.jar
-            dist/jsmacros-*-neoforge-${{ steps.versions.outputs.mod_version }}.jar
-            dist/jsmacros-devkit-*-${{ steps.versions.outputs.mod_version }}.zip
-            dist/jsmacros-extensions-*-${{ steps.versions.outputs.mod_version }}.zip
-            dist/extensions/jsmacros-ext-*-${{ steps.versions.outputs.mod_version }}.jar
+            dist/jsmacrosce-*-fabric-${{ steps.versions.outputs.mod_version }}.jar
+            dist/jsmacrosce-*-neoforge-${{ steps.versions.outputs.mod_version }}.jar
+            dist/jsmacrosce-devkit-*-${{ steps.versions.outputs.mod_version }}.zip
+            dist/jsmacrosce-extensions-*-${{ steps.versions.outputs.mod_version }}.zip
+            dist/extensions/jsmacrosce-ext-*-${{ steps.versions.outputs.mod_version }}.jar
             dist/*-source.zip
           fail_on_unmatched_files: false
           token: ${{ secrets.GITHUB_TOKEN }}

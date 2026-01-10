@@ -12,11 +12,11 @@ public class GraalConfig {
 
     // TODO: Make these language keys dynamic, ex. "Extra {language} Language Options"
     // Extra GraalVM options to pass to the engine
-    @Option(translationKey = "jsmacros.settings.languages.extraengineoptions", group = {"jsmacros.settings.languages", "jsmacros.settings.languages.graaloptions"}, type = @OptionType("string"))
+    @Option(translationKey = "jsmacrosce.settings.languages.extraengineoptions", group = {"jsmacrosce.settings.languages", "jsmacrosce.settings.languages.graaloptions"}, type = @OptionType("string"))
     public Map<String, String> extraEngineOptions = new HashMap<>();
 
     // Extra JS options to pass to the JS engine
-    @Option(translationKey = "jsmacros.settings.languages.extralangoptions", group = {"jsmacros.settings.languages", "jsmacros.settings.languages.graaloptions"}, type = @OptionType("string"))
+    @Option(translationKey = "jsmacrosce.settings.languages.extralangoptions", group = {"jsmacrosce.settings.languages", "jsmacrosce.settings.languages.graaloptions"}, type = @OptionType("string"))
     public Map<String, Map<String, String>> extraLangOptions = new HashMap<>();
 
     @Deprecated

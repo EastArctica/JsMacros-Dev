@@ -41,8 +41,8 @@ public class CancelScreen extends BaseScreen {
         running.clear();
         s = this.addRenderableWidget(new Scrollbar(width - 12, 5, 8, height - 10, 0xFFFFFFFF, 0xFF000000, 0x7FFFFFFF, 1, this::onScrollbar));
 
-        this.addRenderableWidget(new Button(0, this.height - 12, this.width / 12, 12, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.back"), (btn) -> this.onClose()));
-        services = this.addRenderableWidget(new AnnotatedCheckBox(this.width / 12 + 5, this.height - 12, 200, 12, font, 0xFFFFFFFF, 0xFF000000, 0xFFFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.showservices"), JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).showRunningServices, btn -> JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).showRunningServices = ((AnnotatedCheckBox) btn).value));
+        this.addRenderableWidget(new Button(0, this.height - 12, this.width / 12, 12, font, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.back"), (btn) -> this.onClose()));
+        services = this.addRenderableWidget(new AnnotatedCheckBox(this.width / 12 + 5, this.height - 12, 200, 12, font, 0xFFFFFFFF, 0xFF000000, 0xFFFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.showservices"), JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).showRunningServices, btn -> JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).showRunningServices = ((AnnotatedCheckBox) btn).value));
     }
 
     public void addContainer(BaseScriptContext<?> t) {
@@ -92,8 +92,8 @@ public class CancelScreen extends BaseScreen {
         //  If this is *really* what we want, we'll need to make a fake event
         //  Later note: I believe this is how scrolling is done in the editor?
         //? if <=1.21.8 {
-        s.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
-        //?}
+        /*s.mouseDragged(mouseX, mouseY, 0, 0, -vert * 2);
+        *///?}
         return super.mouseScrolled(mouseX, mouseY, horiz, vert);
     }
 

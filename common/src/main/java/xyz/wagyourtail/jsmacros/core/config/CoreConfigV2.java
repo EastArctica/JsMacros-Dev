@@ -13,13 +13,13 @@ public class CoreConfigV2 {
     
     private transient Core<?, ?> runner;
 
-    @Option(translationKey = "jsmacros.maxlocktime", group = "jsmacros.settings.general")
+    @Option(translationKey = "jsmacrosce.maxlocktime", group = "jsmacrosce.settings.general")
     public long maxLockTime = 500;
 
-    @Option(translationKey = "jsmacros.defaultprofile", group = "jsmacros.settings.profile", options = "profileOptions")
+    @Option(translationKey = "jsmacrosce.defaultprofile", group = "jsmacrosce.settings.profile", options = "profileOptions")
     public String defaultProfile = "default";
 
-    @Option(translationKey = "jsmacros.anythingIgnored", group = { "jsmacros.settings.general", "jsmacros.anythingIgnored" }, options = "getEvents")
+    @Option(translationKey = "jsmacrosce.anythingIgnored", group = { "jsmacrosce.settings.general", "jsmacrosce.anythingIgnored" }, options = "getEvents")
     public List<String> anythingIgnored = new ArrayList<>(Arrays.asList(
             "Sound",
             "Tick",
@@ -27,7 +27,7 @@ public class CoreConfigV2 {
             "SendPacket"
     ));
 
-    @Option(translationKey = "jsmacros.profiles", group = {"jsmacros.settings.profile", "jsmacros.settings.profile.list"}, type = @OptionType("profile"))
+    @Option(translationKey = "jsmacrosce.profiles", group = {"jsmacrosce.settings.profile", "jsmacrosce.settings.profile.list"}, type = @OptionType("profile"))
     public Map<String, List<ScriptTrigger>> profiles = new HashMap<>();
 
     public Map<String, ServiceTrigger> services = new HashMap<>();
@@ -38,7 +38,7 @@ public class CoreConfigV2 {
     }
 
     //"synthetic" option
-    @Option(translationKey = "jsmacros.currentprofile", group = "jsmacros.settings.profile", setter = "setCurrentProfile", options = "profileOptions")
+    @Option(translationKey = "jsmacrosce.currentprofile", group = "jsmacrosce.settings.profile", setter = "setCurrentProfile", options = "profileOptions")
     public String getCurrentProfile() {
         return runner.profile.getCurrentProfileName();
     }

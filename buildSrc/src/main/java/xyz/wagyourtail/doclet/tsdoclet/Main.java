@@ -80,7 +80,7 @@ public class Main implements Doclet {
         Set<LibraryParser> libraryClasses = new TreeSet<>((a, b) -> String.CASE_INSENSITIVE_ORDER.compare(a.name, b.name));
         Set<EventParser> eventClasses = new TreeSet<>((a, b) -> String.CASE_INSENSITIVE_ORDER.compare(a.getName(), b.getName()));
 
-        outputTS = new FileHandler(new File(OutputDirectory.outputDir, "JsMacros-" + Version.version + ".d.ts"));
+        outputTS = new FileHandler(new File(OutputDirectory.outputDir, "JsMacrosCE-" + Version.version + ".d.ts"));
 
         if (!OutputDirectory.outputDir.exists() && !OutputDirectory.outputDir.mkdirs()) {
             reporter.print(Diagnostic.Kind.ERROR, "Failed to create version dir\n");

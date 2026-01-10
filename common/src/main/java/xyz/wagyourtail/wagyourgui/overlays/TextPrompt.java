@@ -31,7 +31,7 @@ public class TextPrompt extends OverlayContainer {
 
         this.addRenderableWidget(new Button(x + 2, y + height - 14, w / 2, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("gui.cancel"), (btn) -> close()));
 
-        this.addRenderableWidget(new Button(x + w / 2, y + height - 14, w / 2, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.confirm"), (btn) -> {
+        this.addRenderableWidget(new Button(x + w / 2, y + height - 14, w / 2, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.confirm"), (btn) -> {
             if (this.accept != null) {
                 this.accept.accept(ti.content);
             }

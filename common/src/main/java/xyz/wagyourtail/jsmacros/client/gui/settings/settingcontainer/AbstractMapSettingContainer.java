@@ -38,7 +38,7 @@ public abstract class AbstractMapSettingContainer<T, U extends AbstractMapSettin
     public void init() {
         super.init();
         scroll = addRenderableWidget(new Scrollbar(x + width - 10, y + 12, 10, height - 12, 0, 0xFF000000, 0xFFFFFFFF, 2, this::onScrollbar));
-        addRenderableWidget(new Button(x, y, 40, 10, textRenderer, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.add"), (btn) -> {
+        addRenderableWidget(new Button(x, y, 40, 10, textRenderer, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.add"), (btn) -> {
             if (setting.hasOptions()) {
                 try {
                     List<String> options = ((List<String>) (List) setting.getOptions()).stream().filter(e -> !map.containsKey(e)).collect(Collectors.toList());
@@ -156,7 +156,7 @@ public abstract class AbstractMapSettingContainer<T, U extends AbstractMapSettin
                     int y = parent.y;
                     int width = parent.width;
                     int height = parent.height;
-                    openOverlay(new TextPrompt(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacros.setprofilename"), key, getFirstOverlayParent(), (newKey) -> {
+                    openOverlay(new TextPrompt(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacrosce.setprofilename"), key, getFirstOverlayParent(), (newKey) -> {
                         try {
                             parent.changeKey(key, newKey);
                         } catch (InvocationTargetException | IllegalAccessException e) {

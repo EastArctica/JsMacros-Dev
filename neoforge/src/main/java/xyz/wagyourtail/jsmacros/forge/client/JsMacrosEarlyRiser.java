@@ -14,9 +14,9 @@ public class JsMacrosEarlyRiser implements IMixinConnector {
 //        MixinBootstrap.init();
 //        MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
 //        LOGGER.log(Level.INFO, "[JsMacros] Loading Mixins.");
-//        Mixins.addConfiguration("jsmacros-client.mixins.json");
-//        Mixins.addConfiguration("jsmacros-common.mixins.json");
-//        Mixins.addConfiguration("jsmacros-forge.mixins.json");
+//        Mixins.addConfiguration("jsmacrosce-client.mixins.json");
+//        Mixins.addConfiguration("jsmacrosce-common.mixins.json");
+//        Mixins.addConfiguration("jsmacrosce-forge.mixins.json");
     }
 
 }

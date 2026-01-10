@@ -20,7 +20,7 @@ public class TextOverlay extends OverlayContainer {
     public void init() {
         super.init();
 
-        addRenderableWidget(new Button(x + 2, y + this.height - 12, this.width - 4, 10, this.textRenderer, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.confirm"), (btn) -> {
+        addRenderableWidget(new Button(x + 2, y + this.height - 12, this.width - 4, 10, this.textRenderer, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.confirm"), (btn) -> {
             this.close();
         }));
     }

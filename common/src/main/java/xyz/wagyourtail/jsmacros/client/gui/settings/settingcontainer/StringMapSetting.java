@@ -45,7 +45,7 @@ public class StringMapSetting extends AbstractMapSettingContainer<String, String
                 int y = parent.y;
                 int width = parent.width;
                 int height = parent.height;
-                openOverlay(new TextPrompt(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacros.setvalue"), value, getFirstOverlayParent(), (str) -> {
+                openOverlay(new TextPrompt(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacrosce.setvalue"), value, getFirstOverlayParent(), (str) -> {
                     try {
                         parent.changeValue(key, str);
                         btn.setMessage(Component.literal(str));

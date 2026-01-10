@@ -2,7 +2,7 @@
   "required": true,
   "package": "xyz.wagyourtail.jsmacros.forge.client.mixins",
   "compatibilityLevel": "JAVA_21",
-  "refmap": "jsmacros-neoforge.refmap.json",
+  "refmap": "jsmacrosce-neoforge.refmap.json",
   "client": [],
   "mixins": [],
   "injectors": {

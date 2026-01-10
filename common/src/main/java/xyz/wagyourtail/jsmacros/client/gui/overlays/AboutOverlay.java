@@ -26,13 +26,13 @@ public class AboutOverlay extends OverlayContainer {
         int w = width - 4;
         this.addRenderableWidget(new Button(x + width - 12, y + 2, 10, 10, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("X"), (btn) -> this.close()));
 
-        this.addRenderableWidget(new Button(x + 2, y + height - 14, w / 3, 12, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("Website"), (btn) -> Util.getPlatform().openUri("https://jsmacros.wagyourtail.xyz")));
+        this.addRenderableWidget(new Button(x + 2, y + height - 14, w / 3, 12, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("Website"), (btn) -> Util.getPlatform().openUri("https://jsmacros-ce.eastarcti.ca")));
 
-        this.addRenderableWidget(new Button(x + w / 3 + 2, y + height - 14, w / 3, 12, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("Discord"), (btn) -> Util.getPlatform().openUri("https://discord.gg/P6W58J8")));
+        this.addRenderableWidget(new Button(x + w / 3 + 2, y + height - 14, w / 3, 12, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("Discord"), (btn) -> Util.getPlatform().openUri("https://discord.gg/UaB82D59Fu")));
 
-        this.addRenderableWidget(new Button(x + w * 2 / 3 + 2, y + height - 14, w / 3, 12, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("CurseForge"), (btn) -> Util.getPlatform().openUri("https://www.curseforge.com/minecraft/mc-mods/jsmacros")));
+        this.addRenderableWidget(new Button(x + w * 2 / 3 + 2, y + height - 14, w / 3, 12, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("Modrinth"), (btn) -> Util.getPlatform().openUri("https://modrinth.com/mod/jsmacrosce")));
 
-        this.setMessage(Component.translatable("jsmacros.aboutinfo"));
+        this.setMessage(Component.translatable("jsmacrosce.aboutinfo"));
     }
 
     public void setMessage(Component message) {
@@ -52,7 +52,7 @@ public class AboutOverlay extends OverlayContainer {
     public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         renderBackground(drawContext);
 
-        drawContext.drawWordWrap(textRenderer, Component.translatable("jsmacros.about"), x + 3, y + 3, width - 14, 0xFFFFFFFF, false);
+        drawContext.drawWordWrap(textRenderer, Component.translatable("jsmacrosce.about"), x + 3, y + 3, width - 14, 0xFFFFFFFF, false);
         renderMessage(drawContext);
 
         drawContext.fill(x + 2, y + 12, x + width - 2, y + 13, 0xFFFFFFFF);

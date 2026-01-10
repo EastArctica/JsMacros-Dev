@@ -13,7 +13,7 @@ on:
 env:
   JAVA_VERSION: '21'
   MODRINTH_PROJECT: 2m9WfquA
-  MOD_ID: jsmacros
+  MOD_ID: jsmacrosce
 
 permissions:
   contents: write
@@ -79,9 +79,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.build.outputs.mod_version }}-beta-${{ github.event.inputs.beta_number }}
-          name: JsMacros ${{ needs.build.outputs.mod_version }} (beta)
+          name: JsMacrosCE ${{ needs.build.outputs.mod_version }} (beta)
           body: |
-            Beta build #${{ github.event.inputs.beta_number }} for JsMacros ${{ needs.build.outputs.mod_version }}.
+            Beta build #${{ github.event.inputs.beta_number }} for JsMacrosCE ${{ needs.build.outputs.mod_version }}.
             Built game versions: ${{ needs.build.outputs.mc_versions }}
           files: |
             dist/**

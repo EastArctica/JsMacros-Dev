@@ -58,8 +58,8 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
 
     private static Component getTranslatedEventName(String eventName) {
         String lowerCaseName = eventName.toLowerCase(Locale.ROOT);
-        if (Language.getInstance().has("jsmacros.event." + lowerCaseName)) {
-            return Component.translatable("jsmacros.event." + lowerCaseName);
+        if (Language.getInstance().has("jsmacrosce.event." + lowerCaseName)) {
+            return Component.translatable("jsmacrosce.event." + lowerCaseName);
         }
 
         return Component.literal(eventName);
@@ -69,10 +69,10 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
     public void init() {
         super.init();
         int w = width - 12;
-        enableBtn = addRenderableWidget(new Button(x + 1, y + 1, w / 12 - 1, height - 2, textRenderer, macro.enabled ? 0x7000FF00 : 0x70FF0000, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable(macro.enabled ? "jsmacros.enabled" : "jsmacros.disabled"), (btn) -> {
+        enableBtn = addRenderableWidget(new Button(x + 1, y + 1, w / 12 - 1, height - 2, textRenderer, macro.enabled ? 0x7000FF00 : 0x70FF0000, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable(macro.enabled ? "jsmacrosce.enabled" : "jsmacrosce.disabled"), (btn) -> {
             macro.enabled = !macro.enabled;
             btn.setColor(macro.enabled ? 0x7000FF00 : 0x70FF0000);
-            btn.setMessage(Component.translatable(macro.enabled ? "jsmacros.enabled" : "jsmacros.disabled"));
+            btn.setMessage(Component.translatable(macro.enabled ? "jsmacrosce.enabled" : "jsmacrosce.disabled"));
         }));
 
         boolean isEventMacro = macro.triggerType == ScriptTrigger.TriggerType.EVENT;
@@ -92,7 +92,7 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
                 parent.setEvent(this);
             } else {
                 selectkey = true;
-                btn.setMessage(Component.translatable("jsmacros.presskey"));
+                btn.setMessage(Component.translatable("jsmacrosce.presskey"));
             }
         }));
 
@@ -153,7 +153,7 @@ public class MacroContainer extends MultiElementContainer<MacroScreen> {
         reg.removeScriptTrigger(macro);
         macro.event = type;
         reg.addScriptTrigger(macro);
-        keyBtn.setMessage(Component.translatable("jsmacros.event." + macro.event.toLowerCase(Locale.ROOT)));
+        keyBtn.setMessage(Component.translatable("jsmacrosce.event." + macro.event.toLowerCase(Locale.ROOT)));
     }
 
     public void setFile(File f) {

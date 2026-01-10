@@ -18,8 +18,8 @@ import net.minecraft.client.renderer.LevelTargetBundle;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 //? if >1.21.8 {
-/*import net.minecraft.client.renderer.state.LevelRenderState;
-*///?}
+import net.minecraft.client.renderer.state.LevelRenderState;
+//?}
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +39,7 @@ public class MixinWorldRenderer {
     @Inject(method = "addMainPass", at = @At("TAIL"))
     private void onRenderMain(
             //? if >1.21.8 {
-            /*FrameGraphBuilder frameGraphBuilder,
+            FrameGraphBuilder frameGraphBuilder,
             Frustum frustum,
             Matrix4f frustumMatrix,
             GpuBufferSlice shaderFog,
@@ -47,8 +47,8 @@ public class MixinWorldRenderer {
             LevelRenderState levelRenderState,
             DeltaTracker deltaTracker,
             ProfilerFiller profiler,
-            *///?} else if >1.21.5 {
-            FrameGraphBuilder frameGraphBuilder,
+            //?} else if >1.21.5 {
+            /*FrameGraphBuilder frameGraphBuilder,
             Frustum frustum,
             Camera camera,
             Matrix4f frustumMatrix,
@@ -57,7 +57,7 @@ public class MixinWorldRenderer {
             boolean renderEntityOutline,
             DeltaTracker deltaTracker,
             ProfilerFiller profiler,
-            //?} else {
+            *///?} else {
             /*FrameGraphBuilder frameGraphBuilder,
             Frustum frustum,
             Camera camera,
@@ -74,12 +74,12 @@ public class MixinWorldRenderer {
         if (this.targets == null) {
             return;
         }
-        FramePass framePass = frameGraphBuilder.addPass("jsmacros_draw3d");
+        FramePass framePass = frameGraphBuilder.addPass("jsmacrosce_draw3d");
         LevelTargetBundle frameBufferSet = this.targets;
         frameBufferSet.main = framePass.readsAndWrites(frameBufferSet.main);
 
         framePass.executes(() -> {
-            profiler.push("jsmacros_d3d");
+            profiler.push("jsmacrosce_d3d");
 
             try {
                 MultiBufferSource.BufferSource consumers = Minecraft.getInstance().renderBuffers().bufferSource();

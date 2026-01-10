@@ -41,7 +41,7 @@ public class ConfirmOverlay extends OverlayContainer {
             this.close();
         }));
 
-        this.addRenderableWidget(new Button(x + (width - 4) / 2 + 2, y + height - 12, (width - 4) / 2, 10, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.confirm"), (btn) -> {
+        this.addRenderableWidget(new Button(x + (width - 4) / 2 + 2, y + height - 12, (width - 4) / 2, 10, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.confirm"), (btn) -> {
             if (this.accept != null) {
                 this.accept.accept(this);
             }

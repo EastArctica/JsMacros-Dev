@@ -29,22 +29,22 @@ public class MacroListTopbar extends MultiElementContainer<MacroScreen> {
 
         int w = width - 12;
 
-        addRenderableWidget(new Button(x + 1, y + 1, w / 12 - 1, height - 3, textRenderer, JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod == Sorting.MacroSortMethod.Enabled ? 0x3FFFFFFF : 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacros.enabledstatus"), (btn) -> {
+        addRenderableWidget(new Button(x + 1, y + 1, w / 12 - 1, height - 3, textRenderer, JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod == Sorting.MacroSortMethod.Enabled ? 0x3FFFFFFF : 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacrosce.enabledstatus"), (btn) -> {
             JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod = Sorting.MacroSortMethod.Enabled;
             parent.reload();
         }));
 
-        type = addRenderableWidget(new Button(x + w / 12 + 1, y + 1, (w / 4) - (w / 12) - 1, height - 3, textRenderer, JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod == Sorting.MacroSortMethod.TriggerName ? 0x3FFFFFFF : 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable(deftype == ScriptTrigger.TriggerType.EVENT ? "jsmacros.events" : "jsmacros.keys"), (btn) -> {
+        type = addRenderableWidget(new Button(x + w / 12 + 1, y + 1, (w / 4) - (w / 12) - 1, height - 3, textRenderer, JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod == Sorting.MacroSortMethod.TriggerName ? 0x3FFFFFFF : 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable(deftype == ScriptTrigger.TriggerType.EVENT ? "jsmacrosce.events" : "jsmacrosce.keys"), (btn) -> {
             JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod = Sorting.MacroSortMethod.TriggerName;
             parent.reload();
         }));
 
-        addRenderableWidget(new Button(x + (w / 4) + 1, y + 1, w * 3 / 4 - 3 - 30, height - 3, textRenderer, JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod == Sorting.MacroSortMethod.FileName ? 0x3FFFFFFF : 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacros.file"), (btn) -> {
+        addRenderableWidget(new Button(x + (w / 4) + 1, y + 1, w * 3 / 4 - 3 - 30, height - 3, textRenderer, JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod == Sorting.MacroSortMethod.FileName ? 0x3FFFFFFF : 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacrosce.file"), (btn) -> {
             JsMacrosClient.clientCore.config.getOptions(ClientConfigV2.class).sortMethod = Sorting.MacroSortMethod.FileName;
             parent.reload();
         }));
 
-        addRenderableWidget(new Button(x + w - 32, y + 1, 30, height - 3, textRenderer, 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacros.run"), (btn) -> {
+        addRenderableWidget(new Button(x + w - 32, y + 1, 30, height - 3, textRenderer, 0, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacrosce.run"), (btn) -> {
             parent.runFile();
         }));
 
@@ -57,7 +57,7 @@ public class MacroListTopbar extends MultiElementContainer<MacroScreen> {
 
     public void updateType(ScriptTrigger.TriggerType type) {
         this.deftype = type;
-        this.type.setMessage(Component.translatable(deftype == ScriptTrigger.TriggerType.EVENT ? "jsmacros.events" : "jsmacros.keys"));
+        this.type.setMessage(Component.translatable(deftype == ScriptTrigger.TriggerType.EVENT ? "jsmacrosce.events" : "jsmacrosce.keys"));
     }
 
     @Override

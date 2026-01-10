@@ -108,7 +108,7 @@ public class ClassParser {
                 new XMLBuilder("body").append(
                         new XMLBuilder("header").append(
                                 new XMLBuilder("a").addStringOption("href", getUpDir(1)).append(
-                                        "<----- Return to main JsMacros docs page."
+                                        "&lt;----- Return to main JsMacrosCE docs page."
                                 )
                         )),
                 parseClass()

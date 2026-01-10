@@ -183,7 +183,7 @@ public class Main implements Doclet {
                     '
                     if "-" in VERSION: VERSION = VERSION.split("-")[0]
                     VERSION += "." + str(time.time()).split(".")[0][3:]
-                    DESCRIPTION = 'A package to let your IDE know what JsMacros can do'
+                    DESCRIPTION = 'A package to let your IDE know what JsMacrosCE can do'
                                         
                     def package_files(directory):
                         paths = []
@@ -206,7 +206,7 @@ public class Main implements Doclet {
                         packages=["JsMacrosAC"],
                         package_data = {"": extra_files},
                         install_requires=[],
-                        keywords=['python', 'JsMacros', 'Autocomplete', 'Doc'],
+                        keywords=['python', 'JsMacrosCE', 'JsMacros', 'Autocomplete', 'Doc'],
                         classifiers=[
                             "Intended Audience :: Developers",
                             "Programming Language :: Python :: 3",

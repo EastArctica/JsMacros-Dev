@@ -53,19 +53,19 @@ public class ServiceContainer extends MultiElementContainer<MacroScreen> {
         boolean enabled = getEnabled();
         boolean running = getRunning();
 
-        enableBtn = addRenderableWidget(new Button(x + w * 10 / 12 + 1, y + 1, w / 12, height - 2, textRenderer, enabled ? 0x7000FF00 : 0x70FF0000, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacros." + (enabled ? "enabled" : "disabled")), (btn) -> {
+        enableBtn = addRenderableWidget(new Button(x + w * 10 / 12 + 1, y + 1, w / 12, height - 2, textRenderer, enabled ? 0x7000FF00 : 0x70FF0000, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacrosce." + (enabled ? "enabled" : "disabled")), (btn) -> {
             if (getEnabled()) {
                 JsMacrosClient.clientCore.services.disableService(service);
                 btn.setColor(0x70FF0000);
-                btn.setMessage(Component.translatable("jsmacros.disabled"));
+                btn.setMessage(Component.translatable("jsmacrosce.disabled"));
             } else {
                 JsMacrosClient.clientCore.services.enableService(service);
                 btn.setColor(0x7000FF00);
-                btn.setMessage(Component.translatable("jsmacros.enabled"));
+                btn.setMessage(Component.translatable("jsmacrosce.enabled"));
             }
         }));
 
-        runningBtn = addRenderableWidget(new Button(x + w * 11 / 12 + 1, y + 1, w / 12, height - 2, textRenderer, running ? 0x7000FF00 : 0x70FF0000, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacros." + (running ? "running" : "stopped")), (btn) -> {
+        runningBtn = addRenderableWidget(new Button(x + w * 11 / 12 + 1, y + 1, w / 12, height - 2, textRenderer, running ? 0x7000FF00 : 0x70FF0000, 0xFF000000, 0x7F7F7F7F, 0xFFFFFFFF, Component.translatable("jsmacrosce." + (running ? "running" : "stopped")), (btn) -> {
             if (getRunning()) {
                 JsMacrosClient.clientCore.services.stopService(service);
             } else {
@@ -127,10 +127,10 @@ public class ServiceContainer extends MultiElementContainer<MacroScreen> {
 
         if (getRunning()) {
             runningBtn.setColor(0x7000FF00);
-            runningBtn.setMessage(Component.translatable("jsmacros.running"));
+            runningBtn.setMessage(Component.translatable("jsmacrosce.running"));
         } else {
             runningBtn.setColor(0x70FF0000);
-            runningBtn.setMessage(Component.translatable("jsmacros.stopped"));
+            runningBtn.setMessage(Component.translatable("jsmacrosce.stopped"));
         }
     }
 

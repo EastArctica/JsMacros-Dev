@@ -7,7 +7,7 @@ import xyz.wagyourtail.jsmacros.core.Core;
 import java.io.File;
 
 public class CoreInstanceCreator {
-    private static final Logger LOGGER = LoggerFactory.getLogger("JsMacros");
+    private static final Logger LOGGER = LoggerFactory.getLogger("JsMacrosCE");
     private static final File configFolder = new File("run/config");
     private static final File macroFolder = new File(configFolder, "macro");
 

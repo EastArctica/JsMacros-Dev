@@ -433,7 +433,7 @@ public abstract class CommandBuilder implements Registrable<CommandBuilder> {
                 return args;
             } else {
                 throw new SimpleCommandExceptionType(Component.translatable(
-                        "jsmacros.commandfailedregex",
+                        "jsmacrosce.commandfailedregex",
                         "/" + pattern.pattern() + "/"
                 )).createWithContext(reader);
             }

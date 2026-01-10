@@ -4,8 +4,8 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 //? if >1.21.8 {
-/*import net.minecraft.client.input.KeyEvent;
-*///?}
+import net.minecraft.client.input.KeyEvent;
+//?}
 import net.minecraft.network.chat.Component;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.gui.settings.settingcontainer.*;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SettingsOverlay extends OverlayContainer implements ICategoryTreeParent {
-    private final Component title = Component.translatable("jsmacros.settings");
+    private final Component title = Component.translatable("jsmacrosce.settings");
     private CategoryTreeContainer sections;
     private AbstractSettingContainer category;
     private final SettingTree settings = new SettingTree();
@@ -80,7 +80,7 @@ public class SettingsOverlay extends OverlayContainer implements ICategoryTreePa
         this.addRenderableWidget(new Button(x + width - 12, y + 2, 10, 10, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.literal("X"), (btn) -> this.close()));
         sections = new CategoryTreeContainer(x + 2, y + 13, w / 3, height - 17, textRenderer, this);
 
-        this.addRenderableWidget(new Button(x + width / 2, y + 2, width / 2 - 12, 10, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.reloadconfig"), (btn) -> {
+        this.addRenderableWidget(new Button(x + width / 2, y + 2, width / 2 - 12, 10, textRenderer, 0, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.reloadconfig"), (btn) -> {
             try {
                 JsMacrosClient.clientCore.config.loadConfig();
             } catch (IllegalAccessException | InstantiationException | IOException | InvocationTargetException | NoSuchMethodException e) {
@@ -132,7 +132,7 @@ public class SettingsOverlay extends OverlayContainer implements ICategoryTreePa
                 this.category.addSetting(field);
             }
         } else {
-            openOverlay(new ConfirmOverlay(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacros.failedsettinggroup"), this, null));
+            openOverlay(new ConfirmOverlay(x + width / 4, y + height / 4, width / 2, height / 2, textRenderer, Component.translatable("jsmacrosce.failedsettinggroup"), this, null));
         }
     }
 
@@ -206,12 +206,12 @@ public class SettingsOverlay extends OverlayContainer implements ICategoryTreePa
 
     @Override
     //? if >1.21.8 {
-    /*public boolean keyPressed(KeyEvent keyEvent) {
+    public boolean keyPressed(KeyEvent keyEvent) {
         super.keyPressed(keyEvent);
-    *///?} else {
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    //?} else {
+    /*public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         super.keyPressed(keyCode, scanCode, modifiers);
-    //?}
+    *///?}
         return true;
     }
 

@@ -28,7 +28,7 @@ public class EventChooser extends OverlayContainer {
         super(x, y, width, height, textRenderer, parent);
         this.selected = selected;
         this.setEvent = setEvent;
-        this.eventText = Component.translatable("jsmacros.events");
+        this.eventText = Component.translatable("jsmacrosce.events");
     }
 
     public void selectEvent(String event) {
@@ -54,7 +54,7 @@ public class EventChooser extends OverlayContainer {
         this.addRenderableWidget(new Button(x + 2, y + height - 14, w / 2, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("gui.cancel"), (btn) -> {
             this.close();
         }));
-        this.addRenderableWidget(new Button(x + w / 2 + 3, y + height - 14, w / 2, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.select"), (btn) -> {
+        this.addRenderableWidget(new Button(x + w / 2 + 3, y + height - 14, w / 2, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.select"), (btn) -> {
             if (this.selected != null && this.setEvent != null) {
                 this.setEvent.accept(this.selected);
                 this.close();
@@ -70,7 +70,7 @@ public class EventChooser extends OverlayContainer {
     }
 
     public void addEvent(String eventName) {
-        EventObj e = new EventObj(eventName, new Button(x + 3 + (events.size() % 5 * (width - 12) / 5), topScroll + (events.size() / 5 * 12), (width - 12) / 5, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacros.event." + eventName.toLowerCase(Locale.ROOT)), (btn) -> {
+        EventObj e = new EventObj(eventName, new Button(x + 3 + (events.size() % 5 * (width - 12) / 5), topScroll + (events.size() / 5 * 12), (width - 12) / 5, 12, textRenderer, 0, 0, 0x7FFFFFFF, 0xFFFFFFFF, Component.translatable("jsmacrosce.event." + eventName.toLowerCase(Locale.ROOT)), (btn) -> {
             selectEvent(eventName);
         }));
 

@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.ServiceLoader;
 
 public class JsMacros {
-    public static final String MOD_ID = "jsmacros";
+    public static final String MOD_ID = "jsmacrosce";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     protected static final File configFolder = ServiceLoader.load(ConfigFolder.class).findFirst().orElseThrow().getFolder();
     protected static final ModLoader modLoader = ServiceLoader.load(ModLoader.class).findFirst().orElseThrow();

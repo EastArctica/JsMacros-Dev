@@ -142,7 +142,7 @@ public class ExtensionLoader {
         }
 
         // add internal extensions
-        Set<URL> internalExtensions = Extension.getDependenciesInternal(ExtensionLoader.class, "jsmacros.extension.json");
+        Set<URL> internalExtensions = Extension.getDependenciesInternal(ExtensionLoader.class, "jsmacrosce.extension.json");
         for (URL lib : internalExtensions) {
             System.out.println("Adding internal extension: " + lib);
             // copy resource to dependencies folder

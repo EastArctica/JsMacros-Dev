@@ -38,7 +38,7 @@ public interface Extension {
     void init(Core<?, ?> runner);
 
     default Set<URL> getDependencies() {
-        return getDependenciesInternal(this.getClass(), "jsmacros.ext." + getExtensionName() + ".json");
+        return getDependenciesInternal(this.getClass(), "jsmacrosce.ext." + getExtensionName() + ".json");
     }
 
     static Set<URL> getDependenciesInternal(Class<?> clazz, String fname) {
