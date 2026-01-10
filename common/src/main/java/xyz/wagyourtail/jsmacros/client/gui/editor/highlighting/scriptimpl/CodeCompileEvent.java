@@ -28,7 +28,7 @@ import java.util.Map;
  * @author Wagyourtail
  * @since 1.3.1
  */
-@DocletCategory("Client and System")
+@DocletCategory("Render/UI")
 @Event("CodeRender")
 @SuppressWarnings("unused")
 public class CodeCompileEvent extends BaseEvent {

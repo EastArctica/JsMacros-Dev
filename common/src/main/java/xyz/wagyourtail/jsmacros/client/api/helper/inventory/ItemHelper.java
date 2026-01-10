@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Items and Enchantments")
+@DocletCategory("Items/Enchantments")
 @SuppressWarnings("unused")
 public class ItemHelper extends BaseHelper<Item> {
     private static final Minecraft mc = Minecraft.getInstance();

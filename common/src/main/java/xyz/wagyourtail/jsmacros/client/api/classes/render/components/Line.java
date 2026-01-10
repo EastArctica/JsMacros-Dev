@@ -14,7 +14,7 @@ import xyz.wagyourtail.jsmacros.client.util.ColorUtil;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class Line implements RenderElement, Alignable<Line> {
 
@@ -354,7 +354,7 @@ public class Line implements RenderElement, Alignable<Line> {
      * @author Etheradon
      * @since 1.8.4
      */
-    @DocletCategory("Rendering and Graphics")
+    @DocletCategory("Rendering/Graphics")
     public static class Builder extends RenderElementBuilder<Line> implements Alignable<Builder> {
 
         private int x1 = 0;

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public abstract class ClassWrapperFilter<T> extends BasicFilter<T> {
 
     protected final String methodName;

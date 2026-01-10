@@ -8,7 +8,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilt
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public class OrFilter<T> extends BasicFilter<T> {
 
     private final IFilter<T> filterOne;

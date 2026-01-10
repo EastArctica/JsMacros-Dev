@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 1.8.4
  */
 @SuppressWarnings("unused")
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 public class CustomImage {
 
     public static final Map<String, CustomImage> IMAGES = new HashMap<>();

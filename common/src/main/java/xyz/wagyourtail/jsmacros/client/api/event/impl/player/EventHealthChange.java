@@ -9,7 +9,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Player & Stats")
+@DocletCategory("Player/Stats")
 @Event(value = "HealthChange")
 public class EventHealthChange extends BaseEvent {
 

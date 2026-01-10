@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletIgnore;
 
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 public interface RenderElement3D<T extends RenderElement3D<?>> extends Comparable<RenderElement3D<?>> {
 
     @DocletIgnore

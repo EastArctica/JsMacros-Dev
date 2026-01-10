@@ -8,7 +8,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 public abstract class RenderElementBuilder<T extends RenderElement> {
 
     protected final IDraw2D<?> parent;

@@ -7,7 +7,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilt
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public class BooleanCompareFilter implements IFilter<Boolean> {
 
     private final boolean compareTo;

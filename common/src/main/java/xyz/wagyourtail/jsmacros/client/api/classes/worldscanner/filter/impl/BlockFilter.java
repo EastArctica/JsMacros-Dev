@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public class BlockFilter extends ClassWrapperFilter<BlockHelper> {
 
     private static final Map<String, Method> METHOD_LOOKUP = getPublicNoParameterMethods(BlockHelper.class);

@@ -19,7 +19,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@DocletCategory("Configuration and Profiles")
+@DocletCategory("Configuration/Profiles")
 public class ConfigManager {
     protected final static Gson gson = new GsonBuilder()
         .registerTypeAdapter(File.class, new TypeAdapter<File>() {

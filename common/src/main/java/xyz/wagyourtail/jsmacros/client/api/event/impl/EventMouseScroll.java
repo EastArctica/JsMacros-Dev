@@ -9,7 +9,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author aMelonRind
  * @since 1.9.0
  */
-@DocletCategory("Inputs & Interactions")
+@DocletCategory("Inputs/Interactions")
 @Event(value = "MouseScroll", cancellable = true)
 public class EventMouseScroll extends BaseEvent {
     public final double deltaX;

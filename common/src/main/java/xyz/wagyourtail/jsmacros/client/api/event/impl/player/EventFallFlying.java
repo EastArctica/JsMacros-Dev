@@ -5,7 +5,7 @@ import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.Event;
 
-@DocletCategory("Player & Stats")
+@DocletCategory("Player/Stats")
 @Event("FallFlying")
 public class EventFallFlying extends BaseEvent {
     public final boolean state;

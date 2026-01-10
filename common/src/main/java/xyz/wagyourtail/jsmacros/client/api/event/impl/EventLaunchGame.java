@@ -9,7 +9,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("System & Lifecycle")
+@DocletCategory("System/Lifecycle")
 @Event(value = "LaunchGame")
 public class EventLaunchGame extends BaseEvent {
 

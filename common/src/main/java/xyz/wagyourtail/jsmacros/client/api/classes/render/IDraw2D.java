@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 public interface IDraw2D<T> {
 
     /**

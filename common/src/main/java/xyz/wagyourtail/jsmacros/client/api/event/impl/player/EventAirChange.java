@@ -9,7 +9,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Player & Stats")
+@DocletCategory("Player/Stats")
 @Event(value = "AirChange", oldName = "AIR_CHANGE")
 public class EventAirChange extends BaseEvent {
     public final int air;

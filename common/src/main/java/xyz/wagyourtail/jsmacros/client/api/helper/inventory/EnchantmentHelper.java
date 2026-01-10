@@ -21,7 +21,7 @@ import java.util.Objects;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Items and Enchantments")
+@DocletCategory("Items/Enchantments")
 @SuppressWarnings("unused")
 public class EnchantmentHelper extends BaseHelper<Holder<Enchantment>> {
     private static final Minecraft mc = Minecraft.getInstance();

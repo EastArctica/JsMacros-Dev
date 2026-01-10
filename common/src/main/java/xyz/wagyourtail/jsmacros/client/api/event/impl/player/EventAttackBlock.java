@@ -7,7 +7,7 @@ import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockDataHelper;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.Event;
 
-@DocletCategory("Inputs & Interactions")
+@DocletCategory("Inputs/Interactions")
 @Event("AttackBlock")
 public class EventAttackBlock extends BaseEvent {
     public final BlockDataHelper block;

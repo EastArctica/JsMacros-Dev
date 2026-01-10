@@ -6,7 +6,7 @@ import xyz.wagyourtail.doclet.DocletCategory;
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public interface IAdvancedFilter<T> extends IFilter<T> {
 
     IAdvancedFilter<T> and(IFilter<T> filter);

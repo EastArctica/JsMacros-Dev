@@ -14,7 +14,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author aMelonRind
  * @since 1.9.1
  */
-@DocletCategory("Other")
+@DocletCategory("Network/Chat")
 @Event(value = "NameChange", cancellable = true)
 public class EventNameChange extends BaseEvent {
     public final EntityHelper<?> entity;

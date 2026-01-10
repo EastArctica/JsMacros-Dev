@@ -11,7 +11,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Network & Chat")
+@DocletCategory("Network/Chat")
 @Event(value = "JoinServer", oldName = "JOIN_SERVER")
 public class EventJoinServer extends BaseEvent {
     public final ClientPlayerEntityHelper<LocalPlayer> player;

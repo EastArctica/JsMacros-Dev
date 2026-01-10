@@ -15,7 +15,7 @@ import java.util.function.IntSupplier;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class Draw2DElement implements RenderElement, Alignable<Draw2DElement> {
 

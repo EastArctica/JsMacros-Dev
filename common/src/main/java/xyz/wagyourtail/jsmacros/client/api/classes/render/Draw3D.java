@@ -25,7 +25,7 @@ import java.util.List;
  * @author Wagyourtail
  * @since 1.0.6
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class Draw3D implements Registrable<Draw3D> {
     private final List<RenderElement3D<?>> elements = new ArrayList<>();

@@ -30,7 +30,7 @@ import java.util.Objects;
  * @author Wagyourtail
  * @since 1.6.5
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class Surface extends Draw2D implements RenderElement, RenderElement3D<Surface> {
     public boolean rotateToPlayer;
@@ -422,7 +422,7 @@ public class Surface extends Draw2D implements RenderElement, RenderElement3D<Su
      * @author Etheradon
      * @since 1.8.4
      */
-    @DocletCategory("Rendering and Graphics")
+    @DocletCategory("Rendering/Graphics")
     public static class Builder {
         private final Draw3D parent;
 

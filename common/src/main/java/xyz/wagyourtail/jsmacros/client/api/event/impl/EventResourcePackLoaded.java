@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @since 1.5.1
  */
-@DocletCategory("System & Lifecycle")
+@DocletCategory("System/Lifecycle")
 @Event("ResourcePackLoaded")
 public class EventResourcePackLoaded extends BaseEvent {
     public final boolean isGameStart;

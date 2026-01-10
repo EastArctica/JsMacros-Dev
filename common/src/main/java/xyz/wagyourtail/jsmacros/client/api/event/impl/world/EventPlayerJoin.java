@@ -13,7 +13,7 @@ import java.util.UUID;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Network & Chat")
+@DocletCategory("Network/Chat")
 @Event(value = "PlayerJoin", oldName = "PLAYER_JOIN")
 public class EventPlayerJoin extends BaseEvent {
     public final String UUID;

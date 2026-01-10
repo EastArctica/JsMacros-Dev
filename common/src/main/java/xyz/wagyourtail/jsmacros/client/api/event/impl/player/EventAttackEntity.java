@@ -7,7 +7,7 @@ import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.Event;
 
-@DocletCategory("Inputs & Interactions")
+@DocletCategory("Inputs/Interactions")
 @Event("AttackEntity")
 public class EventAttackEntity extends BaseEvent {
     public final EntityHelper<?> entity;

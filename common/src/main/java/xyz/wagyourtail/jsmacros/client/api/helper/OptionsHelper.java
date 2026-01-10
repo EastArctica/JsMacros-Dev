@@ -40,7 +40,7 @@ import java.util.stream.Stream;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Configuration and Profiles")
+@DocletCategory("Configuration/Profiles")
 @SuppressWarnings("unused")
 public class OptionsHelper extends BaseHelper<Options> {
 
@@ -392,7 +392,7 @@ public class OptionsHelper extends BaseHelper<Options> {
         return (MixinSimpleOption) (Object) option;
     }
 
-    @DocletCategory("Configuration and Profiles")
+    @DocletCategory("Configuration/Profiles")
     public class SkinOptionsHelper {
 
         public final OptionsHelper parent;
@@ -570,7 +570,7 @@ public class OptionsHelper extends BaseHelper<Options> {
 
     }
 
-    @DocletCategory("Configuration and Profiles")
+    @DocletCategory("Configuration/Profiles")
     public class VideoOptionsHelper {
 
         public final OptionsHelper parent;
@@ -1129,7 +1129,7 @@ public class OptionsHelper extends BaseHelper<Options> {
 
     }
 
-    @DocletCategory("Configuration and Profiles")
+    @DocletCategory("Configuration/Profiles")
     public class MusicOptionsHelper {
 
         public final OptionsHelper parent;
@@ -1411,7 +1411,7 @@ public class OptionsHelper extends BaseHelper<Options> {
 
     }
 
-    @DocletCategory("Configuration and Profiles")
+    @DocletCategory("Configuration/Profiles")
     public class ControlOptionsHelper {
 
         public final OptionsHelper parent;
@@ -1691,7 +1691,7 @@ public class OptionsHelper extends BaseHelper<Options> {
 
     }
 
-    @DocletCategory("Configuration and Profiles")
+    @DocletCategory("Configuration/Profiles")
     public class ChatOptionsHelper {
 
         public final OptionsHelper parent;
@@ -2042,7 +2042,7 @@ public class OptionsHelper extends BaseHelper<Options> {
 
     }
 
-    @DocletCategory("Configuration and Profiles")
+    @DocletCategory("Configuration/Profiles")
     public class AccessibilityOptionsHelper {
 
         public final OptionsHelper parent;

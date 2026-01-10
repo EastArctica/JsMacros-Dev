@@ -13,7 +13,7 @@ import java.util.List;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Inputs & Interactions")
+@DocletCategory("Inputs/Interactions")
 @Event(value = "SignEdit", oldName = "SIGN_EDIT", cancellable = true)
 public class EventSignEdit extends BaseEvent {
     public final Pos3D pos;

@@ -42,7 +42,7 @@ import xyz.wagyourtail.jsmacros.core.language.BaseWrappedException;
 
 import java.util.Arrays;
 
-@DocletCategory("Configuration and Profiles")
+@DocletCategory("Configuration/Profiles")
 public class ClientProfile extends BaseProfile {
     private static final Minecraft mc = Minecraft.getInstance();
 

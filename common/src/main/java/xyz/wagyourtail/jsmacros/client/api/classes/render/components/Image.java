@@ -19,7 +19,7 @@ import xyz.wagyourtail.jsmacros.client.util.ColorUtil;
  * @author Wagyourtail
  * @since 1.2.3
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class Image implements RenderElement, Alignable<Image> {
 
@@ -381,7 +381,7 @@ public class Image implements RenderElement, Alignable<Image> {
      * @author Etheradon
      * @since 1.8.4
      */
-    @DocletCategory("Rendering and Graphics")
+    @DocletCategory("Rendering/Graphics")
     public static final class Builder extends RenderElementBuilder<Image> implements Alignable<Builder> {
         private String identifier;
         private int x = 0;

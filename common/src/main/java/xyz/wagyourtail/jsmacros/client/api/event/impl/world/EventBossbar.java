@@ -16,7 +16,7 @@ import java.util.UUID;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Render & UI")
+@DocletCategory("Render/UI")
 @Event(value = "Bossbar", oldName = "BOSSBAR_UPDATE")
 public class EventBossbar extends BaseEvent {
     @Nullable

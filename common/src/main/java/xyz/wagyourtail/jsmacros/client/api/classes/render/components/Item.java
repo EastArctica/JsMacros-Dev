@@ -19,7 +19,7 @@ import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
  * @author Wagyourtail
  * @since 1.0.5
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class Item implements RenderElement, Alignable<Item> {
 
@@ -362,7 +362,7 @@ public class Item implements RenderElement, Alignable<Item> {
      * @author Etheradon
      * @since 1.8.4
      */
-    @DocletCategory("Rendering and Graphics")
+    @DocletCategory("Rendering/Graphics")
     public static final class Builder extends RenderElementBuilder<Item> implements Alignable<Builder> {
         private int x = 0;
         private int y = 0;

@@ -12,7 +12,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author FlareStormGaming
  * @since 1.6.5
  */
-@DocletCategory("Player & Stats")
+@DocletCategory("Player/Stats")
 @Event("Heal")
 public class EventHeal extends BaseEvent {
     @DocletReplaceReturn("HealSource")

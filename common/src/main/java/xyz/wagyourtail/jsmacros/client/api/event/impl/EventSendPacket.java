@@ -16,7 +16,7 @@ import xyz.wagyourtail.jsmacros.core.library.impl.FReflection;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Network & Chat")
+@DocletCategory("Network/Chat")
 @Event(value = "SendPacket", cancellable = true, filterer = FiltererSendPacket.class)
 @SuppressWarnings("unused")
 public class EventSendPacket extends BaseEvent {

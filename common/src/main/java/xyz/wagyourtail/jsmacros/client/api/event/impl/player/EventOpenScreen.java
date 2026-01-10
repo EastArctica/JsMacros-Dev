@@ -13,7 +13,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Render & UI")
+@DocletCategory("Render/UI")
 @Event(value = "OpenScreen", oldName = "OPEN_SCREEN")
 public class EventOpenScreen extends BaseEvent {
     @Nullable

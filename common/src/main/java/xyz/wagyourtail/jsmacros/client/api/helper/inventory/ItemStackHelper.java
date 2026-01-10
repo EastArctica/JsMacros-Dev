@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 /**
  * @author Wagyourtail
  */
-@DocletCategory("Items and Enchantments")
+@DocletCategory("Items/Enchantments")
 @SuppressWarnings("unused")
 public class ItemStackHelper extends BaseHelper<ItemStack> {
     private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);

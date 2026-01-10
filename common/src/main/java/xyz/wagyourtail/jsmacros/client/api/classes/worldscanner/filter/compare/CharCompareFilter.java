@@ -3,7 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.compare;
 import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilter;
 
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public class CharCompareFilter implements IFilter<Character> {
 
     private final char compareTo;

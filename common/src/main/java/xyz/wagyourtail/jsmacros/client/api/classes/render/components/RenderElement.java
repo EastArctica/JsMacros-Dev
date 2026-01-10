@@ -12,7 +12,7 @@ import xyz.wagyourtail.doclet.DocletIgnore;
 /**
  * @author Wagyourtail
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 public interface RenderElement extends Renderable {
 
     Minecraft mc = Minecraft.getInstance();

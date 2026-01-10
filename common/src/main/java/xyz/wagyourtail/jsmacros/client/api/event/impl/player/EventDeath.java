@@ -17,7 +17,7 @@ import java.util.List;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Player & Stats")
+@DocletCategory("Player/Stats")
 @Event(value = "Death", oldName = "DEATH")
 public class EventDeath extends BaseEvent {
 

@@ -10,7 +10,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
 /**
  * @since 1.5.0
  */
-@DocletCategory("Player & Stats")
+@DocletCategory("Player/Stats")
 @Event("Riding")
 public class EventRiding extends BaseEvent {
     public final boolean state;

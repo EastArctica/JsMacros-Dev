@@ -14,7 +14,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Render & UI")
+@DocletCategory("Render/UI")
 @Event(value = "Title", oldName = "TITLE", cancellable = true)
 public class EventTitle extends BaseEvent {
     @DocletReplaceReturn("TitleType")

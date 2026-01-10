@@ -23,7 +23,7 @@ import java.nio.FloatBuffer;
  * @author Wagyourtail
  * @since 1.0.5
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class Text implements RenderElement, Alignable<Text> {
 
@@ -375,7 +375,7 @@ public class Text implements RenderElement, Alignable<Text> {
      * @author Etheradon
      * @since 1.8.4
      */
-    @DocletCategory("Rendering and Graphics")
+    @DocletCategory("Rendering/Graphics")
     public static class Builder extends RenderElementBuilder<Text> implements Alignable<Builder> {
         private int x = 0;
         private int y = 0;

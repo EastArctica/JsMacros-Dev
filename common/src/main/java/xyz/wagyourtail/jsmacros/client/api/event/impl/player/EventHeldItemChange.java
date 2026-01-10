@@ -11,7 +11,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Inventory & Items")
+@DocletCategory("Inventory")
 @Event(value = "HeldItemChange", oldName = "HELD_ITEM")
 public class EventHeldItemChange extends BaseEvent {
     public final boolean offHand;

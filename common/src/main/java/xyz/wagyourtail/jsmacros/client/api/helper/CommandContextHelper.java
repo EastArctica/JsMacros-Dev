@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.FakeServerCommandSource;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.EnchantmentHelper;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
 /**
  * @since 1.4.2
  */
-@DocletCategory("System & Lifecycle")
+@DocletCategory("System/Lifecycle")
 @Event("CommandContext")
 @SuppressWarnings("unused")
 public class CommandContextHelper extends BaseEvent {

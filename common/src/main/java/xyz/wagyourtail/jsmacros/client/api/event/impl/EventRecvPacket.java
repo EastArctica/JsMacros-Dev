@@ -15,7 +15,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Network & Chat")
+@DocletCategory("Network/Chat")
 @Event(value = "RecvPacket", cancellable = true, filterer = FiltererRecvPacket.class)
 @SuppressWarnings("unused")
 public class EventRecvPacket extends BaseEvent {

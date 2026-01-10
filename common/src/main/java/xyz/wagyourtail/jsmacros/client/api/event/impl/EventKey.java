@@ -23,7 +23,7 @@ import java.util.Set;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Inputs & Interactions")
+@DocletCategory("Inputs/Interactions")
 @Event(value = "Key", oldName = "KEY", cancellable = true)
 public class EventKey extends BaseEvent {
     static final Minecraft mc = Minecraft.getInstance();

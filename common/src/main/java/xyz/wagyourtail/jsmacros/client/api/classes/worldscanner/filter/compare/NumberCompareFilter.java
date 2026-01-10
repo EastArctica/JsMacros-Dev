@@ -10,7 +10,7 @@ import java.util.Locale;
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public class NumberCompareFilter implements IFilter<Number> {
 
     private final static double EPSILON = 0.000001d;

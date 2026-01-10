@@ -14,7 +14,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Network & Chat")
+@DocletCategory("Network/Chat")
 @Event(value = "RecvMessage", oldName = "RECV_MESSAGE", cancellable = true)
 public class EventRecvMessage extends BaseEvent {
     @Nullable

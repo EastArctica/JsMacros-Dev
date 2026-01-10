@@ -12,7 +12,7 @@ import java.util.List;
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public abstract class GroupFilter<T> implements IFilter<T> {
 
     protected List<IFilter<T>> filters;
@@ -45,7 +45,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
         return ImmutableList.copyOf(filters);
     }
 
-    @DocletCategory("Filters and Predicates")
+    @DocletCategory("Filters/Predicates")
     public static class AllMatchFilter<T> extends GroupFilter<T> {
 
         public AllMatchFilter() {
@@ -59,7 +59,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
 
     }
 
-    @DocletCategory("Filters and Predicates")
+    @DocletCategory("Filters/Predicates")
     public static class AnyMatchFilter<T> extends GroupFilter<T> {
 
         public AnyMatchFilter() {
@@ -73,7 +73,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
 
     }
 
-    @DocletCategory("Filters and Predicates")
+    @DocletCategory("Filters/Predicates")
     public static class NoneMatchFilter<T> extends GroupFilter<T> {
 
         public NoneMatchFilter() {
@@ -87,7 +87,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
 
     }
 
-    @DocletCategory("Filters and Predicates")
+    @DocletCategory("Filters/Predicates")
     public static class CountMatchFilter<T> extends GroupFilter<T> {
 
         private final IFilter<Number> filter;

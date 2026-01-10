@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * @author Wagyourtail
  * @since 1.3.1
  */
-@DocletCategory("Items and Enchantments")
+@DocletCategory("Items/Enchantments")
 @SuppressWarnings("unused")
 public class RecipeHelper extends BaseHelper<RecipeDisplayEntry> {
     private static final Minecraft mc = Minecraft.getInstance();

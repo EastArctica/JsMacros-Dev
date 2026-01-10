@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @see IDraw2D
  * @since 1.0.5
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("deprecation")
 public class Draw2D implements IDraw2D<Draw2D>, Registrable<Draw2D> {
     protected final Set<RenderElement> elements = new LinkedHashSet<>();

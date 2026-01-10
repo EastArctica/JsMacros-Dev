@@ -8,7 +8,7 @@ import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Items and Enchantments")
+@DocletCategory("Items/Enchantments")
 @SuppressWarnings("unused")
 public class FoodComponentHelper extends BaseHelper<FoodProperties> {
 

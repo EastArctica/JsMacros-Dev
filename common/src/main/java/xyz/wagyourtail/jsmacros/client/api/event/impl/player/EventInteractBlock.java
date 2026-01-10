@@ -11,7 +11,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.8.0
  */
-@DocletCategory("Inputs & Interactions")
+@DocletCategory("Inputs/Interactions")
 @Event("InteractBlock")
 public class EventInteractBlock extends BaseEvent {
     public final boolean offhand;

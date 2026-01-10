@@ -12,7 +12,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.logical.X
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public abstract class BasicFilter<T> implements IAdvancedFilter<T> {
 
     @Override

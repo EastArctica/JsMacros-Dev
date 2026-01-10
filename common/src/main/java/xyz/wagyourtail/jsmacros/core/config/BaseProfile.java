@@ -22,7 +22,7 @@ import java.util.Set;
  * @author Wagyourtail
  * @since 1.2.7
  */
-@DocletCategory("Configuration and Profiles")
+@DocletCategory("Configuration/Profiles")
 public abstract class BaseProfile {
     public final Core<?, ?> runner;
     public final Logger LOGGER;

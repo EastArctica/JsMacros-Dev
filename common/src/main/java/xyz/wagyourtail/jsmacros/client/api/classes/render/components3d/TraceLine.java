@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author aMelonRind
  * @since 1.9.0
  */
-@DocletCategory("Rendering and Graphics")
+@DocletCategory("Rendering/Graphics")
 @SuppressWarnings("unused")
 public class TraceLine implements RenderElement3D<TraceLine> {
     private final Line3D render;
@@ -108,7 +108,7 @@ public class TraceLine implements RenderElement3D<TraceLine> {
         render.render(matrixStack, consumers, tickDelta);
     }
 
-    @DocletCategory("Rendering and Graphics")
+    @DocletCategory("Rendering/Graphics")
     public static class Builder {
         private final Draw3D parent;
 

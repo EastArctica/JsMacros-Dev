@@ -13,7 +13,7 @@ import java.util.Set;
  * @author Etheradon
  * @since 1.6.5
  */
-@DocletCategory("Filters and Predicates")
+@DocletCategory("Filters/Predicates")
 public class StringifyFilter<T> extends BasicFilter<T> {
 
     private final Set<String> filterObjects;

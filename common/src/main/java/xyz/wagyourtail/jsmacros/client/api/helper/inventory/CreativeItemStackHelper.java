@@ -25,7 +25,7 @@ import static net.minecraft.network.chat.Component.literal;
  * @author Etheradon
  * @since 1.8.4
  */
-@DocletCategory("Items and Enchantments")
+@DocletCategory("Items/Enchantments")
 @SuppressWarnings("unused")
 public class CreativeItemStackHelper extends ItemStackHelper {
 
