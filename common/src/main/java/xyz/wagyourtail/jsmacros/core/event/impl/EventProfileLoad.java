@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.core.event.impl;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.config.BaseProfile;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.Event;
@@ -8,6 +9,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
+@DocletCategory("Core")
 @Event(value = "ProfileLoad", oldName = "PROFILE_LOAD")
 public class EventProfileLoad extends BaseEvent {
     public final String profileName;

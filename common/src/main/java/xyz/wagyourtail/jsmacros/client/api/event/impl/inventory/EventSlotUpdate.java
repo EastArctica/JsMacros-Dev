@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.event.impl.inventory;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.item.ItemStack;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
@@ -13,6 +14,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
 /**
  * @since 1.9.0
  */
+@DocletCategory("Inventory")
 @Event(value = "SlotUpdate")
 public class EventSlotUpdate extends BaseEvent {
     protected final AbstractContainerScreen<?> screen;

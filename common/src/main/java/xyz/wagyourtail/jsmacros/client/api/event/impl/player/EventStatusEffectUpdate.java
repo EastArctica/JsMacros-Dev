@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl.player;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.helper.StatusEffectHelper;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
@@ -9,6 +10,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Player & Stats")
 @Event(value = "StatusEffectUpdate")
 public class EventStatusEffectUpdate extends BaseEvent {
 

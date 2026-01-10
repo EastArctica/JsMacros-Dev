@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.event.impl;
 
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
@@ -13,6 +14,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
+@DocletCategory("Render & UI")
 @Event(value = "Title", oldName = "TITLE", cancellable = true)
 public class EventTitle extends BaseEvent {
     @DocletReplaceReturn("TitleType")

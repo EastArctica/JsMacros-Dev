@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.core.config;
 
 import org.slf4j.Logger;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.EventLockWatchdog;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
@@ -21,6 +22,7 @@ import java.util.Set;
  * @author Wagyourtail
  * @since 1.2.7
  */
+@DocletCategory("Configuration and Profiles")
 public abstract class BaseProfile {
     public final Core<?, ?> runner;
     public final Logger LOGGER;

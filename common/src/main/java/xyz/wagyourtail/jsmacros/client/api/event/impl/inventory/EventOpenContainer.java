@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.event.impl.inventory;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.inventory.Inventory;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IScreen;
@@ -12,6 +13,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.6.5
  */
+@DocletCategory("Inventory")
 @Event(value = "OpenContainer", cancellable = true)
 public class EventOpenContainer extends BaseEvent {
     public final Inventory<?> inventory;

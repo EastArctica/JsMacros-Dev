@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2fStack;
 import org.joml.Quaternionf;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw2D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
 
@@ -14,6 +15,7 @@ import java.util.function.IntSupplier;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Rendering and Graphics")
 @SuppressWarnings("unused")
 public class Draw2DElement implements RenderElement, Alignable<Draw2DElement> {
 

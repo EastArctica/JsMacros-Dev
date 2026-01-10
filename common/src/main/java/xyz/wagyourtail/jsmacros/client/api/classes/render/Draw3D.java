@@ -5,6 +5,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.phys.Vec3;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos2D;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author Wagyourtail
  * @since 1.0.6
  */
+@DocletCategory("Rendering and Graphics")
 @SuppressWarnings("unused")
 public class Draw3D implements Registrable<Draw3D> {
     private final List<RenderElement3D<?>> elements = new ArrayList<>();

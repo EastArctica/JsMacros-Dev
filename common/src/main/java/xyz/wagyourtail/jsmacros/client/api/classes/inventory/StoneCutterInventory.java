@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.StonecutterScreen;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Inventory")
 @SuppressWarnings("unused")
 public class StoneCutterInventory extends Inventory<StonecutterScreen> {
 

@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl.world;
 
 import net.minecraft.client.multiplayer.PlayerInfo;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.PlayerListEntryHelper;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
@@ -12,6 +13,7 @@ import java.util.UUID;
  * @author Wagyourtail
  * @since 1.2.7
  */
+@DocletCategory("Network & Chat")
 @Event(value = "PlayerLeave", oldName = "PLAYER_LEAVE")
 public class EventPlayerLeave extends BaseEvent {
     public final String UUID;

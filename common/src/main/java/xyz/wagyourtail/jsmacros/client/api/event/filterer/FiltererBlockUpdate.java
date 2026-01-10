@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.event.filterer;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.api.classes.RegistryHelper;
@@ -18,6 +19,7 @@ import java.util.Objects;
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Event Filterers")
 @SuppressWarnings("unused")
 public class FiltererBlockUpdate implements EventFilterer {
     @Nullable

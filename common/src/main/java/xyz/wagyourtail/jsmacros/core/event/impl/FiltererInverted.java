@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.core.event.impl;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.EventFilterer;
 
@@ -7,6 +8,7 @@ import xyz.wagyourtail.jsmacros.core.event.EventFilterer;
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Event Filterers")
 public class FiltererInverted implements EventFilterer.Compound {
     public final EventFilterer base;
 

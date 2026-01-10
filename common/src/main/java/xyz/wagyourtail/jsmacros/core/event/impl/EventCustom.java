@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.core.event.impl;
 
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.core.Core;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
@@ -16,8 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Wagyourtail
  * @since 1.2.8
  */
-@Event("Custom")
 @SuppressWarnings("unused")
+@DocletCategory("Core")
+@Event("Custom")
 public class EventCustom extends BaseEvent {
     protected Map<String, Object> args = new ConcurrentHashMap<>();
     public String eventName;

@@ -5,6 +5,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.wagyourgui.elements.Button;
 import xyz.wagyourtail.wagyourgui.elements.Scrollbar;
 import xyz.wagyourtail.wagyourgui.overlays.IOverlayParent;
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
+@DocletCategory("Screen and UI Elements")
 public class ListContainer extends MultiElementContainer<IContainerParent> {
     private final List<Component> list;
     private final List<Button> listItems = new LinkedList<>();

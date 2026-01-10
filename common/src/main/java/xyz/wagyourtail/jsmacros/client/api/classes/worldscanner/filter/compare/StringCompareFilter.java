@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.compare;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.ICompare;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilter;
 
@@ -7,6 +8,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilt
  * @author Etheradon
  * @since 1.6.5
  */
+@DocletCategory("Filters and Predicates")
 public class StringCompareFilter implements IFilter<String> {
 
     private final String compareTo;
@@ -23,6 +25,7 @@ public class StringCompareFilter implements IFilter<String> {
         return filter.compare(val, compareTo);
     }
 
+    @DocletCategory("Filters and Predicates")
     public enum FilterMethod {
         CONTAINS(String::contains),
         EQUALS(String::equals),

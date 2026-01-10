@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.render;
 
 import net.minecraft.client.gui.GuiGraphics;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.components.*;
@@ -16,6 +17,7 @@ import java.util.function.Consumer;
  * @author Wagyourtail
  * @since 1.2.7
  */
+@DocletCategory("Rendering and Graphics")
 public interface IDraw2D<T> {
 
     /**

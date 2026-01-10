@@ -1,11 +1,13 @@
 package xyz.wagyourtail.jsmacros.core.event;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 
 /**
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Events and Event Handling")
 public interface EventFilterer {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -14,6 +16,7 @@ public interface EventFilterer {
 
     boolean test(BaseEvent event);
 
+    @DocletCategory("Events and Event Handling")
     interface Compound extends EventFilterer {
 
         default void checkCyclicRef(Compound base) {

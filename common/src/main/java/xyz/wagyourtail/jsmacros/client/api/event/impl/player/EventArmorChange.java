@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl.player;
 
 import net.minecraft.world.item.ItemStack;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
@@ -12,6 +13,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
+@DocletCategory("Player & Stats")
 @Event(value = "ArmorChange", oldName = "ARMOR_CHANGE")
 public class EventArmorChange extends BaseEvent {
     @DocletReplaceReturn("ArmorSlot")

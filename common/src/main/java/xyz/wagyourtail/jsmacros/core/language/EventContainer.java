@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.core.language;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
  * @param <T>
  * @since 1.4.0
  */
+@DocletCategory("Events and Event Handling")
 public class EventContainer<T extends BaseScriptContext<?>> {
     private final T ctx;
     private Thread lockThread;

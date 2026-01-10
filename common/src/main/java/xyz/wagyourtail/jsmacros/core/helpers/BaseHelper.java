@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.core.helpers;
 
+
 public abstract class BaseHelper<T> {
     protected T base;
 

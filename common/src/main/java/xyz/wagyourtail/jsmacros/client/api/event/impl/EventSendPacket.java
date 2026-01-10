@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.event.impl;
 import net.minecraft.network.protocol.Packet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.event.filterer.FiltererSendPacket;
@@ -15,6 +16,7 @@ import xyz.wagyourtail.jsmacros.core.library.impl.FReflection;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Network & Chat")
 @Event(value = "SendPacket", cancellable = true, filterer = FiltererSendPacket.class)
 @SuppressWarnings("unused")
 public class EventSendPacket extends BaseEvent {

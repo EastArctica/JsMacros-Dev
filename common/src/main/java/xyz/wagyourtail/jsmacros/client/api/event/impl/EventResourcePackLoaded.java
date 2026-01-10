@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl;
 
 import net.minecraft.client.Minecraft;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.Event;
@@ -15,6 +16,7 @@ import java.util.List;
  *
  * @since 1.5.1
  */
+@DocletCategory("System & Lifecycle")
 @Event("ResourcePackLoaded")
 public class EventResourcePackLoaded extends BaseEvent {
     public final boolean isGameStart;

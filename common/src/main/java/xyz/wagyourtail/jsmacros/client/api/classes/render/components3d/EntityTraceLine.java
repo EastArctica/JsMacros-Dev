@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw3D;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.EntityHelper;
 
@@ -14,6 +15,7 @@ import static xyz.wagyourtail.jsmacros.client.api.classes.render.components.Rend
  * @author aMelonRind
  * @since 1.9.0
  */
+@DocletCategory("Rendering and Graphics")
 @SuppressWarnings("unused")
 public class EntityTraceLine extends TraceLine {
     public static boolean dirty = false;
@@ -66,6 +68,7 @@ public class EntityTraceLine extends TraceLine {
         super.render(matrixStack, consumers, tickDelta);
     }
 
+    @DocletCategory("Rendering and Graphics")
     public static class Builder {
         private final Draw3D parent;
 

@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.event.impl;
 import net.minecraft.network.protocol.Packet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.event.filterer.FiltererRecvPacket;
@@ -14,6 +15,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Network & Chat")
 @Event(value = "RecvPacket", cancellable = true, filterer = FiltererRecvPacket.class)
 @SuppressWarnings("unused")
 public class EventRecvPacket extends BaseEvent {

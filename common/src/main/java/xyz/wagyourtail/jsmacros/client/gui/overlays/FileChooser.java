@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.wagyourgui.elements.Button;
 import xyz.wagyourtail.wagyourgui.elements.Scrollbar;
@@ -22,6 +23,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
+@DocletCategory("Screen and UI Elements")
 public class FileChooser extends OverlayContainer {
     private File directory;
     private Component dirname;
@@ -232,6 +234,7 @@ public class FileChooser extends OverlayContainer {
         }
     }
 
+    @DocletCategory("Screen and UI Elements")
     public static class fileObj {
         public File file;
         public Button btn;
@@ -243,6 +246,7 @@ public class FileChooser extends OverlayContainer {
 
     }
 
+    @DocletCategory("Screen and UI Elements")
     public static class sortFile implements Comparator<File> {
         @Override
         public int compare(File a, File b) {

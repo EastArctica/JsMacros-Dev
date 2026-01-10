@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 /**
  * @since 1.5.1
  */
+@DocletCategory("Inventory")
 @SuppressWarnings("unused")
 public class BeaconInventory extends Inventory<BeaconScreen> {
     protected BeaconInventory(BeaconScreen inventory) {

@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.gui.editor.highlighting.scriptimpl;
 
 import io.noties.prism4j.Prism4j;
 import xyz.wagyourtail.StringHashTrie;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @author Wagyourtail
  * @since 1.3.1
  */
+@DocletCategory("Client and System")
 @Event("CodeRender")
 @SuppressWarnings("unused")
 public class CodeCompileEvent extends BaseEvent {

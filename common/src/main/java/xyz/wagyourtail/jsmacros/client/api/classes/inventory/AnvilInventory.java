@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import xyz.wagyourtail.jsmacros.client.mixin.access.MixinAnvilScreen;
 
@@ -8,6 +9,7 @@ import xyz.wagyourtail.jsmacros.client.mixin.access.MixinAnvilScreen;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Inventory")
 @SuppressWarnings("unused")
 public class AnvilInventory extends Inventory<AnvilScreen> {
 

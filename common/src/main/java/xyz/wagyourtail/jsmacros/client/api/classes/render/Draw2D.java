@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import org.jetbrains.annotations.Nullable;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
  * @see IDraw2D
  * @since 1.0.5
  */
+@DocletCategory("Rendering and Graphics")
 @SuppressWarnings("deprecation")
 public class Draw2D implements IDraw2D<Draw2D>, Registrable<Draw2D> {
     protected final Set<RenderElement> elements = new LinkedHashSet<>();

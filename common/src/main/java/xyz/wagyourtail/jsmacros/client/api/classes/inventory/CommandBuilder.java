@@ -17,6 +17,7 @@ import net.minecraft.commands.arguments.item.ItemArgument;
 import net.minecraft.commands.arguments.item.ItemPredicateArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.helper.CommandContextHelper;
 import xyz.wagyourtail.jsmacros.client.api.helper.SuggestionsBuilderHelper;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
 /**
  * @since 1.4.2
  */
+@DocletCategory("Commands")
 @SuppressWarnings("unused")
 public abstract class CommandBuilder implements Registrable<CommandBuilder> {
 

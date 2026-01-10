@@ -3,8 +3,10 @@ package xyz.wagyourtail.jsmacros.client.api.classes.render.components3d;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import org.jetbrains.annotations.NotNull;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletIgnore;
 
+@DocletCategory("Rendering and Graphics")
 public interface RenderElement3D<T extends RenderElement3D<?>> extends Comparable<RenderElement3D<?>> {
 
     @DocletIgnore

@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.impl;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.ClassWrapperFilter;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockHelper;
 
@@ -10,6 +11,7 @@ import java.util.Map;
  * @author Etheradon
  * @since 1.6.5
  */
+@DocletCategory("Filters and Predicates")
 public class BlockFilter extends ClassWrapperFilter<BlockHelper> {
 
     private static final Map<String, Method> METHOD_LOOKUP = getPublicNoParameterMethods(BlockHelper.class);

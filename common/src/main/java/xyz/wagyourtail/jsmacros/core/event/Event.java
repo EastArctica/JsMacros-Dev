@@ -1,10 +1,13 @@
 package xyz.wagyourtail.jsmacros.core.event;
 
+import xyz.wagyourtail.doclet.DocletCategory;
+
 import java.lang.annotation.*;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
+@DocletCategory("Events and Event Handling")
 public @interface Event {
     String value();
 

@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl.player;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockDataHelper;
@@ -10,6 +11,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.8.0
  */
+@DocletCategory("Inputs & Interactions")
 @Event("InteractBlock")
 public class EventInteractBlock extends BaseEvent {
     public final boolean offhand;

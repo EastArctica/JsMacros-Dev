@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.Event;
@@ -8,6 +9,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author aMelonRind
  * @since 1.9.0
  */
+@DocletCategory("Inputs & Interactions")
 @Event(value = "MouseScroll", cancellable = true)
 public class EventMouseScroll extends BaseEvent {
     public final double deltaX;

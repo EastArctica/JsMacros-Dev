@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 /**
  * @since 1.4.2
  */
+@DocletCategory("System & Lifecycle")
 @Event("CommandContext")
 @SuppressWarnings("unused")
 public class CommandContextHelper extends BaseEvent {

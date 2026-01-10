@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl.inventory;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.inventory.Inventory;
@@ -13,6 +14,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.6.4
  */
+@DocletCategory("Inventory")
 @Event(value = "ClickSlot", cancellable = true)
 public class EventClickSlot extends BaseEvent {
     protected final AbstractContainerScreen<?> screen;

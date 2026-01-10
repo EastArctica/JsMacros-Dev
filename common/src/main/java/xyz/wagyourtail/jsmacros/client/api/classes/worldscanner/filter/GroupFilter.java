@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter;
 
 import com.google.common.collect.ImmutableList;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilter;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.compare.NumberCompareFilter;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author Etheradon
  * @since 1.6.5
  */
+@DocletCategory("Filters and Predicates")
 public abstract class GroupFilter<T> implements IFilter<T> {
 
     protected List<IFilter<T>> filters;
@@ -43,6 +45,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
         return ImmutableList.copyOf(filters);
     }
 
+    @DocletCategory("Filters and Predicates")
     public static class AllMatchFilter<T> extends GroupFilter<T> {
 
         public AllMatchFilter() {
@@ -56,6 +59,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
 
     }
 
+    @DocletCategory("Filters and Predicates")
     public static class AnyMatchFilter<T> extends GroupFilter<T> {
 
         public AnyMatchFilter() {
@@ -69,6 +73,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
 
     }
 
+    @DocletCategory("Filters and Predicates")
     public static class NoneMatchFilter<T> extends GroupFilter<T> {
 
         public NoneMatchFilter() {
@@ -82,6 +87,7 @@ public abstract class GroupFilter<T> implements IFilter<T> {
 
     }
 
+    @DocletCategory("Filters and Predicates")
     public static class CountMatchFilter<T> extends GroupFilter<T> {
 
         private final IFilter<Number> filter;

@@ -11,6 +11,7 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.ClientSuggestionProvider;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.SharedSuggestionProvider;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.helper.CommandNodeHelper;
 import xyz.wagyourtail.jsmacros.core.MethodWrapper;
 
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 /**
  * @since 1.7.0
  */
+@DocletCategory("Commands")
 public abstract class CommandManager {
     public static CommandManager instance;
     private static final Minecraft mc = Minecraft.getInstance();

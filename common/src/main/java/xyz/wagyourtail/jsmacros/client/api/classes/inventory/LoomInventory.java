@@ -9,6 +9,7 @@ import net.minecraft.tags.BannerPatternTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BannerPattern;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.access.ILoomScreen;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.stream.StreamSupport;
 /**
  * @since 1.5.1
  */
+@DocletCategory("Inventory")
 @SuppressWarnings("unused")
 public class LoomInventory extends Inventory<LoomScreen> {
 

@@ -1,8 +1,10 @@
 package xyz.wagyourtail.jsmacros.client.api.helper;
 
 import com.mojang.brigadier.tree.CommandNode;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
+@DocletCategory("Commands")
 public class CommandNodeHelper extends BaseHelper<CommandNode> {
     public final CommandNode<?> fabric;
 

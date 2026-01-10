@@ -12,6 +12,7 @@ import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletReplaceParams;
 import xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
 import xyz.wagyourtail.jsmacros.client.api.helper.TextHelper;
@@ -24,6 +25,7 @@ import static net.minecraft.network.chat.Component.literal;
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Items and Enchantments")
 @SuppressWarnings("unused")
 public class CreativeItemStackHelper extends ItemStackHelper {
 

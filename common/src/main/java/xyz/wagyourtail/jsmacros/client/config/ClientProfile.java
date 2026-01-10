@@ -22,6 +22,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.DyeColor;
 import org.slf4j.Logger;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.access.CustomClickEvent;
 import xyz.wagyourtail.jsmacros.api.library.FJavaUtils;
 import xyz.wagyourtail.jsmacros.api.library.FUtils;
@@ -41,6 +42,7 @@ import xyz.wagyourtail.jsmacros.core.language.BaseWrappedException;
 
 import java.util.Arrays;
 
+@DocletCategory("Configuration and Profiles")
 public class ClientProfile extends BaseProfile {
     private static final Minecraft mc = Minecraft.getInstance();
 

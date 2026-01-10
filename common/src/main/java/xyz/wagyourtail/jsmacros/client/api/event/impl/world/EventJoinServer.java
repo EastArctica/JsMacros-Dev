@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl.world;
 
 import net.minecraft.client.player.LocalPlayer;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.ClientPlayerEntityHelper;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
@@ -10,6 +11,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.2.7
  */
+@DocletCategory("Network & Chat")
 @Event(value = "JoinServer", oldName = "JOIN_SERVER")
 public class EventJoinServer extends BaseEvent {
     public final ClientPlayerEntityHelper<LocalPlayer> player;

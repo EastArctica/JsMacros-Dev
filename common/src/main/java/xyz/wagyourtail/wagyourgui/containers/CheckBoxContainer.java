@@ -3,10 +3,12 @@ package xyz.wagyourtail.wagyourgui.containers;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.wagyourgui.elements.Button;
 
 import java.util.function.Consumer;
 
+@DocletCategory("Screen and UI Elements")
 public class CheckBoxContainer extends MultiElementContainer<IContainerParent> {
     private boolean state;
     private Button checkBox;

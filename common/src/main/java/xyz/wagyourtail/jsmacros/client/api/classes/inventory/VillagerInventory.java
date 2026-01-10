@@ -2,6 +2,7 @@ package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.world.item.trading.MerchantOffer;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.access.IMerchantScreen;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.entity.TradeOfferHelper;
 
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @since 1.3.1
  */
+@DocletCategory("Inventory")
 @SuppressWarnings("unused")
 public class VillagerInventory extends Inventory<MerchantScreen> {
 

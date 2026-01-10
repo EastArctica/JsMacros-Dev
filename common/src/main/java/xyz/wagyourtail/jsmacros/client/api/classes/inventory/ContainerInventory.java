@@ -1,11 +1,13 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.inventory;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import xyz.wagyourtail.doclet.DocletCategory;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Inventory")
 @SuppressWarnings("unused")
 public class ContainerInventory<T extends AbstractContainerScreen<?>> extends Inventory<T> {
 

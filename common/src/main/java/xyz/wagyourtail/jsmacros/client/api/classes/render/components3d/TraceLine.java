@@ -5,6 +5,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.phys.Vec3;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.Draw3D;
 import xyz.wagyourtail.jsmacros.client.api.helper.world.BlockPosHelper;
@@ -15,6 +16,7 @@ import java.util.Objects;
  * @author aMelonRind
  * @since 1.9.0
  */
+@DocletCategory("Rendering and Graphics")
 @SuppressWarnings("unused")
 public class TraceLine implements RenderElement3D<TraceLine> {
     private final Line3D render;
@@ -106,6 +108,7 @@ public class TraceLine implements RenderElement3D<TraceLine> {
         render.render(matrixStack, consumers, tickDelta);
     }
 
+    @DocletCategory("Rendering and Graphics")
     public static class Builder {
         private final Draw3D parent;
 

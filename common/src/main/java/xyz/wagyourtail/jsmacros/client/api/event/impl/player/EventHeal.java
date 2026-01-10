@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.event.impl.player;
 
 import net.minecraft.world.damagesource.DamageSource;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletDeclareType;
 import xyz.wagyourtail.doclet.DocletReplaceReturn;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
@@ -11,6 +12,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author FlareStormGaming
  * @since 1.6.5
  */
+@DocletCategory("Player & Stats")
 @Event("Heal")
 public class EventHeal extends BaseEvent {
     @DocletReplaceReturn("HealSource")

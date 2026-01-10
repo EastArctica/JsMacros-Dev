@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IAdvancedFilter;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilter;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.logical.AndFilter;
@@ -11,6 +12,7 @@ import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.logical.X
  * @author Etheradon
  * @since 1.6.5
  */
+@DocletCategory("Filters and Predicates")
 public abstract class BasicFilter<T> implements IAdvancedFilter<T> {
 
     @Override

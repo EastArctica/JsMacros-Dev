@@ -1,12 +1,14 @@
 package xyz.wagyourtail.jsmacros.client.api.helper.inventory;
 
 import net.minecraft.world.food.FoodProperties;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
 /**
  * @author Etheradon
  * @since 1.8.4
  */
+@DocletCategory("Items and Enchantments")
 @SuppressWarnings("unused")
 public class FoodComponentHelper extends BaseHelper<FoodProperties> {
 

@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.core.event.impl;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
 import xyz.wagyourtail.jsmacros.core.event.EventFilterer;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author aMelonRind
  * @since 1.9.1
  */
+@DocletCategory("Event Filterers")
 public class FiltererComposed implements EventFilterer.Compound {
     private final LinkedList<List<EventFilterer>> components = new LinkedList<>();
 

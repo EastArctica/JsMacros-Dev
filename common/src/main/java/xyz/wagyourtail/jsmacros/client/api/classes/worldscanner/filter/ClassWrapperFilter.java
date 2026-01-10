@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilter;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.compare.BooleanCompareFilter;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.compare.CharCompareFilter;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  * @author Etheradon
  * @since 1.6.5
  */
+@DocletCategory("Filters and Predicates")
 public abstract class ClassWrapperFilter<T> extends BasicFilter<T> {
 
     protected final String methodName;

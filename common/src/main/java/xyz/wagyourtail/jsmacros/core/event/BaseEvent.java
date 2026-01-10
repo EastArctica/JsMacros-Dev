@@ -1,7 +1,9 @@
 package xyz.wagyourtail.jsmacros.core.event;
 
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.core.Core;
 
+@DocletCategory("Events and Event Handling")
 public class BaseEvent {
     public final Core<?, ?> runner;
     protected boolean cancelled;

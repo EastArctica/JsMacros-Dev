@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2fStack;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.CustomImage;
 import xyz.wagyourtail.jsmacros.client.api.classes.RegistryHelper;
 import xyz.wagyourtail.jsmacros.client.api.classes.render.IDraw2D;
@@ -18,6 +19,7 @@ import xyz.wagyourtail.jsmacros.client.util.ColorUtil;
  * @author Wagyourtail
  * @since 1.2.3
  */
+@DocletCategory("Rendering and Graphics")
 @SuppressWarnings("unused")
 public class Image implements RenderElement, Alignable<Image> {
 
@@ -379,6 +381,7 @@ public class Image implements RenderElement, Alignable<Image> {
      * @author Etheradon
      * @since 1.8.4
      */
+    @DocletCategory("Rendering and Graphics")
     public static final class Builder extends RenderElementBuilder<Image> implements Alignable<Builder> {
         private String identifier;
         private int x = 0;

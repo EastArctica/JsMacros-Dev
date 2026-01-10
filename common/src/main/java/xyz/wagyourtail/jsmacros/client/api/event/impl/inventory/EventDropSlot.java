@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.client.api.event.impl.inventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.JsMacrosClient;
 import xyz.wagyourtail.jsmacros.client.api.classes.inventory.Inventory;
 import xyz.wagyourtail.jsmacros.core.event.BaseEvent;
@@ -14,6 +15,7 @@ import xyz.wagyourtail.jsmacros.core.event.Event;
  * @author Wagyourtail
  * @since 1.6.4
  */
+@DocletCategory("Inventory")
 @Event(value = "DropSlot", cancellable = true)
 public class EventDropSlot extends BaseEvent {
     protected static final Minecraft mc = Minecraft.getInstance();

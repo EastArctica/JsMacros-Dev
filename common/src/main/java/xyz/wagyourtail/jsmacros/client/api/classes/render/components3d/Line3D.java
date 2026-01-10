@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.doclet.DocletIgnore;
 import xyz.wagyourtail.jsmacros.api.math.Pos3D;
 import xyz.wagyourtail.jsmacros.api.math.Vec3D;
@@ -18,6 +19,7 @@ import java.util.Objects;
 /**
  * @author Wagyourtail
  */
+@DocletCategory("Rendering and Graphics")
 @SuppressWarnings("unused")
 public class Line3D implements RenderElement3D<Line3D> {
     private static final Field lineDepthTestFunction;
@@ -144,6 +146,7 @@ public class Line3D implements RenderElement3D<Line3D> {
      * @author Etheradon
      * @since 1.8.4
      */
+    @DocletCategory("Rendering and Graphics")
     public static class Builder {
         private final Draw3D parent;
 

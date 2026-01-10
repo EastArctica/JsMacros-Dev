@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.compare;
 
 import com.google.common.math.DoubleMath;
+import xyz.wagyourtail.doclet.DocletCategory;
 import xyz.wagyourtail.jsmacros.client.api.classes.worldscanner.filter.api.IFilter;
 
 import java.util.Locale;
@@ -9,6 +10,7 @@ import java.util.Locale;
  * @author Etheradon
  * @since 1.6.5
  */
+@DocletCategory("Filters and Predicates")
 public class NumberCompareFilter implements IFilter<Number> {
 
     private final static double EPSILON = 0.000001d;
