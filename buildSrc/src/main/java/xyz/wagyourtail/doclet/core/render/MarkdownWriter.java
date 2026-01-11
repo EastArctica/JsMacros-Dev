@@ -12,6 +12,8 @@ import xyz.wagyourtail.doclet.core.model.MemberDoc;
 import xyz.wagyourtail.doclet.core.model.MemberKind;
 import xyz.wagyourtail.doclet.core.model.PackageDoc;
 import xyz.wagyourtail.doclet.core.model.ParamDoc;
+import xyz.wagyourtail.doclet.core.model.TypeKind;
+import xyz.wagyourtail.doclet.core.model.TypeRef;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,12 +44,18 @@ public class MarkdownWriter {
     private static final String DEFAULT_CATEGORY = "Uncategorized";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private final TypeResolver typeResolver;
+    private final Map<String, ClassDoc> classByQualifiedName = new HashMap<>();
+    private final Map<String, List<ClassDoc>> classByName = new HashMap<>();
+    private final Map<String, List<ClassDoc>> classByAlias = new HashMap<>();
+    private String version;
 
     public MarkdownWriter(TypeResolver typeResolver) {
         this.typeResolver = typeResolver;
     }
 
     public void write(DocletModel model, File outDir, String version, String mcVersion) throws IOException {
+        this.version = version;
+        indexClasses(model);
         Map<String, List<ClassDoc>> classCategories = groupByCategory(model, "Class");
         Map<String, List<ClassDoc>> eventCategories = groupByCategory(model, "Event");
         Map<String, List<ClassDoc>> libraryCategories = groupByCategory(model, "Library");
@@ -233,7 +242,7 @@ public class MarkdownWriter {
         builder.append("---\noutline: deep\n---\n\n");
         builder.append("# ").append(displayTitle(clz)).append("\n\n");
         builder.append(clz.qualifiedName()).append("\n\n");
-        String desc = formatDescription(clz.docComment());
+        String desc = formatDescription(clz.docComment(), clz);
         builder.append(desc.isEmpty() ? "TODO: No description supplied" : desc);
         if ("Library".equals(clz.group())) {
             String accessName = clz.alias() == null || clz.alias().isEmpty() ? clz.name() : clz.alias();
@@ -263,29 +272,32 @@ public class MarkdownWriter {
         }
         builder.append("## ").append(title).append("\n\n");
         for (MemberDoc member : members) {
+            if (member.anchorId() != null && !member.anchorId().isBlank()) {
+                builder.append("<a id=\"").append(member.anchorId()).append("\"></a>\n");
+            }
             builder.append("### ").append(renderMemberTitle(member)).append("\n\n");
             String signature = renderSignature(member);
-            builder.append("**Signature:** `").append(signature.replace("`", "\\`")).append("`\n\n");
-            String desc = formatDescription(member.docComment());
+            builder.append("**Signature:** ").append(renderSignatureValue(signature)).append("\n\n");
+            String desc = formatDescription(member.docComment(), clz);
             if (!desc.isEmpty()) {
                 builder.append(desc).append("\n\n");
             }
             String since = getTagText(member.docComment(), DocTagKind.SINCE);
             if (!since.isEmpty()) {
-                builder.append("**Since:** ").append(formatDocText(since)).append("\n\n");
+                builder.append("**Since:** ").append(formatDocText(since, clz)).append("\n\n");
             }
             if (hasDeprecatedTag(member.docComment())) {
                 String deprecated = getTagText(member.docComment(), DocTagKind.DEPRECATED);
-                builder.append("**Deprecated:** ").append(formatDocText(deprecated)).append("\n\n");
+                builder.append("**Deprecated:** ").append(formatDocText(deprecated, clz)).append("\n\n");
             }
-            appendParamDocs(builder, member);
+            appendParamDocs(builder, member, clz);
             if (member.kind() == MemberKind.METHOD) {
                 String ret = getTagText(member.docComment(), DocTagKind.RETURN);
                 if (!ret.isEmpty()) {
-                    builder.append("**Returns:** ").append(formatDocText(ret)).append("\n\n");
+                    builder.append("**Returns:** ").append(formatDocText(ret, clz)).append("\n\n");
                 }
             }
-            appendSeeDocs(builder, member.docComment());
+            appendSeeDocs(builder, member.docComment(), clz);
         }
     }
 
@@ -355,7 +367,7 @@ public class MarkdownWriter {
         return "";
     }
 
-    private String formatDescription(DocComment comment) {
+    private String formatDescription(DocComment comment, ClassDoc context) {
         if (comment == null) {
             return "";
         }
@@ -363,7 +375,7 @@ public class MarkdownWriter {
         if (text == null || text.isBlank()) {
             text = comment.summary();
         }
-        return text == null ? "" : formatDocText(text);
+        return text == null ? "" : formatDocText(text, context);
     }
 
     private boolean hasDeprecatedTag(DocComment comment) {
@@ -373,7 +385,7 @@ public class MarkdownWriter {
         return comment.tags().stream().anyMatch(tag -> tag.kind() == DocTagKind.DEPRECATED);
     }
 
-    private void appendParamDocs(StringBuilder builder, MemberDoc member) {
+    private void appendParamDocs(StringBuilder builder, MemberDoc member, ClassDoc context) {
         List<ParamDoc> params = member.params();
         boolean hasDocs = params.stream().anyMatch(param -> param.description() != null && !param.description().isBlank());
         if (!hasDocs) {
@@ -381,7 +393,7 @@ public class MarkdownWriter {
         }
         builder.append("**Parameters:**\n");
         for (ParamDoc param : params) {
-            String desc = param.description() == null ? "" : formatDocText(param.description());
+            String desc = param.description() == null ? "" : formatDocText(param.description(), context);
             if (desc.isBlank()) {
                 continue;
             }
@@ -390,14 +402,14 @@ public class MarkdownWriter {
         builder.append("\n");
     }
 
-    private void appendSeeDocs(StringBuilder builder, DocComment comment) {
+    private void appendSeeDocs(StringBuilder builder, DocComment comment, ClassDoc context) {
         if (comment == null) {
             return;
         }
         List<String> sees = new ArrayList<>();
         for (DocTag tag : comment.tags()) {
             if (tag.kind() == DocTagKind.SEE && tag.text() != null && !tag.text().isBlank()) {
-                sees.add(formatDocText(tag.text()));
+                sees.add(formatDocText(tag.text(), context));
             }
         }
         if (sees.isEmpty()) {
@@ -410,7 +422,7 @@ public class MarkdownWriter {
         builder.append("\n");
     }
 
-    private String formatDocText(String text) {
+    private String formatDocText(String text, ClassDoc context) {
         if (text == null) {
             return "";
         }
@@ -423,7 +435,7 @@ public class MarkdownWriter {
         formatted = HTML_LINK.matcher(formatted).replaceAll("[$2]($1)");
         formatted = formatted.replace("&lt;", "<").replace("&gt;", ">");
         formatted = formatted.replaceAll("(?<=[.,:;>]) ?\n", "  \n");
-        formatted = convertLinkTags(formatted);
+        formatted = convertLinkTags(formatted, context);
         String trimmed = formatted.trim();
         if (looksLikeSignature(trimmed)) {
             formatted = convertSignature(trimmed);
@@ -431,13 +443,13 @@ public class MarkdownWriter {
         return formatted.trim();
     }
 
-    private String convertLinkTags(String text) {
+    private String convertLinkTags(String text, ClassDoc context) {
         java.util.regex.Matcher matcher = LINK_TAG.matcher(text);
         StringBuffer buffer = new StringBuffer();
         while (matcher.find()) {
             String sig = matcher.group(1).trim();
             String mapped = mapSimpleLinkSignature(sig);
-            String replacement = mapped != null ? mapped : "{@link " + convertSignature(sig) + "}";
+            String replacement = mapped != null ? mapped : resolveLink(sig, context);
             matcher.appendReplacement(buffer, java.util.regex.Matcher.quoteReplacement(replacement));
         }
         matcher.appendTail(buffer);
@@ -477,4 +489,331 @@ public class MarkdownWriter {
             default -> null;
         };
     }
+
+    private void indexClasses(DocletModel model) {
+        classByQualifiedName.clear();
+        classByName.clear();
+        classByAlias.clear();
+        for (PackageDoc pkg : model.packages()) {
+            for (ClassDoc clz : pkg.classes()) {
+                classByQualifiedName.put(clz.qualifiedName(), clz);
+                addClassNameIndex(classByName, clz.name(), clz);
+                String simpleName = simpleName(clz.name());
+                if (!simpleName.equals(clz.name())) {
+                    addClassNameIndex(classByName, simpleName, clz);
+                }
+                if (hasAlias(clz)) {
+                    addClassNameIndex(classByAlias, clz.alias(), clz);
+                }
+            }
+        }
+    }
+
+    private void addClassNameIndex(Map<String, List<ClassDoc>> index, String key, ClassDoc clz) {
+        index.computeIfAbsent(key, name -> new ArrayList<>()).add(clz);
+    }
+
+    private String resolveLink(String signature, ClassDoc context) {
+        LinkSignature parsed = parseSignature(signature);
+        if (parsed == null) {
+            return linkLabel(signature);
+        }
+        ClassDoc targetClass = resolveClass(parsed.className(), context);
+        if (targetClass == null) {
+            return linkLabel(signature);
+        }
+        String anchor = resolveMemberAnchor(targetClass, parsed);
+        String url = buildLinkUrl(targetClass, anchor, context);
+        return "[" + linkLabel(signature) + "](" + url + ")";
+    }
+
+    private String buildLinkUrl(ClassDoc targetClass, String anchor, ClassDoc context) {
+        String url;
+        if (context != null && targetClass.qualifiedName().equals(context.qualifiedName()) && anchor != null) {
+            url = "#" + anchor;
+        } else {
+            url = "/" + version + "/" + classPath(targetClass);
+            if (anchor != null) {
+                url = url + "#" + anchor;
+            }
+        }
+        return url;
+    }
+
+    private ClassDoc resolveClass(String name, ClassDoc context) {
+        if (name == null || name.isBlank()) {
+            return context;
+        }
+        String cleaned = name.startsWith("Packages.") ? name.substring("Packages.".length()) : name;
+        int genericIndex = cleaned.indexOf('<');
+        if (genericIndex != -1) {
+            cleaned = cleaned.substring(0, genericIndex).trim();
+        }
+        ClassDoc direct = classByQualifiedName.get(cleaned);
+        if (direct != null) {
+            return direct;
+        }
+        List<ClassDoc> matches = new ArrayList<>();
+        List<ClassDoc> nameMatches = classByName.get(cleaned);
+        if (nameMatches != null) {
+            matches.addAll(nameMatches);
+        }
+        List<ClassDoc> aliasMatches = classByAlias.get(cleaned);
+        if (aliasMatches != null) {
+            matches.addAll(aliasMatches);
+        }
+        if (matches.isEmpty()) {
+            return null;
+        }
+        if (matches.size() == 1 || context == null) {
+            return matches.get(0);
+        }
+        for (ClassDoc match : matches) {
+            if (match.packageName().equals(context.packageName())) {
+                return match;
+            }
+        }
+        return matches.get(0);
+    }
+
+    private LinkSignature parseSignature(String signature) {
+        if (signature == null) {
+            return null;
+        }
+        String trimmed = signature.trim();
+        if (trimmed.isEmpty()) {
+            return null;
+        }
+        String classPart = null;
+        String memberPart = null;
+        int hashIndex = trimmed.indexOf('#');
+        if (hashIndex == 0) {
+            memberPart = trimmed.substring(1);
+        } else if (hashIndex > 0) {
+            classPart = trimmed.substring(0, hashIndex);
+            memberPart = trimmed.substring(hashIndex + 1);
+        } else {
+            classPart = trimmed;
+        }
+        String memberName = null;
+        List<String> params = null;
+        if (memberPart != null && !memberPart.isBlank()) {
+            int parenIndex = memberPart.indexOf('(');
+            if (parenIndex != -1 && memberPart.endsWith(")")) {
+                memberName = memberPart.substring(0, parenIndex);
+                String paramBody = memberPart.substring(parenIndex + 1, memberPart.length() - 1);
+                params = splitParams(paramBody);
+            } else {
+                memberName = memberPart;
+            }
+        }
+        return new LinkSignature(classPart, memberName, params);
+    }
+
+    private List<String> splitParams(String paramBody) {
+        List<String> params = new ArrayList<>();
+        if (paramBody == null || paramBody.isBlank()) {
+            return params;
+        }
+        int depth = 0;
+        StringBuilder current = new StringBuilder();
+        for (int i = 0; i < paramBody.length(); i++) {
+            char ch = paramBody.charAt(i);
+            if (ch == '<') {
+                depth++;
+            } else if (ch == '>' && depth > 0) {
+                depth--;
+            }
+            if (ch == ',' && depth == 0) {
+                params.add(current.toString().trim());
+                current.setLength(0);
+            } else {
+                current.append(ch);
+            }
+        }
+        if (!current.isEmpty()) {
+            params.add(current.toString().trim());
+        }
+        return params;
+    }
+
+    private String resolveMemberAnchor(ClassDoc clz, LinkSignature signature) {
+        if (signature.memberName() == null) {
+            return null;
+        }
+        List<MemberDoc> members = new ArrayList<>();
+        for (MemberDoc member : clz.members()) {
+            if (member.name().equals(signature.memberName())) {
+                members.add(member);
+            }
+        }
+        if (members.isEmpty() && signature.memberName().equals(clz.name())) {
+            for (MemberDoc member : clz.members()) {
+                if (member.kind() == MemberKind.CONSTRUCTOR) {
+                    members.add(member);
+                }
+            }
+        }
+        if (members.isEmpty()) {
+            return null;
+        }
+        List<String> params = signature.paramTypes();
+        if (params == null) {
+            return members.size() == 1 ? members.get(0).anchorId() : null;
+        }
+        for (MemberDoc member : members) {
+            if (paramsMatch(member, params)) {
+                return member.anchorId();
+            }
+        }
+        return null;
+    }
+
+    private boolean paramsMatch(MemberDoc member, List<String> params) {
+        if (member.params().size() != params.size()) {
+            return false;
+        }
+        for (int i = 0; i < params.size(); i++) {
+            String expected = normalizeParamType(params.get(i));
+            ParamDoc param = member.params().get(i);
+            String actual = normalizeParamType(memberParamTypeName(param));
+            if (!expected.equals(actual)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String memberParamTypeName(ParamDoc param) {
+        return memberParamTypeName(param.type(), param.varArgs());
+    }
+
+    private String memberParamTypeName(TypeRef type, boolean varArgs) {
+        String base = type.kind() == TypeKind.ARRAY
+            ? memberParamTypeName(type.typeArgs().get(0), false) + "[]"
+            : type.name();
+        if (varArgs && type.kind() != TypeKind.ARRAY) {
+            base = base + "[]";
+        }
+        return base;
+    }
+
+    private String normalizeParamType(String type) {
+        if (type == null) {
+            return "";
+        }
+        String normalized = type.trim();
+        if (normalized.isEmpty()) {
+            return "";
+        }
+        if (normalized.startsWith("?")) {
+            return "?";
+        }
+        int arrayDepth = 0;
+        while (normalized.endsWith("[]")) {
+            normalized = normalized.substring(0, normalized.length() - 2).trim();
+            arrayDepth++;
+        }
+        if (normalized.endsWith("...")) {
+            normalized = normalized.substring(0, normalized.length() - 3).trim();
+            arrayDepth++;
+        }
+        int genericIndex = normalized.indexOf('<');
+        if (genericIndex != -1) {
+            normalized = normalized.substring(0, genericIndex).trim();
+        }
+        normalized = stripPackageName(normalized);
+        StringBuilder builder = new StringBuilder(normalized);
+        for (int i = 0; i < arrayDepth; i++) {
+            builder.append("[]");
+        }
+        return builder.toString();
+    }
+
+    private String stripPackageName(String name) {
+        if (name == null || name.isBlank()) {
+            return "";
+        }
+        if (!name.contains(".")) {
+            return name;
+        }
+        String[] parts = name.split("\\.");
+        int firstTypeIndex = -1;
+        for (int i = 0; i < parts.length; i++) {
+            String part = parts[i];
+            if (!part.isEmpty() && Character.isUpperCase(part.charAt(0))) {
+                firstTypeIndex = i;
+                break;
+            }
+        }
+        if (firstTypeIndex == -1) {
+            return parts[parts.length - 1];
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = firstTypeIndex; i < parts.length; i++) {
+            if (!builder.isEmpty()) {
+                builder.append(".");
+            }
+            builder.append(parts[i]);
+        }
+        return builder.toString();
+    }
+
+    private String linkLabel(String signature) {
+        if (signature == null) {
+            return "";
+        }
+        String cleaned = signature.trim();
+        if (cleaned.startsWith("Packages.")) {
+            cleaned = cleaned.substring("Packages.".length());
+        }
+        int hashIndex = cleaned.indexOf('#');
+        if (hashIndex == 0) {
+            return cleaned.substring(1);
+        }
+        if (hashIndex > 0) {
+            String classPart = cleaned.substring(0, hashIndex);
+            String memberPart = cleaned.substring(hashIndex + 1);
+            String classLabel = stripPackageName(classPart);
+            if (classLabel.isBlank()) {
+                return memberPart;
+            }
+            return classLabel + "." + memberPart;
+        }
+        return stripPackageName(cleaned);
+    }
+
+    private String simpleName(String name) {
+        int idx = name.lastIndexOf('.');
+        return idx == -1 ? name : name.substring(idx + 1);
+    }
+
+    private String renderSignatureValue(String signature) {
+        if (signature == null) {
+            return "";
+        }
+        return renderCodeSpan(signature);
+    }
+
+    private String renderCodeSpan(String text) {
+        if (text == null) {
+            return "";
+        }
+        int maxTicks = 0;
+        int current = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == '`') {
+                current++;
+                if (current > maxTicks) {
+                    maxTicks = current;
+                }
+            } else {
+                current = 0;
+            }
+        }
+        String fence = "`".repeat(maxTicks + 1);
+        return fence + text + fence;
+    }
+
+    private record LinkSignature(String className, String memberName, List<String> paramTypes) {}
 }
