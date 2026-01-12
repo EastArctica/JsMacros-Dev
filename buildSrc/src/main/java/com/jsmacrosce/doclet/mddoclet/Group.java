@@ -1,4 +1,4 @@
-package xyz.wagyourtail.doclet.mddoclet;
+package com.jsmacrosce.doclet.mddoclet;
 
 public enum Group {
     Library,

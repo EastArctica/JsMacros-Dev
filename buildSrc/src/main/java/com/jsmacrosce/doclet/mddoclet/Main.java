@@ -1,18 +1,18 @@
-package xyz.wagyourtail.doclet.mddoclet;
+package com.jsmacrosce.doclet.mddoclet;
 
 import com.sun.source.util.DocTrees;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
 import org.jetbrains.annotations.NotNull;
-import xyz.wagyourtail.FileHandler;
-import xyz.wagyourtail.doclet.DocletIgnore;
-import xyz.wagyourtail.doclet.options.IgnoredItem;
-import xyz.wagyourtail.doclet.options.OutputDirectory;
-import xyz.wagyourtail.doclet.options.Version;
-import xyz.wagyourtail.doclet.mddoclet.options.Links;
-import xyz.wagyourtail.doclet.mddoclet.options.McVersion;
-import xyz.wagyourtail.doclet.mddoclet.parsers.ClassParser;
+import com.jsmacrosce.FileHandler;
+import com.jsmacrosce.doclet.DocletIgnore;
+import com.jsmacrosce.doclet.options.IgnoredItem;
+import com.jsmacrosce.doclet.options.OutputDirectory;
+import com.jsmacrosce.doclet.options.Version;
+import com.jsmacrosce.doclet.mddoclet.options.Links;
+import com.jsmacrosce.doclet.mddoclet.options.McVersion;
+import com.jsmacrosce.doclet.mddoclet.parsers.ClassParser;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;

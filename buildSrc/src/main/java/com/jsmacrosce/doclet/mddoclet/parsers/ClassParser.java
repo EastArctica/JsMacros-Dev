@@ -1,13 +1,13 @@
-package xyz.wagyourtail.doclet.mddoclet.parsers;
+package com.jsmacrosce.doclet.mddoclet.parsers;
 
 import com.sun.source.doctree.*;
 import com.sun.source.util.DocTreePath;
 import org.jetbrains.annotations.NotNull;
-import xyz.wagyourtail.Pair;
-import xyz.wagyourtail.doclet.DocletIgnore;
-import xyz.wagyourtail.doclet.mddoclet.Group;
-import xyz.wagyourtail.doclet.mddoclet.Main;
-import xyz.wagyourtail.doclet.mddoclet.options.Links;
+import com.jsmacrosce.Pair;
+import com.jsmacrosce.doclet.DocletIgnore;
+import com.jsmacrosce.doclet.mddoclet.Group;
+import com.jsmacrosce.doclet.mddoclet.Main;
+import com.jsmacrosce.doclet.mddoclet.options.Links;
 
 import javax.lang.model.element.*;
 import javax.lang.model.type.*;

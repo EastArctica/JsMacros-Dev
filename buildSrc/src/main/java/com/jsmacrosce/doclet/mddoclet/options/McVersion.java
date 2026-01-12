@@ -1,4 +1,4 @@
-package xyz.wagyourtail.doclet.mddoclet.options;
+package com.jsmacrosce.doclet.mddoclet.options;
 
 import jdk.javadoc.doclet.Doclet;
 

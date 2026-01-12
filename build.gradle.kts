@@ -176,7 +176,7 @@ if (isVersionedProject && hasMinecraftVersion) {
             source(documentationSources)
             classpath = documentationClasspath
             destinationDir = File(docsBuildDir, "vitepress")
-            options.doclet = "xyz.wagyourtail.doclet.mddoclet.Main"
+            options.doclet = "com.jsmacrosce.doclet.mddoclet.Main"
             options.docletpath = mutableListOf(docletJarFile)
             (options as CoreJavadocOptions).addStringOption("v", project.version.toString())
             (options as CoreJavadocOptions).addStringOption("mcv", mcVersion)
