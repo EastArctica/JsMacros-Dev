@@ -104,3 +104,18 @@ loom {
         defaultRefmapName.set("$mod_id.refmap.json")
     }
 }
+
+stonecutter {
+    replacements.string(current.parsed >= "1.21.11") {
+        replace("ResourceLocation", "Identifier")
+
+        // Conflicts
+        replace("parseIdentifier", "parseIdentifier")
+        replace("getAdvancementsForIdentifiers", "getAdvancementsForIdentifiers")
+        replace("suggestIdentifier", "suggestIdentifier")
+        replace("mapIdentifiers", "mapIdentifiers")
+        replace("getIdentifier", "getIdentifier")
+        replace("writeIdentifier", "writeIdentifier")
+        replace("readIdentifier", "readIdentifier")
+    }
+}

@@ -57,3 +57,18 @@ tasks.named("createMinecraftArtifacts") {
     val mcVersion = project.name  // The project name is the minecraft version (e.g., "1.21.8")
     dependsOn(":common:${mcVersion}:stonecutterGenerate")
 }
+
+stonecutter {
+    replacements.string(current.parsed >= "1.21.11") {
+        replace("ResourceLocation", "Identifier")
+
+        // Conflicts
+        replace("parseIdentifier", "parseIdentifier")
+        replace("getAdvancementsForIdentifiers", "getAdvancementsForIdentifiers")
+        replace("suggestIdentifier", "suggestIdentifier")
+        replace("mapIdentifiers", "mapIdentifiers")
+        replace("getIdentifier", "getIdentifier")
+        replace("writeIdentifier", "writeIdentifier")
+        replace("readIdentifier", "readIdentifier")
+    }
+}
