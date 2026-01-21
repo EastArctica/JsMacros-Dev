@@ -95,11 +95,11 @@ public class Slider extends AbstractWidget {
     }
 
     private ResourceLocation getTexture() {
-        return this.isFocused() && !this.isFocused() ? HIGHLIGHTED_TEXTURE : TEXTURE;
+        return (!this.isHovered && !this.isFocused()) ? HIGHLIGHTED_TEXTURE : TEXTURE;
     }
 
     private ResourceLocation getHandleTexture() {
-        return !this.isHovered && !this.isFocused() ? HANDLE_TEXTURE : HANDLE_HIGHLIGHTED_TEXTURE;
+        return (!this.isHovered && !this.isFocused()) ? HANDLE_TEXTURE : HANDLE_HIGHLIGHTED_TEXTURE;
     }
 
     @Override
