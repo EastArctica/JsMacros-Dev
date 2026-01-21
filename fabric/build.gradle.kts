@@ -117,5 +117,9 @@ stonecutter {
         replace("getIdentifier", "getIdentifier")
         replace("writeIdentifier", "writeIdentifier")
         replace("readIdentifier", "readIdentifier")
+        replace("getWorldIdentifier", "getWorldIdentifier")
+        replace("base.readResourceLocation", "base.readIdentifier")
+        replace("base.writeResourceLocation", "base.writeIdentifier")
+        replace("@return the raw minecraft Identifier.", "@return the raw minecraft Identifier.")
     }
 }
