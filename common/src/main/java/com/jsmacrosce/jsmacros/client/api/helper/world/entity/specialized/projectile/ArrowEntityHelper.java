@@ -1,8 +1,14 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.projectile;
 
+import com.jsmacrosce.jsmacros.client.api.helper.world.entity.EntityHelper;
+
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+*///? } else {
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
-import com.jsmacrosce.jsmacros.client.api.helper.world.entity.EntityHelper;
+//? }
 
 /**
  * @author Etheradon

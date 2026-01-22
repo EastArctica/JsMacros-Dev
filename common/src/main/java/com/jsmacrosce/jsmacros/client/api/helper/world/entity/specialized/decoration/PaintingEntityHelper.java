@@ -1,9 +1,14 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.decoration;
 
-import net.minecraft.world.entity.decoration.Painting;
 import org.jetbrains.annotations.Nullable;
 import com.jsmacrosce.doclet.DocletReplaceReturn;
 import com.jsmacrosce.jsmacros.client.api.helper.world.entity.EntityHelper;
+
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.decoration.painting.Painting;
+*///? } else {
+import net.minecraft.world.entity.decoration.Painting;
+//? }
 
 /**
  * @author Etheradon

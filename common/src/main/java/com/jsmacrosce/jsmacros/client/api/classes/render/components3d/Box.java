@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.DepthTestFunction;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShapeRenderer;
 import com.jsmacrosce.doclet.DocletIgnore;
 import com.jsmacrosce.jsmacros.api.math.Pos3D;
@@ -15,6 +14,12 @@ import com.jsmacrosce.jsmacros.client.util.ColorUtil;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
+
+//? if >=1.21.11 {
+/*import net.minecraft.client.renderer.rendertype.RenderType;
+*///? } else {
+import net.minecraft.client.renderer.RenderType;
+//?}
 
 /**
  * @author Wagyourtail

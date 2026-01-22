@@ -1,6 +1,10 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.mob;
 
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.monster.illager.Vindicator;
+*///? } else {
 import net.minecraft.world.entity.monster.Vindicator;
+//? }
 
 /**
  * @author Etheradon

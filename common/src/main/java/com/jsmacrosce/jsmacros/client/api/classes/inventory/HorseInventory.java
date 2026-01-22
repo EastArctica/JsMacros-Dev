@@ -2,8 +2,6 @@ package com.jsmacrosce.jsmacros.client.api.classes.inventory;
 
 import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import com.jsmacrosce.jsmacros.client.access.IHorseScreen;
 import com.jsmacrosce.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passive.AbstractHorseEntityHelper;
@@ -11,6 +9,14 @@ import com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passiv
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.animal.equine.AbstractChestedHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+*///? } else {
+import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+//? }
 
 /**
  * @author Etheradon

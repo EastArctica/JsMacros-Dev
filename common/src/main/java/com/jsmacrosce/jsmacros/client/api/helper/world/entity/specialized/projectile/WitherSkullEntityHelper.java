@@ -1,7 +1,12 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.projectile;
 
-import net.minecraft.world.entity.projectile.WitherSkull;
 import com.jsmacrosce.jsmacros.client.api.helper.world.entity.EntityHelper;
+
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.projectile.hurtingprojectile.WitherSkull;
+*///? } else {
+import net.minecraft.world.entity.projectile.WitherSkull;
+//? }
 
 /**
  * @author Etheradon

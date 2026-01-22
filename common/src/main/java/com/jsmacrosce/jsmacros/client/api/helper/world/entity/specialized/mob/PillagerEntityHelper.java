@@ -1,8 +1,13 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.mob;
 
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.item.Items;
+
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.monster.illager.Pillager;
+*///? } else {
+import net.minecraft.world.entity.monster.Pillager;
+//?}
 
 /**
  * @author Etheradon

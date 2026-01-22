@@ -1,7 +1,12 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.mob;
 
-import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.item.Items;
+
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.monster.zombie.Drowned;
+*///? } else {
+import net.minecraft.world.entity.monster.Drowned;
+//?}
 
 /**
  * @author Etheradon

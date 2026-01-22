@@ -1,6 +1,10 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passive;
 
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.animal.bee.Bee;
+*///? } else {
 import net.minecraft.world.entity.animal.Bee;
+//?}
 
 /**
  * @author Etheradon

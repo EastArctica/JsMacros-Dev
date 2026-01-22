@@ -2,11 +2,16 @@ package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passi
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.UUIDUtil;
-import net.minecraft.world.entity.animal.Parrot;
 import com.jsmacrosce.doclet.DocletReplaceReturn;
 
 import java.util.Objects;
 import java.util.stream.Stream;
+
+//? if >=1.21.11 {
+/*import net.minecraft.world.entity.animal.parrot.Parrot;
+*///? } else {
+import net.minecraft.world.entity.animal.Parrot;
+//?}
 
 /**
  * @author Etheradon
