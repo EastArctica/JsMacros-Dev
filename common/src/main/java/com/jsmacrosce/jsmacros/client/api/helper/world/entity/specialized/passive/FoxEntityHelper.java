@@ -10,10 +10,10 @@ import com.jsmacrosce.jsmacros.client.mixin.access.MixinFoxEntity;
 import java.util.UUID;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.animal.fox.Fox;
-*///? } else {
-import net.minecraft.world.entity.animal.Fox;
-//?}
+import net.minecraft.world.entity.animal.fox.Fox;
+//? } else {
+/*import net.minecraft.world.entity.animal.Fox;
+*///?}
 
 /**
  * @author Etheradon

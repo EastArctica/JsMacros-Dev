@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.animal.equine.AbstractChestedHorse;
+import net.minecraft.world.entity.animal.equine.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
-*///? } else {
-import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
+//? } else {
+/*import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-//? }
+*///? }
 
 /**
  * @author Etheradon

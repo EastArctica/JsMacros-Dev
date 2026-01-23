@@ -3,10 +3,10 @@ package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passi
 import com.jsmacrosce.jsmacros.client.mixin.access.MixinOcelotEntity;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.animal.feline.Ocelot;
-*///? } else {
-import net.minecraft.world.entity.animal.Ocelot;
-//?}
+import net.minecraft.world.entity.animal.feline.Ocelot;
+//? } else {
+/*import net.minecraft.world.entity.animal.Ocelot;
+*///?}
 
 /**
  * @author Etheradon

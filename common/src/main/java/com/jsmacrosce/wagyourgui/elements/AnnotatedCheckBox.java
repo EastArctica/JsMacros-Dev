@@ -3,8 +3,8 @@ package com.jsmacrosce.wagyourgui.elements;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 //? if >1.21.8 {
-/*import net.minecraft.client.input.InputWithModifiers;
-*///?}
+import net.minecraft.client.input.InputWithModifiers;
+//?}
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
@@ -19,18 +19,18 @@ public class AnnotatedCheckBox extends Button {
     }
 
     //? if >1.21.8 {
-    /*@Override
+    @Override
     public void onPress(InputWithModifiers input) {
         value = !value;
         super.onPress(input);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public void onPress() {
         value = !value;
         super.onPress();
     }
-    //?}
+    *///?}
 
     @Override
     public void setMessage(Component message) {
@@ -51,7 +51,11 @@ public class AnnotatedCheckBox extends Button {
     }
 
     @Override
-    public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    //? if >=1.21.11 {
+    public void renderContents(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    //? } else {
+    /*public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    *///? }
         if (this.visible) {
             this.renderMessage(drawContext);
 

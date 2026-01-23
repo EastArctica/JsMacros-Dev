@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.enchantment.Enchantment;
 import com.jsmacrosce.doclet.DocletReplaceParams;
@@ -37,7 +37,7 @@ public class EnchantmentHelper extends BaseHelper<Holder<Enchantment>> {
 
     @DocletReplaceParams("enchantment: CanOmitNamespace<EnchantmentId>")
     public EnchantmentHelper(String enchantment) {
-        this(mc.getConnection().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(ResourceLocation.parse(enchantment)).orElseThrow());
+        this(mc.getConnection().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Identifier.parse(enchantment)).orElseThrow());
     }
 
     /**
@@ -253,7 +253,7 @@ public class EnchantmentHelper extends BaseHelper<Holder<Enchantment>> {
     @DocletReplaceParams("enchantment: CanOmitNamespace<EnchantmentId>")
     public boolean isCompatible(String enchantment) {
         return Enchantment.areCompatible(mc.getConnection().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-                .get(ResourceLocation.parse(enchantment)).orElseThrow(), base);
+                .get(Identifier.parse(enchantment)).orElseThrow(), base);
     }
 
     /**

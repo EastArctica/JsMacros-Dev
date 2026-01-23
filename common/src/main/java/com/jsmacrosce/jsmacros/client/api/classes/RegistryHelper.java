@@ -12,7 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -112,7 +112,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<ItemId>")
     public List<String> getItemIds() {
-        return BuiltInRegistries.ITEM.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.ITEM.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -178,7 +178,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<BlockId>")
     public List<String> getBlockIds() {
-        return BuiltInRegistries.BLOCK.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.BLOCK.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -216,7 +216,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<EnchantmentId>")
     public List<String> getEnchantmentIds() {
-        return mc.getConnection().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return mc.getConnection().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -255,7 +255,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<EntityId>")
     public List<String> getEntityTypeIds() {
-        return BuiltInRegistries.ENTITY_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.ENTITY_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -274,7 +274,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<FeatureId>")
     public List<String> getFeatureIds() {
-        return BuiltInRegistries.FEATURE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.FEATURE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -283,7 +283,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<StructureFeatureId>")
     public List<String> getStructureFeatureIds() {
-        return BuiltInRegistries.STRUCTURE_PIECE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.STRUCTURE_PIECE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -292,7 +292,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<PaintingId>")
     public List<String> getPaintingIds() {
-        return mc.getConnection().registryAccess().lookupOrThrow(Registries.PAINTING_VARIANT).keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return mc.getConnection().registryAccess().lookupOrThrow(Registries.PAINTING_VARIANT).keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -301,7 +301,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<ParticleTypeId>")
     public List<String> getParticleTypeIds() {
-        return BuiltInRegistries.PARTICLE_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.PARTICLE_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -310,7 +310,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<GameEventName>")
     public List<String> getGameEventNames() {
-        return BuiltInRegistries.GAME_EVENT.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.GAME_EVENT.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -319,7 +319,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<StatusEffectId>")
     public List<String> getStatusEffectIds() {
-        return BuiltInRegistries.MOB_EFFECT.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.MOB_EFFECT.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -328,7 +328,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<BlockEntityTypeId>")
     public List<String> getBlockEntityTypeIds() {
-        return BuiltInRegistries.BLOCK_ENTITY_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.BLOCK_ENTITY_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -337,7 +337,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<ScreenHandlerId>")
     public List<String> getScreenHandlerIds() {
-        return BuiltInRegistries.MENU.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.MENU.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -346,7 +346,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<RecipeTypeId>")
     public List<String> getRecipeTypeIds() {
-        return BuiltInRegistries.RECIPE_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.RECIPE_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -355,7 +355,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<VillagerTypeId>")
     public List<String> getVillagerTypeIds() {
-        return BuiltInRegistries.VILLAGER_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.VILLAGER_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -364,7 +364,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<VillagerProfession>")
     public List<String> getVillagerProfessionIds() {
-        return BuiltInRegistries.VILLAGER_PROFESSION.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.VILLAGER_PROFESSION.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -373,7 +373,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<PointOfInterestTypeId>")
     public List<String> getPointOfInterestTypeIds() {
-        return BuiltInRegistries.POINT_OF_INTEREST_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.POINT_OF_INTEREST_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -382,7 +382,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<MemoryModuleTypeId>")
     public List<String> getMemoryModuleTypeIds() {
-        return BuiltInRegistries.MEMORY_MODULE_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.MEMORY_MODULE_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -391,7 +391,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<SensorTypeId>")
     public List<String> getSensorTypeIds() {
-        return BuiltInRegistries.SENSOR_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.SENSOR_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -400,7 +400,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<ActivityTypeId>")
     public List<String> getActivityTypeIds() {
-        return BuiltInRegistries.ACTIVITY.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.ACTIVITY.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -409,7 +409,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<StatTypeId>")
     public List<String> getStatTypeIds() {
-        return BuiltInRegistries.STAT_TYPE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.STAT_TYPE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -418,7 +418,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<EntityAttributeId>")
     public List<String> getEntityAttributeIds() {
-        return BuiltInRegistries.ATTRIBUTE.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.ATTRIBUTE.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -427,7 +427,7 @@ public class RegistryHelper {
      */
     @DocletReplaceReturn("JavaList<PotionTypeId>")
     public List<String> getPotionTypeIds() {
-        return BuiltInRegistries.POTION.keySet().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return BuiltInRegistries.POTION.keySet().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     /**
@@ -435,12 +435,12 @@ public class RegistryHelper {
      * @return the raw minecraft Identifier.
      * @since 1.8.4
      */
-    public ResourceLocation getIdentifier(String identifier) {
+    public Identifier getIdentifier(String identifier) {
         return parseIdentifier(identifier);
     }
 
-    public static ResourceLocation parseIdentifier(String id) {
-        return ResourceLocation.parse(parseNameSpace(id));
+    public static Identifier parseIdentifier(String id) {
+        return Identifier.parse(parseNameSpace(id));
     }
 
     public static String parseNameSpace(String id) {

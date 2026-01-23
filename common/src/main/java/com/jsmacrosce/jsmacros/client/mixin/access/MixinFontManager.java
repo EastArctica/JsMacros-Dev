@@ -2,7 +2,7 @@ package com.jsmacrosce.jsmacros.client.mixin.access;
 
 import net.minecraft.client.gui.font.FontManager;
 import net.minecraft.client.gui.font.FontSet;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,10 +15,10 @@ import java.util.Set;
 public class MixinFontManager implements IFontManager {
     @Shadow
     @Final
-    private Map<ResourceLocation, FontSet> fontSets;
+    private Map<Identifier, FontSet> fontSets;
 
     @Override
-    public Set<ResourceLocation> jsmacros_getFontList() {
+    public Set<Identifier> jsmacros_getFontList() {
         return fontSets.keySet();
     }
 

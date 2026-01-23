@@ -22,7 +22,7 @@ import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -565,39 +565,39 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
 
     // TODO: These methods were removed in 1.21.9 or 1.21.10
     //? if <=1.21.8 {
-    /*
-    /**
+    /*/^
+    /^*
      * @param chunkX the x coordinate of the chunk to store
      * @param y      the y coordinate to store
      * @param chunkZ the z coordinate of the chunk to store
      * @return self for chaining.
      * @since 1.8.4
-     */
+     ^/
     public PacketByteBufferHelper writeChunkSectionPos(int chunkX, int y, int chunkZ) {
         base.writeSectionPos(SectionPos.of(chunkX, y, chunkZ));
         return this;
     }
 
-    /**
+    /^*
      * @param chunk the chunk whose position should be stored
      * @param y     the y to store
      * @return self for chaining.
      * @since 1.8.4
-     */
+     ^/
     public PacketByteBufferHelper writeChunkSectionPos(ChunkHelper chunk, int y) {
         base.writeSectionPos(SectionPos.of(chunk.getRaw().getPos(), y));
         return this;
     }
 
-    /**
+    /^*
      * @return the read chunk section pos, as a {@link BlockPosHelper}.
      * @since 1.8.4
-     */
+     ^/
     public BlockPosHelper readChunkSectionPos() {
         SectionPos pos = base.readSectionPos();
         return new BlockPosHelper(pos.x(), pos.y(), pos.z());
     }
-    //?}
+    *///?}
 
     /**
      * @param dimension the dimension, vanilla default are {@code overworld}, {@code the_nether},
@@ -608,7 +608,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      */
     @DocletReplaceParams("dimension: CanOmitNamespace<Dimension>, pos: BlockPosHelper")
     public PacketByteBufferHelper writeGlobalPos(String dimension, BlockPosHelper pos) {
-        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dimension));
+        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, Identifier.parse(dimension));
         base.writeGlobalPos(GlobalPos.of(key, pos.getRaw()));
         return this;
     }
@@ -624,7 +624,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      */
     @DocletReplaceParams("dimension: CanOmitNamespace<Dimension>, x: int, y: int, z: int")
     public PacketByteBufferHelper writeGlobalPos(String dimension, int x, int y, int z) {
-        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dimension));
+        ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, Identifier.parse(dimension));
         base.writeGlobalPos(GlobalPos.of(key, new BlockPos(x, y, z)));
         return this;
     }
@@ -768,7 +768,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public PacketByteBufferHelper writeIdentifier(String id) {
-        base.writeResourceLocation(RegistryHelper.parseIdentifier(id));
+        base.writeIdentifier(RegistryHelper.parseIdentifier(id));
         return this;
     }
 
@@ -777,7 +777,7 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public String readIdentifier() {
-        return base.readResourceLocation().toString();
+        return base.readIdentifier().toString();
     }
 
     /**
@@ -786,7 +786,11 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public PacketByteBufferHelper writeDate(Date date) {
-        base.writeDate(date);
+        //? if >=1.21.11 {
+        base.writeLong(date.getTime());
+        //? } else {
+        /*base.writeDate(date);
+        *///? }
         return this;
     }
 
@@ -795,7 +799,11 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public Date readDate() {
-        return base.readDate();
+        //? if >=1.21.11 {
+        return new Date(base.readLong());
+        //? } else {
+        /*return base.readDate();
+        *///? }
     }
 
     /**
@@ -1664,7 +1672,11 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
         PACKETS.put("ProfilelessChatMessageS2CPacket", net.minecraft.network.protocol.game.ClientboundDisguisedChatPacket.class);
         PACKETS.put("PlayerListS2CPacket", net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.class);
         PACKETS.put("EnterCombatS2CPacket", net.minecraft.network.protocol.game.ClientboundPlayerCombatEnterPacket.class);
-        PACKETS.put("OpenHorseScreenS2CPacket", net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket.class);
+        //? if >=1.21.11 {
+        PACKETS.put("ClientboundMountScreenOpenPacket", net.minecraft.network.protocol.game.ClientboundMountScreenOpenPacket.class);
+        //? } else {
+        /*PACKETS.put("OpenHorseScreenS2CPacket", net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket.class);
+        *///? }
         PACKETS.put("CommandExecutionC2SPacket", net.minecraft.network.protocol.game.ServerboundChatCommandPacket.class);
         PACKETS.put("CraftRequestC2SPacket", net.minecraft.network.protocol.game.ServerboundPlaceRecipePacket.class);
         PACKETS.put("HandSwingC2SPacket", net.minecraft.network.protocol.game.ServerboundSwingPacket.class);

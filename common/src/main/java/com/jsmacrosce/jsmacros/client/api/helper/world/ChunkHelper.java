@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -177,7 +177,7 @@ public class ChunkHelper extends BaseHelper<ChunkAccess> {
     @DocletReplaceParams("...blocks: JavaVarArgs<CanOmitNamespace<BlockId>>")
     public boolean containsAny(String... blocks) {
         // Don't use section.hasAny because it will take some time to update the block palette
-        Set<Block> filterBlocks = Arrays.stream(blocks).map(ResourceLocation::parse).map(BuiltInRegistries.BLOCK::getValue).collect(Collectors.toSet());
+        Set<Block> filterBlocks = Arrays.stream(blocks).map(Identifier::parse).map(BuiltInRegistries.BLOCK::getValue).collect(Collectors.toSet());
         for (LevelChunkSection section : base.getSections()) {
             for (int x = 0; x < 16; x++) {
                 for (int z = 0; z < 16; z++) {
@@ -202,7 +202,7 @@ public class ChunkHelper extends BaseHelper<ChunkAccess> {
     @DocletReplaceParams("...blocks: JavaVarArgs<CanOmitNamespace<BlockId>>")
     public boolean containsAll(String... blocks) {
         // Don't use section.hasAny because it will take some time to update the block palette
-        Set<Block> filterBlocks = Arrays.stream(blocks).map(ResourceLocation::parse).map(BuiltInRegistries.BLOCK::getValue).collect(Collectors.toSet());
+        Set<Block> filterBlocks = Arrays.stream(blocks).map(Identifier::parse).map(BuiltInRegistries.BLOCK::getValue).collect(Collectors.toSet());
         for (LevelChunkSection section : base.getSections()) {
             for (int x = 0; x < 16; x++) {
                 for (int z = 0; z < 16; z++) {

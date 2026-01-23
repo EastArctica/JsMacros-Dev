@@ -19,7 +19,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
@@ -80,8 +80,8 @@ public class CommandContextHelper extends BaseEvent {
         }
         if (arg instanceof BlockInput) {
             arg = new BlockStateHelper(((BlockInput) arg).getState());
-        } else if (arg instanceof ResourceLocation) {
-            arg = ((ResourceLocation) arg).toString();
+        } else if (arg instanceof Identifier) {
+            arg = ((Identifier) arg).toString();
         } else if (arg instanceof ItemInput) {
             arg = new ItemStackHelper(((ItemInput) arg).createItemStack(1, false));
         } else if (arg instanceof Tag) {

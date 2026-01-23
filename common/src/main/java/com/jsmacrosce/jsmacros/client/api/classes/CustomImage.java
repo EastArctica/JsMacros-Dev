@@ -3,7 +3,7 @@ package com.jsmacrosce.jsmacros.client.api.classes;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import com.jsmacrosce.jsmacros.client.JsMacrosClient;
 
@@ -33,7 +33,7 @@ public class CustomImage {
     private final Graphics2D graphics;
     private final String name;
     private final DynamicTexture texture;
-    private final ResourceLocation identifier;
+    private final Identifier identifier;
 
     public CustomImage(BufferedImage image) {
         this(image, String.valueOf(currentId));
@@ -44,7 +44,7 @@ public class CustomImage {
         this.graphics = image.createGraphics();
         this.name = name;
         this.texture = createTexture(image, PREFIX + name);
-        identifier = ResourceLocation.parse(PREFIX + name);
+        identifier = Identifier.parse(PREFIX + name);
         Minecraft.getInstance().getTextureManager().register(identifier, texture);
         update();
         currentId++;

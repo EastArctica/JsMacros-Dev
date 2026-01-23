@@ -7,10 +7,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import com.jsmacrosce.jsmacros.client.access.IMerchantEntity;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.npc.villager.AbstractVillager;
-*///? } else {
-import net.minecraft.world.entity.npc.AbstractVillager;
-//? }
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
+//? } else {
+/*import net.minecraft.world.entity.npc.AbstractVillager;
+*///? }
 
 @Mixin(AbstractVillager.class)
 public class MixinMerchantEntity implements IMerchantEntity {

@@ -3,10 +3,10 @@ package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.mob;
 import com.jsmacrosce.jsmacros.client.api.helper.world.entity.MobEntityHelper;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.monster.illager.AbstractIllager;
-*///? } else {
-import net.minecraft.world.entity.monster.AbstractIllager;
-//? }
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+//? } else {
+/*import net.minecraft.world.entity.monster.AbstractIllager;
+*///? }
 
 /**
  * @author Etheradon

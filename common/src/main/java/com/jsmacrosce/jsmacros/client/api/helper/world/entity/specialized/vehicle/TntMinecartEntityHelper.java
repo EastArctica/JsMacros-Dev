@@ -3,10 +3,10 @@ package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.vehic
 import com.jsmacrosce.jsmacros.client.api.helper.world.entity.EntityHelper;
 
 //?  if >=1.21.11 {
-/*import net.minecraft.world.entity.vehicle.minecart.MinecartTNT;
-*///? } else {
-import net.minecraft.world.entity.vehicle.MinecartTNT;
-//? }
+import net.minecraft.world.entity.vehicle.minecart.MinecartTNT;
+//? } else {
+/*import net.minecraft.world.entity.vehicle.MinecartTNT;
+*///? }
 
 /**
  * @author Etheradon

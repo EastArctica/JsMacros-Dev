@@ -3,7 +3,7 @@ package com.jsmacrosce.jsmacros.client.api.helper.screen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import com.jsmacrosce.jsmacros.client.JsMacrosClient;
 import com.jsmacrosce.jsmacros.client.api.classes.render.IScreen;
@@ -108,10 +108,10 @@ public class ButtonWidgetHelper<T extends Button> extends ClickableWidgetHelper<
         @Nullable
         private MethodWrapper<ButtonWidgetHelper<ImageButton>, IScreen, Object, ?> action;
 
-        private ResourceLocation enabled;
-        private ResourceLocation disabled;
-        private ResourceLocation enabledFocused;
-        private ResourceLocation disabledFocused;
+        private Identifier enabled;
+        private Identifier disabled;
+        private Identifier enabledFocused;
+        private Identifier disabledFocused;
 
         public TexturedButtonBuilder(IScreen screen) {
             super(screen);
@@ -163,7 +163,7 @@ public class ButtonWidgetHelper<T extends Button> extends ClickableWidgetHelper<
          * @since 1.9.0
          * @return self for chaining.
          */
-        public TexturedButtonBuilder enabledTexture(ResourceLocation enabled) {
+        public TexturedButtonBuilder enabledTexture(Identifier enabled) {
             this.enabled = enabled;
             return this;
         }
@@ -172,14 +172,14 @@ public class ButtonWidgetHelper<T extends Button> extends ClickableWidgetHelper<
          * @since 1.9.3
          */
         public TexturedButtonBuilder enabledTexture(String enabled) {
-            return enabledTexture(ResourceLocation.parse(enabled));
+            return enabledTexture(Identifier.parse(enabled));
         }
 
         /**
          * @since 1.9.0
          * @return self for chaining.
          */
-        public TexturedButtonBuilder disabledTexture(ResourceLocation disabled) {
+        public TexturedButtonBuilder disabledTexture(Identifier disabled) {
             this.disabled = disabled;
             return this;
         }
@@ -188,14 +188,14 @@ public class ButtonWidgetHelper<T extends Button> extends ClickableWidgetHelper<
          * @since 1.9.3
          */
         public TexturedButtonBuilder disabledTexture(String disabled) {
-            return disabledTexture(ResourceLocation.parse(disabled));
+            return disabledTexture(Identifier.parse(disabled));
         }
 
         /**
          * @since 1.9.0
          * @return self for chaining.
          */
-        public TexturedButtonBuilder enabledFocusedTexture(ResourceLocation enabledFocused) {
+        public TexturedButtonBuilder enabledFocusedTexture(Identifier enabledFocused) {
             this.enabledFocused = enabledFocused;
             return this;
         }
@@ -204,14 +204,14 @@ public class ButtonWidgetHelper<T extends Button> extends ClickableWidgetHelper<
          * @since 1.9.3
          */
         public TexturedButtonBuilder enabledFocusedTexture(String enabledFocused) {
-            return enabledFocusedTexture(ResourceLocation.parse(enabledFocused));
+            return enabledFocusedTexture(Identifier.parse(enabledFocused));
         }
 
         /**
          * @since 1.9.0
          * @return self for chaining.
          */
-        public TexturedButtonBuilder disabledFocusedTexture(ResourceLocation disabledFocused) {
+        public TexturedButtonBuilder disabledFocusedTexture(Identifier disabledFocused) {
             this.disabledFocused = disabledFocused;
             return this;
         }
@@ -220,7 +220,7 @@ public class ButtonWidgetHelper<T extends Button> extends ClickableWidgetHelper<
          * @since 1.9.3
          */
         public TexturedButtonBuilder disabledFocusedTexture(String disabledFocused) {
-            return disabledFocusedTexture(ResourceLocation.parse(disabledFocused));
+            return disabledFocusedTexture(Identifier.parse(disabledFocused));
         }
 
         @Override

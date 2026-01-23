@@ -6,7 +6,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.profiling.Profiler;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -88,12 +88,12 @@ public class ForgeEvents {
         // TODO: This used to be DEBUG_OVERLAY in 1.21.8, removed in 1.21.9 or 1.21.10.
         //  How did this get handled on the fabric side?
         //? if >1.21.8 {
-        /*ResourceLocation layer = VanillaGuiLayers.AFTER_CAMERA_DECORATIONS;
-        *///?} else {
-        ResourceLocation layer = VanillaGuiLayers.DEBUG_OVERLAY;
-        //?}
+        Identifier layer = VanillaGuiLayers.AFTER_CAMERA_DECORATIONS;
+        //?} else {
+        /*Identifier layer = VanillaGuiLayers.DEBUG_OVERLAY;
+        *///?}
 
-        ev.registerBelow(layer, ResourceLocation.parse("jsmacrosce:hud"), ForgeEvents::renderHudListener);
+        ev.registerBelow(layer, Identifier.parse("jsmacrosce:hud"), ForgeEvents::renderHudListener);
     }
 
     //? if >1.21.5 {
@@ -109,10 +109,10 @@ public class ForgeEvents {
         try {
             MultiBufferSource.BufferSource consumers = Minecraft.getInstance().renderBuffers().bufferSource();
             //? if >1.21.8 {
-            /*DeltaTracker deltaTracker = Minecraft.getInstance().getDeltaTracker();
-            *///?} else {
-            DeltaTracker deltaTracker = e.getPartialTick();
-            //?}
+            DeltaTracker deltaTracker = Minecraft.getInstance().getDeltaTracker();
+            //?} else {
+            /*DeltaTracker deltaTracker = e.getPartialTick();
+            *///?}
             float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(true);
             PoseStack poseStack = new PoseStack();
 

@@ -3,7 +3,7 @@ package com.jsmacrosce.jsmacros.client.config;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.jsmacrosce.jsmacros.client.JsMacrosClient;
 import com.jsmacrosce.jsmacros.client.access.IFontManager;
 import com.jsmacrosce.jsmacros.client.gui.screens.EditorScreen;
@@ -63,7 +63,7 @@ public class ClientConfigV2 {
 
     @SuppressWarnings("resource")
     public List<String> getFonts() {
-        return ((IFontManager) Minecraft.getInstance().fontManager).jsmacros_getFontList().stream().map(ResourceLocation::toString).collect(Collectors.toList());
+        return ((IFontManager) Minecraft.getInstance().fontManager).jsmacros_getFontList().stream().map(Identifier::toString).collect(Collectors.toList());
     }
 
     public Map<String, short[]> getThemeData() {

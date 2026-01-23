@@ -9,9 +9,9 @@ import net.minecraft.util.FormattedCharSequence;
 import com.jsmacrosce.jsmacros.client.util.ColorUtil;
 
 //? if >1.21.8 {
-/*import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.input.MouseButtonEvent;
-*///?}
+//?}
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -89,7 +89,11 @@ public class Button extends AbstractButton {
     }
 
     @Override
-    public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    //? if >=1.21.11 {
+    public void renderContents(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    //? } else {
+    /*public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    *///? }
         if (this.visible) {
             // fill
             if (mouseX - getX() >= 0 && mouseX - getX() - width <= 0 && mouseY - getY() >= 0 && mouseY - getY() - height <= 0 && this.active || forceHover) {
@@ -113,42 +117,42 @@ public class Button extends AbstractButton {
     // as the target key.
     @Override
     //? if >1.21.8 {
-    /*public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
+    public void onClick(MouseButtonEvent buttonEvent, boolean debounce) {
     }
-    *///?} else {
-    public void onClick(double mouseX, double mouseY) {
+    //?} else {
+    /*public void onClick(double mouseX, double mouseY) {
     }
-    //?}
+    *///?}
 
     @Override
     //? if >1.21.8 {
-    /*public void onRelease(MouseButtonEvent buttonEvent) {
+    public void onRelease(MouseButtonEvent buttonEvent) {
         if (this.isActive()) {
             super.onClick(buttonEvent, true);
         }
     }
-    *///?} else {
-    public void onRelease(double mouseX, double mouseY) {
+    //?} else {
+    /*public void onRelease(double mouseX, double mouseY) {
         if (this.active) {
             super.onClick(mouseX, mouseY);
         }
     }
-    //?}
+    *///?}
 
     @Override
     //? if >1.21.8 {
-    /*public void onPress(InputWithModifiers input) {
+    public void onPress(InputWithModifiers input) {
         if (onPress != null) {
             onPress.accept(this);
         }
     }
-    *///?} else {
-    public void onPress() {
+    //?} else {
+    /*public void onPress() {
         if (onPress != null) {
             onPress.accept(this);
         }
     }
-    //?}
+    *///?}
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput builder) {

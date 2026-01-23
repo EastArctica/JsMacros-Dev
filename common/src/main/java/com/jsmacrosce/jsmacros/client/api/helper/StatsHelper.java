@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.network.protocol.game.ServerboundClientCommandPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.StatType;
 import net.minecraft.stats.Stats;
@@ -182,7 +182,7 @@ public class StatsHelper extends BaseHelper<StatsCounter> {
      * @since 1.8.4
      */
     public String getCustomFormattedStat(String id) {
-        Stat<ResourceLocation> stat = Stats.CUSTOM.get(RegistryHelper.parseIdentifier(id));
+        Stat<Identifier> stat = Stats.CUSTOM.get(RegistryHelper.parseIdentifier(id));
         return stat.format(base.getValue(stat));
     }
 

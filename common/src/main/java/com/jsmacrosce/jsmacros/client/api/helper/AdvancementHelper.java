@@ -6,7 +6,7 @@ import net.minecraft.advancements.AdvancementNode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import com.jsmacrosce.doclet.DocletReplaceReturn;
 import com.jsmacrosce.jsmacros.client.mixin.access.MixinClientAdvancementManager;
@@ -84,7 +84,13 @@ public class AdvancementHelper extends BaseHelper<AdvancementNode> {
      * @since 1.8.4
      */
     public String[] getLoot() {
-        return base.advancement().rewards().loot().stream().map(e -> e.location().toString()).toArray(String[]::new);
+        return base.advancement().rewards().loot().stream().map(e -> e
+                //? if >=1.21.11 {
+                .identifier()
+                //? } else {
+                /*.location()
+                *///? }
+                .toString()).toArray(String[]::new);
     }
 
     /**
@@ -98,8 +104,12 @@ public class AdvancementHelper extends BaseHelper<AdvancementNode> {
                 .rewards()
                 .recipes()
                 .stream()
-                .map(ResourceKey::location)
-                .map(ResourceLocation::toString)
+                //? if >=1.21.11 {
+                .map(ResourceKey::identifier)
+                //? } else {
+                /*.map(ResourceKey::location)
+                *///? }
+                .map(Identifier::toString)
                 .toArray(String[]::new);
     }
 

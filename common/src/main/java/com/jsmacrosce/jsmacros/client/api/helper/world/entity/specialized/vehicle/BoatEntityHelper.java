@@ -4,14 +4,14 @@ import com.jsmacrosce.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import com.jsmacrosce.jsmacros.client.api.helper.world.entity.EntityHelper;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
-*///? } else {
-import net.minecraft.world.entity.vehicle.AbstractBoat;
+//? } else {
+/*import net.minecraft.world.entity.vehicle.AbstractBoat;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.ChestBoat;
-//?}
+*///?}
 
 /**
  * @author Etheradon

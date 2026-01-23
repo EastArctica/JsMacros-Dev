@@ -2,9 +2,9 @@ package com.jsmacrosce.jsmacros.client.api.helper.screen;
 
 import net.minecraft.client.gui.components.Checkbox;
 //? if >1.21.8 {
-/*import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
-*///?}
+//?}
 import org.jetbrains.annotations.Nullable;
 import com.jsmacrosce.jsmacros.client.JsMacrosClient;
 import com.jsmacrosce.jsmacros.client.api.classes.render.IScreen;
@@ -51,11 +51,11 @@ public class CheckBoxWidgetHelper extends ClickableWidgetHelper<CheckBoxWidgetHe
     public CheckBoxWidgetHelper setChecked(boolean checked) {
         if (base.selected() != checked) {
             //? if >1.21.8 {
-            /*MouseButtonEvent fakeEvent = new MouseButtonEvent(base.getX(), base.getY(), null);
+            MouseButtonEvent fakeEvent = new MouseButtonEvent(base.getX(), base.getY(), null);
             base.onPress(fakeEvent);
-            *///?} else {
-            base.onPress();
-            //?}
+            //?} else {
+            /*base.onPress();
+            *///?}
         }
         return this;
     }

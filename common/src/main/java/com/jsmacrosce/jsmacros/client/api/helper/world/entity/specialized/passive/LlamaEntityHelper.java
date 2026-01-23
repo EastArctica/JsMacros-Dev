@@ -3,10 +3,10 @@ package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passi
 import com.jsmacrosce.doclet.DocletReplaceReturn;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.animal.equine.Llama;
-*///? } else {
-import net.minecraft.world.entity.animal.horse.Llama;
- //?}
+import net.minecraft.world.entity.animal.equine.Llama;
+//? } else {
+/*import net.minecraft.world.entity.animal.horse.Llama;
+ *///?}
 
 /**
  * @author Etheradon

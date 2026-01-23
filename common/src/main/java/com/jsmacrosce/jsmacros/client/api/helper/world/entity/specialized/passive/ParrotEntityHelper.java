@@ -8,10 +8,10 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.animal.parrot.Parrot;
-*///? } else {
-import net.minecraft.world.entity.animal.Parrot;
-//?}
+import net.minecraft.world.entity.animal.parrot.Parrot;
+//? } else {
+/*import net.minecraft.world.entity.animal.Parrot;
+*///?}
 
 /**
  * @author Etheradon
@@ -73,23 +73,23 @@ public class ParrotEntityHelper extends TameableEntityHelper<Parrot> {
     public boolean isSittingOnShoulder() {
         if (!isSitting()) return false;
         //? if >1.21.8 {
-        /*// TODO: Lots of this changed in 1.21.9/1.21.10, need to fix, this is just an estimation
-        /^return Minecraft.getInstance().level.players().stream()
+        // TODO: Lots of this changed in 1.21.9/1.21.10, need to fix, this is just an estimation
+        /*return Minecraft.getInstance().level.players().stream()
             .flatMap(e -> {
                 return Stream.of(e.getEntityData().get(e.DATA_SHOULDER_PARROT_LEFT), e.getEntityData().get(e.DATA_SHOULDER_PARROT_RIGHT));
             })
             .filter(Optional::isPresent)
             .flatMap(n -> n.get().getIntArray("UUID").stream())
             .map(UUIDUtil::uuidFromIntArray)
-            .anyMatch(base.getUUID()::equals);^/
+            .anyMatch(base.getUUID()::equals);*/
         return false;
-        *///?} else {
-        return Minecraft.getInstance().level.players().stream()
+        //?} else {
+        /*return Minecraft.getInstance().level.players().stream()
                 .flatMap(e -> Stream.of(e.getShoulderEntityRight(), e.getShoulderEntityLeft()))
                 .filter(Objects::nonNull)
                 .flatMap(n -> n.getIntArray("UUID").stream())
                 .map(UUIDUtil::uuidFromIntArray)
                 .anyMatch(base.getUUID()::equals);
-        //?}
+        *///?}
     }
 }

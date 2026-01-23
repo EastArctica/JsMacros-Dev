@@ -45,11 +45,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
+//? if >=1.21.11 {
+import net.minecraft.server.network.EventLoopGroupHolder;
+//? }
+
 //? if >1.21.8 {
-/*import net.minecraft.ChatFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.CloudStatus;
 import java.util.Locale;
-*///?}
+//?}
 
 /**
  * Functions that interact with minecraft that don't fit into their own module.
@@ -188,7 +192,7 @@ public class FClient extends PerExecLibrary {
      */
     public String getFPS() {
         //? if >1.21.8 {
-        /*int framerateLimit = mc.options.framerateLimit().get();
+        int framerateLimit = mc.options.framerateLimit().get();
         String string;
         if (mc.getGpuUtilization() > 0.0) {
             string = " GPU: " + (mc.getGpuUtilization() > 100.0 ? ChatFormatting.RED + "100%" : Math.round(mc.getGpuUtilization()) + "%");
@@ -202,16 +206,20 @@ public class FClient extends PerExecLibrary {
                 mc.getFps(),
                 framerateLimit == 260 ? "inf" : framerateLimit,
                 mc.options.enableVsync().get() ? " vsync " : " ",
-                mc.options.graphicsMode().get(),
+                //? if >=1.21.11 {
+                mc.options.graphicsPreset().get(),
+                //? } else {
+                /*mc.options.graphicsMode().get(),
+                *///? }
                 mc.options.cloudStatus().get() == CloudStatus.OFF
                         ? ""
                         : (mc.options.cloudStatus().get() == CloudStatus.FAST ? " fast-clouds" : " fancy-clouds"),
                 mc.options.biomeBlendRadius().get(),
                 string
         );
-        *///?} else {
-        return mc.fpsString;
-        //?}
+        //?} else {
+        /*return mc.fpsString;
+        *///?}
     }
 
     /**
@@ -397,7 +405,14 @@ public class FClient extends PerExecLibrary {
             throw new IllegalThreadStateException("pinging from main thread is not supported!");
         }
         Semaphore semaphore = new Semaphore(0);
-        TickBasedEvents.serverListPinger.pingServer(info, () -> {}, semaphore::release);
+        TickBasedEvents.serverListPinger.pingServer(
+                info,
+                () -> {},
+                semaphore::release
+                //? if >=1.21.11 {
+                , EventLoopGroupHolder.remote(true)
+                //? }
+        );
         semaphore.acquire();
         return new ServerInfoHelper(info);
     }
@@ -413,7 +428,14 @@ public class FClient extends PerExecLibrary {
         CompletableFuture.runAsync(() -> {
             ServerData info = new ServerData("", ip, ServerData.Type.OTHER);
             try {
-                TickBasedEvents.serverListPinger.pingServer(info, () -> {}, () -> callback.accept(new ServerInfoHelper(info), null));
+                TickBasedEvents.serverListPinger.pingServer(
+                        info,
+                        () -> {},
+                        () -> callback.accept(new ServerInfoHelper(info), null)
+                        //? if >=1.21.11 {
+                        , EventLoopGroupHolder.remote(true)
+                        //? }
+                );
             } catch (IOException e) {
                 callback.accept(null, e);
             }

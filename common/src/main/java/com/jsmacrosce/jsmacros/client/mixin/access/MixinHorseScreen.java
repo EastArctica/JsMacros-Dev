@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import com.jsmacrosce.jsmacros.client.access.IHorseScreen;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.animal.equine.AbstractHorse;
-*///? } else {
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-//? }
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+//? } else {
+/*import net.minecraft.world.entity.animal.horse.AbstractHorse;
+*///? }
 
 @Mixin(HorseInventoryScreen.class)
 public class MixinHorseScreen implements IHorseScreen {

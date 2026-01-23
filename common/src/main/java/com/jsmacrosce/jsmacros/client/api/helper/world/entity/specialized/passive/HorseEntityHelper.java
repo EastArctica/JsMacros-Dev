@@ -3,10 +3,10 @@ package com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passi
 import com.jsmacrosce.jsmacros.client.mixin.access.MixinHorseEntity;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.animal.equine.Horse;
-*///? } else {
-import net.minecraft.world.entity.animal.horse.Horse;
-//?}
+import net.minecraft.world.entity.animal.equine.Horse;
+//? } else {
+/*import net.minecraft.world.entity.animal.horse.Horse;
+*///?}
 
 /**
  * @author Etheradon

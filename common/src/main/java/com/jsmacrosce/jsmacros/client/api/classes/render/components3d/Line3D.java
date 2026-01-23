@@ -15,10 +15,10 @@ import java.lang.reflect.Field;
 import java.util.Objects;
 
 //? if >=1.21.11 {
-/*import net.minecraft.client.renderer.rendertype.RenderType;
-*///? } else {
-import net.minecraft.client.renderer.RenderType;
-//?}
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+//? } else {
+/*import net.minecraft.client.renderer.RenderType;
+*///?}
 
 /**
  * @author Wagyourtail
@@ -113,7 +113,11 @@ public class Line3D implements RenderElement3D<Line3D> {
     @DocletIgnore
     public void render(PoseStack matrixStack, MultiBufferSource consumers, float tickDelta) {
         boolean seeThrough = !this.cull;
-        var consumer = consumers.getBuffer(RenderType.lines());
+        //? if >=1.21.11 {
+        var consumer = consumers.getBuffer(RenderTypes.lines());
+        //? } else {
+        /*var consumer = consumers.getBuffer(RenderType.lines());
+        *///? }
 
         try {
             if (seeThrough) {

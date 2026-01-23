@@ -1,10 +1,10 @@
 package com.jsmacrosce.jsmacros.client.api.helper.world.entity;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.npc.villager.Villager;
-*///? } else {
-import net.minecraft.world.entity.npc.Villager;
-//? }
+import net.minecraft.world.entity.npc.villager.Villager;
+//? } else {
+/*import net.minecraft.world.entity.npc.Villager;
+*///? }
 import com.jsmacrosce.doclet.DocletReplaceReturn;
 
 /**

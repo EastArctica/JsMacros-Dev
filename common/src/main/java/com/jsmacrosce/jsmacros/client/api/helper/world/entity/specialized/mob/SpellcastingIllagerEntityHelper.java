@@ -5,10 +5,10 @@ import com.jsmacrosce.doclet.DocletReplaceReturn;
 import com.jsmacrosce.jsmacros.client.mixin.access.MixinSpellcastingIllagerEntityHelper;
 
 //? if >=1.21.11 {
-/*import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
-*///? } else {
-import net.minecraft.world.entity.monster.SpellcasterIllager;
-//? }
+import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
+//? } else {
+/*import net.minecraft.world.entity.monster.SpellcasterIllager;
+*///? }
 
 /**
  * @author Etheradon

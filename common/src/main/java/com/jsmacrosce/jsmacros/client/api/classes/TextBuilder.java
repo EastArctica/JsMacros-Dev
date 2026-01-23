@@ -6,7 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import com.jsmacrosce.doclet.DocletReplaceParams;
 import com.jsmacrosce.jsmacros.access.CustomClickEvent;
@@ -199,7 +199,7 @@ public class TextBuilder {
     @DocletReplaceParams("action: TextClickAction, value: string")
     public TextBuilder withClickEvent(String action, String value) {
         ClickEvent.Action clickAction = ClickEvent.Action.valueOf(action.toUpperCase(Locale.ROOT));
-        ResourceLocation id = ResourceLocation.parse(value);
+        Identifier id = Identifier.parse(value);
         HolderLookup.Provider lookup = Objects
                 .requireNonNull(Minecraft.getInstance().getConnection())
                 .registryAccess();
@@ -213,11 +213,11 @@ public class TextBuilder {
             //? if >1.21.5 {
             case SHOW_DIALOG -> {
                 var registryWrapper = lookup.lookupOrThrow(Registries.DIALOG);
-                var dialogKey = ResourceKey.create(Registries.DIALOG, ResourceLocation.parse(value));
+                var dialogKey = ResourceKey.create(Registries.DIALOG, Identifier.parse(value));
                 var entry = registryWrapper.get(dialogKey).orElseThrow(() -> new IllegalArgumentException("Unknown dialog type: " + value));
                 yield new ClickEvent.ShowDialog(entry);
             }
-            case CUSTOM -> new ClickEvent.Custom(ResourceLocation.parse(value),null);
+            case CUSTOM -> new ClickEvent.Custom(Identifier.parse(value),null);
             //?}
         }));
         return this;

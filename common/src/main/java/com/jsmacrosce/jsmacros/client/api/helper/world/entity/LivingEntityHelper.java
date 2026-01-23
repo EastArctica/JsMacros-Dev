@@ -2,7 +2,7 @@ package com.jsmacrosce.jsmacros.client.api.helper.world.entity;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
@@ -83,7 +83,7 @@ public class LivingEntityHelper<T extends LivingEntity> extends EntityHelper<T> 
      */
     @DocletReplaceParams("item: ItemId")
     public boolean isHolding(String item) {
-        ResourceLocation id = ResourceLocation.parse(item);
+        Identifier id = Identifier.parse(item);
         if (id.equals(BuiltInRegistries.ITEM.getDefaultKey())) return base.isHolding(Items.AIR);
         Item it = BuiltInRegistries.ITEM.getValue(id);
         return it != Items.AIR && base.isHolding(it);
@@ -172,10 +172,14 @@ public class LivingEntityHelper<T extends LivingEntity> extends EntityHelper<T> 
 
     /**
      * @return the entity's default health.
-     * @since 1.8.4
+     * @since 1.8.4 (returns float since 2.1.1)
      */
-    public int getDefaultHealth() {
-        return base.invulnerableDuration;
+    public float getDefaultHealth() {
+        //? if >=1.21.11 {
+        return base.getMaxHealth();
+        //? } else {
+        /*return (float) base.invulnerableDuration;
+        *///? }
     }
 
     /**
@@ -184,7 +188,7 @@ public class LivingEntityHelper<T extends LivingEntity> extends EntityHelper<T> 
      */
     @DocletReplaceReturn("JavaList<MobTag>")
     public List<String> getMobTags() {
-        return base.getType().builtInRegistryHolder().tags().map(TagKey::location).map(ResourceLocation::toString).toList();
+        return base.getType().builtInRegistryHolder().tags().map(TagKey::location).map(Identifier::toString).toList();
     }
 
     /**
