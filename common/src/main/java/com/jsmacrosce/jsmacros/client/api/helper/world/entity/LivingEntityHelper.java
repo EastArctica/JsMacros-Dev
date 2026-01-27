@@ -172,10 +172,14 @@ public class LivingEntityHelper<T extends LivingEntity> extends EntityHelper<T> 
 
     /**
      * @return the entity's default health.
-     * @since 1.8.4
+     * @since 1.8.4 (returns float since 2.1.1)
      */
-    public int getDefaultHealth() {
-        return base.invulnerableDuration;
+    public float getDefaultHealth() {
+        //? if >=1.21.11 {
+        /*return base.getMaxHealth();
+        *///? } else {
+        return (float) base.invulnerableDuration;
+        //? }
     }
 
     /**

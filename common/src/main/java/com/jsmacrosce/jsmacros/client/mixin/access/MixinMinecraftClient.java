@@ -101,9 +101,15 @@ class MixinMinecraftClient {
 
     @Inject(
             at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;isLocalServer:Z", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER),
+    //? if >=1.21.11 {
+            /*method = "disconnect(Lnet/minecraft/client/gui/screens/Screen;ZZ)V"
+    )
+    public void onDisconnect(Screen nextScreen, boolean keepResourcePacks, boolean transferring, CallbackInfo ci) {
+    *///? } else {
             method = "disconnect(Lnet/minecraft/client/gui/screens/Screen;Z)V"
     )
     public void onDisconnect(Screen disconnectionScreen, boolean transferring, CallbackInfo ci) {
+    //? }
         InteractionProxy.reset();
     }
 

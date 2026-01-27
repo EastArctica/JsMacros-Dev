@@ -32,6 +32,7 @@ import com.jsmacrosce.jsmacros.client.api.helper.TextHelper;
 import com.jsmacrosce.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import com.jsmacrosce.jsmacros.client.api.helper.screen.*;
 import com.jsmacrosce.jsmacros.core.MethodWrapper;
+import com.jsmacrosce.jsmacros.util.TextUtil;
 import com.jsmacrosce.wagyourgui.elements.Slider;
 
 import java.util.*;
@@ -100,8 +101,10 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     @Final
     private List<GuiEventListener> children;
 
+    //? if <1.21.11 {
     @Shadow
     public abstract boolean handleComponentClicked(@Nullable Style style);
+    //? }
 
     @Override
     public int getWidth() {
@@ -700,14 +703,20 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     public CyclingButtonWidgetHelper<?> addCyclingButton(int x, int y, int width, int height, int zIndex, String[] values, String[] alternatives, String initial, String prefix, MethodWrapper<?, ?, Boolean, ?> alternateToggle, MethodWrapper<CyclingButtonWidgetHelper<?>, IScreen, Object, ?> callback) {
         AtomicReference<CyclingButtonWidgetHelper<?>> ref = new AtomicReference<>(null);
         CycleButton<String> cyclingButton;
+        //? if >=1.21.11 {
+        /*CycleButton.Builder<String> builder = CycleButton.builder(net.minecraft.network.chat.Component::literal, initial);
+        *///? } else {
         CycleButton.Builder<String> builder = CycleButton.builder(net.minecraft.network.chat.Component::literal);
+        //? }
         if (alternatives != null) {
             BooleanSupplier supplier = alternateToggle == null ? CycleButton.DEFAULT_ALT_LIST_SELECTOR : alternateToggle::get;
             builder.withValues(supplier, Arrays.asList(values), Arrays.asList(alternatives));
         } else {
             builder.withValues(values);
         }
+        //? if <1.21.11 {
         builder.withInitialValue(initial);
+        //? }
 
         if (prefix == null || StringUtils.isBlank(prefix)) {
             builder.displayOnlyValue();
@@ -905,11 +914,12 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
             }
 
             if (hoverText != null) {
-                drawContext.renderComponentHoverEffect(font, font.getSplitter().componentStyleAtWidth(hoverText.text, mouseX - hoverText.x), mouseX, mouseY);
+                drawContext.renderComponentHoverEffect(font, TextUtil.componentStyleAtWidth(font, hoverText.text, mouseX - hoverText.x), mouseX, mouseY);
             }
         }
     }
 
+    // TODO: What does this code even do?
     @Override
     public void jsmacros_mouseClicked(double mouseX, double mouseY, int button) {
         if (onMouseDown != null) {
@@ -933,7 +943,10 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
         }
 
         if (hoverText != null) {
-            handleComponentClicked(font.getSplitter().componentStyleAtWidth(hoverText.text, (int) mouseX - hoverText.x));
+            // TODO: (1.21.11) Support for clicking text components in screens currently is broken and needs a significant rework.
+            //? if <1.21.11 {
+            handleComponentClicked(TextUtil.componentStyleAtWidth(font, hoverText.text, (int) mouseX - hoverText.x));
+            //? }
         }
     }
 
@@ -1016,20 +1029,38 @@ public abstract class MixinScreen extends AbstractContainerEventHandler implemen
     }
 
     //TODO: switch to enum extension with mixin 9.0 or whenever Mumfrey gets around to it
-    //? if >1.21.5 {
+    // TODO: (1.21.11) This was moved from handleComponentClicked, I'm unsure if it's the same
+    //? if >=1.21.11 {
+    /*@Inject(method = "defaultHandleGameClickEvent", at = @At("HEAD"), cancellable = true)
+    private static void onHandleTextClick(ClickEvent clickEvent, Minecraft minecraft, Screen screen, CallbackInfo ci) {
+        handleCustomClickEvent(clickEvent, ci);
+    }
+    *///? } else if >1.21.5 {
     @Inject(method = "handleComponentClicked", at = @At("HEAD"), cancellable = true)
     private void onHandleTextClick(Style style, CallbackInfoReturnable<Boolean> cir) {
-        handleCustomClickEvent(style, cir);
+        handleCustomClickEvent(style.getClickEvent(), cir);
     }
     //?} else {
     /*@Inject(at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V", remap = false), method = "handleComponentClicked", cancellable = true)
+    public void onHandleTextClick(Style style, CallbackInfoReturnable<Boolean> cir) {
+        handleCustomClickEvent(style.getClickEvent(), cir);
+    }
     *///?}
-    public void handleCustomClickEvent(Style style, CallbackInfoReturnable<Boolean> cir) {
-        ClickEvent clickEvent = style.getClickEvent();
+
+    // For pre-1.21.11
+    private static void handleCustomClickEvent(ClickEvent clickEvent, CallbackInfoReturnable<Boolean> cir) {
         if (clickEvent instanceof CustomClickEvent) {
             ((CustomClickEvent) clickEvent).event().run();
             cir.setReturnValue(true);
             cir.cancel();
+        }
+    }
+
+    // For 1.21.11+
+    private static void handleCustomClickEvent(ClickEvent clickEvent, CallbackInfo ci) {
+        if (clickEvent instanceof CustomClickEvent) {
+            ((CustomClickEvent) clickEvent).event().run();
+            ci.cancel();
         }
     }
 

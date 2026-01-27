@@ -28,7 +28,7 @@ import com.jsmacrosce.doclet.DocletReplaceTypeParams;
 import com.jsmacrosce.jsmacros.api.math.Pos2D;
 import com.jsmacrosce.jsmacros.client.JsMacros;
 import com.jsmacrosce.jsmacros.client.JsMacrosClient;
-import com.jsmacrosce.jsmacros.client.access.IHorseScreen;
+import com.jsmacrosce.jsmacros.client.access.IAbstractMountInventoryScreen;
 import com.jsmacrosce.jsmacros.client.access.IInventory;
 import com.jsmacrosce.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import com.jsmacrosce.jsmacros.client.api.library.impl.FClient;
@@ -721,7 +721,7 @@ public class Inventory<T extends AbstractContainerScreen<?>> {
                 map.put("output", new int[]{slots - 9 - 27 - 1});
                 map.put("input", new int[]{slots - 9 - 27 - 2});
             } else if (inventory instanceof HorseInventoryScreen) {
-                AbstractHorse h = (AbstractHorse) ((IHorseScreen) this.inventory).jsmacros_getEntity();
+                AbstractHorse h = (AbstractHorse) ((IAbstractMountInventoryScreen) this.inventory).jsmacros_getEntity();
                 if (h.canUseSlot(EquipmentSlot.SADDLE)) {
                     map.put("saddle", new int[]{0});
                 }

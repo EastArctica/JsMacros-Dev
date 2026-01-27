@@ -11,7 +11,7 @@ import com.jsmacrosce.jsmacros.client.access.IAbstractMountInventoryScreen;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 
 @Mixin(HorseInventoryScreen.class)
-public class MixinHorseScreen implements IAbstractMountInventoryScreen {
+public class MixinHorseInventoryScreen implements IAbstractMountInventoryScreen {
     @Shadow
     @Final
     private AbstractHorse horse;

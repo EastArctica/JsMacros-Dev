@@ -58,7 +58,11 @@ public class TropicalFishEntityHelper extends FishEntityHelper<TropicalFish> {
      * @since 1.8.4
      */
     public int getVarietyId() {
+        //? if >=1.21.11 {
+        /*return base.getPattern().getPackedId();
+        *///? } else {
         return base.getPackedVariant();
+        //?}
     }
 
 }

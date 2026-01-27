@@ -2,7 +2,7 @@ package com.jsmacrosce.jsmacros.client.api.classes.inventory;
 
 import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
 import net.minecraft.world.entity.EquipmentSlot;
-import com.jsmacrosce.jsmacros.client.access.IHorseScreen;
+import com.jsmacrosce.jsmacros.client.access.IAbstractMountInventoryScreen;
 import com.jsmacrosce.jsmacros.client.api.helper.inventory.ItemStackHelper;
 import com.jsmacrosce.jsmacros.client.api.helper.world.entity.specialized.passive.AbstractHorseEntityHelper;
 
@@ -29,7 +29,7 @@ public class HorseInventory extends Inventory<HorseInventoryScreen> {
 
     protected HorseInventory(HorseInventoryScreen inventory) {
         super(inventory);
-        this.horse = (AbstractHorse) ((IHorseScreen) inventory).jsmacros_getEntity();
+        this.horse = (AbstractHorse) ((IAbstractMountInventoryScreen) inventory).jsmacros_getEntity();
     }
 
     /**

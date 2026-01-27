@@ -51,7 +51,11 @@ public class AnnotatedCheckBox extends Button {
     }
 
     @Override
+    //? if >=1.21.11 {
+    /*public void renderContents(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    *///? } else {
     public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    //? }
         if (this.visible) {
             this.renderMessage(drawContext);
 

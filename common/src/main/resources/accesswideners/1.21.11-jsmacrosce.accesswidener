@@ -33,3 +33,5 @@ accessible field net/minecraft/world/entity/animal/wolf/Wolf isWet Z
 
 accessible field net/minecraft/world/entity/player/Player DATA_SHOULDER_PARROT_LEFT Lnet/minecraft/network/syncher/EntityDataAccessor;
 accessible field net/minecraft/world/entity/player/Player DATA_SHOULDER_PARROT_RIGHT Lnet/minecraft/network/syncher/EntityDataAccessor;
+
+accessible class net/minecraft/client/StringSplitter$WidthLimitedCharSink

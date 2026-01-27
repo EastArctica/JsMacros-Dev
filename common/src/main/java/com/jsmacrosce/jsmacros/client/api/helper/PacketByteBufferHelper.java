@@ -786,7 +786,11 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public PacketByteBufferHelper writeDate(Date date) {
+        //? if >=1.21.11 {
+        /*base.writeLong(date.getTime());
+        *///? } else {
         base.writeDate(date);
+        //? }
         return this;
     }
 
@@ -795,7 +799,11 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
      * @since 1.8.4
      */
     public Date readDate() {
+        //? if >=1.21.11 {
+        /*return new Date(base.readLong());
+        *///? } else {
         return base.readDate();
+        //? }
     }
 
     /**
@@ -1664,7 +1672,11 @@ public class PacketByteBufferHelper extends BaseHelper<FriendlyByteBuf> {
         PACKETS.put("ProfilelessChatMessageS2CPacket", net.minecraft.network.protocol.game.ClientboundDisguisedChatPacket.class);
         PACKETS.put("PlayerListS2CPacket", net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.class);
         PACKETS.put("EnterCombatS2CPacket", net.minecraft.network.protocol.game.ClientboundPlayerCombatEnterPacket.class);
+        //? if >=1.21.11 {
+        /*PACKETS.put("ClientboundMountScreenOpenPacket", net.minecraft.network.protocol.game.ClientboundMountScreenOpenPacket.class);
+        *///? } else {
         PACKETS.put("OpenHorseScreenS2CPacket", net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket.class);
+        //? }
         PACKETS.put("CommandExecutionC2SPacket", net.minecraft.network.protocol.game.ServerboundChatCommandPacket.class);
         PACKETS.put("CraftRequestC2SPacket", net.minecraft.network.protocol.game.ServerboundPlaceRecipePacket.class);
         PACKETS.put("HandSwingC2SPacket", net.minecraft.network.protocol.game.ServerboundSwingPacket.class);

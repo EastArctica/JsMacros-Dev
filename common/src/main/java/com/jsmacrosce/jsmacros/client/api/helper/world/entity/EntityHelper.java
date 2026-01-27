@@ -86,6 +86,33 @@ import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.animal.equine.Horse;
 import net.minecraft.world.entity.animal.equine.Llama;
 import net.minecraft.world.entity.decoration.painting.Painting;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.zombie.ZombieVillager;
+import net.minecraft.world.entity.monster.zombie.Drowned;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
+import net.minecraft.world.entity.monster.illager.Vindicator;
+import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.animal.bee.Bee;
+import net.minecraft.world.entity.animal.fox.Fox;
+import net.minecraft.world.entity.animal.cow.MushroomCow;
+import net.minecraft.world.entity.animal.parrot.Parrot;
+import net.minecraft.world.entity.animal.dolphin.Dolphin;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.animal.golem.SnowGolem;
+import net.minecraft.world.entity.animal.feline.Ocelot;
+import net.minecraft.world.entity.animal.panda.Panda;
+import net.minecraft.world.entity.animal.pig.Pig;
+import net.minecraft.world.entity.animal.rabbit.Rabbit;
+import net.minecraft.world.entity.animal.feline.Cat;
+import net.minecraft.world.entity.animal.fish.Pufferfish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
+import net.minecraft.world.entity.animal.fish.TropicalFish;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
+import net.minecraft.world.entity.projectile.hurtingprojectile.WitherSkull;
+import net.minecraft.world.entity.animal.polarbear.PolarBear;
 *///? } else {
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.MinecartFurnace;
@@ -97,6 +124,9 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.monster.Drowned;
 //? }
 
 //? if >1.21.5 {
