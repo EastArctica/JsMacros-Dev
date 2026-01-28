@@ -4,7 +4,18 @@ plugins {
 }
 
 neoForge {
+    val mod_id = commonMod.prop("mod_id")
+    val minecraft_version = project.name
+    val commonProject = project(":common")
+
     neoFormVersion = commonMod.prop("neo_form_version")
+
+    // Use version-specific AccessTransformer
+    val at = commonProject.file("src/main/resources/accesstransformers/$minecraft_version-$mod_id.cfg")
+    if (!at.exists()) {
+        throw GradleException("Failed to locate src/main/resources/accesstransformers/$minecraft_version-$mod_id.cfg")
+    }
+    accessTransformers.from(at.absolutePath)
 
     parchment {
         minecraftVersion = commonMod.prop("parchment_minecraft")

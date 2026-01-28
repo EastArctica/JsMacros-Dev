@@ -1,6 +1,6 @@
-//? if <1.21.11 {
 package com.jsmacrosce.jsmacros.client.mixin.access;
 
+//? if <1.21.11 {
 import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Final;
@@ -22,4 +22,11 @@ public class MixinHorseInventoryScreen implements IAbstractMountInventoryScreen 
     }
 
 }
-//? }
+//? } else {
+/*// Dummy class to avoid mixin errors
+import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
+import org.spongepowered.asm.mixin.Mixin;
+
+@Mixin(HorseInventoryScreen.class)
+public class MixinHorseInventoryScreen {}
+*///? }

@@ -27,11 +27,12 @@ val extensionJars by configurations.creating {
 neoForge {
     version = neoforge_version
 
-    // Automatically enable neoforge AccessTransformers if the file exists
-    val at = project(":common").file("src/main/resources/META-INF/accesstransformer.cfg")
-    if (at.exists()) {
-        accessTransformers.from(at.absolutePath)
+    // Use version-specific AccessTransformer
+    val at = project(":common").file("src/main/resources/accesstransformers/$minecraft_version-$mod_id.cfg")
+    if (!at.exists()) {
+        throw GradleException("Failed to locate src/main/resources/accesstransformers/$minecraft_version-$mod_id.cfg")
     }
+    accessTransformers.from(at.absolutePath)
 
     val parchment_minecraft = commonMod.prop("parchment_minecraft")
     val parchment_version = commonMod.prop("parchment_version")

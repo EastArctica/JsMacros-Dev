@@ -65,7 +65,18 @@ public final class JSMacrosMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return true;
+        // Check if the target class exists before applying the mixin
+        // This allows us to have version-specific mixins without needing separate config files
+        String targetResource = targetClassName.replace('.', '/') + ".class";
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        if (loader == null) {
+            loader = JSMacrosMixinPlugin.class.getClassLoader();
+        }
+        if (loader.getResource(targetResource) != null) {
+            return true;
+        }
+        System.out.println("[JsMacros] Skipping mixin " + mixinClassName + " because target class " + targetClassName + " does not exist");
+        return false;
     }
 
     @Override
